@@ -390,7 +390,7 @@ gStdScripts_End::
     .include "data/maps/FuchsiaCity_PokemonCenter_2F/scripts.inc"
     .include "data/maps/FuchsiaCity_SafariZone_Entrance/scripts.inc"
     .include "data/maps/FuchsiaCity_ZooBuilding/scripts.inc"
-    .include "data/maps/PalletTown_LeafsHouse/scripts.inc"
+    .include "data/maps/PalletTown_RivalsHouse/scripts.inc"
     .include "data/maps/GoldenrodCity_Underground_Warehouse/scripts.inc"
     .include "data/maps/GoldenrodCity/scripts.inc"
     .include "data/maps/GoldenrodCity_BikeShop/scripts.inc"

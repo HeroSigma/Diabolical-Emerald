@@ -1595,12 +1595,6 @@
 	.byte 0xcf
 	.endm
 
-	@ Used only in FireRed/LeafGreen, does nothing in Emerald.
-	.macro setworldmapflag worldmapflag:req
-	.byte 0xd0
-	.2byte \worldmapflag
-	.endm
-
 	@ Warps the player to the specified map using a teleport effect. Effect is similar to warpteleport, but
 	@ this warp has no fade out and maintains the original facing direction.
 	@ Warp commands can be given either the id of which warp location to go to on the destination map
@@ -1950,4 +1944,82 @@
 	setvar VAR_0x8005, \level
 	setvar VAR_0x8006, \item
 	special CreateEnemyEventMon
+	.endm
+
+	@ Reads the value of the specified game stat and compares it to the specified value.
+	@ Sets the script comparisonResult to 0 if stat < value, 1 if stat == value, and 2 if stat > value.
+	.macro comparestat statId:req, value:req
+	.byte 0xcc
+	.byte \statId
+	.4byte \value
+	.endm
+
+	@ Sets the modernFatefulEncounter bit for the Pokemon in the specified slot of the player's party.
+	.macro setmonmodernfatefulencounter slot:req
+	.byte 0xcd
+	.2byte \slot
+	.endm
+
+	@ Checks if the modernFatefulEncounter bit is set for the Pokemon in the specified slot of the player's party. If it isn't set,
+	@ VAR_RESULT is TRUE. If the bit is set (or if the specified slot is empty or invalid), VAR_RESULT is FALSE.
+	.macro checkmonmodernfatefulencounter slot:req
+	.byte 0xce
+	.2byte \slot
+	.endm
+
+    @ Gets the width of the specified message in the Braille font and sets the result to VAR_0x8004.
+	.macro getbraillestringwidth msg:req
+	.byte 0xd3
+	.4byte \msg
+	.endm
+
+    @ Prints the message "{PLAYER} put the {ITEM} in the {POCKET}." The item name is pluralized, if applicable.
+	.macro putitemaway item:req, amount=1
+	setorcopyvar VAR_0x8000, \item
+	setorcopyvar VAR_0x8001, \amount
+	callstd STD_PUT_ITEM_AWAY
+	.endm
+
+	@ Prints the provided message after playing the fanfare music (can only be MUS_LEVEL_UP or MUS_OBTAIN_KEY_ITEM).
+	@ It then prints the message shown by using putitemaway.
+	.macro msgreceiveditem msg:req, item:req, amount=1, fanfare=MUS_LEVEL_UP
+	loadword 0, \msg
+	setorcopyvar VAR_0x8000, \item
+	setorcopyvar VAR_0x8001, \amount
+	setorcopyvar VAR_0x8002, \fanfare
+	callstd STD_RECEIVED_ITEM
+	.endm
+
+	@ Adds the specified item to the bag, then prints a message with fanfare. See description of msgreceiveditem.
+	.macro giveitem_msg msg:req, item:req, amount=1, fanfare=MUS_LEVEL_UP
+	additem \item, \amount
+	msgreceiveditem \msg, \item, \amount, \fanfare
+	.endm
+
+	@ Depends on the provided function. With the default argument, unlocks the specified entry in the Fame Checker.
+	.macro famechecker person:req, index:req, function=SetFlavorTextFlagFromSpecialVars
+	setvar VAR_0x8004, \person
+	setvar VAR_0x8005, \index
+	special \function
+	.endm
+
+	@ Sets the 'defeated' flag for all trainers in the specified gym.
+	.macro set_gym_trainers gym:req
+	setvar VAR_0x8008, \gym
+	call EventScript_SetGymTrainers
+	.endm
+
+	@ Jumps to dest if the Quest Log is currently showing playback scenes (dest is usually a release/end)
+	.macro goto_if_questlog dest:req
+	special GetQuestLogState
+	compare VAR_RESULT, 2
+	goto_if_eq \dest
+	.endm
+
+	@ Prints a braille message, then waits for users input.
+	.macro braillemessage_wait text:req
+	setvar VAR_0x8006, 0
+	braillemessage \text
+	getbraillestringwidth \text
+	call EventScript_BrailleCursorWaitButton
 	.endm
