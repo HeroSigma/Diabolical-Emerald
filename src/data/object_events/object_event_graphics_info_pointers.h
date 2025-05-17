@@ -311,7 +311,7 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LinkLyra;
 
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_KantoLittleBoy;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_KantoLittleGirl;
-extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Youngster;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_KantoYoungster;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Boy;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_KantoBugCatcher;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_SittingBoy;
@@ -745,7 +745,7 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
 
     [OBJ_EVENT_GFX_KANTO_LITTLE_BOY]               = &gObjectEventGraphicsInfo_KantoLittleBoy,
     [OBJ_EVENT_GFX_KANTO_LITTLE_GIRL]              = &gObjectEventGraphicsInfo_KantoLittleGirl,
-    [OBJ_EVENT_GFX_KANTO_YOUNGSTER]                = &gObjectEventGraphicsInfo_Youngster,
+    [OBJ_EVENT_GFX_KANTO_YOUNGSTER]                = &gObjectEventGraphicsInfo_KantoYoungster,
     [OBJ_EVENT_GFX_BOY]                      = &gObjectEventGraphicsInfo_Boy,
     [OBJ_EVENT_GFX_KANTO_BUG_CATCHER]              = &gObjectEventGraphicsInfo_KantoBugCatcher,
     [OBJ_EVENT_GFX_SITTING_BOY]              = &gObjectEventGraphicsInfo_SittingBoy,

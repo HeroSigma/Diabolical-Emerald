@@ -476,6 +476,8 @@ const u8 gInitialMovementTypeFacingDirections[] = {
 #define OBJ_EVENT_PAL_TAG_KANTO_PLAYER            0x1126
 #define OBJ_EVENT_PAL_TAG_GOLD                    0x1127
 #define OBJ_EVENT_PAL_TAG_LYRA                    0x1128
+#define OBJ_EVENT_PAL_TAG_SEAGALLOP                   0x1129
+#define OBJ_EVENT_PAL_TAG_SS_ANNE                     0x112A
 #define OBJ_EVENT_PAL_TAG_NONE                    0x11FF
 
 #include "data/object_events/object_event_graphics_info_pointers.h"
@@ -527,6 +529,8 @@ static const struct SpritePalette sObjectEventSpritePalettes[] = {
     {gObjectEventPal_KantoPlayer,           OBJ_EVENT_PAL_TAG_KANTO_PLAYER},
     {gObjectEventPal_Gold,                  OBJ_EVENT_PAL_TAG_GOLD},
     {gObjectEventPal_Lyra,                  OBJ_EVENT_PAL_TAG_LYRA},
+    {gObjectEventPal_SSAnne,                  OBJ_EVENT_PAL_TAG_SS_ANNE},
+    {gObjectEventPal_Seagallop,               OBJ_EVENT_PAL_TAG_SEAGALLOP},
 #ifdef BUGFIX
     {NULL,                                  OBJ_EVENT_PAL_TAG_NONE},
 #else
