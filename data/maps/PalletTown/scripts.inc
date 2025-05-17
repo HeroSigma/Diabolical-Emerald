@@ -50,7 +50,7 @@ PalletTown_EventScript_OakRatingScene::
 	addobject LOCALID_PROF_OAK
 	applymovement LOCALID_PROF_OAK, PalletTown_Movement_OakWalkToPlayersDoor
 	waitmovement 0
-	goto_if_unset FLAG_WORLD_MAP_ONE_ISLAND, PalletTown_EventScript_NotBeenToOneIslandYet
+	goto_if_unset FLAG_VISITED_ONE_ISLAND, PalletTown_EventScript_NotBeenToOneIslandYet
 	msgbox PalletTown_Text_OakLetMeSeePokedex
 	setvar VAR_0x8004, 0
 	specialvar VAR_RESULT, GetPokedexCount
