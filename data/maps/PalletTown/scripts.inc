@@ -53,7 +53,7 @@ PalletTown_EventScript_OakRatingScene::
 	goto_if_unset FLAG_VISITED_ONE_ISLAND, PalletTown_EventScript_NotBeenToOneIslandYet
 	msgbox PalletTown_Text_OakLetMeSeePokedex
 	setvar VAR_0x8004, 0
-	specialvar VAR_RESULT, GetPokedexCount
+	specialvar VAR_RESULT, ScriptGetPokedexInfo
 	copyvar VAR_0x8008, VAR_0x8005
 	copyvar VAR_0x8009, VAR_0x8006
 	buffernumberstring STR_VAR_1, VAR_0x8008

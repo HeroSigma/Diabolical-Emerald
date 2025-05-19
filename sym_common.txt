@@ -71,6 +71,7 @@ gReservedSpritePaletteCount:
 
 	.include "list_menu.o"
 	.include "party_menu.o"
+	.include "fame_checker.o"
 
 	.space 0x44
 

@@ -54,6 +54,7 @@
 #include "constants/union_room.h"
 #include "constants/vars.h"
 #include "constants/weather.h"
+#include "constants/fame_checker.h"
 	.include "asm/macros.inc"
 	.include "asm/macros/event.inc"
 	.include "constants/constants.inc"
@@ -1184,6 +1185,9 @@ gStdScripts_End::
     .include "data/maps/WhirlIslands_NorthWestEntrance/scripts.inc"
     .include "data/maps/WhirlIslands_SouthEastEntrance/scripts.inc"
     .include "data/maps/WhirlIslands_SouthWestEntrance/scripts.inc"
+
+    .include "data/maps/PalletTown/text.inc"
+
 	.include "data/scripts/shared_secret_base.inc"
 
 	.include "data/scripts/std_msgbox.inc"
@@ -1697,3 +1701,7 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/text/frontier_brain.inc"
 	.include "data/text/save.inc"
 	.include "data/text/birch_speech.inc"
+
+	.include "data/text/sign_lady.inc"
+    .include "data/scripts/fame_checker.inc"
+    .include "data/text/fame_checker.inc"

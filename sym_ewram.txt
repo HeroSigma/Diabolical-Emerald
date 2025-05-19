@@ -19,6 +19,7 @@
 	.include "src/mystery_gift_server.o"
 	.include "src/mystery_gift_client.o"
 	.include "src/union_room_chat.o"
+    .include "src/fame_checker.o"
 	.include "src/berry_crush.o"
 	.include "src/berry_powder.o"
 	.include "src/dodrio_berry_picking.o"
