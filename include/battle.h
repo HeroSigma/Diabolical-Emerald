@@ -140,6 +140,10 @@ struct DisableStruct
 struct ProtectStruct
 {
     u32 protected:7; // 126 protect options
+    u32 spikyShielded:1;
+    u32 kingsShielded:1;
+    u32 banefulBunkered:1;
+    u32 obstructed:1;
     u32 endured:1;
     u32 noValidMoves:1;
     u32 helpingHand:1;
@@ -159,7 +163,6 @@ struct ProtectStruct
     u32 touchedProtectLike:1;
     u32 unused:9;
     // End of 32-bit bitfield
-    u16 touchedProtectLike:1;
     u16 disableEjectPack:1;
     u16 statFell:1;
     u16 pranksterElevated:1;
@@ -167,6 +170,8 @@ struct ProtectStruct
     u16 beakBlastCharge:1;
     u16 quash:1;
     u16 shellTrap:1;
+    u16 silkTrapped:1;
+    u16 burningBulwarked:1;
     u16 eatMirrorHerb:1;
     u16 activateOpportunist:2; // 2 - to copy stats. 1 - stats copied (do not repeat). 0 - no stats to copy
     u16 usedAllySwitch:1;
@@ -191,7 +196,6 @@ struct SpecialStatus
     u8 faintedHasReplacement:1;
     u8 emergencyExited:1;
     u8 afterYou:1;
-    u8 enduredDamage:1;
     u8 stormDrainRedirected:1;
     // End of byte
     u8 switchInAbilityDone:1;
@@ -207,9 +211,6 @@ struct SpecialStatus
     u8 rototillerAffected:1;  // to be affected by rototiller
     u8 parentalBondState:2;
     u8 multiHitOn:1;
-    u8 distortedTypeMatchups:1;
-    u8 teraShellAbilityDone:1;
-    u8 criticalHit:1;
     // End of byte
     u8 dancerUsedMove:1;
     u8 dancerOriginalTarget:3;

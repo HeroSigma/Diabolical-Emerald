@@ -2450,7 +2450,7 @@ static u32 CheckTypeEffectiveness(u32 targetId, u32 battler)
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
     struct Pokemon *mon = &gPlayerParty[gBattlerPartyIndexes[battler]];
     u32 move = moveInfo->moves[gMoveSelectionCursor[battler]];
-    u32 moveType = CheckDynamicMoveType(mon, move, battler);
+    u32 moveType = CheckDynamicMoveType(mon, move, battler, MON_IN_BATTLE);
     uq4_12_t modifier = CalcTypeEffectivenessMultiplier(move, moveType, battler, targetId, GetBattlerAbility(targetId), FALSE);
 
     if (!ShouldShowTypeEffectiveness(targetId))

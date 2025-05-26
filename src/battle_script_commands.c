@@ -1446,22 +1446,16 @@ static bool32 JumpIfMoveFailed(u8 adder, u16 move, const u8 *failInstr)
         gLastLandedMoves[gBattlerTarget] = 0;
         gLastHitByType[gBattlerTarget] = 0;
         gBattlescriptCurrInstr = failInstr;
-        return;
+        return TRUE;
     }
     else
     {
         TrySetDestinyBondToHappen();
-
-        if (CanAbilityAbsorbMove(gBattlerAttacker,
-                                 gBattlerTarget,
-                                 GetBattlerAbility(gBattlerTarget),
-                                 move,
-                                 moveType,
-                                 ABILITY_RUN_SCRIPT))
-            return;
+        if (AbilityBattleEffects(ABILITYEFFECT_ABSORBING, gBattlerTarget, 0, 0, move))
+            return TRUE;
     }
-
     gBattlescriptCurrInstr += adder;
+    return FALSE;
 }
 
 static void Cmd_unused5(void)

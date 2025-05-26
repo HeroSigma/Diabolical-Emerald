@@ -1954,6 +1954,14 @@
 	various \battler, VARIOUS_RESTORE_PP
 	.endm
 
+	.macro tryactivatemoxie battler:req
+	various \battler, VARIOUS_TRY_ACTIVATE_MOXIE
+	.endm
+
+	.macro tryactivatebeastboost battler:req
+	various \battler, VARIOUS_TRY_ACTIVATE_BEAST_BOOST
+	.endm
+
 	.macro tryactivatereceiver battler:req
 	various \battler, VARIOUS_TRY_ACTIVATE_RECEIVER
 	.endm
@@ -2231,6 +2239,10 @@
 	.macro gettotemboost jumpInstr:req
 	various BS_ATTACKER, VARIOUS_TOTEM_BOOST
 	.4byte \jumpInstr
+	.endm
+
+	.macro tryactivategrimneigh, battler:req
+	various \battler, VARIOUS_TRY_ACTIVATE_GRIM_NEIGH
 	.endm
 
 	.macro consumeberry battler:req, fromBattler:req
