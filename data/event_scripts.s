@@ -1792,7 +1792,6 @@ EventScript_VsSeekerChargingDone::
 	.include "data/scripts/trainer_hill.inc"
 	.include "data/scripts/test_signpost.inc"
 	.include "data/scripts/follower.inc"
-	.include "data/text/frontier_brain.inc"
 	.include "data/text/save.inc"
 	.include "data/text/birch_speech.inc"
 	.include "data/scripts/dexnav.inc"
@@ -1814,28 +1813,4 @@ Text_PlayerBootedUpPC::
 @@@
 @ Pallet Town
 @
-	.include "data/maps/PalletTown/scripts.inc"
-	.include "data/maps/PalletTown/text.inc"
 	.include "data/text/sign_lady.inc"
-
-	.include "data/maps/PalletTown_PlayersHouse_1F/scripts.inc"
-	.include "data/maps/PalletTown_PlayersHouse_1F/text.inc"
-
-	.include "data/maps/PalletTown_PlayersHouse_2F/scripts.inc"
-	.include "data/maps/PalletTown_PlayersHouse_2F/text.inc"
-
-	.include "data/maps/PalletTown_RivalsHouse/scripts.inc"
-	.include "data/maps/PalletTown_RivalsHouse/text.inc"
-
-	.include "data/maps/PalletTown_ProfessorOaksLab/scripts.inc"
-	.include "data/maps/PalletTown_ProfessorOaksLab/text.inc"
-
-@@@
-@ Kanto Routes
-@
-
-	.include "data/maps/Route1/scripts.inc"
-	.include "data/maps/Route1/text.inc"
-
-	.include "data/maps/Route21_North/scripts.inc"
-	.include "data/maps/Route21_North/text.inc"
