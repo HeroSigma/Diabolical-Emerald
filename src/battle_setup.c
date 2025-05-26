@@ -840,6 +840,14 @@ u8 GetSpecialBattleTransition(s32 id)
     return sBattleTransitionTable_BattleFrontier[var % ARRAY_COUNT(sBattleTransitionTable_BattleFrontier)];
 }
 
+void StartFirstBattle(void)
+{
+    ResetTasks();
+    PlayBattleBGM();
+    SetMainCallback2(CB2_StartFirstBattle);
+    BattleTransition_Start(B_TRANSITION_BLUR);
+}
+
 void ChooseStarter(void)
 {
     SetMainCallback2(CB2_ChooseStarter);

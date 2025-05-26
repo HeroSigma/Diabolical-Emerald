@@ -166,7 +166,7 @@
                                                                 // In GEN_9, it is 20 seconds.
                                                                 // In GEN_III_STANDARD, it is 80 seconds.  This is based on the standard flow of time from Majora's Mask
                                                                 // In GEN_III_SLOW, it is 24 seconds.  This is based on the Inverted Song of Time from Majora's Mask
-#define VAR_LITTLEROOT_INTRO_STATE                       0x4092
+#define VAR_INTRO_STATE                                  0x4092
 #define VAR_MAUVILLE_GYM_STATE                           0x4093
 #define VAR_LILYCOVE_MUSEUM_2F_STATE                     0x4094
 #define VAR_LILYCOVE_FAN_CLUB_STATE                      0x4095

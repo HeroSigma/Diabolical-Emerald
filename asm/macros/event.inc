@@ -1883,12 +1883,6 @@
 	_dynmultichoice \left, \top, \ignoreBPress, \maxBeforeScroll, \shouldSort, \initialSelected, \callbacks, NULL
 	.endm
 
-	@ Like callnative, but function expects a ctx
-	.macro callfunc func:req
-	.byte 0xe3
-	.4byte \func
-	.endm
-
 	@ Checks the player's region. Stores the result (KANTO (0) or JOHTO (1) or HOENN (2)) in VAR_RESULT.
 	.macro checkplayerregion
 	.byte 0xe4

@@ -16,7 +16,7 @@ LittlerootTown_MapScripts::
 	@ 6: Set clock
 	@ 7: Mom left
 
-	@ State descriptions for VAR_LITTLEROOT_HOUSE_STATE
+	@ State descriptions for VAR_LITTLEROOT_HOUSES_STATE_BRENDAN
 	@ 1: On Truck (and is corresponding gender)
 	@ 2: Met Rival's Mom (and is corresponding gender)
 	@ 3: Entered Hall of Fame
@@ -33,7 +33,7 @@ LittlerootTown_MapScripts::
 LittlerootTown_OnTransition:
 	setflag FLAG_VISITED_LITTLEROOT_TOWN
 	call Common_EventScript_SetupRivalGfxId
-	call_if_eq VAR_LITTLEROOT_HOUSE_STATE, 4, LittlerootTown_EventScript_SetExitedHouseAfterLatiSSTicketEvent
+	call_if_eq VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 4, LittlerootTown_EventScript_SetExitedHouseAfterLatiSSTicketEvent
 	call_if_eq VAR_LITTLEROOT_RIVAL_STATE, 2, LittlerootTown_EventScript_SetRivalLeftForRoute103
 	end
 
@@ -49,7 +49,7 @@ LittlerootTown_EventScript_SetRivalLeftForRoute103::
 	return
 
 LittlerootTown_EventScript_SetExitedHouseAfterLatiSSTicketEvent::
-	setvar VAR_LITTLEROOT_HOUSE_STATE, 5
+	setvar VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 5
 	return
 
 LittlerootTown_EventScript_StepOffTruck::

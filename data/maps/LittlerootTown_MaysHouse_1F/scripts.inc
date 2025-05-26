@@ -14,7 +14,7 @@ LittlerootTown_MaysHouse_1F_OnTransition:
 
 @ Many of the below scripts have no gender check because they assume youre in the correct house
 LittlerootTown_MaysHouse_1F_OnFrame:
-	map_script_2 VAR_LITTLEROOT_HOUSE_STATE, 1, LittlerootTown_MaysHouse_1F_EventScript_CongratsNewHome
+	map_script_2 VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 1, LittlerootTown_MaysHouse_1F_EventScript_CongratsNewHome
 	.2byte 0
 
 LittlerootTown_MaysHouse_1F_EventScript_CongratsNewHome::
@@ -30,7 +30,7 @@ LittlerootTown_MaysHouse_1F_EventScript_CongratsNewHome::
 	special GetRivalSonDaughterString
 	msgbox RivalsHouse_1F_Text_CongratsOnHome, MSGBOX_DEFAULT
 	setflag FLAG_MET_RIVAL_MOM
-	setvar VAR_LITTLEROOT_HOUSE_STATE, 2
+	setvar VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 2
 	releaseall
 	end
 
