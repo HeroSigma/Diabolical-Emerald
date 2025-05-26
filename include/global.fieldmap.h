@@ -91,14 +91,14 @@ struct BackupMapLayout
 //             /*0x09*/ u8 targetLocalId;
 //             /*0x0A*/ u16 targetMapNum;
 //             /*0x0C*/ u16 targetMapGroup;
-//         }; 
+//         };
 //     };
 //     /*0x0E*/ u16 trainerRange_berryTreeId;
 //     /*0x10*/ const u8 *script;
 //     /*0x14*/ u16 flagId;
 // };
 
-// #else 
+// #else
 // C89 doesn't support anonymous structs, so to make it so we don't have to change EVERY instance
 // of ObjectEventTemplate to accomidate the clone object thing used TWICE, we'll just make an
 // alternate struct and cast between them.

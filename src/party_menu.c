@@ -104,6 +104,10 @@ enum {
     MENU_CATALOG_MOWER,
     MENU_CHANGE_FORM,
     MENU_CHANGE_ABILITY,
+    MENU_KANTO,
+    MENU_JOHTO,
+    MENU_HOENN,
+    MENU_SEVII,
     MENU_FIELD_MOVES
 };
 
@@ -502,6 +506,10 @@ static void CursorCb_Register(u8);
 static void CursorCb_Trade1(u8);
 static void CursorCb_Trade2(u8);
 static void CursorCb_Toss(u8);
+static void CursorCb_Kanto(u8);
+static void CursorCb_Johto(u8);
+static void CursorCb_Hoenn(u8);
+static void CursorCb_Sevii(u8);
 static void CursorCb_FieldMove(u8);
 static void CursorCb_CatalogBulb(u8);
 static void CursorCb_CatalogOven(u8);
@@ -515,6 +523,7 @@ static bool8 SetUpFieldMove_Surf(void);
 static bool8 SetUpFieldMove_Fly(void);
 static bool8 SetUpFieldMove_Waterfall(void);
 static bool8 SetUpFieldMove_Dive(void);
+static bool8 CreateMapSelectionWindow(u8);
 void TryItemHoldFormChange(struct Pokemon *mon);
 static void ShowMoveSelectWindow(u8 slot);
 static void Task_HandleWhichMoveInput(u8 taskId);
@@ -3987,13 +3996,13 @@ static void CursorCb_FieldMove(u8 taskId)
     }
     else
     {
-        // All field moves before WATERFALL are HMs.
-        if (fieldMove <= FIELD_MOVE_WATERFALL && FlagGet(FLAG_BADGE01_GET + fieldMove) != TRUE)
-        {
-            DisplayPartyMenuMessage(gText_CantUseUntilNewBadge, TRUE);
-            gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
-        }
-        else if (sFieldMoveCursorCallbacks[fieldMove].fieldMoveFunc() == TRUE)
+        // All field moves before WATERFALL are HMs. -- Uncomment to check for badges when using field moves
+        // if (fieldMove <= FIELD_MOVE_WATERFALL && FlagGet(FLAG_BADGE01_GET + fieldMove) != TRUE)
+        // {
+        //     DisplayPartyMenuMessage(gText_CantUseUntilNewBadge, TRUE);
+        //     gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
+        // }
+        if (sFieldMoveCursorCallbacks[fieldMove].fieldMoveFunc() == TRUE)
         {
             switch (fieldMove)
             {
@@ -4016,8 +4025,9 @@ static void CursorCb_FieldMove(u8 taskId)
                 sPartyMenuInternal->data[0] = fieldMove;
                 break;
             case FIELD_MOVE_FLY:
-                gPartyMenu.exitCallback = CB2_OpenFlyMap;
-                Task_ClosePartyMenu(taskId);
+                CreateMapSelectionWindow(taskId);
+                // gPartyMenu.exitCallback = CB2_OpenFlyMap;
+                // Task_ClosePartyMenu(taskId);
                 break;
             default:
                 gPartyMenu.exitCallback = CB2_ReturnToField;
@@ -7865,4 +7875,58 @@ void IsLastMonThatKnowsSurf(void)
         if (AnyStorageMonWithMove(move) != TRUE)
             gSpecialVar_Result = !P_CAN_FORGET_HIDDEN_MOVE;
     }
+}
+
+static void SetRegionSelectionActions()
+{
+    sPartyMenuInternal->numActions = 0;
+
+    AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_KANTO);
+    AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_JOHTO);
+    AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_HOENN);
+    AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_SEVII);
+}
+
+static void CursorCb_Kanto(u8 taskId)
+{
+    PlaySE(SE_SELECT);
+    SetMapGraphics(0);
+    gPartyMenu.exitCallback = CB2_OpenFlyMap;
+    Task_ClosePartyMenu(taskId);
+}
+
+static void CursorCb_Johto(u8 taskId)
+{
+    PlaySE(SE_SELECT);
+    SetMapGraphics(1);
+    gPartyMenu.exitCallback = CB2_OpenFlyMap;
+    Task_ClosePartyMenu(taskId);
+}
+
+static void CursorCb_Hoenn(u8 taskId)
+{
+    PlaySE(SE_SELECT);
+    SetMapGraphics(2);
+    gPartyMenu.exitCallback = CB2_OpenFlyMap;
+    Task_ClosePartyMenu(taskId);
+}
+
+static void CursorCb_Sevii(u8 taskId)
+{
+    PlaySE(SE_SELECT);
+    SetMapGraphics(3);
+    gPartyMenu.exitCallback = CB2_OpenFlyMap;
+    Task_ClosePartyMenu(taskId);
+}
+
+static bool8 CreateMapSelectionWindow(u8 taskId)
+{
+    PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[1]);
+
+    SetRegionSelectionActions();
+
+    DisplaySelectionWindow(SELECTWINDOW_ACTIONS);
+    DisplayPartyMenuStdMessage(PARTY_MSG_DO_WHAT_WITH_MON);
+
+    return TRUE;
 }

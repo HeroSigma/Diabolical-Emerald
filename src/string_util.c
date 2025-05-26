@@ -478,10 +478,24 @@ static const u8 *ExpandPlaceholder_KunChan(void)
 
 static const u8 *ExpandPlaceholder_RivalName(void)
 {
-    if (gSaveBlock2Ptr->playerGender == MALE)
+    if (gSaveBlock2Ptr->playerGender == MALE) {
+        if(gSaveBlock2Ptr->playerRegion == KANTO) {
+            return gText_ExpandedPlaceholder_Leaf;
+        }
+        if(gSaveBlock2Ptr->playerRegion == JOHTO) {
+            return gText_ExpandedPlaceholder_Lyra;
+        }
         return gText_ExpandedPlaceholder_May;
-    else
+    }
+    else {
+        if(gSaveBlock2Ptr->playerRegion == KANTO) {
+            return gText_ExpandedPlaceholder_Red;
+        }
+        if(gSaveBlock2Ptr->playerRegion == JOHTO) {
+            return gText_ExpandedPlaceholder_Gold;
+        }
         return gText_ExpandedPlaceholder_Brendan;
+    }
 }
 
 static const u8 *ExpandPlaceholder_Version(void)

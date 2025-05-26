@@ -1,6 +1,9 @@
 #ifndef GUARD_METATILE_LABELS_H
 #define GUARD_METATILE_LABELS_H
 
+// gTileset_Azalea
+#define METATILE_Azalea_Door  0x29B
+
 // gTileset_BattleArena
 #define METATILE_BattleArena_Door  0x21B
 
@@ -102,6 +105,9 @@
 #define METATILE_BikeShop_Generator_Off_Tile7      0x2F7
 #define METATILE_BikeShop_Wall_Edge_Top            0x281
 
+// gTileset_BlackthornCity
+#define METATILE_BlackthornCity_Door  0x33C
+
 // gTileset_BrendansMaysHouse
 #define METATILE_BrendansMaysHouse_BookOnTable       0x293
 #define METATILE_BrendansMaysHouse_BrendanPC_Off     0x25A
@@ -137,6 +143,23 @@
 #define METATILE_Cave_ShoalCave_DirtPile_Large           0x358
 #define METATILE_Cave_ShoalCave_DirtPile_Small           0x35A
 
+// gTileset_CeladonCity
+#define METATILE_CeladonCity_DepartmentStore_Door      0x214
+#define METATILE_CeladonCity_DepartmentStore_Elevator  0x2E6
+#define METATILE_CeladonCity_Door                      0x2D6
+#define METATILE_CeladonCity_GameCorner_Door           0x2F0
+#define METATILE_CeladonCity_PrizeRoom_Door            0x2F1
+#define METATILE_CeladonCity_RocketHideout_Elevator    0x37B
+
+// gTileset_CeruleanCity
+#define METATILE_CeruleanCity_Door  0x262
+
+// gTileset_CherryGrove
+#define METATILE_CherryGrove_Door  0x30E
+
+// gTileset_CinnabarIsland
+#define METATILE_CinnabarIsland_Door  0x22D
+
 // gTileset_Contest
 #define METATILE_Contest_CounterFlap_Bottom  0x2D9
 #define METATILE_Contest_CounterFlap_Top     0x2D1
@@ -147,6 +170,9 @@
 #define METATILE_Dewford_Door              0x225
 #define METATILE_Dewford_Door_BattleTower  0x25D
 
+// gTileset_EcruteakCity
+#define METATILE_EcruteakCity_Door  0x29C
+
 // gTileset_EliteFour
 #define METATILE_EliteFour_EntryDoor_ClosedBottom    0x20E
 #define METATILE_EliteFour_EntryDoor_ClosedTop       0x206
@@ -156,6 +182,9 @@
 #define METATILE_EliteFour_OpenDoor_Frame            0x344
 #define METATILE_EliteFour_OpenDoor_Opening          0x345
 #define METATILE_EliteFour_RightSpotlightOff         0x2DE
+
+// gTileset_ElmsLab
+#define METATILE_ElmsLab_Door  0x30B
 
 // gTileset_EverGrande
 #define METATILE_EverGrande_Door_PokemonLeague  0x21D
@@ -208,6 +237,9 @@
 #define METATILE_Fortree_WoodBridge1_Bottom                0x29F
 #define METATILE_Fortree_WoodBridge1_Top                   0x297
 
+// gTileset_FuchsiaCity
+#define METATILE_FuchsiaCity_Door  0x2BD
+
 // gTileset_General
 #define METATILE_General_BlueCaveIndent        0x1B0
 #define METATILE_General_BlueCaveOpen          0x1B1
@@ -253,8 +285,23 @@
 #define METATILE_GenericBuilding_TrickHouse_Door_Closed  0x21B
 #define METATILE_GenericBuilding_TrickHouse_Stairs_Down  0x219
 
-// gTileset_GenericBuildingKanto1
-#define METATILE_GenericBuildingKanto1_PlayersPCOff  0x28F
+// gTileset_Goldenrod2
+#define METATILE_Goldenrod2_Door  0x3F4
+
+// gTileset_Goldenrod3
+#define METATILE_Goldenrod3_Door  0x3FD
+
+// gTileset_Goldenrod
+#define METATILE_Goldenrod_Bike_Shop_Door      0x31F
+#define METATILE_Goldenrod_Door                0x284
+#define METATILE_Goldenrod_Dpt_Store_Door      0x35C
+#define METATILE_Goldenrod_Game_Corner_Door    0x33E
+#define METATILE_Goldenrod_Pokecenter_Door     0x3C3
+#define METATILE_Goldenrod_Radio_Tower_Door    0x2BC
+#define METATILE_Goldenrod_Train_Station_Door  0x3FF
+
+// gTileset_IndigoPlateau
+#define METATILE_IndigoPlateau_Door  0x2B1
 
 // gTileset_InsideOfTruck
 #define METATILE_InsideOfTruck_DoorClosedFloor_Bottom  0x21D
@@ -271,6 +318,27 @@
 #define METATILE_InsideShip_IntactDoor_Bottom_Locked    0x233
 #define METATILE_InsideShip_IntactDoor_Bottom_Unlocked  0x22B
 
+// gTileset_KantoPokeCenter
+#define METATILE_KantoPokeCenter_Escalator1F_Tile0_Frame0  0x250
+#define METATILE_KantoPokeCenter_Escalator1F_Tile0_Frame1  0x288
+#define METATILE_KantoPokeCenter_Escalator1F_Tile0_Frame2  0x28A
+#define METATILE_KantoPokeCenter_Escalator1F_Tile1_Frame0  0x251
+#define METATILE_KantoPokeCenter_Escalator1F_Tile1_Frame1  0x289
+#define METATILE_KantoPokeCenter_Escalator1F_Tile1_Frame2  0x28B
+#define METATILE_KantoPokeCenter_Escalator1F_Tile2_Frame0  0x258
+#define METATILE_KantoPokeCenter_Escalator1F_Tile2_Frame1  0x290
+#define METATILE_KantoPokeCenter_Escalator1F_Tile2_Frame2  0x292
+#define METATILE_KantoPokeCenter_Escalator1F_Tile3_Frame0  0x259
+#define METATILE_KantoPokeCenter_Escalator1F_Tile3_Frame1  0x291
+#define METATILE_KantoPokeCenter_Escalator1F_Tile3_Frame2  0x293
+
+// gTileset_Kanto
+#define METATILE_Kanto_General_Door                  0x03D
+#define METATILE_Kanto_SafariZone_Door               0x252
+#define METATILE_Kanto_SlidingDoubleDoor             0x15B
+#define METATILE_Kanto_SlidingSingleDoor_PokeCenter  0x062
+#define METATILE_Kanto_SlidingSingleDoor_PokeMart    0x074
+
 // gTileset_Lavaridge
 #define METATILE_Lavaridge_AshGrass             0x207
 #define METATILE_Lavaridge_CaveEntrance_Bottom  0x25E
@@ -278,6 +346,9 @@
 #define METATILE_Lavaridge_LavaField            0x271
 #define METATILE_Lavaridge_NormalGrass          0x206
 #define METATILE_Lavaridge_RockWall             0x274
+
+// gTileset_LavenderTown
+#define METATILE_LavenderTown_Door  0x222
 
 // gTileset_Lilycove
 #define METATILE_Lilycove_Door             0x246
@@ -329,6 +400,9 @@
 #define METATILE_Mauville_MirageTower_TileE   0x3DD
 #define METATILE_Mauville_MirageTower_TileF   0x3E3
 
+// gTileset_MahoganyTown
+#define METATILE_MahoganyTown_Door  0x33F
+
 // gTileset_MauvilleGym
 #define METATILE_MauvilleGym_FloorTile        0x21A
 #define METATILE_MauvilleGym_GreenBeamH1_Off  0x230
@@ -377,6 +451,14 @@
 // gTileset_MossdeepGym
 #define METATILE_MossdeepGym_YellowArrow_Right  0x250
 
+// gTileset_NationalPark
+#define METATILE_NationalPark_LongGrass       0x28F
+#define METATILE_NationalPark_LongGrass_Root  0x297
+
+// gTileset_NewBarkTown
+#define METATILE_NewBarkTown_2_Door  0x30D
+#define METATILE_NewBarkTown_Door    0x30A
+
 // gTileset_Pacifidlog
 #define METATILE_Pacifidlog_Door                               0x21A
 #define METATILE_Pacifidlog_FloatingLogs_HorizontalLeft        0x250
@@ -396,8 +478,8 @@
 #define METATILE_Pacifidlog_SubmergedLogs_VerticalTop          0x25A
 
 // gTileset_PalletTown
-#define METATILE_PalletTown_OaksLabDoor  0x280
-#define METATILE_PalletTown_SmallDoor    0x2A3
+#define METATILE_PalletTown_Door         0x2A3
+#define METATILE_PalletTown_OaksLabDoor  0x2CF
 
 // gTileset_Petalburg
 #define METATILE_Petalburg_Door_BirchsLab   0x249
@@ -442,9 +524,45 @@
 #define METATILE_PokemonCenter_Floor_ShadowTop           0x21E
 #define METATILE_PokemonCenter_Floor_ShadowTop_Alt       0x2DC
 
+// gTileset_RSMossdeepGym
+#define METATILE_RSMossdeepGym_RedArrow_Down   0x205
+#define METATILE_RSMossdeepGym_RedArrow_Left   0x20C
+#define METATILE_RSMossdeepGym_RedArrow_Right  0x204
+#define METATILE_RSMossdeepGym_RedArrow_Up     0x20D
+#define METATILE_RSMossdeepGym_Switch_Down     0x239
+#define METATILE_RSMossdeepGym_Switch_Up       0x238
+
+// gTileset_Route22
+#define METATILE_Route22_Door  0x257
+
+// gTileset_Route25
+#define METATILE_Route25_Door  0x26C
+
+// gTileset_Route5
+#define METATILE_Route5_Door                  0x2D8
+#define METATILE_Route5_UndergroundPass_Door  0x2D9
+
+// gTileset_Route6
+#define METATILE_Route6_UndergroundPass_Door  0x2B0
+
+// gTileset_Route7
+#define METATILE_Route7_UndergroundPass_Door  0x2EC
+
+// gTileset_Route8
+#define METATILE_Route8_UndergroundPass_Door  0x2CE
+
+// gTileset_Ruins
+#define METATILE_Ruins_Of_Alph_Door  0x323
+
 // gTileset_Rustboro
 #define METATILE_Rustboro_Door_Gray  0x21F
 #define METATILE_Rustboro_Door_Tan   0x22F
+
+// gTileset_SaffronCity
+#define METATILE_SaffronCity_Door1             0x204
+#define METATILE_SaffronCity_Door2             0x2C8
+#define METATILE_SaffronCity_SilphCo           0x2C9
+#define METATILE_SaffronCity_SilphCo_Elevator  0x37A
 
 // gTileset_SecretBase
 #define METATILE_SecretBase_AttractMat_BottomLeft       0x313
@@ -718,6 +836,29 @@
 #define METATILE_SecretBase_YellowBrick_Bottom          0x22E
 #define METATILE_SecretBase_YellowBrick_Top             0x226
 
+// gTileset_Sevii123
+#define METATILE_Sevii123_Door  0x217
+
+// gTileset_Sevii1
+#define METATILE_Sevii1_Sliding_Door  0x34B
+
+// gTileset_Sevii2
+#define METATILE_Sevii2_Sliding_Door  0x34C
+
+// gTileset_Sevii3
+#define METATILE_Sevii3_Door  0x34A
+
+// gTileset_Sevii4
+#define METATILE_Sevii4_Door  0x2C4
+
+// gTileset_Sevii5
+#define METATILE_Sevii5_Door                  0x2C5
+#define METATILE_Sevii5_RocketWarehouse_Door  0x28B
+
+// gTileset_Sevii7
+#define METATILE_Sevii7_TrainerTower_Elevator1  0x2FD
+#define METATILE_Sevii7_TrainerTower_Elevator2  0x2FE
+
 // gTileset_Shop
 #define METATILE_Shop_Door_Elevator   0x285
 #define METATILE_Shop_Laptop1_Flash   0x258
@@ -740,6 +881,9 @@
 #define METATILE_SootopolisGym_Ice_Broken   0x206
 #define METATILE_SootopolisGym_Ice_Cracked  0x20E
 #define METATILE_SootopolisGym_Stairs       0x207
+
+// gTileset_Sprout
+#define METATILE_Sprout_Tower_Door  0x294
 
 // gTileset_TrainerHill
 #define METATILE_TrainerHill_CounterDoor          0x334
@@ -789,6 +933,19 @@
 // gTileset_Underwater
 #define METATILE_Underwater_FloorShadow  0x228
 #define METATILE_Underwater_RockWall     0x21E
+
+// gTileset_VermilionCity
+#define METATILE_VermilionCity_Door                 0x2AE
+#define METATILE_VermilionCity_PokemonFanClub_Door  0x2AF
+
+// gTileset_VioletCity
+#define METATILE_VioletCity_Door  0x298
+
+// gTileset_ViridianCity
+#define METATILE_ViridianCity_Door  0x221
+
+// gTileset_ZooBuilding
+#define METATILE_ZooBuilding_Door  0x2BE
 
 // Other
 #define METATILE_RSMossdeepGym_RedArrow_Down   0x205

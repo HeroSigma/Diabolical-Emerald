@@ -1,32 +1,6 @@
 #ifndef GUARD_EVENT_SCRIPTS_H
 #define GUARD_EVENT_SCRIPTS_H
 
-extern const u8 EventScript_Follower[];
-extern const u8 EventScript_FollowerEnd[];
-extern const u8 EventScript_FollowerGeneric[];
-extern const u8 EventScript_FollowerLovesYou[];
-
-extern const u8 EventScript_FollowerIsShivering[];
-extern const u8 EventScript_FollowerNostalgia[];
-extern const u8 EventScript_FollowerHopping[];
-extern const u8 EventScript_FollowerJumpOnPlayer[];
-extern const u8 EventScript_FollowerCuddling[];
-extern const u8 EventScript_FollowerShiverCuddling[];
-extern const u8 EventScript_FollowerGetCloser[];
-extern const u8 EventScript_FollowerPokingPlayer[];
-extern const u8 EventScript_FollowerLookAround[];
-extern const u8 EventScript_FollowerLookAway[];
-extern const u8 EventScript_FollowerLookAwayBark[];
-extern const u8 EventScript_FollowerLookAwayPoke[];
-extern const u8 EventScript_FollowerPokeGround[];
-extern const u8 EventScript_FollowerStartled[];
-extern const u8 EventScript_FollowerFastHopping[];
-extern const u8 EventScript_FollowerDizzy[];
-extern const u8 EventScript_FollowerLookAroundScared[];
-extern const u8 EventScript_FollowerDance[];
-extern const u8 EventScript_FollowerFaceUp[];
-extern const u8 EventScript_FollowerFaceResult[];
-extern const u8 EnterPokeballMovement[];
 
 extern const u8 EventScript_TestSignpostMsg[];
 extern const u8 EventScript_TryGetTrainerScript[];
@@ -410,7 +384,7 @@ extern const u8 EventScript_UseCutGrass[];
 extern const u8 EventScript_UseDefog[];
 
 //player pc
-extern const u8 LittlerootTown_BrendansHouse_2F_EventScript_TurnOffPlayerPC[];
+extern const u8 LittlerootTown_PlayersHouse_2F_EventScript_TurnOffPlayerPC[];
 extern const u8 LittlerootTown_MaysHouse_2F_EventScript_TurnOffPlayerPC[];
 
 // Mauville Old Man (Giddy)
@@ -543,7 +517,7 @@ extern const u8 MauvilleCity_PokemonCenter_1F_Text_HotSpringsTitle[];
 extern const u8 MauvilleCity_PokemonCenter_1F_Text_HotSpringsAction[];
 extern const u8 MauvilleCity_PokemonCenter_1F_Text_HotSpringsStory[];
 
-extern const u8 LittlerootTown_BrendansHouse_2F_EventScript_PC[];
+extern const u8 LittlerootTown_PlayersHouse_2F_EventScript_PC[];
 extern const u8 LittlerootTown_MaysHouse_2F_EventScript_PC[];
 extern const u8 EventScript_PC[];
 extern const u8 EventScript_AccessPokemonBoxLink[];
@@ -556,6 +530,9 @@ extern const u8 EventScript_CableBoxResults[];
 extern const u8 EventScript_PokeBlockFeeder[];
 extern const u8 Route110_TrickHousePuzzle_EventScript_Door[];
 extern const u8 EventScript_RegionMap[];
+extern const u8 EventScript_RegionMapKanto[];
+extern const u8 EventScript_RegionMapJohto[];
+extern const u8 EventScript_RegionMapSevii[];
 extern const u8 EventScript_RunningShoesManual[];
 extern const u8 EventScript_PictureBookShelf[];
 extern const u8 EventScript_BookShelf[];

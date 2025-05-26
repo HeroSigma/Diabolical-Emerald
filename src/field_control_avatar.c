@@ -225,13 +225,13 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
         ShowStartMenu();
         return TRUE;
     }
-    
+
     if (input->tookStep && TryFindHiddenPokemon())
         return TRUE;
-    
+
     if (input->pressedSelectButton && UseRegisteredKeyItemOnField() == TRUE)
         return TRUE;
-    
+
     if (input->pressedRButton && TryStartDexNavSearch())
         return TRUE;
 
@@ -480,6 +480,12 @@ static const u8 *GetInteractedMetatileScript(struct MapPosition *position, u8 me
         return Route110_TrickHousePuzzle_EventScript_Door;
     if (MetatileBehavior_IsRegionMap(metatileBehavior) == TRUE)
         return EventScript_RegionMap;
+    if (MetatileBehavior_IsRegionMapKanto(metatileBehavior) == TRUE)
+        return EventScript_RegionMapKanto;
+    if (MetatileBehavior_IsRegionMapJohto(metatileBehavior) == TRUE)
+        return EventScript_RegionMapJohto;
+    if (MetatileBehavior_IsRegionMapSevii(metatileBehavior) == TRUE)
+        return EventScript_RegionMapSevii;
     if (MetatileBehavior_IsRunningShoesManual(metatileBehavior) == TRUE)
         return EventScript_RunningShoesManual;
     if (MetatileBehavior_IsPictureBookShelf(metatileBehavior) == TRUE)
@@ -557,12 +563,12 @@ static const u8 *GetInteractedMetatileScript(struct MapPosition *position, u8 me
 
 static const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metatileBehavior, u8 direction)
 {
-    if (FlagGet(FLAG_BADGE05_GET) == TRUE && PartyHasMonWithSurf() == TRUE && IsPlayerFacingSurfableFishableWater() == TRUE)
+    if (PartyHasMonWithSurf() == TRUE && IsPlayerFacingSurfableFishableWater() == TRUE)
         return EventScript_UseSurf;
 
     if (MetatileBehavior_IsWaterfall(metatileBehavior) == TRUE)
     {
-        if (FlagGet(FLAG_BADGE08_GET) == TRUE && IsPlayerSurfingNorth() == TRUE)
+        if (IsPlayerSurfingNorth() == TRUE)
             return EventScript_UseWaterfall;
         else
             return EventScript_CannotUseWaterfall;
@@ -572,7 +578,7 @@ static const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metati
 
 static bool32 TrySetupDiveDownScript(void)
 {
-    if (FlagGet(FLAG_BADGE07_GET) && TrySetDiveWarp() == 2)
+    if (TrySetDiveWarp() == 2)
     {
         ScriptContext_SetupScript(EventScript_UseDive);
         return TRUE;
@@ -582,7 +588,7 @@ static bool32 TrySetupDiveDownScript(void)
 
 static bool32 TrySetupDiveEmergeScript(void)
 {
-    if (FlagGet(FLAG_BADGE07_GET) && gMapHeader.mapType == MAP_TYPE_UNDERWATER && TrySetDiveWarp() == 1)
+    if (gMapHeader.mapType == MAP_TYPE_UNDERWATER && TrySetDiveWarp() == 1)
     {
         ScriptContext_SetupScript(EventScript_UseDiveUnderwater);
         return TRUE;
@@ -898,6 +904,12 @@ static bool8 TryStartWarpEventScript(struct MapPosition *position, u16 metatileB
             DoMossdeepGymWarp();
             return TRUE;
         }
+        if (MetatileBehavior_IsFallWarp(metatileBehavior) == TRUE)
+        {
+            ResetInitialPlayerAvatarState();
+            ScriptContext_SetupScript(EventScript_FallDownHoleMtPyre);
+            return TRUE;
+        }
         DoWarp();
         return TRUE;
     }
@@ -915,7 +927,8 @@ static bool8 IsWarpMetatileBehavior(u16 metatileBehavior)
      && MetatileBehavior_IsAquaHideoutWarp(metatileBehavior) != TRUE
      && MetatileBehavior_IsMtPyreHole(metatileBehavior) != TRUE
      && MetatileBehavior_IsMossdeepGymWarp(metatileBehavior) != TRUE
-     && MetatileBehavior_IsUnionRoomWarp(metatileBehavior) != TRUE)
+     && MetatileBehavior_IsUnionRoomWarp(metatileBehavior) != TRUE
+     && MetatileBehavior_IsFallWarp(metatileBehavior) != TRUE)
         return FALSE;
     return TRUE;
 }
@@ -1079,6 +1092,16 @@ static const u8 *GetCoordEventScriptAtPosition(struct MapHeader *mapHeader, u16 
         }
     }
     return NULL;
+}
+
+void HandleBoulderFallThroughHole(struct ObjectEvent * object)
+{
+    if (MapGridGetMetatileBehaviorAt(object->currentCoords.x, object->currentCoords.y) == MB_FALL_WARP)
+    {
+        PlaySE(SE_FALL);
+        RemoveObjectEventByLocalIdAndMap(object->localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+        FlagClear(GetBoulderRevealFlagByLocalIdAndMap(object->localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup));
+    }
 }
 
 const u8 *GetCoordEventScriptAtMapPosition(struct MapPosition *position)

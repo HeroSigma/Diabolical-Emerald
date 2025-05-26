@@ -55,6 +55,7 @@ static bool32 GetCurrentLoopedTaskActive(void);
 static u32 LoopedTask_OpenMenu(s32);
 static u32 LoopedTask_MoveMenuCursor(s32);
 static u32 LoopedTask_OpenConditionMenu(s32);
+static u32 LoopedTask_OpenRegionMapsMenu(s32);
 static u32 LoopedTask_ReturnToMainMenu(s32);
 static u32 LoopedTask_OpenConditionSearchMenu(s32);
 static u32 LoopedTask_ReturnToConditionMenu(s32);
@@ -148,14 +149,15 @@ static const LoopedTask sMenuHandlerLoopTaskFuncs[] =
     [POKENAV_MENU_FUNC_RETURN_TO_CONDITION]   = LoopedTask_ReturnToConditionMenu,
     [POKENAV_MENU_FUNC_NO_RIBBON_WINNERS]     = LoopedTask_SelectRibbonsNoWinners,
     [POKENAV_MENU_FUNC_RESHOW_DESCRIPTION]    = LoopedTask_ReShowDescription,
-    [POKENAV_MENU_FUNC_OPEN_FEATURE]          = LoopedTask_OpenPokenavFeature
+    [POKENAV_MENU_FUNC_OPEN_FEATURE]          = LoopedTask_OpenPokenavFeature,
+    [POKENAV_MENU_FUNC_OPEN_REGIONMAPS]       = LoopedTask_OpenRegionMapsMenu
 };
 
 static const struct CompressedSpriteSheet sPokenavOptionsSpriteSheets[] =
 {
     {
         .data = gPokenavOptions_Gfx,
-        .size = 0x3400,
+        .size = 0x4400,
         .tag = GFXTAG_OPTIONS
     },
     {
@@ -189,7 +191,11 @@ static const u16 sOptionsLabelGfx_Beauty[]    = {0x100, PALTAG_OPTIONS_BLUE - PA
 static const u16 sOptionsLabelGfx_Cute[]      = {0x120, PALTAG_OPTIONS_PINK - PALTAG_OPTIONS_START};
 static const u16 sOptionsLabelGfx_Smart[]     = {0x140, PALTAG_OPTIONS_DEFAULT - PALTAG_OPTIONS_START};
 static const u16 sOptionsLabelGfx_Tough[]     = {0x160, PALTAG_OPTIONS_DEFAULT - PALTAG_OPTIONS_START};
-static const u16 sOptionsLabelGfx_Cancel[]    = {0x180, PALTAG_OPTIONS_BEIGE - PALTAG_OPTIONS_START};
+static const u16 sOptionsLabelGfx_KantoMap[]  = {0x180, PALTAG_OPTIONS_RED - PALTAG_OPTIONS_START};
+static const u16 sOptionsLabelGfx_JohtoMap[]  = {0x1A0, PALTAG_OPTIONS_DEFAULT - PALTAG_OPTIONS_START};
+static const u16 sOptionsLabelGfx_HoennMap[]  = {0x1C0, PALTAG_OPTIONS_BLUE - PALTAG_OPTIONS_START};
+static const u16 sOptionsLabelGfx_SeviiMap[]  = {0x1E0, PALTAG_OPTIONS_PINK - PALTAG_OPTIONS_START};
+static const u16 sOptionsLabelGfx_Cancel[]    = {0x200, PALTAG_OPTIONS_BEIGE - PALTAG_OPTIONS_START};
 
 struct
 {
@@ -254,6 +260,18 @@ struct
             sOptionsLabelGfx_Cancel
         }
     },
+    [POKENAV_MENU_TYPE_REGION_MAPS] =
+    {
+        .yStart = 42,
+        .deltaY = 20,
+        .gfx = {
+            sOptionsLabelGfx_KantoMap,
+            sOptionsLabelGfx_JohtoMap,
+            sOptionsLabelGfx_HoennMap,
+            sOptionsLabelGfx_SeviiMap,
+            sOptionsLabelGfx_Cancel
+        }
+    },
 };
 
 static const struct WindowTemplate sOptionDescWindowTemplate =
@@ -283,6 +301,10 @@ static const u8 *const sPageDescriptions[] =
     [POKENAV_MENUITEM_CONDITION_SEARCH_SMART]  = COMPOUND_STRING("Find smart POKéMON."),
     [POKENAV_MENUITEM_CONDITION_SEARCH_TOUGH]  = COMPOUND_STRING("Find tough POKéMON."),
     [POKENAV_MENUITEM_CONDITION_SEARCH_CANCEL] = COMPOUND_STRING("Return to the CONDITION menu.")
+    [POKENAV_MENUITEM_KANTO]                   = gText_CheckMapOfKanto,
+    [POKENAV_MENUITEM_JOHTO]                   = gText_CheckMapOfJohto,
+    [POKENAV_MENUITEM_HOENN]                   = gText_CheckMapOfHoenn,
+    [POKENAV_MENUITEM_SEVII]                   = gText_CheckMapOfSevii
 };
 
 static const u8 sOptionDescTextColors[]  = {TEXT_COLOR_GREEN, TEXT_COLOR_BLUE, TEXT_COLOR_LIGHT_GREEN};
@@ -482,7 +504,7 @@ static u32 LoopedTask_OpenMenu(s32 state)
         DecompressAndCopyTileDataToVram(3, sPokenavBgDotsTiles, 0, 0, 0);
         DecompressAndCopyTileDataToVram(3, sPokenavBgDotsTilemap, 0, 0, 1);
         CopyPaletteIntoBufferUnfaded(sPokenavBgDotsPal, BG_PLTT_ID(3), sizeof(sPokenavBgDotsPal));
-        if (GetPokenavMenuType() == POKENAV_MENU_TYPE_CONDITION || GetPokenavMenuType() == POKENAV_MENU_TYPE_CONDITION_SEARCH)
+        if (GetPokenavMenuType() == POKENAV_MENU_TYPE_CONDITION || GetPokenavMenuType() == POKENAV_MENU_TYPE_CONDITION_SEARCH || GetPokenavMenuType() == POKENAV_MENU_TYPE_REGION_MAPS)
             ChangeBgDotsColorToPurple();
         return LT_INC_AND_PAUSE;
     case 3:
@@ -520,10 +542,13 @@ static u32 LoopedTask_OpenMenu(s32 state)
         switch (GetPokenavMenuType())
         {
         case POKENAV_MENU_TYPE_CONDITION_SEARCH:
-            LoadLeftHeaderGfxForIndex(7);
+            LoadLeftHeaderGfxForIndex(8);
             // fallthrough
         case POKENAV_MENU_TYPE_CONDITION:
             LoadLeftHeaderGfxForIndex(1);
+            break;
+        case POKENAV_MENU_TYPE_REGION_MAPS:
+            LoadLeftHeaderGfxForIndex(6);
             break;
         default:
             LoadLeftHeaderGfxForIndex(0);
@@ -536,10 +561,13 @@ static u32 LoopedTask_OpenMenu(s32 state)
         switch (GetPokenavMenuType())
         {
         case POKENAV_MENU_TYPE_CONDITION_SEARCH:
-            ShowLeftHeaderGfx(7, FALSE, FALSE);
+            ShowLeftHeaderGfx(8, FALSE, FALSE);
             // fallthrough
         case POKENAV_MENU_TYPE_CONDITION:
             ShowLeftHeaderGfx(1, FALSE, FALSE);
+            break;
+        case POKENAV_MENU_TYPE_REGION_MAPS:
+            ShowLeftHeaderGfx(6, FALSE, FALSE);
             break;
         default:
             ShowLeftHeaderGfx(0, FALSE, FALSE);
@@ -617,6 +645,45 @@ static u32 LoopedTask_OpenConditionMenu(s32 state)
     return LT_FINISH;
 }
 
+static u32 LoopedTask_OpenRegionMapsMenu(s32 state)
+{
+    switch (state)
+    {
+    case 0:
+        ResetBldCnt();
+        StartOptionAnimations_Exit();
+        HideMainOrSubMenuLeftHeader(POKENAV_GFX_MAIN_MENU, FALSE);
+        PlaySE(SE_SELECT);
+        return LT_INC_AND_PAUSE;
+    case 1:
+        if (AreMenuOptionSpritesMoving())
+            return LT_PAUSE;
+        if (AreLeftHeaderSpritesMoving())
+            return LT_PAUSE;
+        DrawCurrentMenuOptionLabels();
+        LoadLeftHeaderGfxForIndex(6);
+        return LT_INC_AND_PAUSE;
+    case 2:
+        StartOptionAnimations_Enter();
+        ShowLeftHeaderGfx(6, FALSE, FALSE);
+        CreateBgDotPurplePalTask();
+        PrintCurrentOptionDescription();
+        return LT_INC_AND_PAUSE;
+    case 3:
+        if (AreMenuOptionSpritesMoving())
+            return LT_PAUSE;
+        if (AreLeftHeaderSpritesMoving())
+            return LT_PAUSE;
+        if (IsTaskActive_UpdateBgDotsPalette())
+            return LT_PAUSE;
+        if (IsDma3ManagerBusyWithBgCopy_())
+            return LT_PAUSE;
+        InitMenuOptionGlow();
+        break;
+    }
+    return LT_FINISH;
+}
+
 static u32 LoopedTask_ReturnToMainMenu(s32 state)
 {
     switch (state)
@@ -667,12 +734,12 @@ static u32 LoopedTask_OpenConditionSearchMenu(s32 state)
     case 1:
         if (AreMenuOptionSpritesMoving())
             return LT_PAUSE;
-        LoadLeftHeaderGfxForIndex(7);
+        LoadLeftHeaderGfxForIndex(8);
         DrawCurrentMenuOptionLabels();
         return LT_INC_AND_PAUSE;
     case 2:
         StartOptionAnimations_Enter();
-        ShowLeftHeaderGfx(7, FALSE, FALSE);
+        ShowLeftHeaderGfx(8, FALSE, FALSE);
         PrintCurrentOptionDescription();
         return LT_INC_AND_PAUSE;
     case 3:
@@ -773,6 +840,9 @@ static u32 LoopedTask_OpenPokenavFeature(s32 state)
             // fallthrough
         case POKENAV_MENU_TYPE_CONDITION:
             HideMainOrSubMenuLeftHeader(POKENAV_GFX_CONDITION_MENU, FALSE);
+            break;
+        case POKENAV_MENU_TYPE_REGION_MAPS:
+            HideMainOrSubMenuLeftHeader(POKENAV_GFX_REGIONMAPS_MENU, FALSE);
             break;
         default:
             HideMainOrSubMenuLeftHeader(POKENAV_GFX_MAIN_MENU, FALSE);

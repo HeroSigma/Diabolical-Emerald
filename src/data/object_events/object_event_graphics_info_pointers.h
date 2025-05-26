@@ -248,16 +248,70 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Storyteller
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Giddy;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_UnusedMauvilleOldMan1;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_UnusedMauvilleOldMan2;
-
-// Kanto people event objects
-const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Blue;
-const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Daisy;
-const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_KantoClerk;
-const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_ProfOak;
-
-// Kanto misc event objects
-const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_KantoTownMap;
-const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokedex;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_ProfOak;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_ProfElm;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Delia;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Grace;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RedNormal;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RedMachBike;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RedAcroBike;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RedSurfing;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RedFieldMove;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RedUnderwater;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RedFishing;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RedWatering;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RedDecorating;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RivalRedNormal;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RivalRedMachBike;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RivalRedAcroBike;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RivalRedSurfing;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RivalRedFieldMove;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LinkRed;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LeafNormal;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LeafMachBike;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LeafAcroBike;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LeafSurfing;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LeafFieldMove;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LeafUnderwater;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LeafFishing;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LeafWatering;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LeafDecorating;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RivalLeafNormal;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RivalLeafMachBike;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RivalLeafAcroBike;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RivalLeafSurfing;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RivalLeafFieldMove;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LinkLeaf;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GoldNormal;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GoldMachBike;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GoldAcroBike;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GoldSurfing;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GoldFieldMove;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GoldUnderwater;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GoldFishing;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GoldWatering;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GoldDecorating;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RivalGoldNormal;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RivalGoldMachBike;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RivalGoldAcroBike;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RivalGoldSurfing;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RivalGoldFieldMove;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LinkGold;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LyraNormal;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LyraMachBike;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LyraAcroBike;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LyraSurfing;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LyraFieldMove;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LyraUnderwater;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LyraFishing;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LyraWatering;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LyraDecorating;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RivalLyraNormal;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RivalLyraMachBike;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RivalLyraAcroBike;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RivalLyraSurfing;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RivalLyraFieldMove;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LinkLyra;
 
 const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM_OBJ_EVENT_GFX] = {
     [OBJ_EVENT_GFX_BRENDAN_NORMAL] =           &gObjectEventGraphicsInfo_BrendanNormal,
@@ -499,15 +553,70 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_LINK_RS_MAY] =              &gObjectEventGraphicsInfo_RubySapphireMay,
     [OBJ_EVENT_GFX_LUGIA] =                    &gObjectEventGraphicsInfo_Lugia,
     [OBJ_EVENT_GFX_HOOH] =                     &gObjectEventGraphicsInfo_HoOh,
-    [OBJ_EVENT_GFX_POKE_BALL] =                &gObjectEventGraphicsInfo_PokeBall,
-    [OBJ_EVENT_GFX_OW_MON] =                   &gObjectEventGraphicsInfo_Follower,
-    [OBJ_EVENT_GFX_LIGHT_SPRITE] =             &gObjectEventGraphicsInfo_BallLight,
     [OBJ_EVENT_GFX_PROF_OAK] =                 &gObjectEventGraphicsInfo_ProfOak,
-    [OBJ_EVENT_GFX_KANTO_TOWN_MAP] =           &gObjectEventGraphicsInfo_KantoTownMap,
-    [OBJ_EVENT_GFX_DAISY] =                    &gObjectEventGraphicsInfo_Daisy,
-    [OBJ_EVENT_GFX_BLUE] =                     &gObjectEventGraphicsInfo_Blue,
-    [OBJ_EVENT_GFX_POKEDEX] =                  &gObjectEventGraphicsInfo_Pokedex,
-    [OBJ_EVENT_GFX_KANTO_CLERK] =              &gObjectEventGraphicsInfo_KantoClerk,
+    [OBJ_EVENT_GFX_PROF_ELM] =                 &gObjectEventGraphicsInfo_ProfElm,
+    [OBJ_EVENT_GFX_DELIA] =                    &gObjectEventGraphicsInfo_Delia,
+    [OBJ_EVENT_GFX_GRACE] =                    &gObjectEventGraphicsInfo_Grace,
+    [OBJ_EVENT_GFX_RED_NORMAL] =               &gObjectEventGraphicsInfo_RedNormal,
+    [OBJ_EVENT_GFX_RED_MACH_BIKE] =            &gObjectEventGraphicsInfo_RedMachBike,
+    [OBJ_EVENT_GFX_RED_ACRO_BIKE] =            &gObjectEventGraphicsInfo_RedAcroBike,
+    [OBJ_EVENT_GFX_RED_SURFING] =              &gObjectEventGraphicsInfo_RedSurfing,
+    [OBJ_EVENT_GFX_RED_FIELD_MOVE] =           &gObjectEventGraphicsInfo_RedFieldMove,
+    [OBJ_EVENT_GFX_RED_UNDERWATER] =           &gObjectEventGraphicsInfo_RedUnderwater,
+    [OBJ_EVENT_GFX_RED_FISHING] =              &gObjectEventGraphicsInfo_RedFishing,
+    [OBJ_EVENT_GFX_RED_WATERING] =             &gObjectEventGraphicsInfo_RedWatering,
+    [OBJ_EVENT_GFX_RED_DECORATING] =           &gObjectEventGraphicsInfo_RedDecorating,
+    [OBJ_EVENT_GFX_RIVAL_RED_NORMAL] =         &gObjectEventGraphicsInfo_RivalRedNormal,
+    [OBJ_EVENT_GFX_RIVAL_RED_MACH_BIKE] =      &gObjectEventGraphicsInfo_RivalRedMachBike,
+    [OBJ_EVENT_GFX_RIVAL_RED_ACRO_BIKE] =      &gObjectEventGraphicsInfo_RivalRedAcroBike,
+    [OBJ_EVENT_GFX_RIVAL_RED_SURFING] =        &gObjectEventGraphicsInfo_RivalRedSurfing,
+    [OBJ_EVENT_GFX_RIVAL_RED_FIELD_MOVE] =     &gObjectEventGraphicsInfo_RivalRedFieldMove,
+    [OBJ_EVENT_GFX_LINK_RED] =                 &gObjectEventGraphicsInfo_LinkRed,
+    [OBJ_EVENT_GFX_LEAF_NORMAL] =               &gObjectEventGraphicsInfo_LeafNormal,
+    [OBJ_EVENT_GFX_LEAF_MACH_BIKE] =            &gObjectEventGraphicsInfo_LeafMachBike,
+    [OBJ_EVENT_GFX_LEAF_ACRO_BIKE] =            &gObjectEventGraphicsInfo_LeafAcroBike,
+    [OBJ_EVENT_GFX_LEAF_SURFING] =              &gObjectEventGraphicsInfo_LeafSurfing,
+    [OBJ_EVENT_GFX_LEAF_FIELD_MOVE] =           &gObjectEventGraphicsInfo_LeafFieldMove,
+    [OBJ_EVENT_GFX_LEAF_UNDERWATER] =           &gObjectEventGraphicsInfo_LeafUnderwater,
+    [OBJ_EVENT_GFX_LEAF_FISHING] =              &gObjectEventGraphicsInfo_LeafFishing,
+    [OBJ_EVENT_GFX_LEAF_WATERING] =             &gObjectEventGraphicsInfo_LeafWatering,
+    [OBJ_EVENT_GFX_LEAF_DECORATING] =           &gObjectEventGraphicsInfo_LeafDecorating,
+    [OBJ_EVENT_GFX_RIVAL_LEAF_NORMAL] =         &gObjectEventGraphicsInfo_RivalLeafNormal,
+    [OBJ_EVENT_GFX_RIVAL_LEAF_MACH_BIKE] =      &gObjectEventGraphicsInfo_RivalLeafMachBike,
+    [OBJ_EVENT_GFX_RIVAL_LEAF_ACRO_BIKE] =      &gObjectEventGraphicsInfo_RivalLeafAcroBike,
+    [OBJ_EVENT_GFX_RIVAL_LEAF_SURFING] =        &gObjectEventGraphicsInfo_RivalLeafSurfing,
+    [OBJ_EVENT_GFX_RIVAL_LEAF_FIELD_MOVE] =     &gObjectEventGraphicsInfo_RivalLeafFieldMove,
+    [OBJ_EVENT_GFX_LINK_LEAF] =                 &gObjectEventGraphicsInfo_LinkLeaf,
+    [OBJ_EVENT_GFX_GOLD_NORMAL] =               &gObjectEventGraphicsInfo_GoldNormal,
+    [OBJ_EVENT_GFX_GOLD_MACH_BIKE] =            &gObjectEventGraphicsInfo_GoldMachBike,
+    [OBJ_EVENT_GFX_GOLD_ACRO_BIKE] =            &gObjectEventGraphicsInfo_GoldAcroBike,
+    [OBJ_EVENT_GFX_GOLD_SURFING] =              &gObjectEventGraphicsInfo_GoldSurfing,
+    [OBJ_EVENT_GFX_GOLD_FIELD_MOVE] =           &gObjectEventGraphicsInfo_GoldFieldMove,
+    [OBJ_EVENT_GFX_GOLD_UNDERWATER] =           &gObjectEventGraphicsInfo_GoldUnderwater,
+    [OBJ_EVENT_GFX_GOLD_FISHING] =              &gObjectEventGraphicsInfo_GoldFishing,
+    [OBJ_EVENT_GFX_GOLD_WATERING] =             &gObjectEventGraphicsInfo_GoldWatering,
+    [OBJ_EVENT_GFX_GOLD_DECORATING] =           &gObjectEventGraphicsInfo_GoldDecorating,
+    [OBJ_EVENT_GFX_RIVAL_GOLD_NORMAL] =         &gObjectEventGraphicsInfo_RivalGoldNormal,
+    [OBJ_EVENT_GFX_RIVAL_GOLD_MACH_BIKE] =      &gObjectEventGraphicsInfo_RivalGoldMachBike,
+    [OBJ_EVENT_GFX_RIVAL_GOLD_ACRO_BIKE] =      &gObjectEventGraphicsInfo_RivalGoldAcroBike,
+    [OBJ_EVENT_GFX_RIVAL_GOLD_SURFING] =        &gObjectEventGraphicsInfo_RivalGoldSurfing,
+    [OBJ_EVENT_GFX_RIVAL_GOLD_FIELD_MOVE] =     &gObjectEventGraphicsInfo_RivalGoldFieldMove,
+    [OBJ_EVENT_GFX_LINK_GOLD] =                 &gObjectEventGraphicsInfo_LinkGold,
+    [OBJ_EVENT_GFX_LYRA_NORMAL] =               &gObjectEventGraphicsInfo_LyraNormal,
+    [OBJ_EVENT_GFX_LYRA_MACH_BIKE] =            &gObjectEventGraphicsInfo_LyraMachBike,
+    [OBJ_EVENT_GFX_LYRA_ACRO_BIKE] =            &gObjectEventGraphicsInfo_LyraAcroBike,
+    [OBJ_EVENT_GFX_LYRA_SURFING] =              &gObjectEventGraphicsInfo_LyraSurfing,
+    [OBJ_EVENT_GFX_LYRA_FIELD_MOVE] =           &gObjectEventGraphicsInfo_LyraFieldMove,
+    [OBJ_EVENT_GFX_LYRA_UNDERWATER] =           &gObjectEventGraphicsInfo_LyraUnderwater,
+    [OBJ_EVENT_GFX_LYRA_FISHING] =              &gObjectEventGraphicsInfo_LyraFishing,
+    [OBJ_EVENT_GFX_LYRA_WATERING] =             &gObjectEventGraphicsInfo_LyraWatering,
+    [OBJ_EVENT_GFX_LYRA_DECORATING] =           &gObjectEventGraphicsInfo_LyraDecorating,
+    [OBJ_EVENT_GFX_RIVAL_LYRA_NORMAL] =         &gObjectEventGraphicsInfo_RivalLyraNormal,
+    [OBJ_EVENT_GFX_RIVAL_LYRA_MACH_BIKE] =      &gObjectEventGraphicsInfo_RivalLyraMachBike,
+    [OBJ_EVENT_GFX_RIVAL_LYRA_ACRO_BIKE] =      &gObjectEventGraphicsInfo_RivalLyraAcroBike,
+    [OBJ_EVENT_GFX_RIVAL_LYRA_SURFING] =        &gObjectEventGraphicsInfo_RivalLyraSurfing,
+    [OBJ_EVENT_GFX_RIVAL_LYRA_FIELD_MOVE] =     &gObjectEventGraphicsInfo_RivalLyraFieldMove,
+    [OBJ_EVENT_GFX_LINK_LYRA] =                 &gObjectEventGraphicsInfo_LinkLyra,
 };
 
 const struct ObjectEventGraphicsInfo *const gMauvilleOldManGraphicsInfoPointers[] = {

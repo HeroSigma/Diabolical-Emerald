@@ -240,21 +240,84 @@
 #define OBJ_EVENT_GFX_LINK_RS_MAY                236
 #define OBJ_EVENT_GFX_LUGIA                      237
 #define OBJ_EVENT_GFX_HOOH                       238
-#define OBJ_EVENT_GFX_POKE_BALL                  239
-#define OBJ_EVENT_GFX_OW_MON                     240
-#define OBJ_EVENT_GFX_LIGHT_SPRITE               241
+#define OBJ_EVENT_GFX_PROF_OAK                   239
+#define OBJ_EVENT_GFX_PROF_ELM                   240
+#define OBJ_EVENT_GFX_DELIA                      241
+#define OBJ_EVENT_GFX_GRACE                      242
+#define OBJ_EVENT_GFX_RED_NORMAL                 243
+#define OBJ_EVENT_GFX_RED_MACH_BIKE              244
+#define OBJ_EVENT_GFX_RED_ACRO_BIKE              245
+#define OBJ_EVENT_GFX_RED_SURFING                246
+#define OBJ_EVENT_GFX_RED_FIELD_MOVE             247
+#define OBJ_EVENT_GFX_RED_UNDERWATER             248
+#define OBJ_EVENT_GFX_RED_FISHING                249
+#define OBJ_EVENT_GFX_RED_WATERING               250
+#define OBJ_EVENT_GFX_RED_DECORATING             251
+#define OBJ_EVENT_GFX_RIVAL_RED_NORMAL           252
+#define OBJ_EVENT_GFX_RIVAL_RED_MACH_BIKE        253
+#define OBJ_EVENT_GFX_RIVAL_RED_ACRO_BIKE        254
+#define OBJ_EVENT_GFX_RIVAL_RED_SURFING          255
+#define OBJ_EVENT_GFX_RIVAL_RED_FIELD_MOVE       256
+#define OBJ_EVENT_GFX_LINK_RED                   257
+#define OBJ_EVENT_GFX_LEAF_NORMAL                 258
+#define OBJ_EVENT_GFX_LEAF_MACH_BIKE              259
+#define OBJ_EVENT_GFX_LEAF_ACRO_BIKE              260
+#define OBJ_EVENT_GFX_LEAF_SURFING                261
+#define OBJ_EVENT_GFX_LEAF_FIELD_MOVE             262
+#define OBJ_EVENT_GFX_LEAF_UNDERWATER             263
+#define OBJ_EVENT_GFX_LEAF_FISHING                264
+#define OBJ_EVENT_GFX_LEAF_WATERING               265
+#define OBJ_EVENT_GFX_LEAF_DECORATING             266
+#define OBJ_EVENT_GFX_RIVAL_LEAF_NORMAL           267
+#define OBJ_EVENT_GFX_RIVAL_LEAF_MACH_BIKE        268
+#define OBJ_EVENT_GFX_RIVAL_LEAF_ACRO_BIKE        269
+#define OBJ_EVENT_GFX_RIVAL_LEAF_SURFING          270
+#define OBJ_EVENT_GFX_RIVAL_LEAF_FIELD_MOVE       271
+#define OBJ_EVENT_GFX_LINK_LEAF                   272
+#define OBJ_EVENT_GFX_GOLD_NORMAL                 273
+#define OBJ_EVENT_GFX_GOLD_MACH_BIKE              274
+#define OBJ_EVENT_GFX_GOLD_ACRO_BIKE              275
+#define OBJ_EVENT_GFX_GOLD_SURFING                276
+#define OBJ_EVENT_GFX_GOLD_FIELD_MOVE             277
+#define OBJ_EVENT_GFX_GOLD_UNDERWATER             278
+#define OBJ_EVENT_GFX_GOLD_FISHING                279
+#define OBJ_EVENT_GFX_GOLD_WATERING               280
+#define OBJ_EVENT_GFX_GOLD_DECORATING             281
+#define OBJ_EVENT_GFX_RIVAL_GOLD_NORMAL           282
+#define OBJ_EVENT_GFX_RIVAL_GOLD_MACH_BIKE        283
+#define OBJ_EVENT_GFX_RIVAL_GOLD_ACRO_BIKE        284
+#define OBJ_EVENT_GFX_RIVAL_GOLD_SURFING          285
+#define OBJ_EVENT_GFX_RIVAL_GOLD_FIELD_MOVE       286
+#define OBJ_EVENT_GFX_LINK_GOLD                   287
+#define OBJ_EVENT_GFX_LYRA_NORMAL                 288
+#define OBJ_EVENT_GFX_LYRA_MACH_BIKE              289
+#define OBJ_EVENT_GFX_LYRA_ACRO_BIKE              290
+#define OBJ_EVENT_GFX_LYRA_SURFING                291
+#define OBJ_EVENT_GFX_LYRA_FIELD_MOVE             292
+#define OBJ_EVENT_GFX_LYRA_UNDERWATER             293
+#define OBJ_EVENT_GFX_LYRA_FISHING                294
+#define OBJ_EVENT_GFX_LYRA_WATERING               295
+#define OBJ_EVENT_GFX_LYRA_DECORATING             296
+#define OBJ_EVENT_GFX_RIVAL_LYRA_NORMAL           297
+#define OBJ_EVENT_GFX_RIVAL_LYRA_MACH_BIKE        298
+#define OBJ_EVENT_GFX_RIVAL_LYRA_ACRO_BIKE        299
+#define OBJ_EVENT_GFX_RIVAL_LYRA_SURFING          300
+#define OBJ_EVENT_GFX_RIVAL_LYRA_FIELD_MOVE       301
+#define OBJ_EVENT_GFX_LINK_LYRA                   302
+#define OBJ_EVENT_GFX_POKE_BALL                  303
+#define OBJ_EVENT_GFX_OW_MON                     304
+#define OBJ_EVENT_GFX_LIGHT_SPRITE               305
 
-#define OBJ_EVENT_GFX_PROF_OAK                   242
-#define OBJ_EVENT_GFX_KANTO_TOWN_MAP             243
-#define OBJ_EVENT_GFX_DAISY                      244
-#define OBJ_EVENT_GFX_BLUE                       245
-#define OBJ_EVENT_GFX_POKEDEX                    246
-#define OBJ_EVENT_GFX_KANTO_CLERK                247
+#define OBJ_EVENT_GFX_KANTO_TOWN_MAP             306
+#define OBJ_EVENT_GFX_DAISY                      307
+#define OBJ_EVENT_GFX_BLUE                       308
+#define OBJ_EVENT_GFX_POKEDEX                    309
+#define OBJ_EVENT_GFX_KANTO_CLERK                310
 
 // NOTE: The maximum amount of object events has been expanded from 255 to 65535.
 // Since dynamic graphics ids still require at least 16 free values, the actual limit
 // is 65519, but even considering follower Pokémon, this should be more than enough :)
-#define NUM_OBJ_EVENT_GFX                        248
+#define NUM_OBJ_EVENT_GFX                        311
 
 
 // These are dynamic object gfx ids.

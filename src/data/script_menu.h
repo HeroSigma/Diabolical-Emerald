@@ -963,12 +963,161 @@ static const u8 *const sPCNameStrings[] =
 static const u8 *const sLilycoveSSTidalDestinations[SSTIDAL_SELECTION_COUNT] =
 {
     [SSTIDAL_SELECTION_SLATEPORT]       = gText_SlateportCity,
+    [SSTIDAL_SELECTION_VERMILION]		= gText_VermilionCity,
+    [SSTIDAL_SELECTION_OLIVINE]		    = gText_OlivineCity,
+    [SSTIDAL_SELECTION_SEVII]	    	= gText_Sevii,
     [SSTIDAL_SELECTION_BATTLE_FRONTIER] = gText_BattleFrontier,
     [SSTIDAL_SELECTION_SOUTHERN_ISLAND] = gText_SouthernIsland,
     [SSTIDAL_SELECTION_NAVEL_ROCK]      = gText_NavelRock,
     [SSTIDAL_SELECTION_BIRTH_ISLAND]    = gText_BirthIsland,
     [SSTIDAL_SELECTION_FARAWAY_ISLAND]  = gText_FarawayIsland,
     [SSTIDAL_SELECTION_EXIT]            = gText_Exit,
+};
+
+static const u8 *const sSlateportSSTidalDestinations[SSTIDAL_SELECTION_COUNT_SL] =
+{
+    [SSTIDAL_SELECTION_LILYCOVE_SL]       = gText_LilycoveCity,
+    [SSTIDAL_SELECTION_VERMILION_SL]		= gText_VermilionCity,
+    [SSTIDAL_SELECTION_OLIVINE_SL]		    = gText_OlivineCity,
+    [SSTIDAL_SELECTION_SEVII_SL]	    	= gText_Sevii,
+    [SSTIDAL_SELECTION_BATTLE_FRONTIER_SL] = gText_BattleFrontier,
+    [SSTIDAL_SELECTION_SOUTHERN_ISLAND_SL] = gText_SouthernIsland,
+    [SSTIDAL_SELECTION_NAVEL_ROCK_SL]      = gText_NavelRock,
+    [SSTIDAL_SELECTION_BIRTH_ISLAND_SL]    = gText_BirthIsland,
+    [SSTIDAL_SELECTION_FARAWAY_ISLAND_SL]  = gText_FarawayIsland,
+    [SSTIDAL_SELECTION_EXIT_SL]            = gText_Exit,
+};
+
+static const u8 *const sVermilionSSTidalDestinations[SSTIDAL_SELECTION_COUNT_V] =
+{
+    [SSTIDAL_SELECTION_SLATEPORT_V]       = gText_SlateportCity,
+    [SSTIDAL_SELECTION_LILYCOVE_V]		= gText_LilycoveCity,
+    [SSTIDAL_SELECTION_OLIVINE_V]		    = gText_OlivineCity,
+    [SSTIDAL_SELECTION_SEVII_V]		    = gText_Sevii,
+    [SSTIDAL_SELECTION_BATTLE_FRONTIER_V] = gText_BattleFrontier,
+    [SSTIDAL_SELECTION_SOUTHERN_ISLAND_V] = gText_SouthernIsland,
+    [SSTIDAL_SELECTION_NAVEL_ROCK_V]      = gText_NavelRock,
+    [SSTIDAL_SELECTION_BIRTH_ISLAND_V]    = gText_BirthIsland,
+    [SSTIDAL_SELECTION_FARAWAY_ISLAND_V]  = gText_FarawayIsland,
+    [SSTIDAL_SELECTION_EXIT_V]            = gText_Exit,
+};
+
+static const u8 *const sOlivineSSTidalDestinations[SSTIDAL_SELECTION_COUNT_O] =
+{
+    [SSTIDAL_SELECTION_SLATEPORT_O]       = gText_SlateportCity,
+    [SSTIDAL_SELECTION_LILYCOVE_O]		= gText_LilycoveCity,
+    [SSTIDAL_SELECTION_VERMILION_O]	    = gText_VermilionCity,
+    [SSTIDAL_SELECTION_SEVII_O]		    = gText_Sevii,
+    [SSTIDAL_SELECTION_BATTLE_FRONTIER_O] = gText_BattleFrontier,
+    [SSTIDAL_SELECTION_SOUTHERN_ISLAND_O] = gText_SouthernIsland,
+    [SSTIDAL_SELECTION_NAVEL_ROCK_O]      = gText_NavelRock,
+    [SSTIDAL_SELECTION_BIRTH_ISLAND_O]    = gText_BirthIsland,
+    [SSTIDAL_SELECTION_FARAWAY_ISLAND_O]  = gText_FarawayIsland,
+    [SSTIDAL_SELECTION_EXIT_O]            = gText_Exit,
+};
+
+static const u8 *const sSeviiSSTidalDestinations[SSTIDAL_SELECTION_COUNT_S] =
+{
+    [SSTIDAL_SELECTION_SLATEPORT_S]       = gText_SlateportCity,
+    [SSTIDAL_SELECTION_LILYCOVE_S]		= gText_LilycoveCity,
+    [SSTIDAL_SELECTION_VERMILION_S]		= gText_VermilionCity,
+    [SSTIDAL_SELECTION_OLIVINE_S]		    = gText_OlivineCity,
+    [SSTIDAL_SELECTION_SEVII_S]		= gText_Sevii,
+    [SSTIDAL_SELECTION_BATTLE_FRONTIER] = gText_BattleFrontier,
+    [SSTIDAL_SELECTION_SOUTHERN_ISLAND_S] = gText_SouthernIsland,
+    [SSTIDAL_SELECTION_NAVEL_ROCK_S]      = gText_NavelRock,
+    [SSTIDAL_SELECTION_BIRTH_ISLAND_S]    = gText_BirthIsland,
+    [SSTIDAL_SELECTION_FARAWAY_ISLAND_S]  = gText_FarawayIsland,
+    [SSTIDAL_SELECTION_EXIT_S]            = gText_Exit,
+};
+
+static const u8 *const sLilycoveSSTidalSeviiDestinations[SSTIDAL_SELECTION_SEVII_COUNT] =
+{
+    [SSTIDAL_SELECTION_SEVII1]       = gText_Sevii1,
+    [SSTIDAL_SELECTION_SEVII2] = gText_Sevii2,
+    [SSTIDAL_SELECTION_SEVII3]		= gText_Sevii3,
+    [SSTIDAL_SELECTION_SEVII4]		= gText_Sevii4,
+    [SSTIDAL_SELECTION_SEVII5] = gText_Sevii5,
+    [SSTIDAL_SELECTION_SEVII6]      = gText_Sevii6,
+    [SSTIDAL_SELECTION_SEVII7]    = gText_Sevii7,
+    [SSTIDAL_SELECTION_SEVII_EXIT]       = gText_Exit,
+};
+
+static const u8 *const sOneIslandSSTidalSeviiDestinations[SSTIDAL_SELECTION_SEVII_COUNT_S] =
+{
+    [SSTIDAL_SELECTION_SEVII2_S] = gText_Sevii2,
+    [SSTIDAL_SELECTION_SEVII3_S]		= gText_Sevii3,
+    [SSTIDAL_SELECTION_SEVII4_S]		= gText_Sevii4,
+    [SSTIDAL_SELECTION_SEVII5_S] = gText_Sevii5,
+    [SSTIDAL_SELECTION_SEVII6_S]      = gText_Sevii6,
+    [SSTIDAL_SELECTION_SEVII7_S]    = gText_Sevii7,
+    [SSTIDAL_SELECTION_SEVII_EXIT_S]       = gText_Exit,
+};
+
+static const u8 *const sTwoIslandSSTidalSeviiDestinations[SSTIDAL_SELECTION_SEVII_COUNT_S] =
+{
+    [SSTIDAL_SELECTION_SEVII1]       = gText_Sevii1,
+    [SSTIDAL_SELECTION_SEVII3_S]		= gText_Sevii3,
+    [SSTIDAL_SELECTION_SEVII4_S]		= gText_Sevii4,
+    [SSTIDAL_SELECTION_SEVII5_S] = gText_Sevii5,
+    [SSTIDAL_SELECTION_SEVII6_S]      = gText_Sevii6,
+    [SSTIDAL_SELECTION_SEVII7_S]    = gText_Sevii7,
+    [SSTIDAL_SELECTION_SEVII_EXIT_S]       = gText_Exit,
+};
+
+static const u8 *const sThreeIslandSSTidalSeviiDestinations[SSTIDAL_SELECTION_SEVII_COUNT_S] =
+{
+    [SSTIDAL_SELECTION_SEVII1]       = gText_Sevii1,
+    [SSTIDAL_SELECTION_SEVII2] = gText_Sevii2,
+    [SSTIDAL_SELECTION_SEVII4_S]		= gText_Sevii4,
+    [SSTIDAL_SELECTION_SEVII5_S] = gText_Sevii5,
+    [SSTIDAL_SELECTION_SEVII6_S]      = gText_Sevii6,
+    [SSTIDAL_SELECTION_SEVII7_S]    = gText_Sevii7,
+    [SSTIDAL_SELECTION_SEVII_EXIT_S]       = gText_Exit,
+};
+
+static const u8 *const sFourIslandSSTidalSeviiDestinations[SSTIDAL_SELECTION_SEVII_COUNT_S] =
+{
+    [SSTIDAL_SELECTION_SEVII1]       = gText_Sevii1,
+    [SSTIDAL_SELECTION_SEVII2] = gText_Sevii2,
+    [SSTIDAL_SELECTION_SEVII3]		= gText_Sevii3,
+    [SSTIDAL_SELECTION_SEVII5_S] = gText_Sevii5,
+    [SSTIDAL_SELECTION_SEVII6_S]      = gText_Sevii6,
+    [SSTIDAL_SELECTION_SEVII7_S]    = gText_Sevii7,
+    [SSTIDAL_SELECTION_SEVII_EXIT_S]       = gText_Exit,
+};
+
+static const u8 *const sFiveIslandSSTidalSeviiDestinations[SSTIDAL_SELECTION_SEVII_COUNT_S] =
+{
+    [SSTIDAL_SELECTION_SEVII1]       = gText_Sevii1,
+    [SSTIDAL_SELECTION_SEVII2] = gText_Sevii2,
+    [SSTIDAL_SELECTION_SEVII3]		= gText_Sevii3,
+    [SSTIDAL_SELECTION_SEVII4] = gText_Sevii4,
+    [SSTIDAL_SELECTION_SEVII6_S]      = gText_Sevii6,
+    [SSTIDAL_SELECTION_SEVII7_S]    = gText_Sevii7,
+    [SSTIDAL_SELECTION_SEVII_EXIT_S]       = gText_Exit,
+};
+
+static const u8 *const sSixIslandSSTidalSeviiDestinations[SSTIDAL_SELECTION_SEVII_COUNT_S] =
+{
+    [SSTIDAL_SELECTION_SEVII1]       = gText_Sevii1,
+    [SSTIDAL_SELECTION_SEVII2] = gText_Sevii2,
+    [SSTIDAL_SELECTION_SEVII3]		= gText_Sevii3,
+    [SSTIDAL_SELECTION_SEVII4] = gText_Sevii4,
+    [SSTIDAL_SELECTION_SEVII5]      = gText_Sevii5,
+    [SSTIDAL_SELECTION_SEVII7_S]    = gText_Sevii7,
+    [SSTIDAL_SELECTION_SEVII_EXIT_S]       = gText_Exit,
+};
+
+static const u8 *const sSevenIslandSSTidalSeviiDestinations[SSTIDAL_SELECTION_SEVII_COUNT_S] =
+{
+    [SSTIDAL_SELECTION_SEVII1]       = gText_Sevii1,
+    [SSTIDAL_SELECTION_SEVII2] = gText_Sevii2,
+    [SSTIDAL_SELECTION_SEVII3]		= gText_Sevii3,
+    [SSTIDAL_SELECTION_SEVII4] = gText_Sevii4,
+    [SSTIDAL_SELECTION_SEVII5]      = gText_Sevii5,
+    [SSTIDAL_SELECTION_SEVII6]    = gText_Sevii6,
+    [SSTIDAL_SELECTION_SEVII_EXIT_S]       = gText_Exit,
 };
 
 static const u8 *const sCableClubOptions_WithRecordMix[] =

@@ -175,6 +175,7 @@ gSpecials::
 	def_special StartWallClock
 	def_special Special_ViewWallClock
 	def_special ChooseStarter
+	def_special StartFirstBattle
 	def_special StartWallyTutorialBattle
 	def_special ChangePokemonNickname
 	def_special ChoosePartyMon
@@ -270,6 +271,9 @@ gSpecials::
 	def_special BedroomPC
 	def_special PlayerPC
 	def_special FieldShowRegionMap
+	def_special FieldShowRegionMapKanto
+	def_special FieldShowRegionMapJohto
+	def_special FieldShowRegionMapSevii
 	def_special GetInGameTradeSpeciesInfo
 	def_special CreateInGameTradePokemon
 	def_special DoInGameTradeScene
@@ -515,7 +519,31 @@ gSpecials::
 	def_special ShouldDoBrailleRegicePuzzle
 	def_special EnableNationalPokedex
 	def_special ScriptMenu_CreateLilycoveSSTidalMultichoice
+	def_special ScriptMenu_CreateLilycoveSSTidalSeviiMultichoice
 	def_special GetLilycoveSSTidalSelection
+	def_special GetLilycoveSSTidalSeviiSelection
+	def_special ScriptMenu_CreateVermilionSSTidalMultichoice
+	def_special GetVermilionSSTidalSelection
+	def_special ScriptMenu_CreateSlateportSSTidalMultichoice
+	def_special GetSlateportSSTidalSelection
+	def_special ScriptMenu_CreateOlivineSSTidalMultichoice
+	def_special GetOlivineSSTidalSelection
+	def_special ScriptMenu_CreateSeviiSSTidalMultichoice
+	def_special GetSeviiSSTidalSelection
+	def_special ScriptMenu_CreateSevii1SSTidalMultichoice
+	def_special GetSevii1SSTidalSelection
+	def_special ScriptMenu_CreateSevii2SSTidalMultichoice
+	def_special GetSevii2SSTidalSelection
+	def_special ScriptMenu_CreateSevii3SSTidalMultichoice
+	def_special GetSevii3SSTidalSelection
+	def_special ScriptMenu_CreateSevii4SSTidalMultichoice
+	def_special GetSevii4SSTidalSelection
+	def_special ScriptMenu_CreateSevii5SSTidalMultichoice
+	def_special GetSevii5SSTidalSelection
+	def_special ScriptMenu_CreateSevii6SSTidalMultichoice
+	def_special GetSevii6SSTidalSelection
+	def_special ScriptMenu_CreateSevii7SSTidalMultichoice
+	def_special GetSevii7SSTidalSelection
 	def_special TurnOnTVScreen
 	def_special SetMewAboveGrass
 	def_special ShouldDistributeEonTicket

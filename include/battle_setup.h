@@ -65,6 +65,7 @@ u8 GetWildBattleTransition(void);
 u8 GetTrainerBattleTransition(void);
 u8 GetSpecialBattleTransition(s32 id);
 void ChooseStarter(void);
+void StartFirstBattle(void);
 void ResetTrainerOpponentIds(void);
 void SetMapVarsToTrainerA(void);
 void SetMapVarsToTrainerB(void);

@@ -46,6 +46,18 @@ static EWRAM_DATA struct DynamicMultichoiceStack *sDynamicMultiChoiceStack = NUL
 static EWRAM_DATA u16 *sDynamicMenuEventScratchPad = NULL;
 
 static u8 sLilycoveSSTidalSelections[SSTIDAL_SELECTION_COUNT];
+static u8 sVermilionSSTidalSelections[SSTIDAL_SELECTION_COUNT_V];
+static u8 sSlateportSSTidalSelections[SSTIDAL_SELECTION_COUNT_SL];
+static u8 sOlivineSSTidalSelections[SSTIDAL_SELECTION_COUNT_O];
+static u8 sSeviiSSTidalSelections[SSTIDAL_SELECTION_COUNT_S];
+static u8 sSevii1SSTidalSelections[SSTIDAL_SELECTION_SEVII_COUNT_S];
+static u8 sSevii2SSTidalSelections[SSTIDAL_SELECTION_SEVII_COUNT_S];
+static u8 sSevii3SSTidalSelections[SSTIDAL_SELECTION_SEVII_COUNT_S];
+static u8 sSevii4SSTidalSelections[SSTIDAL_SELECTION_SEVII_COUNT_S];
+static u8 sSevii5SSTidalSelections[SSTIDAL_SELECTION_SEVII_COUNT_S];
+static u8 sSevii6SSTidalSelections[SSTIDAL_SELECTION_SEVII_COUNT_S];
+static u8 sSevii7SSTidalSelections[SSTIDAL_SELECTION_SEVII_COUNT_S];
+static u8 sLilycoveSSTidalSeviiSelections[SSTIDAL_SELECTION_SEVII_COUNT];
 
 static void FreeListMenuItems(struct ListMenuItem *items, u32 count);
 static void Task_HandleScrollingMultichoiceInput(u8 taskId);
@@ -58,6 +70,18 @@ static void InitMultichoiceCheckWrap(bool8 ignoreBPress, u8 count, u8 windowId, 
 static void DrawLinkServicesMultichoiceMenu(u8 multichoiceId);
 static void CreatePCMultichoice(void);
 static void CreateLilycoveSSTidalMultichoice(void);
+static void CreateSlateportSSTidalMultichoice(void);
+static void CreateVermilionSSTidalMultichoice(void);
+static void CreateOlivineSSTidalMultichoice(void);
+static void CreateSeviiSSTidalMultichoice(void);
+static void CreateSevii1SSTidalMultichoice(void);
+static void CreateSevii2SSTidalMultichoice(void);
+static void CreateSevii3SSTidalMultichoice(void);
+static void CreateSevii4SSTidalMultichoice(void);
+static void CreateSevii5SSTidalMultichoice(void);
+static void CreateSevii6SSTidalMultichoice(void);
+static void CreateSevii7SSTidalMultichoice(void);
+static void CreateLilycoveSSTidalSeviiMultichoice(void);
 static bool8 IsPicboxClosed(void);
 static void CreateStartMenuForPokenavTutorial(void);
 static void InitMultichoiceNoWrap(bool8 ignoreBPress, u8 unusedCount, u8 windowId, u8 multichoiceId);
@@ -779,6 +803,174 @@ bool8 ScriptMenu_CreateLilycoveSSTidalMultichoice(void)
     }
 }
 
+bool8 ScriptMenu_CreateSlateportSSTidalMultichoice(void)
+{
+    if (FuncIsActiveTask(Task_HandleMultichoiceInput) == TRUE)
+    {
+        return FALSE;
+    }
+    else
+    {
+        gSpecialVar_Result = 0xFF;
+        CreateSlateportSSTidalMultichoice();
+        return TRUE;
+    }
+}
+
+bool8 ScriptMenu_CreateVermilionSSTidalMultichoice(void)
+{
+    if (FuncIsActiveTask(Task_HandleMultichoiceInput) == TRUE)
+    {
+        return FALSE;
+    }
+    else
+    {
+        gSpecialVar_Result = 0xFF;
+        CreateVermilionSSTidalMultichoice();
+        return TRUE;
+    }
+}
+
+bool8 ScriptMenu_CreateOlivineSSTidalMultichoice(void)
+{
+    if (FuncIsActiveTask(Task_HandleMultichoiceInput) == TRUE)
+    {
+        return FALSE;
+    }
+    else
+    {
+        gSpecialVar_Result = 0xFF;
+        CreateOlivineSSTidalMultichoice();
+        return TRUE;
+    }
+}
+
+bool8 ScriptMenu_CreateSeviiSSTidalMultichoice(void)
+{
+    if (FuncIsActiveTask(Task_HandleMultichoiceInput) == TRUE)
+    {
+        return FALSE;
+    }
+    else
+    {
+        gSpecialVar_Result = 0xFF;
+        CreateSeviiSSTidalMultichoice();
+        return TRUE;
+    }
+}
+
+bool8 ScriptMenu_CreateSevii1SSTidalMultichoice(void)
+{
+    if (FuncIsActiveTask(Task_HandleMultichoiceInput) == TRUE)
+    {
+        return FALSE;
+    }
+    else
+    {
+        gSpecialVar_Result = 0xFF;
+        CreateSevii1SSTidalMultichoice();
+        return TRUE;
+    }
+}
+
+bool8 ScriptMenu_CreateSevii2SSTidalMultichoice(void)
+{
+    if (FuncIsActiveTask(Task_HandleMultichoiceInput) == TRUE)
+    {
+        return FALSE;
+    }
+    else
+    {
+        gSpecialVar_Result = 0xFF;
+        CreateSevii2SSTidalMultichoice();
+        return TRUE;
+    }
+}
+
+bool8 ScriptMenu_CreateSevii3SSTidalMultichoice(void)
+{
+    if (FuncIsActiveTask(Task_HandleMultichoiceInput) == TRUE)
+    {
+        return FALSE;
+    }
+    else
+    {
+        gSpecialVar_Result = 0xFF;
+        CreateSevii3SSTidalMultichoice();
+        return TRUE;
+    }
+}
+
+bool8 ScriptMenu_CreateSevii4SSTidalMultichoice(void)
+{
+    if (FuncIsActiveTask(Task_HandleMultichoiceInput) == TRUE)
+    {
+        return FALSE;
+    }
+    else
+    {
+        gSpecialVar_Result = 0xFF;
+        CreateSevii4SSTidalMultichoice();
+        return TRUE;
+    }
+}
+
+bool8 ScriptMenu_CreateSevii5SSTidalMultichoice(void)
+{
+    if (FuncIsActiveTask(Task_HandleMultichoiceInput) == TRUE)
+    {
+        return FALSE;
+    }
+    else
+    {
+        gSpecialVar_Result = 0xFF;
+        CreateSevii5SSTidalMultichoice();
+        return TRUE;
+    }
+}
+
+bool8 ScriptMenu_CreateSevii6SSTidalMultichoice(void)
+{
+    if (FuncIsActiveTask(Task_HandleMultichoiceInput) == TRUE)
+    {
+        return FALSE;
+    }
+    else
+    {
+        gSpecialVar_Result = 0xFF;
+        CreateSevii6SSTidalMultichoice();
+        return TRUE;
+    }
+}
+
+bool8 ScriptMenu_CreateSevii7SSTidalMultichoice(void)
+{
+    if (FuncIsActiveTask(Task_HandleMultichoiceInput) == TRUE)
+    {
+        return FALSE;
+    }
+    else
+    {
+        gSpecialVar_Result = 0xFF;
+        CreateSevii7SSTidalMultichoice();
+        return TRUE;
+    }
+}
+
+bool8 ScriptMenu_CreateLilycoveSSTidalSeviiMultichoice(void)
+{
+    if (FuncIsActiveTask(Task_HandleMultichoiceInput) == TRUE)
+    {
+        return FALSE;
+    }
+    else
+    {
+        gSpecialVar_Result = 0xFF;
+        CreateLilycoveSSTidalSeviiMultichoice();
+        return TRUE;
+    }
+}
+
 // gSpecialVar_0x8004 is 1 if the Sailor was shown multiple event tickets at the same time
 // otherwise gSpecialVar_0x8004 is 0
 static void CreateLilycoveSSTidalMultichoice(void)
@@ -801,6 +993,12 @@ static void CreateLilycoveSSTidalMultichoice(void)
     if (gSpecialVar_0x8004 == 0)
     {
         sLilycoveSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SLATEPORT;
+        selectionCount++;
+        sLilycoveSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_VERMILION;
+        selectionCount++;
+        sLilycoveSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_OLIVINE;
+        selectionCount++;
+        sLilycoveSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII;
         selectionCount++;
 
         if (FlagGet(FLAG_MET_SCOTT_ON_SS_TIDAL) == TRUE)
@@ -903,7 +1101,7 @@ static void CreateLilycoveSSTidalMultichoice(void)
 
         width = ConvertPixelWidthToTileWidth(pixelWidth);
         windowId = CreateWindowFromRect(MAX_MULTICHOICE_WIDTH - width, (6 - count) * 2, width, count * 2);
-        SetStandardWindowBorderStyle(windowId, FALSE);
+        SetStandardWindowBorderStyle(windowId, 0);
 
         for (selectionCount = 0, i = 0; i < SSTIDAL_SELECTION_COUNT; i++)
         {
@@ -920,11 +1118,994 @@ static void CreateLilycoveSSTidalMultichoice(void)
     }
 }
 
+static void CreateSlateportSSTidalMultichoice(void)
+{
+    u8 selectionCount = 0;
+    u8 count;
+    u32 pixelWidth;
+    u8 width;
+    u8 windowId;
+    u8 i;
+    u32 j;
+
+    for (i = 0; i < SSTIDAL_SELECTION_COUNT_SL; i++)
+    {
+        sSlateportSSTidalSelections[i] = 0xFF;
+    }
+
+    GetFontAttribute(FONT_NORMAL, FONTATTR_MAX_LETTER_WIDTH);
+
+    if (gSpecialVar_0x8004 == 0)
+    {
+        sSlateportSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_LILYCOVE_SL;
+        selectionCount++;
+        sSlateportSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_VERMILION_SL;
+        selectionCount++;
+        sSlateportSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_OLIVINE_SL;
+        selectionCount++;
+        sSlateportSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII_SL;
+        selectionCount++;
+
+        if (FlagGet(FLAG_MET_SCOTT_ON_SS_TIDAL) == TRUE)
+        {
+            sSlateportSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_BATTLE_FRONTIER_SL;
+            selectionCount++;
+        }
+    }
+
+    if (CheckBagHasItem(ITEM_EON_TICKET, 1) == TRUE && FlagGet(FLAG_ENABLE_SHIP_SOUTHERN_ISLAND) == TRUE)
+    {
+        if (gSpecialVar_0x8004 == 0)
+        {
+            sSlateportSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SOUTHERN_ISLAND_SL;
+            selectionCount++;
+        }
+
+        if (gSpecialVar_0x8004 == 1 && FlagGet(FLAG_SHOWN_EON_TICKET) == FALSE)
+        {
+            sSlateportSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SOUTHERN_ISLAND_SL;
+            selectionCount++;
+            FlagSet(FLAG_SHOWN_EON_TICKET);
+        }
+    }
+
+    if (CheckBagHasItem(ITEM_MYSTIC_TICKET, 1) == TRUE && FlagGet(FLAG_ENABLE_SHIP_NAVEL_ROCK) == TRUE)
+    {
+        if (gSpecialVar_0x8004 == 0)
+        {
+            sSlateportSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_NAVEL_ROCK_SL;
+            selectionCount++;
+        }
+
+        if (gSpecialVar_0x8004 == 1 && FlagGet(FLAG_SHOWN_MYSTIC_TICKET) == FALSE)
+        {
+            sSlateportSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_NAVEL_ROCK_SL;
+            selectionCount++;
+            FlagSet(FLAG_SHOWN_MYSTIC_TICKET);
+        }
+    }
+
+    if (CheckBagHasItem(ITEM_AURORA_TICKET, 1) == TRUE && FlagGet(FLAG_ENABLE_SHIP_BIRTH_ISLAND) == TRUE)
+    {
+        if (gSpecialVar_0x8004 == 0)
+        {
+            sSlateportSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_BIRTH_ISLAND_SL;
+            selectionCount++;
+        }
+
+        if (gSpecialVar_0x8004 == 1 && FlagGet(FLAG_SHOWN_AURORA_TICKET) == FALSE)
+        {
+            sSlateportSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_BIRTH_ISLAND_SL;
+            selectionCount++;
+            FlagSet(FLAG_SHOWN_AURORA_TICKET);
+        }
+    }
+
+    if (CheckBagHasItem(ITEM_OLD_SEA_MAP, 1) == TRUE && FlagGet(FLAG_ENABLE_SHIP_FARAWAY_ISLAND) == TRUE)
+    {
+        if (gSpecialVar_0x8004 == 0)
+        {
+            sSlateportSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_FARAWAY_ISLAND_SL;
+            selectionCount++;
+        }
+
+        if (gSpecialVar_0x8004 == 1 && FlagGet(FLAG_SHOWN_OLD_SEA_MAP) == FALSE)
+        {
+            sSlateportSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_FARAWAY_ISLAND_SL;
+            selectionCount++;
+            FlagSet(FLAG_SHOWN_OLD_SEA_MAP);
+        }
+    }
+
+    sSlateportSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_EXIT_SL;
+    selectionCount++;
+
+    if (gSpecialVar_0x8004 == 0 && FlagGet(FLAG_MET_SCOTT_ON_SS_TIDAL) == TRUE)
+    {
+        count = selectionCount;
+    }
+
+    count = selectionCount;
+    if (count == SSTIDAL_SELECTION_COUNT_SL)
+    {
+        gSpecialVar_0x8004 = SCROLL_MULTI_SS_TIDAL_DESTINATION_SLATEPORT;
+        ShowScrollableMultichoice();
+    }
+    else
+    {
+        pixelWidth = 0;
+
+        for (j = 0; j < SSTIDAL_SELECTION_COUNT_SL; j++)
+        {
+            u8 selection = sSlateportSSTidalSelections[j];
+            if (selection != 0xFF)
+            {
+                pixelWidth = DisplayTextAndGetWidth(sSlateportSSTidalDestinations[selection], pixelWidth);
+            }
+        }
+
+        width = ConvertPixelWidthToTileWidth(pixelWidth);
+        windowId = CreateWindowFromRect(MAX_MULTICHOICE_WIDTH - width, (6 - count) * 2, width, count * 2);
+        SetStandardWindowBorderStyle(windowId, 0);
+
+        for (selectionCount = 0, i = 0; i < SSTIDAL_SELECTION_COUNT_SL; i++)
+        {
+            if (sSlateportSSTidalSelections[i] != 0xFF)
+            {
+                AddTextPrinterParameterized(windowId, FONT_NORMAL, sSlateportSSTidalDestinations[sSlateportSSTidalSelections[i]], 8, selectionCount * 16 + 1, TEXT_SKIP_DRAW, NULL);
+                selectionCount++;
+            }
+        }
+
+        InitMenuInUpperLeftCornerNormal(windowId, count, count - 1);
+        CopyWindowToVram(windowId, COPYWIN_FULL);
+        InitMultichoiceCheckWrap(FALSE, count, windowId, MULTI_SSTIDAL_LILYCOVE);
+    }
+}
+
+static void CreateVermilionSSTidalMultichoice(void)
+{
+    u8 selectionCount = 0;
+    u8 count;
+    u32 pixelWidth;
+    u8 width;
+    u8 windowId;
+    u8 i;
+    u32 j;
+
+    for (i = 0; i < SSTIDAL_SELECTION_COUNT_V; i++)
+    {
+        sVermilionSSTidalSelections[i] = 0xFF;
+    }
+
+    GetFontAttribute(1, FONTATTR_MAX_LETTER_WIDTH);
+
+    if (gSpecialVar_0x8004 == 0)
+    {
+        sVermilionSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SLATEPORT_V;
+        selectionCount++;
+        sVermilionSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_LILYCOVE_V;
+        selectionCount++;
+        sVermilionSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_OLIVINE_V;
+        selectionCount++;
+        sVermilionSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII_V;
+        selectionCount++;
+
+        if (FlagGet(FLAG_MET_SCOTT_ON_SS_TIDAL) == TRUE)
+        {
+            sVermilionSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_BATTLE_FRONTIER_V;
+            selectionCount++;
+        }
+    }
+
+    if (CheckBagHasItem(ITEM_EON_TICKET, 1) == TRUE && FlagGet(FLAG_ENABLE_SHIP_SOUTHERN_ISLAND) == TRUE)
+    {
+        if (gSpecialVar_0x8004 == 0)
+        {
+            sVermilionSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SOUTHERN_ISLAND_V;
+            selectionCount++;
+        }
+
+        if (gSpecialVar_0x8004 == 1 && FlagGet(FLAG_SHOWN_EON_TICKET) == FALSE)
+        {
+            sVermilionSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SOUTHERN_ISLAND_V;
+            selectionCount++;
+            FlagSet(FLAG_SHOWN_EON_TICKET);
+        }
+    }
+
+    if (CheckBagHasItem(ITEM_MYSTIC_TICKET, 1) == TRUE && FlagGet(FLAG_ENABLE_SHIP_NAVEL_ROCK) == TRUE)
+    {
+        if (gSpecialVar_0x8004 == 0)
+        {
+            sVermilionSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_NAVEL_ROCK_V;
+            selectionCount++;
+        }
+
+        if (gSpecialVar_0x8004 == 1 && FlagGet(FLAG_SHOWN_MYSTIC_TICKET) == FALSE)
+        {
+            sVermilionSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_NAVEL_ROCK_V;
+            selectionCount++;
+            FlagSet(FLAG_SHOWN_MYSTIC_TICKET);
+        }
+    }
+
+    if (CheckBagHasItem(ITEM_AURORA_TICKET, 1) == TRUE && FlagGet(FLAG_ENABLE_SHIP_BIRTH_ISLAND) == TRUE)
+    {
+        if (gSpecialVar_0x8004 == 0)
+        {
+            sVermilionSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_BIRTH_ISLAND_V;
+            selectionCount++;
+        }
+
+        if (gSpecialVar_0x8004 == 1 && FlagGet(FLAG_SHOWN_AURORA_TICKET) == FALSE)
+        {
+            sVermilionSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_BIRTH_ISLAND_V;
+            selectionCount++;
+            FlagSet(FLAG_SHOWN_AURORA_TICKET);
+        }
+    }
+
+    if (CheckBagHasItem(ITEM_OLD_SEA_MAP, 1) == TRUE && FlagGet(FLAG_ENABLE_SHIP_FARAWAY_ISLAND) == TRUE)
+    {
+        if (gSpecialVar_0x8004 == 0)
+        {
+            sVermilionSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_FARAWAY_ISLAND_V;
+            selectionCount++;
+        }
+
+        if (gSpecialVar_0x8004 == 1 && FlagGet(FLAG_SHOWN_OLD_SEA_MAP) == FALSE)
+        {
+            sVermilionSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_FARAWAY_ISLAND_V;
+            selectionCount++;
+            FlagSet(FLAG_SHOWN_OLD_SEA_MAP);
+        }
+    }
+
+    sVermilionSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_EXIT_V;
+    selectionCount++;
+
+    if (gSpecialVar_0x8004 == 0 && FlagGet(FLAG_MET_SCOTT_ON_SS_TIDAL) == TRUE)
+    {
+        count = selectionCount;
+    }
+
+    count = selectionCount;
+    if (count == SSTIDAL_SELECTION_COUNT_V)
+    {
+        gSpecialVar_0x8004 = SCROLL_MULTI_SS_TIDAL_DESTINATION_VERMILION;
+        ShowScrollableMultichoice();
+    }
+    else
+    {
+        pixelWidth = 0;
+
+        for (j = 0; j < SSTIDAL_SELECTION_COUNT_V; j++)
+        {
+            u8 selection = sVermilionSSTidalSelections[j];
+            if (selection != 0xFF)
+            {
+                pixelWidth = DisplayTextAndGetWidth(sVermilionSSTidalDestinations[selection], pixelWidth);
+            }
+        }
+
+        width = ConvertPixelWidthToTileWidth(pixelWidth);
+        windowId = CreateWindowFromRect(MAX_MULTICHOICE_WIDTH - width, (6 - count) * 2, width, count * 2);
+        SetStandardWindowBorderStyle(windowId, 0);
+
+        for (selectionCount = 0, i = 0; i < SSTIDAL_SELECTION_COUNT_V; i++)
+        {
+            if (sVermilionSSTidalSelections[i] != 0xFF)
+            {
+                AddTextPrinterParameterized(windowId, 1, sVermilionSSTidalDestinations[sVermilionSSTidalSelections[i]], 8, selectionCount * 16 + 1, TEXT_SKIP_DRAW, NULL);
+                selectionCount++;
+            }
+        }
+
+        InitMenuInUpperLeftCornerNormal(windowId, count, count - 1);
+        CopyWindowToVram(windowId, 3);
+        InitMultichoiceCheckWrap(FALSE, count, windowId, MULTI_SSTIDAL_LILYCOVE);
+    }
+}
+
+static void CreateOlivineSSTidalMultichoice(void)
+{
+    u8 selectionCount = 0;
+    u8 count;
+    u32 pixelWidth;
+    u8 width;
+    u8 windowId;
+    u8 i;
+    u32 j;
+
+    for (i = 0; i < SSTIDAL_SELECTION_COUNT_O; i++)
+    {
+        sOlivineSSTidalSelections[i] = 0xFF;
+    }
+
+    GetFontAttribute(1, FONTATTR_MAX_LETTER_WIDTH);
+
+    if (gSpecialVar_0x8004 == 0)
+    {
+        sOlivineSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SLATEPORT_O;
+        selectionCount++;
+        sOlivineSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_LILYCOVE_O;
+        selectionCount++;
+        sOlivineSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_VERMILION_O;
+        selectionCount++;
+        sOlivineSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII_O;
+        selectionCount++;
+
+        if (FlagGet(FLAG_MET_SCOTT_ON_SS_TIDAL) == TRUE)
+        {
+            sOlivineSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_BATTLE_FRONTIER_O;
+            selectionCount++;
+        }
+    }
+
+    if (CheckBagHasItem(ITEM_EON_TICKET, 1) == TRUE && FlagGet(FLAG_ENABLE_SHIP_SOUTHERN_ISLAND) == TRUE)
+    {
+        if (gSpecialVar_0x8004 == 0)
+        {
+            sOlivineSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SOUTHERN_ISLAND_O;
+            selectionCount++;
+        }
+
+        if (gSpecialVar_0x8004 == 1 && FlagGet(FLAG_SHOWN_EON_TICKET) == FALSE)
+        {
+            sOlivineSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SOUTHERN_ISLAND_O;
+            selectionCount++;
+            FlagSet(FLAG_SHOWN_EON_TICKET);
+        }
+    }
+
+    if (CheckBagHasItem(ITEM_MYSTIC_TICKET, 1) == TRUE && FlagGet(FLAG_ENABLE_SHIP_NAVEL_ROCK) == TRUE)
+    {
+        if (gSpecialVar_0x8004 == 0)
+        {
+            sOlivineSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_NAVEL_ROCK_O;
+            selectionCount++;
+        }
+
+        if (gSpecialVar_0x8004 == 1 && FlagGet(FLAG_SHOWN_MYSTIC_TICKET) == FALSE)
+        {
+            sOlivineSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_NAVEL_ROCK_O;
+            selectionCount++;
+            FlagSet(FLAG_SHOWN_MYSTIC_TICKET);
+        }
+    }
+
+    if (CheckBagHasItem(ITEM_AURORA_TICKET, 1) == TRUE && FlagGet(FLAG_ENABLE_SHIP_BIRTH_ISLAND) == TRUE)
+    {
+        if (gSpecialVar_0x8004 == 0)
+        {
+            sOlivineSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_BIRTH_ISLAND_O;
+            selectionCount++;
+        }
+
+        if (gSpecialVar_0x8004 == 1 && FlagGet(FLAG_SHOWN_AURORA_TICKET) == FALSE)
+        {
+            sOlivineSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_BIRTH_ISLAND_O;
+            selectionCount++;
+            FlagSet(FLAG_SHOWN_AURORA_TICKET);
+        }
+    }
+
+    if (CheckBagHasItem(ITEM_OLD_SEA_MAP, 1) == TRUE && FlagGet(FLAG_ENABLE_SHIP_FARAWAY_ISLAND) == TRUE)
+    {
+        if (gSpecialVar_0x8004 == 0)
+        {
+            sOlivineSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_FARAWAY_ISLAND_O;
+            selectionCount++;
+        }
+
+        if (gSpecialVar_0x8004 == 1 && FlagGet(FLAG_SHOWN_OLD_SEA_MAP) == FALSE)
+        {
+            sOlivineSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_FARAWAY_ISLAND_O;
+            selectionCount++;
+            FlagSet(FLAG_SHOWN_OLD_SEA_MAP);
+        }
+    }
+
+    sOlivineSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_EXIT_O;
+    selectionCount++;
+
+    if (gSpecialVar_0x8004 == 0 && FlagGet(FLAG_MET_SCOTT_ON_SS_TIDAL) == TRUE)
+    {
+        count = selectionCount;
+    }
+
+    count = selectionCount;
+    if (count == SSTIDAL_SELECTION_COUNT_O)
+    {
+        gSpecialVar_0x8004 = SCROLL_MULTI_SS_TIDAL_DESTINATION_OLIVINE;
+        ShowScrollableMultichoice();
+    }
+    else
+    {
+        pixelWidth = 0;
+
+        for (j = 0; j < SSTIDAL_SELECTION_COUNT_O; j++)
+        {
+            u8 selection = sOlivineSSTidalSelections[j];
+            if (selection != 0xFF)
+            {
+                pixelWidth = DisplayTextAndGetWidth(sOlivineSSTidalDestinations[selection], pixelWidth);
+            }
+        }
+
+        width = ConvertPixelWidthToTileWidth(pixelWidth);
+        windowId = CreateWindowFromRect(MAX_MULTICHOICE_WIDTH - width, (6 - count) * 2, width, count * 2);
+        SetStandardWindowBorderStyle(windowId, 0);
+
+        for (selectionCount = 0, i = 0; i < SSTIDAL_SELECTION_COUNT_O; i++)
+        {
+            if (sOlivineSSTidalSelections[i] != 0xFF)
+            {
+                AddTextPrinterParameterized(windowId, 1, sOlivineSSTidalDestinations[sOlivineSSTidalSelections[i]], 8, selectionCount * 16 + 1, TEXT_SKIP_DRAW, NULL);
+                selectionCount++;
+            }
+        }
+
+        InitMenuInUpperLeftCornerNormal(windowId, count, count - 1);
+        CopyWindowToVram(windowId, 3);
+        InitMultichoiceCheckWrap(FALSE, count, windowId, MULTI_SSTIDAL_LILYCOVE);
+    }
+}
+
+static void CreateSeviiSSTidalMultichoice(void)
+{
+    u8 selectionCount = 0;
+    u8 count;
+    u32 pixelWidth;
+    u8 width;
+    u8 windowId;
+    u8 i;
+    u32 j;
+
+    for (i = 0; i < SSTIDAL_SELECTION_COUNT_S; i++)
+    {
+        sSeviiSSTidalSelections[i] = 0xFF;
+    }
+
+    GetFontAttribute(1, FONTATTR_MAX_LETTER_WIDTH);
+
+    if (gSpecialVar_0x8004 == 0)
+    {
+        sSeviiSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SLATEPORT_S;
+        selectionCount++;
+        sSeviiSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_LILYCOVE_S;
+        selectionCount++;
+        sSeviiSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_VERMILION_S;
+        selectionCount++;
+        sSeviiSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_OLIVINE_S;
+        selectionCount++;
+        sSeviiSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII_S;
+        selectionCount++;
+
+        if (FlagGet(FLAG_MET_SCOTT_ON_SS_TIDAL) == TRUE)
+        {
+            sSeviiSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_BATTLE_FRONTIER_S;
+            selectionCount++;
+        }
+    }
+
+    if (CheckBagHasItem(ITEM_EON_TICKET, 1) == TRUE && FlagGet(FLAG_ENABLE_SHIP_SOUTHERN_ISLAND) == TRUE)
+    {
+        if (gSpecialVar_0x8004 == 0)
+        {
+            sSeviiSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SOUTHERN_ISLAND_S;
+            selectionCount++;
+        }
+
+        if (gSpecialVar_0x8004 == 1 && FlagGet(FLAG_SHOWN_EON_TICKET) == FALSE)
+        {
+            sSeviiSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SOUTHERN_ISLAND_S;
+            selectionCount++;
+            FlagSet(FLAG_SHOWN_EON_TICKET);
+        }
+    }
+
+    if (CheckBagHasItem(ITEM_MYSTIC_TICKET, 1) == TRUE && FlagGet(FLAG_ENABLE_SHIP_NAVEL_ROCK) == TRUE)
+    {
+        if (gSpecialVar_0x8004 == 0)
+        {
+            sSeviiSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_NAVEL_ROCK_S;
+            selectionCount++;
+        }
+
+        if (gSpecialVar_0x8004 == 1 && FlagGet(FLAG_SHOWN_MYSTIC_TICKET) == FALSE)
+        {
+            sSeviiSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_NAVEL_ROCK_S;
+            selectionCount++;
+            FlagSet(FLAG_SHOWN_MYSTIC_TICKET);
+        }
+    }
+
+    if (CheckBagHasItem(ITEM_AURORA_TICKET, 1) == TRUE && FlagGet(FLAG_ENABLE_SHIP_BIRTH_ISLAND) == TRUE)
+    {
+        if (gSpecialVar_0x8004 == 0)
+        {
+            sSeviiSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_BIRTH_ISLAND_S;
+            selectionCount++;
+        }
+
+        if (gSpecialVar_0x8004 == 1 && FlagGet(FLAG_SHOWN_AURORA_TICKET) == FALSE)
+        {
+            sSeviiSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_BIRTH_ISLAND_S;
+            selectionCount++;
+            FlagSet(FLAG_SHOWN_AURORA_TICKET);
+        }
+    }
+
+    if (CheckBagHasItem(ITEM_OLD_SEA_MAP, 1) == TRUE && FlagGet(FLAG_ENABLE_SHIP_FARAWAY_ISLAND) == TRUE)
+    {
+        if (gSpecialVar_0x8004 == 0)
+        {
+            sSeviiSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_FARAWAY_ISLAND_S;
+            selectionCount++;
+        }
+
+        if (gSpecialVar_0x8004 == 1 && FlagGet(FLAG_SHOWN_OLD_SEA_MAP) == FALSE)
+        {
+            sSeviiSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_FARAWAY_ISLAND_S;
+            selectionCount++;
+            FlagSet(FLAG_SHOWN_OLD_SEA_MAP);
+        }
+    }
+
+    sSeviiSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_EXIT_S;
+    selectionCount++;
+
+    if (gSpecialVar_0x8004 == 0 && FlagGet(FLAG_MET_SCOTT_ON_SS_TIDAL) == TRUE)
+    {
+        count = selectionCount;
+    }
+
+    count = selectionCount;
+    if (count == SSTIDAL_SELECTION_COUNT_S)
+    {
+        gSpecialVar_0x8004 = SCROLL_MULTI_SS_TIDAL_DESTINATION_S;
+        ShowScrollableMultichoice();
+    }
+    else
+    {
+        gSpecialVar_0x8004 = SCROLL_MULTI_SS_TIDAL_DESTINATION_SEVII;
+        ShowScrollableMultichoice();
+    }
+}
+
+static void CreateLilycoveSSTidalSeviiMultichoice(void)
+{
+    u8 selectionCount = 0;
+    u8 count;
+    u32 pixelWidth;
+    u8 width;
+    u8 windowId;
+    u8 i;
+    u32 j;
+
+    for (i = 0; i < SSTIDAL_SELECTION_SEVII_COUNT; i++)
+    {
+        sLilycoveSSTidalSeviiSelections[i] = 0xFF;
+    }
+
+    GetFontAttribute(1, FONTATTR_MAX_LETTER_WIDTH);
+
+    if (gSpecialVar_0x8004 == 0)
+    {
+        sLilycoveSSTidalSeviiSelections[selectionCount] = SSTIDAL_SELECTION_SEVII1;
+        selectionCount++;
+        sLilycoveSSTidalSeviiSelections[selectionCount] = SSTIDAL_SELECTION_SEVII2;
+        selectionCount++;
+        sLilycoveSSTidalSeviiSelections[selectionCount] = SSTIDAL_SELECTION_SEVII3;
+        selectionCount++;
+        sLilycoveSSTidalSeviiSelections[selectionCount] = SSTIDAL_SELECTION_SEVII4;
+        selectionCount++;
+        sLilycoveSSTidalSeviiSelections[selectionCount] = SSTIDAL_SELECTION_SEVII5;
+        selectionCount++;
+        sLilycoveSSTidalSeviiSelections[selectionCount] = SSTIDAL_SELECTION_SEVII6;
+        selectionCount++;
+        sLilycoveSSTidalSeviiSelections[selectionCount] = SSTIDAL_SELECTION_SEVII7;
+        selectionCount++;
+    }
+
+    sLilycoveSSTidalSeviiSelections[selectionCount] = SSTIDAL_SELECTION_SEVII_EXIT;
+    selectionCount++;
+    count = selectionCount;
+
+    gSpecialVar_0x8004 = SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION;
+    ShowScrollableMultichoice();
+}
+
+static void CreateSevii1SSTidalMultichoice(void)
+{
+    u8 selectionCount = 0;
+    u8 count;
+    u32 pixelWidth;
+    u8 width;
+    u8 windowId;
+    u8 i;
+    u32 j;
+
+    for (i = 0; i < SSTIDAL_SELECTION_SEVII_COUNT_S; i++)
+    {
+        sSevii1SSTidalSelections[i] = 0xFF;
+    }
+
+    GetFontAttribute(1, FONTATTR_MAX_LETTER_WIDTH);
+
+    if (gSpecialVar_0x8004 == 0)
+    {
+        sSevii1SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII2_S;
+        selectionCount++;
+        sSevii1SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII3_S;
+        selectionCount++;
+        sSevii1SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII4_S;
+        selectionCount++;
+        sSevii1SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII5_S;
+        selectionCount++;
+        sSevii1SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII6_S;
+        selectionCount++;
+        sSevii1SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII7_S;
+        selectionCount++;
+    }
+
+    sSevii1SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII_EXIT_S;
+    selectionCount++;
+    count = selectionCount;
+
+    gSpecialVar_0x8004 = SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION1;
+    ShowScrollableMultichoice();
+}
+
+static void CreateSevii2SSTidalMultichoice(void)
+{
+    u8 selectionCount = 0;
+    u8 count;
+    u32 pixelWidth;
+    u8 width;
+    u8 windowId;
+    u8 i;
+    u32 j;
+
+    for (i = 0; i < SSTIDAL_SELECTION_SEVII_COUNT_S; i++)
+    {
+        sSevii2SSTidalSelections[i] = 0xFF;
+    }
+
+    GetFontAttribute(1, FONTATTR_MAX_LETTER_WIDTH);
+
+    if (gSpecialVar_0x8004 == 0)
+    {
+        sSevii2SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII1;
+        selectionCount++;
+        sSevii2SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII3_S;
+        selectionCount++;
+        sSevii2SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII4_S;
+        selectionCount++;
+        sSevii2SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII5_S;
+        selectionCount++;
+        sSevii2SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII6_S;
+        selectionCount++;
+        sSevii2SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII7_S;
+        selectionCount++;
+    }
+
+    sSevii2SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII_EXIT_S;
+    selectionCount++;
+    count = selectionCount;
+
+    gSpecialVar_0x8004 = SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION2;
+    ShowScrollableMultichoice();
+}
+
+static void CreateSevii3SSTidalMultichoice(void)
+{
+    u8 selectionCount = 0;
+    u8 count;
+    u32 pixelWidth;
+    u8 width;
+    u8 windowId;
+    u8 i;
+    u32 j;
+
+    for (i = 0; i < SSTIDAL_SELECTION_SEVII_COUNT_S; i++)
+    {
+        sSevii3SSTidalSelections[i] = 0xFF;
+    }
+
+    GetFontAttribute(1, FONTATTR_MAX_LETTER_WIDTH);
+
+    if (gSpecialVar_0x8004 == 0)
+    {
+        sSevii3SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII1;
+        selectionCount++;
+        sSevii3SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII2;
+        selectionCount++;
+        sSevii3SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII4_S;
+        selectionCount++;
+        sSevii3SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII5_S;
+        selectionCount++;
+        sSevii3SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII6_S;
+        selectionCount++;
+        sSevii3SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII7_S;
+        selectionCount++;
+    }
+
+    sSevii3SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII_EXIT_S;
+    selectionCount++;
+    count = selectionCount;
+
+    gSpecialVar_0x8004 = SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION3;
+    ShowScrollableMultichoice();
+}
+
+static void CreateSevii4SSTidalMultichoice(void)
+{
+    u8 selectionCount = 0;
+    u8 count;
+    u32 pixelWidth;
+    u8 width;
+    u8 windowId;
+    u8 i;
+    u32 j;
+
+    for (i = 0; i < SSTIDAL_SELECTION_SEVII_COUNT_S; i++)
+    {
+        sSevii4SSTidalSelections[i] = 0xFF;
+    }
+
+    GetFontAttribute(1, FONTATTR_MAX_LETTER_WIDTH);
+
+    if (gSpecialVar_0x8004 == 0)
+    {
+        sSevii4SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII1;
+        selectionCount++;
+        sSevii4SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII2;
+        selectionCount++;
+        sSevii4SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII3;
+        selectionCount++;
+        sSevii4SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII5_S;
+        selectionCount++;
+        sSevii4SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII6_S;
+        selectionCount++;
+        sSevii4SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII7_S;
+        selectionCount++;
+    }
+
+    sSevii4SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII_EXIT_S;
+    selectionCount++;
+    count = selectionCount;
+
+    gSpecialVar_0x8004 = SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION4;
+    ShowScrollableMultichoice();
+}
+
+static void CreateSevii5SSTidalMultichoice(void)
+{
+    u8 selectionCount = 0;
+    u8 count;
+    u32 pixelWidth;
+    u8 width;
+    u8 windowId;
+    u8 i;
+    u32 j;
+
+    for (i = 0; i < SSTIDAL_SELECTION_SEVII_COUNT_S; i++)
+    {
+        sSevii5SSTidalSelections[i] = 0xFF;
+    }
+
+    GetFontAttribute(1, FONTATTR_MAX_LETTER_WIDTH);
+
+    if (gSpecialVar_0x8004 == 0)
+    {
+        sSevii5SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII1;
+        selectionCount++;
+        sSevii5SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII2;
+        selectionCount++;
+        sSevii5SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII3;
+        selectionCount++;
+        sSevii5SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII4;
+        selectionCount++;
+        sSevii5SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII6_S;
+        selectionCount++;
+        sSevii5SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII7_S;
+        selectionCount++;
+    }
+
+    sSevii5SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII_EXIT_S;
+    selectionCount++;
+    count = selectionCount;
+
+    gSpecialVar_0x8004 = SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION5;
+    ShowScrollableMultichoice();
+}
+
+static void CreateSevii6SSTidalMultichoice(void)
+{
+    u8 selectionCount = 0;
+    u8 count;
+    u32 pixelWidth;
+    u8 width;
+    u8 windowId;
+    u8 i;
+    u32 j;
+
+    for (i = 0; i < SSTIDAL_SELECTION_SEVII_COUNT_S; i++)
+    {
+        sSevii6SSTidalSelections[i] = 0xFF;
+    }
+
+    GetFontAttribute(1, FONTATTR_MAX_LETTER_WIDTH);
+
+    if (gSpecialVar_0x8004 == 0)
+    {
+        sSevii6SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII1;
+        selectionCount++;
+        sSevii6SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII2;
+        selectionCount++;
+        sSevii6SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII3;
+        selectionCount++;
+        sSevii6SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII4;
+        selectionCount++;
+        sSevii6SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII5;
+        selectionCount++;
+        sSevii6SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII7_S;
+        selectionCount++;
+    }
+
+    sSevii6SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII_EXIT_S;
+    selectionCount++;
+    count = selectionCount;
+
+    gSpecialVar_0x8004 = SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION6;
+    ShowScrollableMultichoice();
+}
+
+static void CreateSevii7SSTidalMultichoice(void)
+{
+    u8 selectionCount = 0;
+    u8 count;
+    u32 pixelWidth;
+    u8 width;
+    u8 windowId;
+    u8 i;
+    u32 j;
+
+    for (i = 0; i < SSTIDAL_SELECTION_SEVII_COUNT_S; i++)
+    {
+        sSevii7SSTidalSelections[i] = 0xFF;
+    }
+
+    GetFontAttribute(1, FONTATTR_MAX_LETTER_WIDTH);
+
+    if (gSpecialVar_0x8004 == 0)
+    {
+        sSevii7SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII1;
+        selectionCount++;
+        sSevii7SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII2;
+        selectionCount++;
+        sSevii7SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII3;
+        selectionCount++;
+        sSevii7SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII4;
+        selectionCount++;
+        sSevii7SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII5;
+        selectionCount++;
+        sSevii7SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII6;
+        selectionCount++;
+    }
+
+    sSevii7SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII_EXIT_S;
+    selectionCount++;
+    count = selectionCount;
+
+    gSpecialVar_0x8004 = SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION7;
+    ShowScrollableMultichoice();
+}
+
+void GetVermilionSSTidalSelection(void)
+{
+    if (gSpecialVar_Result != MULTI_B_PRESSED)
+    {
+        gSpecialVar_Result = sVermilionSSTidalSelections[gSpecialVar_Result];
+    }
+}
+
+void GetSlateportSSTidalSelection(void)
+{
+    if (gSpecialVar_Result != MULTI_B_PRESSED)
+    {
+        gSpecialVar_Result = sSlateportSSTidalSelections[gSpecialVar_Result];
+    }
+}
+
+void GetOlivineSSTidalSelection(void)
+{
+    if (gSpecialVar_Result != MULTI_B_PRESSED)
+    {
+        gSpecialVar_Result = sOlivineSSTidalSelections[gSpecialVar_Result];
+    }
+}
+
+void GetSeviiSSTidalSelection(void)
+{
+    if (gSpecialVar_Result != MULTI_B_PRESSED)
+    {
+        gSpecialVar_Result = sSeviiSSTidalSelections[gSpecialVar_Result];
+    }
+}
+
+void GetSevii1SSTidalSelection(void)
+{
+    if (gSpecialVar_Result != MULTI_B_PRESSED)
+    {
+        gSpecialVar_Result = sSevii1SSTidalSelections[gSpecialVar_Result];
+    }
+}
+
+void GetSevii2SSTidalSelection(void)
+{
+    if (gSpecialVar_Result != MULTI_B_PRESSED)
+    {
+        gSpecialVar_Result = sSevii2SSTidalSelections[gSpecialVar_Result];
+    }
+}
+
+void GetSevii3SSTidalSelection(void)
+{
+    if (gSpecialVar_Result != MULTI_B_PRESSED)
+    {
+        gSpecialVar_Result = sSevii3SSTidalSelections[gSpecialVar_Result];
+    }
+}
+
+void GetSevii4SSTidalSelection(void)
+{
+    if (gSpecialVar_Result != MULTI_B_PRESSED)
+    {
+        gSpecialVar_Result = sSevii4SSTidalSelections[gSpecialVar_Result];
+    }
+}
+
+void GetSevii5SSTidalSelection(void)
+{
+    if (gSpecialVar_Result != MULTI_B_PRESSED)
+    {
+        gSpecialVar_Result = sSevii5SSTidalSelections[gSpecialVar_Result];
+    }
+}
+
+void GetSevii6SSTidalSelection(void)
+{
+    if (gSpecialVar_Result != MULTI_B_PRESSED)
+    {
+        gSpecialVar_Result = sSevii6SSTidalSelections[gSpecialVar_Result];
+    }
+}
+
+void GetSevii7SSTidalSelection(void)
+{
+    if (gSpecialVar_Result != MULTI_B_PRESSED)
+    {
+        gSpecialVar_Result = sSevii7SSTidalSelections[gSpecialVar_Result];
+    }
+}
+
 void GetLilycoveSSTidalSelection(void)
 {
     if (gSpecialVar_Result != MULTI_B_PRESSED)
     {
         gSpecialVar_Result = sLilycoveSSTidalSelections[gSpecialVar_Result];
+    }
+}
+
+void GetLilycoveSSTidalSeviiSelection(void)
+{
+    if (gSpecialVar_Result != MULTI_B_PRESSED)
+    {
+        gSpecialVar_Result = sLilycoveSSTidalSeviiSelections[gSpecialVar_Result];
     }
 }
 

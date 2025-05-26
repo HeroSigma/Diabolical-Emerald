@@ -17,6 +17,12 @@ extern const u8 gText_ExpandedPlaceholder_Groudon[];
 extern const u8 gText_ExpandedPlaceholder_Brendan[];
 extern const u8 gText_ExpandedPlaceholder_May[];
 
+extern const u8 gText_ExpandedPlaceholder_Red[];
+extern const u8 gText_ExpandedPlaceholder_Leaf[];
+
+extern const u8 gText_ExpandedPlaceholder_Gold[];
+extern const u8 gText_ExpandedPlaceholder_Lyra[];
+
 extern const u8 gText_FromSpace[];
 
 extern const u8 gText_Lv50[];
@@ -283,6 +289,7 @@ extern const u8 gText_ThisIsAPokemon[];
 extern const u8 gText_Birch_MainSpeech[];
 extern const u8 gText_Birch_AndYouAre[];
 extern const u8 gText_Birch_BoyOrGirl[];
+extern const u8 gText_Birch_WhichRegion[];
 extern const u8 gText_Birch_WhatsYourName[];
 extern const u8 gText_Birch_SoItsPlayer[];
 extern const u8 gText_Birch_YourePlayer[];
@@ -512,10 +519,21 @@ extern const u8 gText_ExchangeService[];
 
 extern const u8 gText_SlateportCity[];
 extern const u8 gText_BattleFrontier[];
+extern const u8 gText_VermilionCity[];
+extern const u8 gText_OlivineCity[];
+extern const u8 gText_Sevii[];
 extern const u8 gText_SouthernIsland[];
 extern const u8 gText_NavelRock[];
 extern const u8 gText_BirthIsland[];
 extern const u8 gText_FarawayIsland[];
+
+extern const u8 gText_Sevii1[];
+extern const u8 gText_Sevii2[];
+extern const u8 gText_Sevii3[];
+extern const u8 gText_Sevii4[];
+extern const u8 gText_Sevii5[];
+extern const u8 gText_Sevii6[];
+extern const u8 gText_Sevii7[];
 
 extern const u8 gText_BattleTrainers[];
 extern const u8 gText_BattleBasics[];
@@ -2355,6 +2373,12 @@ extern const u8 gText_CutenessContest[];
 extern const u8 gText_SmartnessContest[];
 extern const u8 gText_ToughnessContest[];
 
+extern const u8 gText_CheckRegionMaps[];
+extern const u8 gText_CheckMapOfKanto[];
+extern const u8 gText_CheckMapOfJohto[];
+extern const u8 gText_CheckMapOfHoenn[];
+extern const u8 gText_CheckMapOfSevii[];
+
 // use_pokeblock
 extern const u8 gText_Coolness[];
 extern const u8 gText_Toughness[];
@@ -2422,5 +2446,10 @@ extern const u8 gText_Rename[]; // change nickname from summary screen
 
 // Switch Caught Mon into Party
 extern const u8 gText_CannotSendMonToBoxHM[];
+
+//Custom
+extern const u8 gText_Kanto[];
+extern const u8 gText_Johto[];
+extern const u8 gText_Sevii_Menu[];
 
 #endif // GUARD_STRINGS_H

@@ -21,4 +21,22 @@ const struct RegionMapLocation gRegionMapEntries[] = {
 ## endfor
 };
 
+const struct RegionMapLocation gRegionMapEntries_Johto[] = {
+## for map_section in map_sections_johto
+    [{{ map_section.map_section }}] = { {{ map_section.x }}, {{ map_section.y }}, {{ map_section.width }}, {{ map_section.height }}, sMapName_{{ cleanString(map_section.name) }}{% if existsIn(map_section, "name_clone") %}_Clone{% endif %} },
+## endfor
+};
+
+const struct RegionMapLocation gRegionMapEntries_Kanto[] = {
+## for map_section in map_sections_kanto
+    [{{ map_section.map_section }}] = { {{ map_section.x }}, {{ map_section.y }}, {{ map_section.width }}, {{ map_section.height }}, sMapName_{{ cleanString(map_section.name) }}{% if existsIn(map_section, "name_clone") %}_Clone{% endif %} },
+## endfor
+};
+
+const struct RegionMapLocation gRegionMapEntries_Sevii[] = {
+## for map_section in map_sections_sevii
+    [{{ map_section.map_section }}] = { {{ map_section.x }}, {{ map_section.y }}, {{ map_section.width }}, {{ map_section.height }}, sMapName_{{ cleanString(map_section.name) }}{% if existsIn(map_section, "name_clone") %}_Clone{% endif %} },
+## endfor
+};
+
 #endif // GUARD_DATA_REGION_MAP_REGION_MAP_ENTRIES_H

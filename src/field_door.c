@@ -86,8 +86,63 @@ static const u8 sDoorAnimTiles_BattleDomePreBattleRoom[] = INCBIN_U8("graphics/d
 static const u8 sDoorAnimTiles_BattleTentInterior[] = INCBIN_U8("graphics/door_anims/battle_tent_interior.4bpp");
 static const u8 sDoorAnimTiles_TrainerHillLobbyElevator[] = INCBIN_U8("graphics/door_anims/trainer_hill_lobby_elevator.4bpp");
 static const u8 sDoorAnimTiles_TrainerHillRoofElevator[] = INCBIN_U8("graphics/door_anims/trainer_hill_roof_elevator.4bpp");
+static const u16 sDoorNullPalette49[16] = {};
+static const u8 sDoorAnimTiles_Kanto_General[] = INCBIN_U8("graphics/door_anims/kanto_general.4bpp");
+static const u8 sDoorAnimTiles_Kanto_PokeCenter[] = INCBIN_U8("graphics/door_anims/kanto_pokecenter.4bpp");
+static const u8 sDoorAnimTiles_Kanto_PokeMart[] = INCBIN_U8("graphics/door_anims/kanto_pokemart.4bpp");
+static const u8 sDoorAnimTiles_SlidingDouble[] = INCBIN_U8("graphics/door_anims/sliding_double.4bpp");
 static const u8 sDoorAnimTiles_Pallet[] = INCBIN_U8("graphics/door_anims/pallet.4bpp");
 static const u8 sDoorAnimTiles_OaksLab[] = INCBIN_U8("graphics/door_anims/oaks_lab.4bpp");
+static const u8 sDoorAnimTiles_Viridian[] = INCBIN_U8("graphics/door_anims/viridian.4bpp");
+static const u8 sDoorAnimTiles_Pewter[] = INCBIN_U8("graphics/door_anims/pewter.4bpp");
+static const u8 sDoorAnimTiles_Pewter_Museum[] = INCBIN_U8("graphics/door_anims/pewter_museum.4bpp");
+static const u8 sDoorAnimTiles_Cerulean[] = INCBIN_U8("graphics/door_anims/cerulean.4bpp");
+static const u8 sDoorAnimTiles_Route25[] = INCBIN_U8("graphics/door_anims/route25.4bpp");
+static const u8 sDoorAnimTiles_Route22[] = INCBIN_U8("graphics/door_anims/route22.4bpp");
+static const u8 sDoorAnimTiles_Lavender[] = INCBIN_U8("graphics/door_anims/lavender.4bpp");
+static const u8 sDoorAnimTiles_Vermilion[] = INCBIN_U8("graphics/door_anims/vermilion.4bpp");
+static const u8 sDoorAnimTiles_Vermilion_PokemonFanClub[] = INCBIN_U8("graphics/door_anims/vermilion_pokemonfanclub.4bpp");
+static const u8 sDoorAnimTiles_Fuchsia[] = INCBIN_U8("graphics/door_anims/fuchsia.4bpp");
+static const u8 sDoorAnimTiles_ZooBuilding[] = INCBIN_U8("graphics/door_anims/zoo_building.4bpp");
+static const u8 sDoorAnimTiles_Kanto_SafariZone[] = INCBIN_U8("graphics/door_anims/kanto_safarizone.4bpp");
+static const u8 sDoorAnimTiles_Cinnabar[] = INCBIN_U8("graphics/door_anims/cinnabar.4bpp");
+static const u8 sDoorAnimTiles_Route5[] = INCBIN_U8("graphics/door_anims/route5.4bpp");
+static const u8 sDoorAnimTiles_Route5_UndergroundPass[] = INCBIN_U8("graphics/door_anims/route5_undergroundpass.4bpp");
+static const u8 sDoorAnimTiles_Celadon[] = INCBIN_U8("graphics/door_anims/celadon.4bpp");
+static const u8 sDoorAnimTiles_Celadon_DepartmentStore[] = INCBIN_U8("graphics/door_anims/celadon_departmentstore.4bpp");
+static const u8 sDoorAnimTiles_Celadon_GameCorner[] = INCBIN_U8("graphics/door_anims/celadon_gamecorner.4bpp");
+static const u8 sDoorAnimTiles_Celadon_PrizeRoom[] = INCBIN_U8("graphics/door_anims/celadon_prizeroom.4bpp");
+static const u8 sDoorAnimTiles_Celadon_RocketHideout_Elevator[] = INCBIN_U8("graphics/door_anims/celadoncity_rockethideout_elevator.4bpp");
+static const u8 sDoorAnimTiles_Celadon_DepartmentStore_Elevator[] = INCBIN_U8("graphics/door_anims/celadoncity_departmentstore_elevator.4bpp");
+static const u8 sDoorAnimTiles_Saffron1[] = INCBIN_U8("graphics/door_anims/saffron1.4bpp");
+static const u8 sDoorAnimTiles_Saffron2[] = INCBIN_U8("graphics/door_anims/saffron2.4bpp");
+static const u8 sDoorAnimTiles_Saffron_SilphCo[] = INCBIN_U8("graphics/door_anims/saffroncity_silphco.4bpp");
+static const u8 sDoorAnimTiles_Saffron_SilphCo_Elevator[] = INCBIN_U8("graphics/door_anims/saffroncity_silphco_elevator.4bpp");
+static const u8 sDoorAnimTiles_IndigoPlateau[] = INCBIN_U8("graphics/door_anims/indigoplateau.4bpp");
+static const u8 sDoorAnimTiles_Sevii123[] = INCBIN_U8("graphics/door_anims/sevii123.4bpp");
+static const u8 sDoorAnimTiles_Sevii3[] = INCBIN_U8("graphics/door_anims/sevii3.4bpp");
+static const u8 sDoorAnimTiles_Sevii4[] = INCBIN_U8("graphics/door_anims/sevii4.4bpp");
+static const u8 sDoorAnimTiles_Sevii5[] = INCBIN_U8("graphics/door_anims/sevii5.4bpp");
+static const u8 sDoorAnimTiles_Sevii1_Sliding[] = INCBIN_U8("graphics/door_anims/sevii1_sliding.4bpp");
+static const u8 sDoorAnimTiles_Sevii2_Sliding[] = INCBIN_U8("graphics/door_anims/sevii2_sliding.4bpp");
+static const u8 sDoorAnimTiles_Sevii5_RocketWarehouse[] = INCBIN_U8("graphics/door_anims/sevii5_rocketwarehouse.4bpp");
+static const u8 sDoorAnimTiles_Sevii7_TrainerTower_Elevator1[] = INCBIN_U8("graphics/door_anims/sevii7_trainertower_elevator1.4bpp");
+static const u8 sDoorAnimTiles_Sevii7_TrainerTower_Elevator2[] = INCBIN_U8("graphics/door_anims/sevii7_trainertower_elevator2.4bpp");
+static const u8 sDoorAnimTiles_NewBarkTown[] = INCBIN_U8("graphics/door_anims/newbarktown.4bpp");
+static const u8 sDoorAnimTiles_NewBarkTown_2[] = INCBIN_U8("graphics/door_anims/newbarktown_2.4bpp");
+static const u8 sDoorAnimTiles_ElmsLab[] = INCBIN_U8("graphics/door_anims/elms_lab.4bpp");
+static const u8 sDoorAnimTiles_Cherrygrove[] = INCBIN_U8("graphics/door_anims/cherrygrove.4bpp");
+static const u8 sDoorAnimTiles_Sprout_Tower[] = INCBIN_U8("graphics/door_anims/sprout_tower.4bpp");
+static const u8 sDoorAnimTiles_Azalea[] = INCBIN_U8("graphics/door_anims/azalea.4bpp");
+static const u8 sDoorAnimTiles_Goldenrod[] = INCBIN_U8("graphics/door_anims/goldenrod.4bpp");
+static const u8 sDoorAnimTiles_Goldenrod2[] = INCBIN_U8("graphics/door_anims/goldenrod2.4bpp");
+static const u8 sDoorAnimTiles_Goldenrod3[] = INCBIN_U8("graphics/door_anims/goldenrod3.4bpp");
+static const u8 sDoorAnimTiles_Goldenrod_Radio_Tower[] = INCBIN_U8("graphics/door_anims/goldenrod_radio_tower.4bpp");
+static const u8 sDoorAnimTiles_Goldenrod_Train_Station[] = INCBIN_U8("graphics/door_anims/goldenrod_train_station.4bpp");
+static const u8 sDoorAnimTiles_Goldenrod_Pokecenter[] = INCBIN_U8("graphics/door_anims/goldenrod_pokecenter.4bpp");
+static const u8 sDoorAnimTiles_Goldenrod_Dpt_Store[] = INCBIN_U8("graphics/door_anims/goldenrod_dpt_store.4bpp");
+static const u8 sDoorAnimTiles_Goldenrod_Bike_Shop[] = INCBIN_U8("graphics/door_anims/goldenrod_bike_shop.4bpp");
+static const u8 sDoorAnimTiles_Blackthorn[] = INCBIN_U8("graphics/door_anims/blackthorn.4bpp");
 
 #define CLOSED_DOOR_TILES_OFFSET 0xFFFF
 
@@ -194,8 +249,67 @@ static const u8 sDoorAnimPalettes_BattleDomePreBattleRoom[] = {9, 9, 7, 7, 7, 7,
 static const u8 sDoorAnimPalettes_BattleTentInterior[] = {9, 9, 9, 9, 9, 9, 9, 9};
 static const u8 sDoorAnimPalettes_TrainerHillLobbyElevator[] = {7, 7, 7, 7, 7, 7, 7, 7};
 static const u8 sDoorAnimPalettes_TrainerHillRoofElevator[] = {9, 9, 7, 7, 7, 7, 7, 7};
-static const u8 sDoorAnimPalettes_Pallet[] = {8, 8, 8, 8, 8, 8, 8, 8};
-static const u8 sDoorAnimPalettes_OaksLab[] = {10, 10, 10, 10, 10, 10, 10, 10};
+static const u8 sDoorAnimPalettes_Kanto_General[] = {3, 3, 3, 3, 2, 2, 2, 2};
+static const u8 sDoorAnimPalettes_Kanto_PokeCenter[] = {2, 2, 2, 2, 3, 3, 3, 3};
+static const u8 sDoorAnimPalettes_Kanto_PokeMart[] = {3, 3, 3, 3, 3, 3, 3, 3};
+static const u8 sDoorAnimPalettes_SlidingDouble[] = {5, 5, 5, 5, 3, 3, 3, 3};
+static const u8 sDoorAnimPalettes_Pallet[] = {3, 3, 3, 3, 8, 8, 8, 8};
+static const u8 sDoorAnimPalettes_OaksLab[] = {9, 9, 9, 9, 10, 10, 10, 10};
+static const u8 sDoorAnimPalettes_Viridian[] = {11, 11, 11, 11, 8, 8, 8, 8};
+static const u8 sDoorAnimPalettes_Pewter[] = {8, 8, 8, 8, 8, 8, 8, 8};
+static const u8 sDoorAnimPalettes_Pewter_Museum[] = {10, 10, 10, 10, 8, 8, 8, 8};
+static const u8 sDoorAnimPalettes_Cerulean[] = {12, 12, 12, 12, 12, 12, 12, 12};
+static const u8 sDoorAnimPalettes_Route25[] = {11, 11, 11, 11, 12, 12, 12, 12};
+static const u8 sDoorAnimPalettes_Route22[] = {9, 9, 9, 9, 3, 3, 3, 3};
+static const u8 sDoorAnimPalettes_Lavender[] = {12, 12, 12, 12, 9, 9, 9, 9};
+static const u8 sDoorAnimPalettes_Vermilion[] = {8, 8, 8, 8, 9, 9, 9, 9};
+static const u8 sDoorAnimPalettes_Vermilion_PokemonFanClub[] = {12, 12, 12, 12, 9, 9, 9, 9};
+static const u8 sDoorAnimPalettes_Fuchsia[] = {12, 12, 12, 12, 8, 8, 8, 8};
+static const u8 sDoorAnimPalettes_ZooBuilding[] = {10, 10, 10, 10, 8, 8, 8, 8};
+static const u8 sDoorAnimPalettes_Kanto_SafariZone[] = {10, 10, 9, 9, 9, 9, 9, 9};
+static const u8 sDoorAnimPalettes_Cinnabar[] = {2, 2, 9, 9, 3, 3, 3, 3};
+static const u8 sDoorAnimPalettes_Route5[] = {10, 10, 10, 10, 12, 12, 12, 12};
+static const u8 sDoorAnimPalettes_Route5_UndergroundPass[] = {5, 5, 5, 5, 2, 2, 2, 2};
+static const u8 sDoorAnimPalettes_Celadon[] = {12, 12, 12, 12, 2, 2, 2, 2};
+static const u8 sDoorAnimPalettes_Celadon_DepartmentStore[] = {10, 10, 8, 8, 3, 3, 3, 3};
+static const u8 sDoorAnimPalettes_Celadon_GameCorner[] = {10, 10, 10, 10, 3, 3, 3, 3};
+static const u8 sDoorAnimPalettes_Celadon_PrizeRoom[] = {9, 9, 9, 9, 3, 3, 3, 3};
+static const u8 sDoorAnimPalettes_Celadon_RocketHideout_Elevator[] = {12, 12, 2, 2, 2, 2, 2, 2};
+static const u8 sDoorAnimPalettes_Celadon_DepartmentStore_Elevator[] = {8, 8, 8, 8, 8, 8, 8, 8};
+static const u8 sDoorAnimPalettes_Saffron1[] = {12, 12, 12, 12, 8, 8, 8, 8};
+static const u8 sDoorAnimPalettes_Saffron2[] = {12, 12, 12, 12, 8, 8, 8, 8};
+static const u8 sDoorAnimPalettes_Saffron_SilphCo[] = {9, 9, 9, 9, 3, 3, 3, 3};
+static const u8 sDoorAnimPalettes_Saffron_SilphCo_Elevator[] = {8, 8, 2, 2, 2, 2, 2, 2};
+static const u8 sDoorAnimPalettes_IndigoPlateau[] = {10, 10, 10, 10, 3, 3, 3, 3};
+static const u8 sDoorAnimPalettes_Sevii123[] = {8, 8, 8, 8, 5, 5, 5, 5};
+static const u8 sDoorAnimPalettes_Sevii3[] = {2, 2, 2, 2, 5, 5, 5, 5};
+static const u8 sDoorAnimPalettes_Sevii4[] = {9, 9, 9, 9, 3, 3, 3, 3};
+static const u8 sDoorAnimPalettes_Sevii5[] = {9, 9, 9, 9, 5, 5, 5, 5};
+static const u8 sDoorAnimPalettes_Sevii1_Sliding[] = {11, 11, 11, 11, 3, 3, 3, 3};
+static const u8 sDoorAnimPalettes_Sevii2_Sliding[] = {9, 9, 9, 9, 3, 3, 3, 3};
+static const u8 sDoorAnimPalettes_Sevii5_RocketWarehouse[] = {10, 10, 10, 10, 10, 10, 10, 10};
+static const u8 sDoorAnimPalettes_Sevii7_TrainerTower_Elevator1[] = {8, 8, 2, 2, 2, 2, 2, 2};
+static const u8 sDoorAnimPalettes_Sevii7_TrainerTower_Elevator2[] = {11, 11, 2, 2, 2, 2, 2, 2};
+static const u8 sDoorAnimPalettes_NewBarkTown[] = {10, 10, 10, 10, 12, 12, 12, 12};
+static const u8 sDoorAnimPalettes_NewBarkTown_2[] = {7, 7, 10, 10, 12, 12, 12, 12};
+static const u8 sDoorAnimPalettes_ElmsLab[] = {8, 8, 8, 8, 9, 9, 9, 9};
+static const u8 sDoorAnimPalettes_Cherrygrove[] = {2, 2, 2, 2, 2, 2, 2, 2};
+static const u8 sDoorAnimPalettes_Violet[] = {12, 12, 12, 12, 12, 12, 12, 12};
+static const u8 sDoorAnimPalettes_Sprout_Tower[] = {9, 9, 9, 9, 9, 9, 9, 9};
+static const u8 sDoorAnimPalettes_Azalea[] = {8, 8, 8, 8, 8, 8, 8, 8};
+static const u8 sDoorAnimPalettes_Goldenrod[] = {12, 12, 12, 12, 10, 10, 10, 10};
+static const u8 sDoorAnimPalettes_Goldenrod2[] = {12, 12, 12, 12, 10, 10, 10, 10};
+static const u8 sDoorAnimPalettes_Goldenrod3[] = {5, 5, 5, 5, 2, 2, 2, 2};
+static const u8 sDoorAnimPalettes_Goldenrod_Radio_Tower[] = {9, 9, 9, 9, 3, 3, 3, 3};
+static const u8 sDoorAnimPalettes_Goldenrod_Train_Station[] = {11, 11, 10, 10, 3, 3, 3, 3};
+static const u8 sDoorAnimPalettes_Goldenrod_Game_Corner[] = {8, 8, 8, 8, 3, 3, 3, 3};
+static const u8 sDoorAnimPalettes_Goldenrod_Pokecenter[] = {10, 10, 10, 10, 3, 3, 3, 3};
+static const u8 sDoorAnimPalettes_Goldenrod_Dpt_Store[] = {8, 8, 11, 11, 3, 3, 3, 3};
+static const u8 sDoorAnimPalettes_Goldenrod_Bike_Shop[] = {11, 11, 11, 11, 3, 3, 3, 3};
+static const u8 sDoorAnimPalettes_Ruins_Of_Alph[] = {2, 2, 8, 8, 7, 7, 7, 7};
+static const u8 sDoorAnimPalettes_Ecruteak[] = {10, 10, 10, 10, 10, 10, 10, 10};
+static const u8 sDoorAnimPalettes_Mahogany[] = {10, 10, 10, 10, 10, 10, 10, 10};
+static const u8 sDoorAnimPalettes_Blackthorn[] = {9, 9, 9, 9, 9, 9, 9, 9};
 
 static const struct DoorGraphics sDoorAnimGraphicsTable[] =
 {
@@ -251,8 +365,70 @@ static const struct DoorGraphics sDoorAnimGraphicsTable[] =
     {METATILE_BattleTent_Door,                              DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_BattleTentInterior, sDoorAnimPalettes_BattleTentInterior},
     {METATILE_TrainerHill_Door_Elevator_Lobby,              DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_TrainerHillLobbyElevator, sDoorAnimPalettes_TrainerHillLobbyElevator},
     {METATILE_TrainerHill_Door_Elevator_Roof,               DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_TrainerHillRoofElevator, sDoorAnimPalettes_TrainerHillRoofElevator},
-    {METATILE_PalletTown_SmallDoor,                         DOOR_SOUND_NORMAL,  DOOR_SIZE_1x1, sDoorAnimTiles_Pallet, sDoorAnimPalettes_Pallet},
-    {METATILE_PalletTown_OaksLabDoor,                       DOOR_SOUND_NORMAL,  DOOR_SIZE_1x1, sDoorAnimTiles_OaksLab, sDoorAnimPalettes_OaksLab},
+    {METATILE_Kanto_General_Door,                           DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Kanto_General, sDoorAnimPalettes_Kanto_General},
+    {METATILE_Kanto_SlidingSingleDoor_PokeCenter,           DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_Kanto_PokeCenter, sDoorAnimPalettes_Kanto_PokeCenter},
+    {METATILE_Kanto_SlidingSingleDoor_PokeMart,             DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_Kanto_PokeMart, sDoorAnimPalettes_Kanto_PokeMart},
+    {METATILE_Kanto_SlidingDoubleDoor,                      DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_SlidingDouble, sDoorAnimPalettes_SlidingDouble},
+    {METATILE_PalletTown_Door,                              DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Pallet, sDoorAnimPalettes_Pallet},
+    {METATILE_PalletTown_OaksLabDoor,                       DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_OaksLab, sDoorAnimPalettes_OaksLab},
+    {METATILE_ViridianCity_Door,                            DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Viridian, sDoorAnimPalettes_Viridian},
+    {METATILE_PewterCity_Door,                              DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Pewter, sDoorAnimPalettes_Pewter},
+    {METATILE_PewterCity_Museum_Door,                       DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Pewter_Museum, sDoorAnimPalettes_Pewter_Museum},
+    {METATILE_CeruleanCity_Door,                            DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Cerulean, sDoorAnimPalettes_Cerulean},
+    {METATILE_Route25_Door,                                 DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Route25, sDoorAnimPalettes_Route25},
+    {METATILE_Route22_Door,                                 DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_Route22, sDoorAnimPalettes_Route22},
+    {METATILE_LavenderTown_Door,                            DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Lavender, sDoorAnimPalettes_Lavender},
+    {METATILE_VermilionCity_Door,                           DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Vermilion, sDoorAnimPalettes_Vermilion},
+    {METATILE_VermilionCity_PokemonFanClub_Door,            DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Vermilion_PokemonFanClub, sDoorAnimPalettes_Vermilion_PokemonFanClub},
+    {METATILE_FuchsiaCity_Door,                             DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Fuchsia, sDoorAnimPalettes_Fuchsia},
+    {METATILE_ZooBuilding_Door,                             DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_ZooBuilding, sDoorAnimPalettes_ZooBuilding},
+    {METATILE_Kanto_SafariZone_Door,                        DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_Kanto_SafariZone, sDoorAnimPalettes_Kanto_SafariZone},
+    {METATILE_CinnabarIsland_Door,                          DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Cinnabar, sDoorAnimPalettes_Cinnabar},
+    {METATILE_Route5_Door,                                  DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Route5, sDoorAnimPalettes_Route5},
+    {METATILE_Route5_UndergroundPass_Door,                  DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Route5_UndergroundPass, sDoorAnimPalettes_Route5_UndergroundPass},
+    {METATILE_Route6_UndergroundPass_Door,                  DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Route5_UndergroundPass, sDoorAnimPalettes_Route5_UndergroundPass},
+    {METATILE_Route7_UndergroundPass_Door,                  DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Route5_UndergroundPass, sDoorAnimPalettes_Route5_UndergroundPass},
+    {METATILE_Route8_UndergroundPass_Door,                  DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Route5_UndergroundPass, sDoorAnimPalettes_Route5_UndergroundPass},
+    {METATILE_CeladonCity_Door,                             DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Celadon, sDoorAnimPalettes_Celadon},
+    {METATILE_CeladonCity_DepartmentStore_Door,             DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_Celadon_DepartmentStore, sDoorAnimPalettes_Celadon_DepartmentStore},
+    {METATILE_CeladonCity_GameCorner_Door,                  DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_Celadon_GameCorner, sDoorAnimPalettes_Celadon_GameCorner},
+    {METATILE_CeladonCity_PrizeRoom_Door,                   DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_Celadon_PrizeRoom, sDoorAnimPalettes_Celadon_PrizeRoom},
+    {METATILE_CeladonCity_RocketHideout_Elevator,           DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_Celadon_RocketHideout_Elevator, sDoorAnimPalettes_Celadon_RocketHideout_Elevator},
+    {METATILE_CeladonCity_DepartmentStore_Elevator,         DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_Celadon_DepartmentStore_Elevator, sDoorAnimPalettes_Celadon_DepartmentStore_Elevator},
+    {METATILE_SaffronCity_Door1,                            DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Saffron1, sDoorAnimPalettes_Saffron1},
+    {METATILE_SaffronCity_Door2,                            DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Saffron2, sDoorAnimPalettes_Saffron2},
+    {METATILE_SaffronCity_SilphCo,                          DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_Saffron_SilphCo, sDoorAnimPalettes_Saffron_SilphCo},
+    {METATILE_SaffronCity_SilphCo_Elevator,                 DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_Saffron_SilphCo_Elevator, sDoorAnimPalettes_Saffron_SilphCo_Elevator},
+    {METATILE_IndigoPlateau_Door,                           DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_IndigoPlateau, sDoorAnimPalettes_IndigoPlateau},
+    {METATILE_Sevii123_Door,                                DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Sevii123, sDoorAnimPalettes_Sevii123},
+    {METATILE_Sevii3_Door,                                  DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Sevii3, sDoorAnimPalettes_Sevii3},
+    {METATILE_Sevii4_Door,                                  DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Sevii4, sDoorAnimPalettes_Sevii4},
+    {METATILE_Sevii5_Door,                                  DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Sevii5, sDoorAnimPalettes_Sevii5},
+    {METATILE_Sevii1_Sliding_Door,                          DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_Sevii1_Sliding, sDoorAnimPalettes_Sevii1_Sliding},
+    {METATILE_Sevii2_Sliding_Door,                          DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_Sevii2_Sliding, sDoorAnimPalettes_Sevii2_Sliding},
+    {METATILE_Sevii5_RocketWarehouse_Door,                  DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_Sevii5_RocketWarehouse, sDoorAnimPalettes_Sevii5_RocketWarehouse},
+    {METATILE_Sevii7_TrainerTower_Elevator1,                DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_Sevii7_TrainerTower_Elevator1, sDoorAnimPalettes_Sevii7_TrainerTower_Elevator1},
+    {METATILE_Sevii7_TrainerTower_Elevator2,                DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_Sevii7_TrainerTower_Elevator2, sDoorAnimPalettes_Sevii7_TrainerTower_Elevator2},
+    {METATILE_NewBarkTown_Door,                             DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_NewBarkTown, sDoorAnimPalettes_NewBarkTown},
+    {METATILE_NewBarkTown_2_Door,                           DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_NewBarkTown_2, sDoorAnimPalettes_NewBarkTown_2},
+    {METATILE_ElmsLab_Door,                                 DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_ElmsLab, sDoorAnimPalettes_ElmsLab},
+    {METATILE_CherryGrove_Door,                             DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Cherrygrove, sDoorAnimPalettes_Cherrygrove},
+    {METATILE_VioletCity_Door,                              DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Cerulean, sDoorAnimPalettes_Violet},
+    {METATILE_Sprout_Tower_Door,                            DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Sprout_Tower, sDoorAnimPalettes_Sprout_Tower},
+    {METATILE_Azalea_Door,                                  DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Azalea, sDoorAnimPalettes_Azalea},
+    {METATILE_Goldenrod_Door,                               DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Goldenrod, sDoorAnimPalettes_Goldenrod},
+    {METATILE_Goldenrod2_Door,                              DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Goldenrod2, sDoorAnimPalettes_Goldenrod2},
+    {METATILE_Goldenrod3_Door,                              DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Goldenrod3, sDoorAnimPalettes_Goldenrod3},
+    {METATILE_Goldenrod_Radio_Tower_Door,                   DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_Goldenrod_Radio_Tower, sDoorAnimPalettes_Goldenrod_Radio_Tower},
+    {METATILE_Goldenrod_Train_Station_Door,                 DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_Goldenrod_Train_Station, sDoorAnimPalettes_Goldenrod_Train_Station},
+    {METATILE_Goldenrod_Game_Corner_Door,                   DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_Celadon_GameCorner, sDoorAnimPalettes_Goldenrod_Game_Corner},
+    {METATILE_Goldenrod_Pokecenter_Door,                    DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_Goldenrod_Pokecenter, sDoorAnimPalettes_Goldenrod_Pokecenter},
+    {METATILE_Goldenrod_Dpt_Store_Door,                     DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_Goldenrod_Dpt_Store, sDoorAnimPalettes_Goldenrod_Dpt_Store},
+    {METATILE_Goldenrod_Bike_Shop_Door,                     DOOR_SOUND_SLIDING, 0, sDoorAnimTiles_Goldenrod_Bike_Shop, sDoorAnimPalettes_Goldenrod_Bike_Shop},
+    {METATILE_Ruins_Of_Alph_Door,                           DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Cinnabar, sDoorAnimPalettes_Ruins_Of_Alph},
+    {METATILE_EcruteakCity_Door,                            DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Cerulean, sDoorAnimPalettes_Ecruteak},
+    {METATILE_MahoganyTown_Door,                            DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Cerulean, sDoorAnimPalettes_Mahogany},
+    {METATILE_BlackthornCity_Door,                          DOOR_SOUND_NORMAL,  0, sDoorAnimTiles_Blackthorn, sDoorAnimPalettes_Blackthorn},
     {},
 };
 
