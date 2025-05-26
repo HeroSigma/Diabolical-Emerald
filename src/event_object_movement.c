@@ -504,7 +504,7 @@ const u8 gInitialMovementTypeFacingDirections[NUM_MOVEMENT_TYPES] = {
 #define OBJ_EVENT_PAL_TAG_LUGIA                   0x1121
 #define OBJ_EVENT_PAL_TAG_RS_BRENDAN              0x1122
 #define OBJ_EVENT_PAL_TAG_RS_MAY                  0x1123
-#define OBJ_EVENT_PAL_TAG_NPC_WHITE               0x1124
+#define OBJ_EVENT_PAL_TAG_PROF_OAK                0x1124
 #define OBJ_EVENT_PAL_TAG_PROF_ELM                0x1125
 #define OBJ_EVENT_PAL_TAG_KANTO_PLAYER            0x1126
 #define OBJ_EVENT_PAL_TAG_GOLD                    0x1127
@@ -556,7 +556,7 @@ static const struct SpritePalette sObjectEventSpritePalettes[] = {
     {gObjectEventPal_Lugia,                 OBJ_EVENT_PAL_TAG_LUGIA},
     {gObjectEventPal_RubySapphireBrendan,   OBJ_EVENT_PAL_TAG_RS_BRENDAN},
     {gObjectEventPal_RubySapphireMay,       OBJ_EVENT_PAL_TAG_RS_MAY},
-    {gObjectEventPal_NpcWhite,              OBJ_EVENT_PAL_TAG_NPC_WHITE},
+    {gObjectEventPal_ProfOak,               OBJ_EVENT_PAL_TAG_PROF_OAK},
     {gObjectEventPal_ProfElm,               OBJ_EVENT_PAL_TAG_PROF_ELM},
     {gObjectEventPal_KantoPlayer,           OBJ_EVENT_PAL_TAG_KANTO_PLAYER},
     {gObjectEventPal_Gold,                  OBJ_EVENT_PAL_TAG_GOLD},
@@ -11448,4 +11448,11 @@ static u16 GetUnownSpecies(struct Pokemon *mon)
     if (form == 0)
         return SPECIES_UNOWN;
     return SPECIES_UNOWN_B + form - 1;
+}
+
+u16 GetBoulderRevealFlagByLocalIdAndMap(u8 localId, u8 mapNum, u8 mapGroup)
+{
+    // Pushable boulder object events store the flag to reveal the boulder
+    // on the floor below in their trainer type field.
+    return GetObjectEventTemplateByLocalIdAndMap(localId, mapNum, mapGroup)->trainerType;
 }

@@ -31,6 +31,7 @@
 #include "constants/moves.h"
 #include "constants/songs.h"
 #include "constants/trainer_types.h"
+#include "constants/metatile_behaviors.h"
 
 #define NUM_FORCED_MOVEMENTS 18
 #define NUM_ACRO_BIKE_COLLISIONS 5
@@ -297,7 +298,7 @@ static const u8 sPlayerAvatarGfxIds[][GENDER_COUNT] =
     [PLAYER_AVATAR_STATE_VSSEEKER]   = {OBJ_EVENT_GFX_BRENDAN_FIELD_MOVE, OBJ_EVENT_GFX_MAY_FIELD_MOVE},
 };
 
-static const u8 sRivalAvatarGfxIds_Kanto[][2] =
+static const u16 sRivalAvatarGfxIds_Kanto[][2] =
 {
     [PLAYER_AVATAR_STATE_NORMAL]     = {OBJ_EVENT_GFX_RIVAL_RED_NORMAL,     OBJ_EVENT_GFX_RIVAL_LEAF_NORMAL},
     [PLAYER_AVATAR_STATE_MACH_BIKE]  = {OBJ_EVENT_GFX_RIVAL_RED_MACH_BIKE,  OBJ_EVENT_GFX_RIVAL_LEAF_MACH_BIKE},
@@ -309,7 +310,7 @@ static const u8 sRivalAvatarGfxIds_Kanto[][2] =
     [PLAYER_AVATAR_STATE_WATERING]   = {OBJ_EVENT_GFX_RED_WATERING,         OBJ_EVENT_GFX_LEAF_WATERING}
 };
 
-static const u8 sPlayerAvatarGfxIds_Kanto[][2] =
+static const u16 sPlayerAvatarGfxIds_Kanto[][2] =
 {
     [PLAYER_AVATAR_STATE_NORMAL]     = {OBJ_EVENT_GFX_RED_NORMAL,     OBJ_EVENT_GFX_LEAF_NORMAL},
     [PLAYER_AVATAR_STATE_MACH_BIKE]  = {OBJ_EVENT_GFX_RED_MACH_BIKE,  OBJ_EVENT_GFX_LEAF_MACH_BIKE},
@@ -321,7 +322,7 @@ static const u8 sPlayerAvatarGfxIds_Kanto[][2] =
     [PLAYER_AVATAR_STATE_WATERING]   = {OBJ_EVENT_GFX_RED_WATERING,   OBJ_EVENT_GFX_LEAF_WATERING},
 };
 
-static const u8 sRivalAvatarGfxIds_Johto[][2] =
+static const u16 sRivalAvatarGfxIds_Johto[][2] =
 {
     [PLAYER_AVATAR_STATE_NORMAL]     = {OBJ_EVENT_GFX_RIVAL_GOLD_NORMAL,     OBJ_EVENT_GFX_RIVAL_LYRA_NORMAL},
     [PLAYER_AVATAR_STATE_MACH_BIKE]  = {OBJ_EVENT_GFX_RIVAL_GOLD_MACH_BIKE,  OBJ_EVENT_GFX_RIVAL_LYRA_MACH_BIKE},
@@ -333,7 +334,7 @@ static const u8 sRivalAvatarGfxIds_Johto[][2] =
     [PLAYER_AVATAR_STATE_WATERING]   = {OBJ_EVENT_GFX_GOLD_WATERING,         OBJ_EVENT_GFX_LYRA_WATERING}
 };
 
-static const u8 sPlayerAvatarGfxIds_Johto[][2] =
+static const u16 sPlayerAvatarGfxIds_Johto[][2] =
 {
     [PLAYER_AVATAR_STATE_NORMAL]     = {OBJ_EVENT_GFX_GOLD_NORMAL,     OBJ_EVENT_GFX_LYRA_NORMAL},
     [PLAYER_AVATAR_STATE_MACH_BIKE]  = {OBJ_EVENT_GFX_GOLD_MACH_BIKE,  OBJ_EVENT_GFX_LYRA_MACH_BIKE},
@@ -1068,6 +1069,7 @@ static bool8 TryPushBoulder(s16 x, s16 y, u8 direction)
     {
         return FALSE;
     }
+}
 
 static void CheckAcroBikeCollision(s16 x, s16 y, u8 metatileBehavior, u8 *collision)
 {

@@ -235,7 +235,7 @@ LittlerootTown_BrendansHouse_2F_Movement_PlayerWatchBrendanEast:
 	walk_in_place_faster_left
 	step_end
 
-LittlerootTown_BrendansHouse_2F_EventScript_PC::
+LittlerootTown_PlayersHouse_2F_EventScript_PC::
 	lockall
 	checkplayergender
 	goto_if_eq VAR_RESULT, MALE, LittlerootTown_BrendansHouse_2F_EventScript_CheckPlayersPC

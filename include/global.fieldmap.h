@@ -300,6 +300,7 @@ struct ObjectEventGraphicsInfo
              u8 shadowSize:2;
              u8 inanimate:1;
              u8 compressed:1;
+             u8 disableReflectionPaletteLoad:1;
     /*0x0D*/ u8 tracks;
     /*0x10*/ const struct OamData *oam;
     /*0x14*/ const struct SubspriteTable *subspriteTables;

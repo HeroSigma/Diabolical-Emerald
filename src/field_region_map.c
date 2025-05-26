@@ -151,6 +151,8 @@ static void MCB2_FieldUpdateRegionMap(void)
 
 static void FieldUpdateRegionMap(void)
 {
+    u8 offset;
+
     switch (sFieldRegionMapHandler->state)
     {
         case 0:
