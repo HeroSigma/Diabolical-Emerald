@@ -2430,27 +2430,28 @@ static void CreateFlyDestIcons(void)
             x = (x + MAPCURSOR_X_MIN) * 8 + 4;
             y = (y + MAPCURSOR_Y_MIN) * 8 + 4;
 
-        if (width == 2)
-            shape = SPRITE_SHAPE(16x8);
-        else if (height == 2)
-            shape = SPRITE_SHAPE(8x16);
-        else
-            shape = SPRITE_SHAPE(8x8);
-
-        spriteId = CreateSprite(&sFlyDestIconSpriteTemplate, x, y, 10);
-        if (spriteId != MAX_SPRITES)
-        {
-            gSprites[spriteId].oam.shape = shape;
-
-            if (FlagGet(canFlyFlag))
-                gSprites[spriteId].callback = SpriteCB_FlyDestIcon;
+            if (width == 2)
+                shape = SPRITE_SHAPE(16x8);
+            else if (height == 2)
+                shape = SPRITE_SHAPE(8x16);
             else
-                shape += 3;
+                shape = SPRITE_SHAPE(8x8);
 
-            StartSpriteAnim(&gSprites[spriteId], shape);
-            gSprites[spriteId].sIconMapSec = mapSecId;
+            spriteId = CreateSprite(&sFlyDestIconSpriteTemplate, x, y, 10);
+            if (spriteId != MAX_SPRITES)
+            {
+                gSprites[spriteId].oam.shape = shape;
+
+                if (FlagGet(canFlyFlag))
+                    gSprites[spriteId].callback = SpriteCB_FlyDestIcon;
+                else
+                    shape += 3;
+
+                StartSpriteAnim(&gSprites[spriteId], shape);
+                gSprites[spriteId].sIconMapSec = mapSecId;
+            }
+            canFlyFlag++;
         }
-        canFlyFlag++;
     }
 }
 

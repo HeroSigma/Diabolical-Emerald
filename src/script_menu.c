@@ -1101,7 +1101,7 @@ static void CreateLilycoveSSTidalMultichoice(void)
 
         width = ConvertPixelWidthToTileWidth(pixelWidth);
         windowId = CreateWindowFromRect(MAX_MULTICHOICE_WIDTH - width, (6 - count) * 2, width, count * 2);
-        SetStandardWindowBorderStyle(windowId, 0);
+        SetStandardWindowBorderStyle(windowId, FALSE);
 
         for (selectionCount = 0, i = 0; i < SSTIDAL_SELECTION_COUNT; i++)
         {

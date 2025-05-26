@@ -37,7 +37,7 @@ InsideOfTruck_EventScript_SetIntroFlagsJohto::
 	end
 
 InsideOfTruck_EventScript_SetIntroFlagsHoenn::
-	setrespawn HEAL_LOCATION_LITTLEROOT_TOWN_PLAYERS_HOUSE_2F
+	setrespawn HEAL_LOCATION_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F
 	setvar VAR_INTRO_STATE, 1
 	setvar VAR_LITTLEROOT_HOUSE_STATE, 1
 	setdynamicwarp MAP_LITTLEROOT_TOWN, 3, 10

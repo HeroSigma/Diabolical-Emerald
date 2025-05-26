@@ -58,7 +58,7 @@ LittlerootTown_EventScript_StepOffTruck::
 	setvar VAR_0x8005, 8
 	call LittlerootTown_EventScript_GoInsideWithMom
 	setflag FLAG_HIDE_TRUCK
-	warpsilent MAP_LITTLEROOT_TOWN_PLAYERS_HOUSE_1F, 8, 8
+	warpsilent MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F, 8, 8
 	waitstate
 	releaseall
 	end

@@ -302,6 +302,8 @@ static const u32 sPokedexPlusHGSS_ScreenSearchNational_Tilemap[] = INCBIN_U32("g
 #define HGSS_DARK_MODE FALSE
 #define HGSS_HIDE_UNSEEN_EVOLUTION_NAMES FALSE
 
+static u8 mapNumber = 0;
+
 // For scrolling search parameter
 #define MAX_SEARCH_PARAM_ON_SCREEN   6
 #define MAX_SEARCH_PARAM_CURSOR_POS  (MAX_SEARCH_PARAM_ON_SCREEN - 1)
@@ -3997,7 +3999,7 @@ static void Task_LoadAreaScreen(u8 taskId)
         gMain.state++;
         break;
     case 2:
-        DisplayPokedexAreaScreen(NationalPokedexNumToSpeciesHGSS(sPokedexListItem->dexNum), &sPokedexView->screenSwitchState, gAreaTimeOfDay, DEX_SHOW_AREA_SCREEN);
+        DisplayPokedexAreaScreen(NationalPokedexNumToSpeciesHGSS(sPokedexListItem->dexNum), &sPokedexView->screenSwitchState, mapNumber, gAreaTimeOfDay, DEX_SHOW_AREA_SCREEN);
         SetVBlankCallback(gPokedexVBlankCB);
         sPokedexView->screenSwitchState = 0;
         gMain.state = 0;
@@ -4021,7 +4023,7 @@ static void Task_ReloadAreaScreen(u8 taskId)
         gMain.state++;
         break;
     case 2:
-        DisplayPokedexAreaScreen(NationalPokedexNumToSpeciesHGSS(sPokedexListItem->dexNum), &sPokedexView->screenSwitchState, gAreaTimeOfDay, DEX_UPDATE_AREA_SCREEN);
+        DisplayPokedexAreaScreen(NationalPokedexNumToSpeciesHGSS(sPokedexListItem->dexNum), &sPokedexView->screenSwitchState, mapNumber, gAreaTimeOfDay, DEX_UPDATE_AREA_SCREEN);
         gMain.state = 0;
         gTasks[taskId].func = Task_WaitForAreaScreenInput;
         break;
@@ -4052,6 +4054,17 @@ static void Task_SwitchScreensFromAreaScreen(u8 taskId)
                 gTasks[taskId].func = Task_LoadStatsScreen;
             break;
         case 3:
+            if(mapNumber == 0)
+                mapNumber = 3;
+            else
+                mapNumber--;
+            gTasks[taskId].func = Task_ReloadAreaScreen;
+            break;
+        case 4:
+            if(mapNumber == 3)
+                mapNumber = 0;
+            else
+                mapNumber++;
             gTasks[taskId].func = Task_ReloadAreaScreen;
             break;
         }

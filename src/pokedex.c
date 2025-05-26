@@ -3557,7 +3557,7 @@ static void Task_LoadAreaScreen(u8 taskId)
         gMain.state++;
         break;
     case 2:
-        ShowPokedexAreaScreen(NationalPokedexNumToSpecies(sPokedexListItem->dexNum), &sPokedexView->screenSwitchState, mapNumber);
+        DisplayPokedexAreaScreen(NationalPokedexNumToSpecies(sPokedexListItem->dexNum), &sPokedexView->screenSwitchState, mapNumber, gAreaTimeOfDay, DEX_SHOW_AREA_SCREEN);
         SetVBlankCallback(gPokedexVBlankCB);
         sPokedexView->screenSwitchState = 0;
         gMain.state = 0;
@@ -3582,7 +3582,7 @@ static void Task_ReloadAreaScreen(u8 taskId)
         gMain.state++;
         break;
     case 2:
-        DisplayPokedexAreaScreen(NationalPokedexNumToSpecies(sPokedexListItem->dexNum), &sPokedexView->screenSwitchState, gAreaTimeOfDay, DEX_UPDATE_AREA_SCREEN);
+        DisplayPokedexAreaScreen(NationalPokedexNumToSpecies(sPokedexListItem->dexNum), &sPokedexView->screenSwitchState, mapNumber, gAreaTimeOfDay, DEX_UPDATE_AREA_SCREEN);
         gMain.state = 0;
         gTasks[taskId].func = Task_WaitForAreaScreenInput;
         break;
@@ -3614,14 +3614,14 @@ static void Task_SwitchScreensFromAreaScreen(u8 taskId)
                 mapNumber = 3;
             else
                 mapNumber--;
-            gTasks[taskId].func = Task_LoadAreaScreen;
+            gTasks[taskId].func = Task_ReloadAreaScreen;
             break;
         case 4:
             if(mapNumber == 3)
                 mapNumber = 0;
             else
                 mapNumber++;
-            gTasks[taskId].func = Task_LoadAreaScreen;
+            gTasks[taskId].func = Task_ReloadAreaScreen;
             break;
         }
     }

@@ -328,94 +328,93 @@ static void FindMapsWithMon(u16 species)
             return;
     }
 
-        // Add Pokémon with special encounter circumstances (i.e. not listed
-        // in the regular wild encounter table) to the area map.
-        // This only applies to Feebas on Route 119, but it was clearly set
-        // up to allow handling others.
-        for (i = 0; sFeebasData[i][0] != NUM_SPECIES; i++)
+    // Add Pokémon with special encounter circumstances (i.e. not listed
+    // in the regular wild encounter table) to the area map.
+    // This only applies to Feebas on Route 119, but it was clearly set
+    // up to allow handling others.
+    for (i = 0; sFeebasData[i][0] != NUM_SPECIES; i++)
+    {
+        if (species == sFeebasData[i][0])
         {
-            if (species == sFeebasData[i][0])
+            switch (sFeebasData[i][1])
             {
-                switch (sFeebasData[i][1])
-                {
-                case MAP_GROUP_KANTO_TOWNS_AND_ROUTES:
-                    if(mapNumber == 0)
-                        SetAreaHasMon(sFeebasData[i][1], sFeebasData[i][2]);
-                    break;
-                case MAP_GROUP_JOHTO_TOWNS_AND_ROUTES:
-                    if(mapNumber == 1)
-                        SetAreaHasMon(sFeebasData[i][1], sFeebasData[i][2]);
-                    break;
-                case MAP_GROUP_TOWNS_AND_ROUTES:
-                    if(mapNumber == 2)
-                        SetAreaHasMon(sFeebasData[i][1], sFeebasData[i][2]);
-                    break;
-                case MAP_GROUP_SEVII_TOWNS_AND_ROUTES:
-                    if(mapNumber == 3)
-                        SetAreaHasMon(sFeebasData[i][1], sFeebasData[i][2]);
-                    break;
-                case MAP_GROUP_KANTO_DUNGEONS:
-                    if(mapNumber == 0)
-                        SetSpecialMapHasMon(sFeebasData[i][1], sFeebasData[i][2]);
-                    break;
-                case MAP_GROUP_JOHTO_DUNGEONS:
-                    if(mapNumber == 1)
-                        SetSpecialMapHasMon(sFeebasData[i][1], sFeebasData[i][2]);
-                    break;
-                case MAP_GROUP_DUNGEONS:
-                case MAP_GROUP_SPECIAL_AREA:
-                    if(mapNumber == 2)
-                        SetSpecialMapHasMon(sFeebasData[i][1], sFeebasData[i][2]);
-                    break;
-                case MAP_GROUP_SEVII_DUNGEONS:
-                    if(mapNumber == 3)
-                        SetSpecialMapHasMon(sFeebasData[i][1], sFeebasData[i][2]);
-                    break;
-                }
+            case MAP_GROUP_KANTO_TOWNS_AND_ROUTES:
+                if(mapNumber == 0)
+                    SetAreaHasMon(sFeebasData[i][1], sFeebasData[i][2]);
+                break;
+            case MAP_GROUP_JOHTO_TOWNS_AND_ROUTES:
+                if(mapNumber == 1)
+                    SetAreaHasMon(sFeebasData[i][1], sFeebasData[i][2]);
+                break;
+            case MAP_GROUP_TOWNS_AND_ROUTES:
+                if(mapNumber == 2)
+                    SetAreaHasMon(sFeebasData[i][1], sFeebasData[i][2]);
+                break;
+            case MAP_GROUP_SEVII_TOWNS_AND_ROUTES:
+                if(mapNumber == 3)
+                    SetAreaHasMon(sFeebasData[i][1], sFeebasData[i][2]);
+                break;
+            case MAP_GROUP_KANTO_DUNGEONS:
+                if(mapNumber == 0)
+                    SetSpecialMapHasMon(sFeebasData[i][1], sFeebasData[i][2]);
+                break;
+            case MAP_GROUP_JOHTO_DUNGEONS:
+                if(mapNumber == 1)
+                    SetSpecialMapHasMon(sFeebasData[i][1], sFeebasData[i][2]);
+                break;
+            case MAP_GROUP_DUNGEONS:
+            case MAP_GROUP_SPECIAL_AREA:
+                if(mapNumber == 2)
+                    SetSpecialMapHasMon(sFeebasData[i][1], sFeebasData[i][2]);
+                break;
+            case MAP_GROUP_SEVII_DUNGEONS:
+                if(mapNumber == 3)
+                    SetSpecialMapHasMon(sFeebasData[i][1], sFeebasData[i][2]);
+                break;
             }
         }
+    }
 
-        // Add regular species to the area map
-        for (i = 0; gWildMonHeaders[i].mapGroup != MAP_GROUP(UNDEFINED); i++)
+    // Add regular species to the area map
+    for (i = 0; gWildMonHeaders[i].mapGroup != MAP_GROUP(UNDEFINED); i++)
+    {
+        if (MapHasSpecies(&gWildMonHeaders[i].encounterTypes[gAreaTimeOfDay], species))
         {
-            if (MapHasSpecies(&gWildMonHeaders[i], species))
+            switch (gWildMonHeaders[i].mapGroup)
             {
-                switch (gWildMonHeaders[i].mapGroup)
-                {
-                case MAP_GROUP_KANTO_TOWNS_AND_ROUTES:
-                    if(mapNumber == 0)
-                        SetAreaHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
-                    break;
-                case MAP_GROUP_JOHTO_TOWNS_AND_ROUTES:
-                    if(mapNumber == 1)
-                        SetAreaHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
-                    break;
-                case MAP_GROUP_TOWNS_AND_ROUTES:
-                    if(mapNumber == 2)
-                        SetAreaHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
-                    break;
-                case MAP_GROUP_SEVII_TOWNS_AND_ROUTES:
-                    if(mapNumber == 3)
-                        SetAreaHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
-                    break;
-                case MAP_GROUP_KANTO_DUNGEONS:
-                    if(mapNumber == 0)
-                        SetSpecialMapHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
-                    break;
-                case MAP_GROUP_JOHTO_DUNGEONS:
-                    if(mapNumber == 1)
-                        SetSpecialMapHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
-                    break;
-                case MAP_GROUP_DUNGEONS:
-                case MAP_GROUP_SPECIAL_AREA:
-                    if(mapNumber == 2)
-                        SetSpecialMapHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
-                    break;
-                case MAP_GROUP_SEVII_DUNGEONS:
-                    if(mapNumber == 3)
-                        SetSpecialMapHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
-                    break;
-                }
+            case MAP_GROUP_KANTO_TOWNS_AND_ROUTES:
+                if(mapNumber == 0)
+                    SetAreaHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
+                break;
+            case MAP_GROUP_JOHTO_TOWNS_AND_ROUTES:
+                if(mapNumber == 1)
+                    SetAreaHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
+                break;
+            case MAP_GROUP_TOWNS_AND_ROUTES:
+                if(mapNumber == 2)
+                    SetAreaHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
+                break;
+            case MAP_GROUP_SEVII_TOWNS_AND_ROUTES:
+                if(mapNumber == 3)
+                    SetAreaHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
+                break;
+            case MAP_GROUP_KANTO_DUNGEONS:
+                if(mapNumber == 0)
+                    SetSpecialMapHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
+                break;
+            case MAP_GROUP_JOHTO_DUNGEONS:
+                if(mapNumber == 1)
+                    SetSpecialMapHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
+                break;
+            case MAP_GROUP_DUNGEONS:
+            case MAP_GROUP_SPECIAL_AREA:
+                if(mapNumber == 2)
+                    SetSpecialMapHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
+                break;
+            case MAP_GROUP_SEVII_DUNGEONS:
+                if(mapNumber == 3)
+                    SetSpecialMapHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
+                break;
             }
         }
     }
@@ -1034,7 +1033,7 @@ static void CreateAreaMarkerSprites(void)
     for (i = 0; i < sPokedexAreaScreen->numSpecialAreas; i++)
     {
         //Kanto
-        if(mapNumber == 0) {
+        if (mapNumber == 0) {
             mapSecId = sPokedexAreaScreen->specialAreaRegionMapSectionIds[i];
             x = 8 * (gRegionMapEntries_Kanto[mapSecId].x + 1) + 4;
             y = 8 * (gRegionMapEntries_Kanto[mapSecId].y) + 28;
@@ -1043,7 +1042,7 @@ static void CreateAreaMarkerSprites(void)
             spriteId = CreateSprite(&sAreaMarkerSpriteTemplate, x, y, 0);
         }
         //Johto
-        if(mapNumber == 1) {
+        else if(mapNumber == 1) {
             mapSecId = sPokedexAreaScreen->specialAreaRegionMapSectionIds[i];
             x = 8 * (gRegionMapEntries_Johto[mapSecId].x + 1) + 4;
             y = 8 * (gRegionMapEntries_Johto[mapSecId].y) + 28;
@@ -1052,7 +1051,7 @@ static void CreateAreaMarkerSprites(void)
             spriteId = CreateSprite(&sAreaMarkerSpriteTemplate, x, y, 0);
         }
         //Hoenn
-        if(mapNumber == 2) {
+        else if(mapNumber == 2) {
             mapSecId = sPokedexAreaScreen->specialAreaRegionMapSectionIds[i];
             x = 8 * (gRegionMapEntries[mapSecId].x + 1) + 4;
             y = 8 * (gRegionMapEntries[mapSecId].y) + 28;
@@ -1061,7 +1060,7 @@ static void CreateAreaMarkerSprites(void)
             spriteId = CreateSprite(&sAreaMarkerSpriteTemplate, x, y, 0);
         }
         //Sevii
-        if(mapNumber == 3) {
+        else {
             mapSecId = sPokedexAreaScreen->specialAreaRegionMapSectionIds[i];
             x = 8 * (gRegionMapEntries_Sevii[mapSecId].x + 1) + 4;
             y = 8 * (gRegionMapEntries_Sevii[mapSecId].y) + 28;

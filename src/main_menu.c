@@ -1623,7 +1623,7 @@ static void Task_NewGameBirchSpeech_WhichRegionDoYouLiveIn(u8 taskId)
     NewGameBirchSpeech_ClearWindow(0);
     StringExpandPlaceholders(gStringVar4, gText_Birch_WhichRegion);
     AddTextPrinterForMessage(TRUE);
-    gTasks[taskId].tPlayerData = KANTO;
+    gTasks[taskId].tPlayerGender = KANTO;
     gTasks[taskId].func = Task_NewGameBirchSpeech_WaitToShowRegionMenu;
 }
 
@@ -1663,9 +1663,9 @@ static void Task_NewGameBirchSpeech_ChooseRegion(u8 taskId)
             break;
     }
     region2 = Menu_GetCursorPos();
-    if (region2 != gTasks[taskId].tPlayerData)
+    if (region2 != gTasks[taskId].tPlayerGender)
     {
-        gTasks[taskId].tPlayerData = region2;
+        gTasks[taskId].tPlayerGender = region2;
         gSprites[gTasks[taskId].tPlayerSpriteId].oam.objMode = ST_OAM_OBJ_BLEND;
         NewGameBirchSpeech_StartFadeOutTarget1InTarget2(taskId, 0);
         gTasks[taskId].func = Task_NewGameBirchSpeech_SlideOutOldRegionSprite;
@@ -1683,24 +1683,24 @@ static void Task_NewGameBirchSpeech_SlideOutOldRegionSprite(u8 taskId)
     {
         gSprites[spriteId].invisible = TRUE;
         if (gSaveBlock2Ptr->playerGender == MALE) {
-            if (gTasks[taskId].tPlayerData == KANTO) {
+            if (gTasks[taskId].tPlayerGender == KANTO) {
                 spriteId = gTasks[taskId].tRedSpriteId;
             }
-            if (gTasks[taskId].tPlayerData == JOHTO) {
+            else if (gTasks[taskId].tPlayerGender == JOHTO) {
                 spriteId = gTasks[taskId].tGoldSpriteId;
             }
-            if (gTasks[taskId].tPlayerData == HOENN) {
+            else {
                 spriteId = gTasks[taskId].tBrendanSpriteId;
             }
         }
         else {
-            if (gTasks[taskId].tPlayerData == KANTO) {
+            if (gTasks[taskId].tPlayerGender == KANTO) {
                 spriteId = gTasks[taskId].tLeafSpriteId;
             }
-            if (gTasks[taskId].tPlayerData == JOHTO) {
+            else if (gTasks[taskId].tPlayerGender == JOHTO) {
                 spriteId = gTasks[taskId].tLyraSpriteId;
             }
-            if (gTasks[taskId].tPlayerData == HOENN) {
+            else {
                 spriteId = gTasks[taskId].tMaySpriteId;
             }
         }
@@ -1883,10 +1883,10 @@ static void Task_NewGameBirchSpeech_AreYouReady(u8 taskId)
             if (gSaveBlock2Ptr->playerRegion == KANTO) {
                 spriteId = gTasks[taskId].tLeafSpriteId;
             }
-            if (gSaveBlock2Ptr->playerRegion == JOHTO) {
+            else if (gSaveBlock2Ptr->playerRegion == JOHTO) {
                 spriteId = gTasks[taskId].tLyraSpriteId;
             }
-            if (gSaveBlock2Ptr->playerRegion == HOENN) {
+            else {
                 spriteId = gTasks[taskId].tMaySpriteId;
             }
         }
@@ -1894,10 +1894,10 @@ static void Task_NewGameBirchSpeech_AreYouReady(u8 taskId)
             if (gSaveBlock2Ptr->playerRegion == KANTO) {
                 spriteId = gTasks[taskId].tRedSpriteId;
             }
-            if (gSaveBlock2Ptr->playerRegion == JOHTO) {
+            else if (gSaveBlock2Ptr->playerRegion == JOHTO) {
                 spriteId = gTasks[taskId].tGoldSpriteId;
             }
-            if (gSaveBlock2Ptr->playerRegion == HOENN) {
+            else {
                 spriteId = gTasks[taskId].tBrendanSpriteId;
             }
         }
@@ -2013,10 +2013,10 @@ static void CB2_NewGameBirchSpeech_ReturnFromNamingScreen(void)
         if (gSaveBlock2Ptr->playerRegion == KANTO) {
             spriteId = gTasks[taskId].tLeafSpriteId;
         }
-        if (gSaveBlock2Ptr->playerRegion == JOHTO) {
+        else if (gSaveBlock2Ptr->playerRegion == JOHTO) {
             spriteId = gTasks[taskId].tLyraSpriteId;
         }
-        if (gSaveBlock2Ptr->playerRegion == HOENN) {
+        else {
             spriteId = gTasks[taskId].tMaySpriteId;
         }
     }
@@ -2025,10 +2025,10 @@ static void CB2_NewGameBirchSpeech_ReturnFromNamingScreen(void)
         if (gSaveBlock2Ptr->playerRegion == KANTO) {
             spriteId = gTasks[taskId].tRedSpriteId;
         }
-        if (gSaveBlock2Ptr->playerRegion == JOHTO) {
+        else if (gSaveBlock2Ptr->playerRegion == JOHTO) {
             spriteId = gTasks[taskId].tGoldSpriteId;
         }
-        if (gSaveBlock2Ptr->playerRegion == HOENN) {
+        else {
             spriteId = gTasks[taskId].tBrendanSpriteId;
         }
     }
@@ -2109,22 +2109,22 @@ static void AddBirchSpeechObjects(u8 taskId)
     gSprites[maySpriteId].invisible = TRUE;
     gSprites[maySpriteId].oam.priority = 0;
     gTasks[taskId].tMaySpriteId = maySpriteId;
-    redSpriteId = CreateTrainerSprite(FacilityClassToPicIndex(FACILITY_CLASS_RED), 120, 60, 0, &gDecompressionBuffer[TRAINER_PIC_SIZE]);
+    redSpriteId = CreateTrainerSprite(FacilityClassToPicIndex(FACILITY_CLASS_RED), 120, 60, 0, NULL);
     gSprites[redSpriteId].callback = SpriteCB_Null;
     gSprites[redSpriteId].invisible = TRUE;
     gSprites[redSpriteId].oam.priority = 0;
     gTasks[taskId].tRedSpriteId = redSpriteId;
-    leafSpriteId = CreateTrainerSprite(FacilityClassToPicIndex(FACILITY_CLASS_LEAF), 120, 60, 0, &gDecompressionBuffer[TRAINER_PIC_SIZE]);
+    leafSpriteId = CreateTrainerSprite(FacilityClassToPicIndex(FACILITY_CLASS_LEAF), 120, 60, 0, NULL);
     gSprites[leafSpriteId].callback = SpriteCB_Null;
     gSprites[leafSpriteId].invisible = TRUE;
     gSprites[leafSpriteId].oam.priority = 0;
     gTasks[taskId].tLeafSpriteId = leafSpriteId;
-    goldSpriteId = CreateTrainerSprite(FacilityClassToPicIndex(FACILITY_CLASS_GOLD), 120, 60, 0, &gDecompressionBuffer[TRAINER_PIC_SIZE]);
+    goldSpriteId = CreateTrainerSprite(FacilityClassToPicIndex(FACILITY_CLASS_GOLD), 120, 60, 0, NULL);
     gSprites[goldSpriteId].callback = SpriteCB_Null;
     gSprites[goldSpriteId].invisible = TRUE;
     gSprites[goldSpriteId].oam.priority = 0;
     gTasks[taskId].tGoldSpriteId = goldSpriteId;
-    lyraSpriteId = CreateTrainerSprite(FacilityClassToPicIndex(FACILITY_CLASS_LYRA), 120, 60, 0, &gDecompressionBuffer[TRAINER_PIC_SIZE]);
+    lyraSpriteId = CreateTrainerSprite(FacilityClassToPicIndex(FACILITY_CLASS_LYRA), 120, 60, 0, NULL);
     gSprites[lyraSpriteId].callback = SpriteCB_Null;
     gSprites[lyraSpriteId].invisible = TRUE;
     gSprites[lyraSpriteId].oam.priority = 0;

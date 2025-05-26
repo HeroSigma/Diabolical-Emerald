@@ -300,11 +300,11 @@ static const u8 *const sPageDescriptions[] =
     [POKENAV_MENUITEM_CONDITION_SEARCH_CUTE]   = COMPOUND_STRING("Find cute POKéMON."),
     [POKENAV_MENUITEM_CONDITION_SEARCH_SMART]  = COMPOUND_STRING("Find smart POKéMON."),
     [POKENAV_MENUITEM_CONDITION_SEARCH_TOUGH]  = COMPOUND_STRING("Find tough POKéMON."),
-    [POKENAV_MENUITEM_CONDITION_SEARCH_CANCEL] = COMPOUND_STRING("Return to the CONDITION menu.")
-    [POKENAV_MENUITEM_KANTO]                   = gText_CheckMapOfKanto,
-    [POKENAV_MENUITEM_JOHTO]                   = gText_CheckMapOfJohto,
-    [POKENAV_MENUITEM_HOENN]                   = gText_CheckMapOfHoenn,
-    [POKENAV_MENUITEM_SEVII]                   = gText_CheckMapOfSevii
+    [POKENAV_MENUITEM_CONDITION_SEARCH_CANCEL] = COMPOUND_STRING("Return to the CONDITION menu."),
+    [POKENAV_MENUITEM_KANTO]                   = COMPOUND_STRING("Check the map of the KANTO region."),
+    [POKENAV_MENUITEM_JOHTO]                   = COMPOUND_STRING("Check the map of the JOHTO region."),
+    [POKENAV_MENUITEM_HOENN]                   = COMPOUND_STRING("Check the map of the HOENN region."),
+    [POKENAV_MENUITEM_SEVII]                   = COMPOUND_STRING("Check the map of the SEVII region.")
 };
 
 static const u8 sOptionDescTextColors[]  = {TEXT_COLOR_GREEN, TEXT_COLOR_BLUE, TEXT_COLOR_LIGHT_GREEN};

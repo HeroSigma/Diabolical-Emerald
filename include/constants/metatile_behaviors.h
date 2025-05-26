@@ -5,7 +5,7 @@
 #define MB_SECRET_BASE_WALL 0x01
 #define MB_TALL_GRASS 0x02
 #define MB_LONG_GRASS 0x03
-#define MB_HEADBUTT 0x04
+#define MB_UNUSED_04 0x04
 #define MB_UNUSED_05 0x05
 #define MB_DEEP_SAND 0x06
 #define MB_SHORT_GRASS 0x07
@@ -18,7 +18,7 @@
 #define MB_MOSSDEEP_GYM_WARP 0x0E
 #define MB_MT_PYRE_HOLE 0x0F
 #define MB_POND_WATER 0x10
-#define MB_SEMI_DEEP_WATER 0x11
+#define MB_INTERIOR_DEEP_WATER 0x11 // Used by interior maps; functionally the same as MB_DEEP_WATER
 #define MB_DEEP_WATER 0x12
 #define MB_WATERFALL 0x13
 #define MB_SOOTOPOLIS_DEEP_WATER 0x14
