@@ -1,6 +1,8 @@
 #include "global.h"
 #include "test/battle.h"
 
+TO_DO_BATTLE_TEST("TODO: Write Seismic Toss/Night Shade (Move Effect) test titles")
+
 ASSUMPTIONS
 {
     ASSUME(GetMoveEffect(MOVE_SEISMIC_TOSS) == EFFECT_LEVEL_DAMAGE);

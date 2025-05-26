@@ -11,6 +11,7 @@ enum PokedexAreaScreenState
     DEX_UPDATE_AREA_SCREEN
 };
 
+void ShowPokedexAreaScreen(u16 species, u8 *screenSwitchState);
 void DisplayPokedexAreaScreen(u16 species, u8 *screenSwitchState, enum TimeOfDay timeOfDay, enum PokedexAreaScreenState areaState);
 
 #endif // GUARD_POKEDEX_AREA_SCREEN_H

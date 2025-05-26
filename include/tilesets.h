@@ -13,8 +13,8 @@ extern const u16 gTilesetPalettes_GeneralKanto_Summer[][16];
 extern const u16 gTilesetPalettes_GeneralKanto_Autumn[][16];
 extern const u16 gTilesetPalettes_GeneralKanto_Winter[][16];
 
-extern const struct Tileset * const gTilesetPointer_SecretBase;
-extern const struct Tileset * const gTilesetPointer_SecretBaseRedCave;
+extern const struct Tileset *const gTilesetPointer_SecretBase;
+extern const struct Tileset *const gTilesetPointer_SecretBaseRedCave;
 
 extern const struct Tileset gTileset_Building;
 extern const struct Tileset gTileset_BrendansMaysHouse;
