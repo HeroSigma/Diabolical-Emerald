@@ -1635,44 +1635,6 @@ const u16 gTilesetPalettes_UnionRoom[][16] =
 
 const u32 gTilesetTiles_UnionRoom[] = INCBIN_U32("data/tilesets/secondary/union_room/tiles.4bpp.lz");
 
-const u32 gTilesetTiles_KantoGeneral[] = INCBIN_U32("data/tilesets/primary/kantogeneral/tiles.4bpp.lz");
-
-const u16 gTilesetPalettes_KantoGeneral[][16] =
-{
-	INCBIN_U16("data/tilesets/primary/kantogeneral/palettes/00.gbapal"),
-	INCBIN_U16("data/tilesets/primary/kantogeneral/palettes/01.gbapal"),
-	INCBIN_U16("data/tilesets/primary/kantogeneral/palettes/02.gbapal"),
-	INCBIN_U16("data/tilesets/primary/kantogeneral/palettes/03.gbapal"),
-	INCBIN_U16("data/tilesets/primary/kantogeneral/palettes/04.gbapal"),
-	INCBIN_U16("data/tilesets/primary/kantogeneral/palettes/05.gbapal"),
-	INCBIN_U16("data/tilesets/primary/kantogeneral/palettes/06.gbapal"),
-	INCBIN_U16("data/tilesets/primary/kantogeneral/palettes/07.gbapal"),
-	INCBIN_U16("data/tilesets/primary/kantogeneral/palettes/08.gbapal"),
-	INCBIN_U16("data/tilesets/primary/kantogeneral/palettes/09.gbapal"),
-	INCBIN_U16("data/tilesets/primary/kantogeneral/palettes/10.gbapal"),
-	INCBIN_U16("data/tilesets/primary/kantogeneral/palettes/11.gbapal"),
-	INCBIN_U16("data/tilesets/primary/kantogeneral/palettes/12.gbapal"),
-};
-
-const u32 gTilesetTiles_JohtoGeneral[] = INCBIN_U32("data/tilesets/primary/johtogeneral/tiles.4bpp.lz");
-
-const u16 gTilesetPalettes_JohtoGeneral[][16] =
-{
-	INCBIN_U16("data/tilesets/primary/johtogeneral/palettes/00.gbapal"),
-	INCBIN_U16("data/tilesets/primary/johtogeneral/palettes/01.gbapal"),
-	INCBIN_U16("data/tilesets/primary/johtogeneral/palettes/02.gbapal"),
-	INCBIN_U16("data/tilesets/primary/johtogeneral/palettes/03.gbapal"),
-	INCBIN_U16("data/tilesets/primary/johtogeneral/palettes/04.gbapal"),
-	INCBIN_U16("data/tilesets/primary/johtogeneral/palettes/05.gbapal"),
-	INCBIN_U16("data/tilesets/primary/johtogeneral/palettes/06.gbapal"),
-	INCBIN_U16("data/tilesets/primary/johtogeneral/palettes/07.gbapal"),
-	INCBIN_U16("data/tilesets/primary/johtogeneral/palettes/08.gbapal"),
-	INCBIN_U16("data/tilesets/primary/johtogeneral/palettes/09.gbapal"),
-	INCBIN_U16("data/tilesets/primary/johtogeneral/palettes/10.gbapal"),
-	INCBIN_U16("data/tilesets/primary/johtogeneral/palettes/11.gbapal"),
-	INCBIN_U16("data/tilesets/primary/johtogeneral/palettes/12.gbapal"),
-};
-
 const u32 gTilesetTiles_KantoBuilding[] = INCBIN_U32("data/tilesets/primary/kantobuilding/tiles.4bpp.lz");
 
 const u16 gTilesetPalettes_KantoBuilding[][16] =

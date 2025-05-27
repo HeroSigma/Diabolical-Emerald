@@ -45,7 +45,7 @@ NewBarkTown_PlayersHouse_1F_EventScript_GoUpstairsToSetClock::
 	applymovement OBJ_EVENT_ID_PLAYER, NewBarkTown_PlayersHouse_1F_Movement_PushTowardStairs
 	applymovement LOCALID_MOM, NewBarkTown_PlayersHouse_1F_Movement_PushTowardStairs
 	waitmovement 0
-	warp MAP_NEW_BARK_TOWN_BRENDANS_HOUSE_2F, 9, 2
+	warp MAP_NEW_BARK_TOWN_PLAYERS_HOUSE_2F, 9, 2
 	waitstate
 	releaseall
 	end

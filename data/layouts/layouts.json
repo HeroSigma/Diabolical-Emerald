@@ -4432,7 +4432,7 @@
       "blockdata_filepath": "data/layouts/ViridianCity/map.bin"
     },
     {
-      "id": "LAYOUT_PALLET_TOWN_BRENDANS_HOUSE_1F",
+      "id": "LAYOUT_PALLET_TOWN_PLAYERS_HOUSE_1F",
       "name": "PalletTown_PlayersHouse_1F_Layout",
       "width": 12,
       "height": 10,
@@ -4442,7 +4442,7 @@
       "blockdata_filepath": "data/layouts/PalletTown_PlayersHouse_1F/map.bin"
     },
     {
-      "id": "LAYOUT_PALLET_TOWN_BRENDANS_HOUSE_2F",
+      "id": "LAYOUT_PALLET_TOWN_PLAYERS_HOUSE_2F",
       "name": "PalletTown_PlayersHouse_2F_Layout",
       "width": 11,
       "height": 9,
@@ -8062,7 +8062,7 @@
       "blockdata_filepath": "data/layouts/Route29/map.bin"
     },
     {
-      "id": "LAYOUT_NEW_BARK_TOWN_BRENDANS_HOUSE_1F",
+      "id": "LAYOUT_NEW_BARK_TOWN_PLAYERS_HOUSE_1F",
       "name": "NewBarkTown_PlayersHouse_1F_Layout",
       "width": 12,
       "height": 10,
@@ -8072,7 +8072,7 @@
       "blockdata_filepath": "data/layouts/NewBarkTown_PlayersHouse_1F/map.bin"
     },
     {
-      "id": "LAYOUT_NEW_BARK_TOWN_BRENDANS_HOUSE_2F",
+      "id": "LAYOUT_NEW_BARK_TOWN_PLAYERS_HOUSE_2F",
       "name": "NewBarkTown_PlayersHouse_2F_Layout",
       "width": 11,
       "height": 9,

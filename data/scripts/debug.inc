@@ -22,14 +22,14 @@ Debug_CheatStart::
 	givemon SPECIES_MUDKIP, 20, ITEM_NONE
 	setflag FLAG_SYS_POKEDEX_GET
 	special SetUnlockedPokedexFlags
-	setflag FLAG_RECEIVED_POKEDEX
+	setflag FLAG_RECEIVED_POKEDEX_FROM_BIRCH
 	setvar VAR_CABLE_CLUB_TUTORIAL_STATE, 2
 	setflag FLAG_SYS_NATIONAL_DEX
 	special EnableNationalPokedex
 	setflag FLAG_RECEIVED_RUNNING_SHOES
 	setflag FLAG_SYS_B_DASH
 	setvar VAR_LITTLEROOT_TOWN_STATE, 4 @ 4: Received Running Shoes
-	setvar VAR_INTRO_STATE, 7 @ 7: Told to go meet rival
+	setvar VAR_LITTLEROOT_INTRO_STATE, 7 @ 7: Told to go meet rival
 	setvar VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 2 @ 2: Met Rival's Mom (and is corresponding gender)
 	setvar VAR_LITTLEROOT_HOUSES_STATE_MAY, 2 @ 2: Met Rival's Mom (and is corresponding gender)
 	setvar VAR_LITTLEROOT_RIVAL_STATE, 4 @ 4: Received Pokedex
@@ -584,62 +584,3 @@ Debug_EventScript_FontTest::
 @Debug_EventScript_InflictStatus1_Close:
 @	releaseall
 @	end
-
-Debug_TimeRatio_DisplayTimeState::
-	callnative CheckTimeState
-	msgbox Debug_TimeStateText, MSGBOX_DEFAULT
-	release
-	end
-
-Debug_TimeStateText::
-	.string "Time is:  {STR_VAR_1}\n"
-	.string "Flow is:  {STR_VAR_2}  ({STR_VAR_3})$"
-
-Debug_TimeRatio_FakeRtcToggle::
-	togglefakertc
-	release
-	end
-
-Debug_TimeRatio_FakeRtcPause::
-	pausefakertc
-	release
-	end
-
-Debug_TimeRatio_FakeRtcResume::
-	resumefakertc
-	release
-	end
-
-Debug_TimeRatio_TimeRatioStandard::
-	altertimeratiostandard
-	release
-	end
-
-Debug_TimeRatio_TimeRatioSlow::
-	altertimeratioslow
-	release
-	end
-
-Debug_TimeRatio_TimeRatioRealtime::
-	altertimeratiorealtime
-	release
-	end
-
-Debug_TimeRatio_TimeRatioPrevious::
-	altertimeratioprevious
-	release
-	end
-
-Debug_TimeRatio_CalendarText::
-	callnative GetCalendarText
-	msgbox Debug_CalendarText, MSGBOX_DEFAULT
-	callnative GetSeasonText
-	msgbox Debug_SeasonText, MSGBOX_DEFAULT
-	release
-	end
-
-Debug_CalendarText::
-	.string "Date is: {STR_VAR_1}, {STR_VAR_2}, {STR_VAR_3}$"
-
-Debug_SeasonText::
-	.string "Season is: {STR_VAR_1} {STR_VAR_2}/{STR_VAR_3}$"
