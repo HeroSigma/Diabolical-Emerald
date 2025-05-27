@@ -3,7 +3,7 @@ TwoIsland_MapScripts::
 	.byte 0
 
 TwoIsland_OnTransition:
-	setflag FLAG_VISITED_TWO_ISLAND
+	setflag FLAG_WORLD_MAP_TWO_ISLAND
 	end
 
 TwoIsland_EventScript_IslandSign::

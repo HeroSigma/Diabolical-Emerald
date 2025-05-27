@@ -3,7 +3,7 @@ FuchsiaCity_MapScripts::
 	.byte 0
 
 FuchsiaCity_OnTransition:
-	setflag FLAG_VISITED_FUCHSIA_CITY
+	setflag FLAG_WORLD_MAP_FUCHSIA_CITY
 	end
 
 FuchsiaCity_EventScript_SafariGameSign::

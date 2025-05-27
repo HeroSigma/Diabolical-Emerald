@@ -3,7 +3,7 @@ VermilionCity_MapScripts::
 	.byte 0
 
 VermilionCity_OnTransition:
-	setflag FLAG_VISITED_VERMILION_CITY
+	setflag FLAG_WORLD_MAP_VERMILION_CITY
 	end
 
 VermilionCity_EventScript_CitySign::

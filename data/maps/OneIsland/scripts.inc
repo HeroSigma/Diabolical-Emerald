@@ -3,7 +3,7 @@ OneIsland_MapScripts::
 	.byte 0
 
 OneIsland_OnTransition:
-	setflag FLAG_VISITED_ONE_ISLAND
+	setflag FLAG_WORLD_MAP_ONE_ISLAND
 	end
 
 OneIsland_EventScript_IslandSign::

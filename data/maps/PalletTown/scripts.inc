@@ -44,39 +44,39 @@ PalletTown_OnFrame::
 @ Oak approaches player after exiting their house post Elite Four to check if they should receieve the National Dex
 PalletTown_EventScript_OakRatingScene::
 	lockall
-	textcolor NPC_TEXT_COLOR_MALE
-	setobjectxyperm LOCALID_PROF_OAK, 14, 14
-	setobjectmovementtype LOCALID_PROF_OAK, MOVEMENT_TYPE_FACE_LEFT
-	addobject LOCALID_PROF_OAK
-	applymovement LOCALID_PROF_OAK, PalletTown_Movement_OakWalkToPlayersDoor
-	waitmovement 0
-	goto_if_unset FLAG_WORLD_MAP_ONE_ISLAND, PalletTown_EventScript_NotBeenToOneIslandYet
-	msgbox PalletTown_Text_OakLetMeSeePokedex
-	setvar VAR_0x8004, 0
-	specialvar VAR_RESULT, GetPokedexCount
-	copyvar VAR_0x8008, VAR_0x8005
-	copyvar VAR_0x8009, VAR_0x8006
-	buffernumberstring STR_VAR_1, VAR_0x8008
-	buffernumberstring STR_VAR_2, VAR_0x8009
-	goto_if_lt VAR_0x8009, 60, PalletTown_EventScript_NotEnoughMonsForNationalDex
-	msgbox PalletTown_Text_CaughtXImpressiveFollowMe
-	closemessage
-	playbgm MUS_FOLLOW_ME, 0
-	applymovement OBJ_EVENT_ID_PLAYER, PalletTown_Movement_PlayerWalkToLabFromHouse
-	applymovement LOCALID_PROF_OAK, PalletTown_Movement_OakWalkToLabFromHouse
-	waitmovement 0
-	opendoor 16, 13
-	waitdooranim
-	applymovement LOCALID_PROF_OAK, PalletTown_Movement_OakEnterLab
-	applymovement OBJ_EVENT_ID_PLAYER, PalletTown_Movement_PlayerEnterLab
-	waitmovement 0
-	closedoor 16, 13
-	waitdooranim
-	setvar VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 7
-	setvar VAR_MAP_SCENE_PALLET_TOWN_OAK, 3
+	@textcolor NPC_TEXT_COLOR_MALE
+	@setobjectxyperm LOCALID_PROF_OAK, 14, 14
+	@setobjectmovementtype LOCALID_PROF_OAK, MOVEMENT_TYPE_FACE_LEFT
+	@addobject LOCALID_PROF_OAK
+	@applymovement LOCALID_PROF_OAK, PalletTown_Movement_OakWalkToPlayersDoor
+	@waitmovement 0
+	@goto_if_unset FLAG_WORLD_MAP_ONE_ISLAND, PalletTown_EventScript_NotBeenToOneIslandYet
+	@msgbox PalletTown_Text_OakLetMeSeePokedex
+	@setvar VAR_0x8004, 0
+	@specialvar VAR_RESULT, GetPokedexCount
+	@copyvar VAR_0x8008, VAR_0x8005
+	@copyvar VAR_0x8009, VAR_0x8006
+	@buffernumberstring STR_VAR_1, VAR_0x8008
+	@buffernumberstring STR_VAR_2, VAR_0x8009
+	@goto_if_lt VAR_0x8009, 60, PalletTown_EventScript_NotEnoughMonsForNationalDex
+	@msgbox PalletTown_Text_CaughtXImpressiveFollowMe
+	@closemessage
+	@playbgm MUS_FOLLOW_ME, 0
+	@applymovement OBJ_EVENT_ID_PLAYER, PalletTown_Movement_PlayerWalkToLabFromHouse
+	@applymovement LOCALID_PROF_OAK, PalletTown_Movement_OakWalkToLabFromHouse
+	@waitmovement 0
+	@opendoor 16, 13
+	@waitdooranim
+	@applymovement LOCALID_PROF_OAK, PalletTown_Movement_OakEnterLab
+	@applymovement OBJ_EVENT_ID_PLAYER, PalletTown_Movement_PlayerEnterLab
+	@waitmovement 0
+	@closedoor 16, 13
+	@waitdooranim
+	@setvar VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 7
+	@setvar VAR_MAP_SCENE_PALLET_TOWN_OAK, 3
 	setflag FLAG_HIDE_OAK_IN_PALLET_TOWN
-	warp MAP_PALLET_TOWN_PROFESSOR_OAKS_LAB, 6, 12
-	waitstate
+	@warp MAP_PALLET_TOWN_PROFESSOR_OAKS_LAB, 6, 12
+	@waitstate
 	releaseall
 	end
 
@@ -182,10 +182,10 @@ PalletTown_EventScript_OakTriggerRight::
 	end
 
 PalletTown_EventScript_OakTrigger::
-	famechecker FAMECHECKER_OAK, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
-	textcolor NPC_TEXT_COLOR_MALE
+	@famechecker FAMECHECKER_OAK, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
+	@textcolor NPC_TEXT_COLOR_MALE
 	delay 30
-	playbgm MUS_OAK, 0
+	playbgm MUS_RG_OAK, 0
 	message PalletTown_Text_OakDontGoOut
 	waitmessage
 	delay 85
@@ -213,7 +213,7 @@ PalletTown_EventScript_OakTrigger::
 	closedoor 16, 13
 	waitdooranim
 	setvar VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 1
-	clearflag FLAG_HIDE_OAK_IN_HIS_LAB
+	@clearflag FLAG_HIDE_OAK_IN_HIS_LAB
 	setvar VAR_MAP_SCENE_PALLET_TOWN_OAK, 1
 	setflag FLAG_HIDE_OAK_IN_PALLET_TOWN
 	setflag FLAG_DONT_TRANSITION_MUSIC
@@ -395,7 +395,7 @@ PalletTown_EventScript_FatMan::
 
 PalletTown_EventScript_OaksLabSign::
 	lockall
-	famechecker FAMECHECKER_OAK, 0
+	@famechecker FAMECHECKER_OAK, 0
 	msgbox PalletTown_Text_OakPokemonResearchLab
 	releaseall
 	end
@@ -429,16 +429,16 @@ PalletTown_EventScript_SignLadyTrigger::
 	end
 
 PalletTown_EventScript_SignLadyShowSign::
-	textcolor NPC_TEXT_COLOR_FEMALE
+	@textcolor NPC_TEXT_COLOR_FEMALE
 	msgbox PalletTown_Text_LookCopiedTrainerTipsSign
 	closemessage
 	delay 20
-	textcolor NPC_TEXT_COLOR_NEUTRAL
+	@textcolor NPC_TEXT_COLOR_NEUTRAL
 	setflag FLAG_OPENED_START_MENU
 	setvar VAR_MAP_SCENE_PALLET_TOWN_SIGN_LADY, 1
 	setvar SIGN_LADY_READY, FALSE
-	special SetWalkingIntoSignVars
-	special DisableMsgBoxWalkaway
+	@special SetWalkingIntoSignVars
+	@special DisableMsgBoxWalkaway
 	signmsg
 	msgbox PalletTown_Text_PressStartToOpenMenuCopy
 	normalmsg

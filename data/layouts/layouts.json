@@ -4452,14 +4452,14 @@
       "blockdata_filepath": "data/layouts/PalletTown_PlayersHouse_2F/map.bin"
     },
     {
-      "id": "LAYOUT_PALLET_TOWN_LEAFS_HOUSE",
-      "name": "PalletTown_LeafsHouse_Layout",
+      "id": "LAYOUT_PALLET_TOWN_RIVALS_HOUSE",
+      "name": "PalletTown_RivalsHouse_Layout",
       "width": 13,
       "height": 10,
       "primary_tileset": "gTileset_KantoBuilding",
       "secondary_tileset": "gTileset_KantoBuilding2",
-      "border_filepath": "data/layouts/PalletTown_LeafsHouse/border.bin",
-      "blockdata_filepath": "data/layouts/PalletTown_LeafsHouse/map.bin"
+      "border_filepath": "data/layouts/PalletTown_RivalsHouse/border.bin",
+      "blockdata_filepath": "data/layouts/PalletTown_RivalsHouse/map.bin"
     },
     {
       "id": "LAYOUT_PALLET_TOWN_PROFESSOR_OAKS_LAB",
@@ -8082,14 +8082,14 @@
       "blockdata_filepath": "data/layouts/NewBarkTown_PlayersHouse_2F/map.bin"
     },
     {
-      "id": "LAYOUT_NEW_BARK_TOWN_HOUSE1",
-      "name": "NewBarkTown_House1_Layout",
+      "id": "LAYOUT_NEW_BARK_TOWN_NEIGHBORS_HOUSE",
+      "name": "NewBarkTown_NeighborsHouse_Layout",
       "width": 11,
       "height": 9,
       "primary_tileset": "gTileset_JohtoBuilding",
       "secondary_tileset": "gTileset_KantoBuilding1",
-      "border_filepath": "data/layouts/NewBarkTown_House1/border.bin",
-      "blockdata_filepath": "data/layouts/NewBarkTown_House1/map.bin"
+      "border_filepath": "data/layouts/NewBarkTown_NeighborsHouse/border.bin",
+      "blockdata_filepath": "data/layouts/NewBarkTown_NeighborsHouse/map.bin"
     },
     {
       "id": "LAYOUT_NEW_BARK_TOWN_ELMS_HOUSE",

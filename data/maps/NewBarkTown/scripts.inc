@@ -185,7 +185,7 @@ NewBarkTown_Movement_PlayerTurnAfterWaitingForTeacher:
 	delay_16
 	delay_16
 	delay_16
-	walk_in_place_fastest_up
+	@walk_in_place_fastest_up
 	step_end
 
 NewBarkTown_Movement_TeacherToMiddleSpot:
