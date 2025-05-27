@@ -10,7 +10,7 @@ NewBarkTown_OnTransition:
 	end
 
 NewBarkTown_OnFrame:
-	map_script_2 VAR_INTRO_STATE, 1, NewBarkTown_EventScript_StepOffTruck
+	map_script_2 VAR_LITTLEROOT_INTRO_STATE, 1, NewBarkTown_EventScript_StepOffTruck
 	.2byte 0
 
 NewBarkTown_EventScript_StepOffTruck::
@@ -50,7 +50,7 @@ NewBarkTown_EventScript_GoInsideWithMom::
 	applymovement OBJ_EVENT_ID_PLAYER, NewBarkTown_Movement_PlayerEnterHouse
 	waitmovement 0
 	setflag FLAG_HIDE_INTRO_MOM_OUTSIDE
-	setvar VAR_INTRO_STATE, 3
+	setvar VAR_LITTLEROOT_INTRO_STATE, 3
 	hideobjectat OBJ_EVENT_ID_PLAYER, 0
 	closedoor VAR_0x8004, VAR_0x8005
 	waitdooranim

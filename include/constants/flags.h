@@ -1419,7 +1419,7 @@
 
 #define FLAG_UNUSED_0x8E3                           (SYSTEM_FLAGS + 0x83) // Unused Flag
 
-#define FLAG_RECEIVED_POKEDEX                       (SYSTEM_FLAGS + 0x84)
+#define FLAG_RECEIVED_POKEDEX_FROM_BIRCH            (SYSTEM_FLAGS + 0x84)
 
 //Kanto and Johto towns and cities
 #define FLAG_VISITED_PALLET_TOWN                    (SYSTEM_FLAGS + 0x85) // Unused Flag

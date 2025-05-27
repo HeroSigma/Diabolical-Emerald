@@ -505,8 +505,8 @@ gStdScripts_End::
     .include "data/maps/LilycoveCity_PokemonTrainerFanClub/scripts.inc"
     .include "data/maps/LilycoveCity_UnusedMart/scripts.inc"
     .include "data/maps/LittlerootTown/scripts.inc"
-    .include "data/maps/LittlerootTown_PlayersHouse_1F/scripts.inc"
-    .include "data/maps/LittlerootTown_PlayersHouse_2F/scripts.inc"
+    .include "data/maps/LittlerootTown_BrendansHouse_1F/scripts.inc"
+    .include "data/maps/LittlerootTown_BrendansHouse_2F/scripts.inc"
     .include "data/maps/LittlerootTown_MaysHouse_1F/scripts.inc"
     .include "data/maps/LittlerootTown_MaysHouse_2F/scripts.inc"
     .include "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc"
@@ -1367,12 +1367,12 @@ Common_EventScript_PlayGymBadgeFanfare::
 	return
 
 Common_EventScript_OutOfCenterPartyHeal::
-	fadescreenswapbuffers FADE_TO_BLACK
+	fadescreen FADE_TO_BLACK
 	playfanfare MUS_HEAL
 	waitfanfare
 	special HealPlayerParty
 	callnative UpdateFollowingPokemon
-	fadescreenswapbuffers FADE_FROM_BLACK
+	fadescreen FADE_FROM_BLACK
 	return
 
 EventScript_RegionMap::
@@ -1789,21 +1789,14 @@ EventScript_VsSeekerChargingDone::
 	.include "data/text/birch_speech.inc"
 	.include "data/scripts/dexnav.inc"
 
-@@@
-@ Kanto Helpers
-@
+	.include "data/text/kanto_braille.inc"
+	.include "data/text/kanto_pokedex_rating.inc"
+	.include "data/text/sign_lady.inc"
+	.include "data/scripts/kanto_pokedex_rating.inc"
+    .include "data/maps/PalletTown_ProfessorOaksLab/text.inc"
+
 EventScript_Return::
 	return
 
 Text_PlayerBootedUpPC::
 	.string "{PLAYER} booted up the PC.$"
-
-@@@
-@ Kanto Common
-@
-	.include "data/scripts/pokedex_rating.inc"
-
-@@@
-@ Pallet Town
-@
-	.include "data/text/sign_lady.inc"

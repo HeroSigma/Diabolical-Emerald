@@ -10,9 +10,9 @@ NewBarkTown_PlayersHouse_1F_OnLoad:
 	end
 
 NewBarkTown_PlayersHouse_1F_OnTransition:
-	call_if_eq VAR_INTRO_STATE, 3, NewBarkTown_PlayersHouse_1F_EventScript_MoveMomToDoor
-	call_if_eq VAR_INTRO_STATE, 5, NewBarkTown_PlayersHouse_1F_EventScript_MoveMomToStairs
-	call_if_eq VAR_INTRO_STATE, 6, NewBarkTown_PlayersHouse_1F_EventScript_MoveMomToTV
+	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 3, NewBarkTown_PlayersHouse_1F_EventScript_MoveMomToDoor
+	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 5, NewBarkTown_PlayersHouse_1F_EventScript_MoveMomToStairs
+	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 6, NewBarkTown_PlayersHouse_1F_EventScript_MoveMomToTV
 	end
 
 NewBarkTown_PlayersHouse_1F_EventScript_MoveMomToStairs::
@@ -33,9 +33,9 @@ NewBarkTown_PlayersHouse_1F_EventScript_MoveMomToDoor::
 @ Many of the below scripts have no gender check because they assume youre in the correct house
 @ The below SS Ticket script uses Mays house state by accident(?), but theyre both set identically after the intro
 NewBarkTown_PlayersHouse_1F_OnFrame:
-	map_script_2 VAR_INTRO_STATE, 3, NewBarkTown_PlayersHouse_1F_EventScript_EnterHouseMovingIn
-	map_script_2 VAR_INTRO_STATE, 5, NewBarkTown_PlayersHouse_1F_EventScript_GoUpstairsToSetClock
-	map_script_2 VAR_INTRO_STATE, 6, NewBarkTown_PlayersHouse_1F_EventScript_GymReport
+	map_script_2 VAR_LITTLEROOT_INTRO_STATE, 3, NewBarkTown_PlayersHouse_1F_EventScript_EnterHouseMovingIn
+	map_script_2 VAR_LITTLEROOT_INTRO_STATE, 5, NewBarkTown_PlayersHouse_1F_EventScript_GoUpstairsToSetClock
+	map_script_2 VAR_LITTLEROOT_INTRO_STATE, 6, NewBarkTown_PlayersHouse_1F_EventScript_GymReport
 	.2byte 0
 
 NewBarkTown_PlayersHouse_1F_EventScript_GoUpstairsToSetClock::
@@ -79,7 +79,7 @@ NewBarkTown_PlayersHouse_1F_EventScript_GoSeeRoom::
 	end
 
 NewBarkTown_PlayersHouse_1F_EventScript_VioletGymReport::
-	setvar VAR_INTRO_STATE, 7
+	setvar VAR_LITTLEROOT_INTRO_STATE, 7
 	applymovement VAR_0x8005, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
 	call PlayersHouse_1F_EventScript_MomNoticeGymBroadcast
