@@ -1793,14 +1793,11 @@
 	.4byte \text
 	.endm
 
-	@ Equivalent to fadescreen but uses a hardware fade and darken/lighten blend modes,
-	@ to avoid modifying palettes at all.
-	@ Useful for fade-out/fade-in without leaving the overworld or entering a new scene.
-	@ If nowait set, doesn't wait for the fade to complete
-	.macro fadescreenswapbuffers mode:req, nowait=0
+	@ Equivalent to fadescreen but copies gPlttBufferUnfaded to an allocated buffer on the fade out
+	@ and the reverse on the fade in, in effect saving gPlttBufferUnfaded to restore it.
+	.macro fadescreenswapbuffers mode:req
 	.byte SCR_OP_FADESCREENSWAPBUFFERS
 	.byte \mode
-	.byte \nowait
 	.endm
 
 	@ Buffers the specified trainer's class name to the given string var.
@@ -2310,17 +2307,17 @@
 	callnative ScriptSetDoubleBattleFlag, requests_effects=1
 	.endm
 
-	@ When OW_USE_FAKE_RTC and VAR_FLAG_PAUSE_TIME is assigned, this macro will stop the flow of time.
+	@ When OW_USE_FAKE_RTC and OW_FLAG_PAUSE_TIME is assigned, this macro will stop the flow of time.
 	.macro pausefakertc
 	callnative Script_PauseFakeRtc, requests_effects=1
 	.endm
 
-	@ When OW_USE_FAKE_RTC and VAR_FLAG_PAUSE_TIME is assigned, this macro will resume the flow of time.
+	@ When OW_USE_FAKE_RTC and OW_FLAG_PAUSE_TIME is assigned, this macro will resume the flow of time.
 	.macro resumefakertc
 	callnative Script_ResumeFakeRtc, requests_effects=1
 	.endm
 
-	@ When OW_USE_FAKE_RTC and VAR_FLAG_PAUSE_TIME is assigned, this macro will resume the flow of time if paused, and stop the flow of time otherwise.
+	@ When OW_USE_FAKE_RTC and OW_FLAG_PAUSE_TIME is assigned, this macro will resume the flow of time if paused, and stop the flow of time otherwise.
 	.macro togglefakertc
 	callnative Script_ToggleFakeRtc, requests_effects=1
 	.endm
@@ -2542,7 +2539,30 @@
 	cant_see_if 5
 	.endm
 
-	@ Starts a trainer battle, skipping intro text. Takes a trainer and loss text
-	.macro trainerbattle_kanto_rival trainer:req, defeat_text:req, victory_text:req
-	trainerbattle TRAINER_BATTLE_EARLY_RIVAL, OBJ_ID_NONE, \trainer, NULL, \defeat_text, NULL, OBJ_ID_NONE, TRAINER_NONE, NULL, NULL, NULL, NULL, \victory_text, FALSE, TRUE, FALSE, FALSE
+	@ Starts a trainer battle with victory text if the player loses. If flags is nonzero, the player will be healed after battle (and its assumed to be the tutorial battle)
+	.macro trainerbattle_earlyrival trainer:req, flags:req, lose_text:req, victory_text:req
+	trainerbattle TRAINER_BATTLE_EARLY_RIVAL, OBJ_ID_NONE, \trainer, NULL, \lose_text, NULL, OBJ_ID_NONE, TRAINER_NONE, NULL, NULL, NULL, \victory_text, NULL, FALSE, TRUE, FALSE, FALSE, \flags
+	.endm
+
+	@ Prints the provided message after playing the fanfare music (can only be MUS_LEVEL_UP or MUS_OBTAIN_KEY_ITEM).
+	@ It then prints the message shown by using putitemaway.
+	.macro msgreceiveditem msg:req, item:req, amount=1, fanfare=MUS_LEVEL_UP
+	loadword 0, \msg
+	setorcopyvar VAR_0x8000, \item
+	setorcopyvar VAR_0x8001, \amount
+	setorcopyvar VAR_0x8002, \fanfare
+	callstd STD_RECEIVED_ITEM
+	.endm
+
+	@ Adds the specified item to the bag, then prints a message with fanfare. See description of msgreceiveditem.
+	.macro giveitem_msg msg:req, item:req, amount=1, fanfare=MUS_LEVEL_UP
+	additem \item, \amount
+	msgreceiveditem \msg, \item, \amount, \fanfare
+	.endm
+
+	@ Jumps to dest if the Quest Log is currently showing playback scenes (dest is usually a release/end)
+	.macro goto_if_questlog dest:req
+	special GetQuestLogState
+	compare VAR_RESULT, 2
+	goto_if_eq \dest
 	.endm

@@ -299,9 +299,9 @@ NewBarkTown_ProfessorElmsLab_Movement_PlayerStepToElm:
 
 NewBarkTown_ProfessorElmsLab_Movement_PlayerWatchElmWalk:
 	delay_16
-	walk_in_place_fastest_up
+	walk_in_place_faster_up
 	delay_16
-	walk_in_place_fastest_right
+	walk_in_place_faster_right
 	step_end
 
 NewBarkTown_ProfessorElmsLab_Movement_ElmWalkToPokeBalls:
@@ -496,7 +496,7 @@ NewBarkTown_EventScript_PokeBallMain_32:
 NewBarkTown_ProfessorElmsLab_Movement_Delay32FaceDown:
 	delay_16
 	delay_16
-	walk_in_place_fastest_down
+	walk_in_place_faster_down
 	step_end
 
 NewBarkTown_ProfessorElmsLab_Movement_WalkToElmFrom83:
@@ -510,7 +510,7 @@ NewBarkTown_ProfessorElmsLab_Movement_Delay48FaceDown:
 	delay_16
 	delay_16
 	delay_16
-	walk_in_place_fastest_down
+	walk_in_place_faster_down
 	step_end
 
 NewBarkTown_ProfessorElmsLab_Movement_WalkToElmFrom93:
@@ -526,7 +526,7 @@ NewBarkTown_ProfessorElmsLab_Movement_Delay64FaceDown:
 	delay_16
 	delay_16
 	delay_16
-	walk_in_place_fastest_down
+	walk_in_place_faster_down
 	step_end
 
 NewBarkTown_ProfessorElmsLab_Movement_WalkToElmFrom103:
@@ -545,7 +545,7 @@ NewBarkTown_ProfessorElmsLab_Movement_WalkToElmFrom74:
 
 NewBarkTown_ProfessorElmsLab_Movement_Delay16FaceDown:
 	delay_16
-	walk_in_place_fastest_down
+	walk_in_place_faster_down
 	step_end
 
 NewBarkTown_ProfessorElmsLab_Movement_WalkToElmFrom85:
@@ -675,7 +675,7 @@ NewBarkTown_ProfessorElmsLab_Movement_OfficerWaitFaceLeft:
 	delay_16
 	delay_16
 	delay_16
-	walk_in_place_fastest_left
+	walk_in_place_faster_left
 	step_end
 
 NewBarkTown_ProfessorElmsLab_Movement_PlayerToOfficerFromLeft:
@@ -699,7 +699,7 @@ NewBarkTown_ProfessorElmsLab_Movement_OfficerWaitFaceLeftFromCenter:
 	delay_16
 	delay_16
 	delay_16
-	walk_in_place_fastest_left
+	walk_in_place_faster_left
 	step_end
 
 NewBarkTown_ProfessorElmsLab_Movement_PlayerToOfficerFromCenter:
@@ -723,7 +723,7 @@ NewBarkTown_ProfessorElmsLab_Movement_OfficerWaitFaceRight:
 	delay_16
 	delay_16
 	delay_16
-	walk_in_place_fastest_right
+	walk_in_place_faster_right
 	step_end
 
 NewBarkTown_ProfessorElmsLab_Movement_PlayerToOfficerFromRight:

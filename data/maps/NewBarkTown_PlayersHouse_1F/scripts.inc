@@ -130,7 +130,7 @@ NewBarkTown_PlayersHouse_1F_MomWalkAwayFromPlayer:
 	walk_down
 	walk_left
 	walk_down
-	walk_in_place_fastest_left
+	walk_in_place_faster_left
 	step_end
 
 NewBarkTown_PlayersHouse_1F_MomTalk::
