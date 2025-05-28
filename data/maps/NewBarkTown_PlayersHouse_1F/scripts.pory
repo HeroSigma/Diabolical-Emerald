@@ -5,12 +5,12 @@ mapscripts NewBarkTown_PlayersHouse_1F_MapScripts {
         if (var(VAR_PLAYER_HOUSE_STATE) != 0)
         {
             gettime
-            if (var(VAR_0x8002) == TIME_MORNING)
+            if (var(VAR_TIME_OF_DAY) == TIME_MORNING)
             {
                 setobjectxyperm(OBJ_EVT_MOM, 2, 2)
                 setobjectmovementtype(OBJ_EVT_MOM, MOVEMENT_TYPE_FACE_UP)
             }
-            elif (var(VAR_0x8002) == TIME_NIGHT)
+            elif (var(VAR_TIME_OF_DAY) == TIME_NIGHT)
             {
                 setobjectxyperm(OBJ_EVT_MOM, 1, 2)
                 setobjectmovementtype(OBJ_EVT_MOM, MOVEMENT_TYPE_FACE_UP)
@@ -346,17 +346,17 @@ script NewBarkTown_PlayersHouse_1F_NeighborTalk {
     lock
     faceplayer
     gettime
-    if (var(VAR_0x8002) == TIME_MORNING)
+    if (var(VAR_TIME_OF_DAY) == TIME_MORNING)
     {
         msgbox("Good morning, {PLAYER}!\n"
                "I'm visiting!\p", MSGBOX_CONTINUE)
     }
-    elif (var(VAR_0x8002) == TIME_DAY)
+    elif (var(VAR_TIME_OF_DAY) == TIME_DAY)
     {
         msgbox("Hello, {PLAYER}!\n"
                "I'm visiting!\p", MSGBOX_CONTINUE)
     }
-    elif (var(VAR_0x8002) == TIME_NIGHT)
+    elif (var(VAR_TIME_OF_DAY) == TIME_NIGHT)
     {
         msgbox("Good evening, {PLAYER}!\n"
                "I'm visiting!\p", MSGBOX_CONTINUE)

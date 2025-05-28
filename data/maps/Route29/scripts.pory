@@ -91,7 +91,7 @@ Route29_EventScript_WaitingMan::
 	lock
 	faceplayer
 	gettime
-	compare VAR_0x8002, TIME_NIGHT
+	compare VAR_TIME_OF_DAY, TIME_NIGHT
 	goto_if_eq Route29_EventScript_ManWaitingForMorning
 	msgbox Route29_Text_WaitingForNight
 	release

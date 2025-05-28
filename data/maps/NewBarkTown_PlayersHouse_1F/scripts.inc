@@ -10,9 +10,9 @@ NewBarkTown_PlayersHouse_1F_MapScripts_MAP_SCRIPT_ON_TRANSITION:
 
 NewBarkTown_PlayersHouse_1F_MapScripts_MAP_SCRIPT_ON_TRANSITION_1:
 	gettime
-	compare VAR_0x8002, TIME_MORNING
+	compare VAR_TIME_OF_DAY, TIME_MORNING
 	goto_if_eq NewBarkTown_PlayersHouse_1F_MapScripts_MAP_SCRIPT_ON_TRANSITION_3
-	compare VAR_0x8002, TIME_NIGHT
+	compare VAR_TIME_OF_DAY, TIME_NIGHT
 	goto_if_eq NewBarkTown_PlayersHouse_1F_MapScripts_MAP_SCRIPT_ON_TRANSITION_4
 	return
 
@@ -323,11 +323,11 @@ NewBarkTown_PlayersHouse_1F_NeighborTalk::
 	lock
 	faceplayer
 	gettime
-	compare VAR_0x8002, TIME_MORNING
+	compare VAR_TIME_OF_DAY, TIME_MORNING
 	goto_if_eq NewBarkTown_PlayersHouse_1F_NeighborTalk_2
-	compare VAR_0x8002, TIME_DAY
+	compare VAR_TIME_OF_DAY, TIME_DAY
 	goto_if_eq NewBarkTown_PlayersHouse_1F_NeighborTalk_3
-	compare VAR_0x8002, TIME_NIGHT
+	compare VAR_TIME_OF_DAY, TIME_NIGHT
 	goto_if_eq NewBarkTown_PlayersHouse_1F_NeighborTalk_4
 NewBarkTown_PlayersHouse_1F_NeighborTalk_1:
 	msgbox NewBarkTown_PlayersHouse_1F_NeighborTalk_Text_3
