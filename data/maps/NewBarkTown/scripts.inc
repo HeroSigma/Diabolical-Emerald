@@ -145,12 +145,12 @@ NewBarkTown_EventScript_Teacher3::
 	goto NewBarkTown_EventScript_TeacherMain
 
 NewBarkTown_EventScript_TeacherMain:
-	textcolor MSG_COLOR_RED
-	playbgm MUS_MOMS_THEME, 0
+	@textcolor MSG_COLOR_RED
+	@playbgm MUS_MOMS_THEME, 0
 	turnobject 2, 3
 	msgbox NewBarkTown_Text_WaitPlayer
 	closemessage
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFastestRight
+	@applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFastestRight
 	waitmovement 0
 	delay 10
 	compare VAR_TEMP_1, 0

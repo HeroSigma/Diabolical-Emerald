@@ -443,7 +443,7 @@
 #define MUS_RG_VS_TRAINER           509 // MUS_RG_VS_TORE
 #define MUS_RG_VS_WILD              510 // MUS_RG_VS_YASEI
 #define MUS_RG_VS_CHAMPION          511 // MUS_RG_VS_LAST
-#define MUS_RG_PALLET               512 // MUS_RG_MASARA
+#define MUS_PALLET                  512 // MUS_RG_MASARA
 #define MUS_RG_OAK_LAB              513 // MUS_RG_KENKYU
 #define MUS_RG_OAK                  514 // MUS_RG_OHKIDO
 #define MUS_RG_POKE_CENTER          515 // MUS_RG_POKECEN

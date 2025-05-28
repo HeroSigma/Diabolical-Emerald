@@ -3987,7 +3987,7 @@ static void DebugAction_Sound_MUS_SelectId(u8 taskId)
     X(MUS_RG_VS_TRAINER) \
     X(MUS_RG_VS_WILD) \
     X(MUS_RG_VS_CHAMPION) \
-    X(MUS_RG_PALLET) \
+    X(MUS_PALLET) \
     X(MUS_RG_OAK_LAB) \
     X(MUS_RG_OAK) \
     X(MUS_RG_POKE_CENTER) \
