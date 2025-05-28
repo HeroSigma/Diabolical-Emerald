@@ -23,7 +23,7 @@
       "movement_range_x": 1,
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "type": "original",
+      "type": "object",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "NewBarkTown_ElmsHouse_EventScript_ElmsWife",
       "flag": "0"
@@ -37,7 +37,7 @@
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "type": "original",
+      "type": "object",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "NewBarkTown_ElmsHouse_EventScript_ElmsSon",
       "flag": "0"

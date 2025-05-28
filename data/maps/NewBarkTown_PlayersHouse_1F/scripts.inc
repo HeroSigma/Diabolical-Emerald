@@ -78,7 +78,7 @@ NewBarkTown_PlayersHouse_1F_MomEncounter_2:
 NewBarkTown_PlayersHouse_1F_MomWhatDayOfWeek::
 	message NewBarkTown_PlayersHouse_1F_MomWhatDayOfWeek_Text_0
 	waitmessage
-	setvar VAR_0x8004, SCROLL_MULTI_DAY_OF_WEEK
+	@setvar VAR_0x8004, SCROLL_MULTI_DAY_OF_WEEK
 	setvar VAR_0x8005, 0
 	special ShowScrollableMultichoice
 	waitstate

@@ -33,7 +33,7 @@
   ],
   "object_events": [
     {
-      "type": "original",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_PSYCHIC_M",
       "in_connection": false,
       "x": 62,
@@ -48,7 +48,7 @@
       "flag": "0"
     },
     {
-      "type": "original",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_BOY_1",
       "in_connection": false,
       "x": 34,
@@ -63,7 +63,7 @@
       "flag": "0"
     },
     {
-      "type": "original",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_GIRL_1",
       "in_connection": false,
       "x": 19,
@@ -78,7 +78,7 @@
       "flag": "0"
     },
     {
-      "type": "original",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_FAT_MAN",
       "in_connection": false,
       "x": 31,
@@ -93,7 +93,7 @@
       "flag": "0"
     },
     {
-      "type": "original",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_MAN_4",
       "in_connection": false,
       "x": 16,
@@ -108,7 +108,7 @@
       "flag": "0"
     },
     {
-      "type": "original",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_WOMAN_2",
       "in_connection": false,
       "x": 37,
@@ -123,7 +123,7 @@
       "flag": "FLAG_HIDE_ROUTE_29_TUSCANY"
     },
     {
-      "type": "original",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
       "in_connection": false,
       "x": 60,
@@ -138,7 +138,7 @@
       "flag": "FLAG_ITEM_ROUTE_29_POTION"
     },
     {
-      "type": "original",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_CUTTABLE_TREE",
       "in_connection": false,
       "x": 26,
@@ -153,7 +153,7 @@
       "flag": "FLAG_TEMP_11"
     },
     {
-      "type": "original",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_CUTTABLE_TREE",
       "in_connection": false,
       "x": 39,

@@ -242,6 +242,10 @@
 #define BODY_COLOR_WHITE    8
 #define BODY_COLOR_PINK     9
 
+#define STARTER_CHIKORITA 0
+#define STARTER_TOTODILE  1
+#define STARTER_CYNDAQUIL 2
+
 #define F_SUMMARY_SCREEN_FLIP_SPRITE 0x80
 
 #define EVOLUTIONS_END                    0xFFFF // Not an actual evolution, used to mark the end of an evolution array.

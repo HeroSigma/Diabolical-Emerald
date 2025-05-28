@@ -30,7 +30,7 @@ NewBarkTown_PlayersHouse_2F_EventScript_TurnOffPlayerPC:: @ 81F863F
 	releaseall
 	end
 
-Common_Text_LookCloserAtMap: @ 81F8820
+Common_Text_LookCloserAtMapJohto: @ 81F8820
 	.string "It's the TOWN MAP.$"
 
 NewBarkTown_PlayersHouse_2F_Radio::
