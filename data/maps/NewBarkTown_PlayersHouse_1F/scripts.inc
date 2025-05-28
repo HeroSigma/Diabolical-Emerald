@@ -10,10 +10,10 @@ NewBarkTown_PlayersHouse_1F_MapScripts_MAP_SCRIPT_ON_TRANSITION:
 
 NewBarkTown_PlayersHouse_1F_MapScripts_MAP_SCRIPT_ON_TRANSITION_1:
 	gettime
-	@compare VAR_0x8002, TIME_MORNING
+	compare VAR_0x8002, TIME_MORNING
 	goto_if_eq NewBarkTown_PlayersHouse_1F_MapScripts_MAP_SCRIPT_ON_TRANSITION_3
-	@compare VAR_0x8002, TIME_NIGHT
-	@goto_if_eq NewBarkTown_PlayersHouse_1F_MapScripts_MAP_SCRIPT_ON_TRANSITION_4
+	compare VAR_0x8002, TIME_NIGHT
+	goto_if_eq NewBarkTown_PlayersHouse_1F_MapScripts_MAP_SCRIPT_ON_TRANSITION_4
 	return
 
 NewBarkTown_PlayersHouse_1F_MapScripts_MAP_SCRIPT_ON_TRANSITION_3:
@@ -78,7 +78,7 @@ NewBarkTown_PlayersHouse_1F_MomEncounter_2:
 NewBarkTown_PlayersHouse_1F_MomWhatDayOfWeek::
 	message NewBarkTown_PlayersHouse_1F_MomWhatDayOfWeek_Text_0
 	waitmessage
-	@setvar VAR_0x8004, SCROLL_MULTI_DAY_OF_WEEK
+	setvar VAR_0x8004, SCROLL_MULTI_DAY_OF_WEEK
 	setvar VAR_0x8005, 0
 	special ShowScrollableMultichoice
 	waitstate
@@ -130,7 +130,7 @@ NewBarkTown_PlayersHouse_1F_MomWalkAwayFromPlayer:
 	walk_down
 	walk_left
 	walk_down
-	@walk_in_place_fastest_left
+	walk_in_place_fastest_left
 	step_end
 
 NewBarkTown_PlayersHouse_1F_MomTalk::
@@ -323,12 +323,12 @@ NewBarkTown_PlayersHouse_1F_NeighborTalk::
 	lock
 	faceplayer
 	gettime
-	@compare VAR_0x8002, TIME_MORNING
+	compare VAR_0x8002, TIME_MORNING
 	goto_if_eq NewBarkTown_PlayersHouse_1F_NeighborTalk_2
-	@compare VAR_0x8002, TIME_DAY
-	@goto_if_eq NewBarkTown_PlayersHouse_1F_NeighborTalk_3
-	@compare VAR_0x8002, TIME_NIGHT
-	@goto_if_eq NewBarkTown_PlayersHouse_1F_NeighborTalk_4
+	compare VAR_0x8002, TIME_DAY
+	goto_if_eq NewBarkTown_PlayersHouse_1F_NeighborTalk_3
+	compare VAR_0x8002, TIME_NIGHT
+	goto_if_eq NewBarkTown_PlayersHouse_1F_NeighborTalk_4
 NewBarkTown_PlayersHouse_1F_NeighborTalk_1:
 	msgbox NewBarkTown_PlayersHouse_1F_NeighborTalk_Text_3
 	closemessage

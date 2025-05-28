@@ -28,7 +28,7 @@
   ],
   "object_events": [
     {
-      "type": "object",
+      "type": "original",
       "graphics_id": "OBJ_EVENT_GFX_FAT_MAN",
       "in_connection": false,
       "x": 15,
@@ -43,7 +43,7 @@
       "flag": "0"
     },
     {
-      "type": "object",
+      "type": "original",
       "graphics_id": "OBJ_EVENT_GFX_WOMAN_1",
       "in_connection": false,
       "x": 7,
@@ -58,7 +58,7 @@
       "flag": "0"
     },
     {
-      "type": "object",
+      "type": "original",
       "graphics_id": "OBJ_EVENT_GFX_RIVAL",
       "in_connection": false,
       "x": 4,

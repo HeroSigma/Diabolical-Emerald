@@ -8,7 +8,7 @@ PalletTown_PlayersHouse_2F_OnTransition::
 	end
 
 PalletTown_PlayersHouse_2F_EventScript_SetRespawn::
-	setrespawn HEAL_LOCATION_PALLET_TOWN
+	setrespawn SPAWN_PALLET_TOWN
 	return
 
 PalletTown_PlayersHouse_2F_OnWarp::
@@ -29,34 +29,24 @@ PalletTown_PlayersHouse_2F_EventScript_Sign::
 	end
 
 PalletTown_PlayersHouse_2F_EventScript_PC::
-	@goto_if_questlog EventScript_ReleaseEnd
+	goto_if_questlog EventScript_ReleaseEnd
 	lockall
-	@setvar VAR_0x8004, HELPCONTEXT_BEDROOM_PC
-	@special Script_SetHelpContext
+	setvar VAR_0x8004, HELPCONTEXT_BEDROOM_PC
+	special Script_SetHelpContext
 	setvar VAR_0x8004, 1
-	@special AnimatePcTurnOn
+	special AnimatePcTurnOn
 	playse SE_PC_ON
 	msgbox Text_PlayerBootedUpPC
 	special BedroomPC
 	waitstate
-	@special SetHelpContextForMap
+	special SetHelpContextForMap
 	releaseall
 	end
 
 EventScript_PalletTown_PlayersHouse_2F_ShutDownPC::
 	setvar VAR_0x8004, 1
 	playse SE_PC_OFF
-	@special AnimatePcTurnOff
-	@special SetHelpContextForMap
+	special AnimatePcTurnOff
+	special SetHelpContextForMap
 	releaseall
 	end
-
-PalletTown_PlayersHouse_2F_Text_PlayedWithNES::
-    .string "{PLAYER} played with the NES.\p"
-    .string "…Okay!\n"
-    .string "It's time to go!$"
-
-PalletTown_PlayersHouse_2F_Text_PressLRForHelp::
-    .string "It's a posted notice…\p"
-    .string "If you're confused, ask for HELP!\n"
-    .string "Press the L or R Button!$"

@@ -169,7 +169,7 @@ NewBarkTown_ProfessorElmsLab_EventScript_Elm_GiveEverstone::
 	checkitemspace ITEM_EVERSTONE, 1
 	compare VAR_RESULT, 0
 	goto_if_eq NewBarkTown_ProfessorElmsLab_EventScript_Elm_GiveEverstone_2
-	@giveitem_msg NewBarkTown_ProfessorElmsLab_EventScript_Elm_GiveEverstone_Text_2, ITEM_EVERSTONE
+	giveitem_msg NewBarkTown_ProfessorElmsLab_EventScript_Elm_GiveEverstone_Text_2, ITEM_EVERSTONE
 	msgbox NewBarkTown_ProfessorElmsLab_EventScript_Elm_GiveEverstone_Text_3
 	setflag FLAG_GOT_EVERSTONE_FROM_ELM
 NewBarkTown_ProfessorElmsLab_EventScript_Elm_GiveEverstone_1:
@@ -299,9 +299,9 @@ NewBarkTown_ProfessorElmsLab_Movement_PlayerStepToElm:
 
 NewBarkTown_ProfessorElmsLab_Movement_PlayerWatchElmWalk:
 	delay_16
-	@walk_in_place_fastest_up
+	walk_in_place_fastest_up
 	delay_16
-	@walk_in_place_fastest_right
+	walk_in_place_fastest_right
 	step_end
 
 NewBarkTown_ProfessorElmsLab_Movement_ElmWalkToPokeBalls:
@@ -331,8 +331,8 @@ NewBarkTown_ProfessorElmsLab_Movement_PlayerComeBack:
 NewBarkTown_ProfessorElmsLab_EventScript_Chikorita::
 	lock
 	faceplayer
-	@setvar VAR_TEMP_1, STARTER_CHIKORITA
-	@setvar VAR_TEMP_2, SPECIES_CHIKORITA
+	setvar VAR_TEMP_1, STARTER_CHIKORITA
+	setvar VAR_TEMP_2, SPECIES_CHIKORITA
 	goto NewBarkTown_EventScript_PokeBallMain
 	return
 
@@ -340,8 +340,8 @@ NewBarkTown_ProfessorElmsLab_EventScript_Chikorita::
 NewBarkTown_ProfessorElmsLab_EventScript_Totodile::
 	lock
 	faceplayer
-	@setvar VAR_TEMP_1, STARTER_TOTODILE
-	@setvar VAR_TEMP_2, SPECIES_TOTODILE
+	setvar VAR_TEMP_1, STARTER_TOTODILE
+	setvar VAR_TEMP_2, SPECIES_TOTODILE
 	goto NewBarkTown_EventScript_PokeBallMain
 	return
 
@@ -349,8 +349,8 @@ NewBarkTown_ProfessorElmsLab_EventScript_Totodile::
 NewBarkTown_ProfessorElmsLab_EventScript_Cyndaquil::
 	lock
 	faceplayer
-	@setvar VAR_TEMP_1, STARTER_CYNDAQUIL
-	@setvar VAR_TEMP_2, SPECIES_CYNDAQUIL
+	setvar VAR_TEMP_1, STARTER_CYNDAQUIL
+	setvar VAR_TEMP_2, SPECIES_CYNDAQUIL
 	goto NewBarkTown_EventScript_PokeBallMain
 	return
 
@@ -361,10 +361,10 @@ NewBarkTown_EventScript_PokeBallMain::
 	showmonpic VAR_TEMP_2, 10, 3
 	playmoncry VAR_TEMP_2, 0
 	textcolor MSG_COLOR_BLUE
-	@switch VAR_TEMP_1
-	@case STARTER_CHIKORITA, NewBarkTown_EventScript_PokeBallMain_7
-	@case STARTER_TOTODILE, NewBarkTown_EventScript_PokeBallMain_8
-	@case STARTER_CYNDAQUIL, NewBarkTown_EventScript_PokeBallMain_9
+	switch VAR_TEMP_1
+	case STARTER_CHIKORITA, NewBarkTown_EventScript_PokeBallMain_7
+	case STARTER_TOTODILE, NewBarkTown_EventScript_PokeBallMain_8
+	case STARTER_CYNDAQUIL, NewBarkTown_EventScript_PokeBallMain_9
 NewBarkTown_EventScript_PokeBallMain_5:
 	hidemonpic
 	compare VAR_RESULT, YES
@@ -444,17 +444,17 @@ NewBarkTown_EventScript_PokeBallMain_18:
 	goto NewBarkTown_EventScript_PokeBallMain_17
 
 NewBarkTown_EventScript_PokeBallMain_22:
-	@switch VAR_TEMP_1
-	@case STARTER_CHIKORITA, NewBarkTown_EventScript_PokeBallMain_26
-	@case STARTER_TOTODILE, NewBarkTown_EventScript_PokeBallMain_27
-	@case STARTER_CYNDAQUIL, NewBarkTown_EventScript_PokeBallMain_28
+	switch VAR_TEMP_1
+	case STARTER_CHIKORITA, NewBarkTown_EventScript_PokeBallMain_26
+	case STARTER_TOTODILE, NewBarkTown_EventScript_PokeBallMain_27
+	case STARTER_CYNDAQUIL, NewBarkTown_EventScript_PokeBallMain_28
 	goto NewBarkTown_EventScript_PokeBallMain_20
 
 NewBarkTown_EventScript_PokeBallMain_23:
 	switch VAR_TEMP_1
-	@case STARTER_CHIKORITA, NewBarkTown_EventScript_PokeBallMain_30
-	@case STARTER_TOTODILE, NewBarkTown_EventScript_PokeBallMain_31
-	@case STARTER_CYNDAQUIL, NewBarkTown_EventScript_PokeBallMain_32
+	case STARTER_CHIKORITA, NewBarkTown_EventScript_PokeBallMain_30
+	case STARTER_TOTODILE, NewBarkTown_EventScript_PokeBallMain_31
+	case STARTER_CYNDAQUIL, NewBarkTown_EventScript_PokeBallMain_32
 	goto NewBarkTown_EventScript_PokeBallMain_20
 
 NewBarkTown_EventScript_PokeBallMain_24:
@@ -496,7 +496,7 @@ NewBarkTown_EventScript_PokeBallMain_32:
 NewBarkTown_ProfessorElmsLab_Movement_Delay32FaceDown:
 	delay_16
 	delay_16
-	@walk_in_place_fastest_down
+	walk_in_place_fastest_down
 	step_end
 
 NewBarkTown_ProfessorElmsLab_Movement_WalkToElmFrom83:
@@ -510,7 +510,7 @@ NewBarkTown_ProfessorElmsLab_Movement_Delay48FaceDown:
 	delay_16
 	delay_16
 	delay_16
-	@walk_in_place_fastest_down
+	walk_in_place_fastest_down
 	step_end
 
 NewBarkTown_ProfessorElmsLab_Movement_WalkToElmFrom93:
@@ -526,7 +526,7 @@ NewBarkTown_ProfessorElmsLab_Movement_Delay64FaceDown:
 	delay_16
 	delay_16
 	delay_16
-	@walk_in_place_fastest_down
+	walk_in_place_fastest_down
 	step_end
 
 NewBarkTown_ProfessorElmsLab_Movement_WalkToElmFrom103:
@@ -545,7 +545,7 @@ NewBarkTown_ProfessorElmsLab_Movement_WalkToElmFrom74:
 
 NewBarkTown_ProfessorElmsLab_Movement_Delay16FaceDown:
 	delay_16
-	@walk_in_place_fastest_down
+	walk_in_place_fastest_down
 	step_end
 
 NewBarkTown_ProfessorElmsLab_Movement_WalkToElmFrom85:
@@ -618,7 +618,7 @@ NewBarkTown_ProfessorElmsLab_EventScript_AidePotionMain::
 	waitmovement 0
 	textcolor MSG_COLOR_BLUE
 	msgbox NewBarkTown_ProfessorElmsLab_EventScript_AidePotionMain_Text_0
-	@giveitem_msg NewBarkTown_ProfessorElmsLab_EventScript_AidePotionMain_Text_1, ITEM_POTION
+	giveitem_msg NewBarkTown_ProfessorElmsLab_EventScript_AidePotionMain_Text_1, ITEM_POTION
 	msgbox NewBarkTown_ProfessorElmsLab_Text_Aide_AlwaysBusy
 	closemessage
 	switch VAR_TEMP_1
@@ -675,7 +675,7 @@ NewBarkTown_ProfessorElmsLab_Movement_OfficerWaitFaceLeft:
 	delay_16
 	delay_16
 	delay_16
-	@walk_in_place_fastest_left
+	walk_in_place_fastest_left
 	step_end
 
 NewBarkTown_ProfessorElmsLab_Movement_PlayerToOfficerFromLeft:
@@ -699,7 +699,7 @@ NewBarkTown_ProfessorElmsLab_Movement_OfficerWaitFaceLeftFromCenter:
 	delay_16
 	delay_16
 	delay_16
-	@walk_in_place_fastest_left
+	walk_in_place_fastest_left
 	step_end
 
 NewBarkTown_ProfessorElmsLab_Movement_PlayerToOfficerFromCenter:
@@ -723,7 +723,7 @@ NewBarkTown_ProfessorElmsLab_Movement_OfficerWaitFaceRight:
 	delay_16
 	delay_16
 	delay_16
-	@walk_in_place_fastest_right
+	walk_in_place_fastest_right
 	step_end
 
 NewBarkTown_ProfessorElmsLab_Movement_PlayerToOfficerFromRight:
@@ -800,7 +800,7 @@ NewBarkTown_ProfessorElmsLab_EventScript_AideBallsMain::
 	waitmovement 0
 	textcolor MSG_COLOR_BLUE
 	msgbox NewBarkTown_ProfessorElmsLab_EventScript_AideBallsMain_Text_0
-	@giveitem_msg NewBarkTown_ProfessorElmsLab_EventScript_AideBallsMain_Text_1, ITEM_POKE_BALL, 5
+	giveitem_msg NewBarkTown_ProfessorElmsLab_EventScript_AideBallsMain_Text_1, ITEM_POKE_BALL, 5
 	msgbox NewBarkTown_ProfessorElmsLab_EventScript_AideBallsMain_Text_2
 	closemessage
 	switch VAR_TEMP_1
