@@ -296,6 +296,7 @@ gSpecials::
 	def_special DoSoftReset
 	def_special GameClear
 	def_special MoveElevator
+	def_special SetDayOfWeek
 	def_special ShowGlassWorkshopMenu
 	def_special SpawnCameraObject
 	def_special RemoveCameraObject

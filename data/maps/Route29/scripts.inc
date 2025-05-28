@@ -9,8 +9,8 @@ Route29_EventScript_Tuscany_1:
 
 Route29_EventScript_Tuscany_2:
 	gettime
-	@compare VAR_0x8003, DAY_TUESDAY
-	@goto_if_eq Route29_EventScript_Tuscany_5
+	compare VAR_0x8003, DAY_TUESDAY
+	goto_if_eq Route29_EventScript_Tuscany_5
 	msgbox Route29_EventScript_Tuscany_Text_3
 	goto Route29_EventScript_Tuscany_1
 
@@ -48,8 +48,8 @@ Route29_MapScript1_Type3: @ 81EBCC5
 Route29_MapScript1_CheckForTuscany:
 	goto_if_unset FLAG_BADGE01_GET, Route29_EventScript_HideTuscany
 	gettime
-	@compare VAR_0x8003, DAY_TUESDAY
-	@goto_if_ne Route29_EventScript_HideTuscany
+	compare VAR_0x8003, DAY_TUESDAY
+	goto_if_ne Route29_EventScript_HideTuscany
 	clearflag FLAG_HIDE_ROUTE_29_TUSCANY
 	return
 
@@ -76,8 +76,8 @@ Route29_EventScript_WaitingMan::
 	lock
 	faceplayer
 	gettime
-	@compare VAR_TIME_OF_DAY, TIME_NIGHT
-	@goto_if_eq Route29_EventScript_ManWaitingForMorning
+	compare VAR_0x8002, TIME_NIGHT
+	goto_if_eq Route29_EventScript_ManWaitingForMorning
 	msgbox Route29_Text_WaitingForNight
 	release
 	end

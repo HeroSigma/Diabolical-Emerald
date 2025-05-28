@@ -19,6 +19,7 @@
 #include "constants/coins.h"
 #include "constants/contest.h"
 #include "constants/daycare.h"
+#include "constants/day_night.h"
 #include "constants/decorations.h"
 #include "constants/difficulty.h"
 #include "constants/easy_chat.h"
