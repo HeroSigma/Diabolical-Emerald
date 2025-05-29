@@ -15,6 +15,7 @@
 #include "constants/pokemon.h"
 #include "constants/easy_chat.h"
 #include "constants/trainer_hill.h"
+#include "fame_checker.h"
 
 // Prevent cross-jump optimization.
 #define BLOCK_CROSS_JUMP asm("");
@@ -979,6 +980,13 @@ struct ExternalEventFlags
 
 } __attribute__((packed));/*size = 0x15*/
 
+struct FameCheckerSaveData
+{
+    /*3a54*/ u16 pickState:2;
+    u16 flavorTextFlags:12;
+    u16 unk_0_E:2;
+};
+
 struct SaveBlock1
 {
     /*0x00*/ struct Coords16 pos;
@@ -1068,6 +1076,7 @@ struct SaveBlock1
     /*0x3B14*/ struct RecordMixingGift recordMixingGift;
     /*0x3B24*/ u8 seen2[NUM_DEX_FLAG_BYTES];
     /*0x3B58*/ LilycoveLady lilycoveLady;
+    /*0x3A54*/ struct FameCheckerSaveData fameChecker[NUM_FAMECHECKER_PERSONS];
     /*0x3B98*/ struct TrainerNameRecord trainerNameRecords[20];
     /*0x3C88*/ u8 registeredTexts[UNION_ROOM_KB_ROW_COUNT][21];
     /*0x3D5A*/ u8 unused_3D5A[10];
