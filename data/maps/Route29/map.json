@@ -240,7 +240,7 @@
       "script": "Route29_EventScript_DirectionSign"
     },
     {
-      "type": "fruit_tree",
+      "type": "object",
       "x": 14,
       "y": 4,
       "elevation": 3,
