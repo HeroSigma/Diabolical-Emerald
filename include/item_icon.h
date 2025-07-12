@@ -5,7 +5,6 @@ extern u8 *gItemIconDecompressionBuffer;
 extern u8 *gItemIcon4x4Buffer;
 
 extern const struct SpriteTemplate gItemIconSpriteTemplate;
-
 bool8 AllocItemIconTemporaryBuffers(void);
 void FreeItemIconTemporaryBuffers(void);
 void CopyItemIconPicTo4x4Buffer(const void *src, void *dest);
