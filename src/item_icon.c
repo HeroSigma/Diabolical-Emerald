@@ -56,9 +56,9 @@ const struct SpriteTemplate gItemIconSpriteTemplate =
 };
 
 // code
-static bool8 AllocItemIconTemporaryBuffersBySize(u32 size)
+static bool8 AllocItemIconTemporaryBuffers(void)
 {
-    gItemIconDecompressionBuffer = Alloc(size);
+    gItemIconDecompressionBuffer = Alloc(0x200);
     if (gItemIconDecompressionBuffer == NULL)
         return FALSE;
 
@@ -91,7 +91,7 @@ u8 AddItemIconSprite(u16 tilesTag, u16 paletteTag, u16 itemId)
     const void *pic = GetItemIconPic(itemId);
     u32 size = GetDecompressedDataSize(pic);
 
-    if (!AllocItemIconTemporaryBuffersBySize(size))
+    if (!AllocItemIconTemporaryBuffers())
     {
         return MAX_SPRITES;
     }
@@ -134,7 +134,7 @@ u8 AddCustomItemIconSprite(const struct SpriteTemplate *customSpriteTemplate, u1
     const void *pic = GetItemIconPic(itemId);
     u32 size = GetDecompressedDataSize(pic);
 
-    if (!AllocItemIconTemporaryBuffersBySize(size))
+    if (!AllocItemIconTemporaryBuffers())
     {
         return MAX_SPRITES;
     }

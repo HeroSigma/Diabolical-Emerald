@@ -2080,16 +2080,8 @@ static u8 AddDecorationIconObjectFromIconTable(u16 tilesTag, u16 paletteTag, u8 
     const u32 *pic = GetDecorationIconPic(decor);
     u32 size = GetDecompressedDataSize(pic);
 
-    gItemIconDecompressionBuffer = Alloc(size);
-    if (gItemIconDecompressionBuffer == NULL)
+    if (!AllocItemIconTemporaryBuffers())
         return MAX_SPRITES;
-
-    gItemIcon4x4Buffer = AllocZeroed(0x200);
-    if (gItemIcon4x4Buffer == NULL)
-    {
-        Free(gItemIconDecompressionBuffer);
-        return MAX_SPRITES;
-    }
 
     DecompressDataWithHeaderWram(pic, gItemIconDecompressionBuffer);
     if (size > 0x120)
