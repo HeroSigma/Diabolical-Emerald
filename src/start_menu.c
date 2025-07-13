@@ -688,7 +688,7 @@ static bool8 HandleStartMenuInput(void)
     return FALSE;
 }
 
-bool8 StartMenuPokedexCallback(void)
+static bool8 StartMenuPokedexCallback(void)
 {
     if (!gPaletteFade.active)
     {
