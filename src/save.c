@@ -50,7 +50,7 @@ static void CopyFromSaveBlock3(u32, struct SaveSector *);
 
 struct
 {
-    u16 offset;
+    u32 offset;
     u16 size;
 } static const sSaveSlotLayout[NUM_SECTORS_PER_SLOT] =
 {
