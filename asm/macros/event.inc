@@ -1886,9 +1886,30 @@
 	.2byte \id
 	.endm
 
-	.macro dynmultistack left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, shouldSort:req, initialSelected:req, callbacks:req
-	_dynmultichoice \left, \top, \ignoreBPress, \maxBeforeScroll, \shouldSort, \initialSelected, \callbacks, NULL
-	.endm
+        .macro dynmultistack left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, shouldSort:req, initialSelected:req, callbacks:req
+        _dynmultichoice \left, \top, \ignoreBPress, \maxBeforeScroll, \shouldSort, \initialSelected, \callbacks, NULL
+        .endm
+
+        @ Open or manipulate the quest menu.
+        .macro questmenu case:req, quest:req
+        .byte SCR_OP_QUESTMENU
+        .byte \case
+        .2byte \quest
+        .endm
+
+        @ Return the quest state for the given quest.
+        .macro returnqueststate quest:req
+        .byte SCR_OP_RETURNQUESTSTATE
+        .byte \quest
+        .endm
+
+        @ Manipulate subquests.
+        .macro subquestmenu case:req, parent:req, child:req
+        .byte SCR_OP_SUBQUESTMENU
+        .byte \case
+        .2byte \parent
+        .2byte \child
+        .endm
 
 @ Supplementary
 
