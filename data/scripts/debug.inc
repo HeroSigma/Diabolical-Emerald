@@ -262,18 +262,26 @@ DebugText_DaycarePokemonNotCompatible:
 	.string "Your Pokémon at Daycare can't\nhave babies together!$"
 
 Debug_ShowExpansionVersion::
-	callnative BufferExpansionVersion
-	msgbox Debug_ExpansionVersion, MSGBOX_DEFAULT
-	release
-	end
+        callnative BufferExpansionVersion
+        msgbox Debug_ExpansionVersion, MSGBOX_DEFAULT
+        release
+        end
 
 Debug_ExpansionVersion:
 	.string "pokeemerald-expansion {STR_VAR_1}$"
 
 Debug_Follower_NPC_Not_Enabled::
-	msgbox Debug_Enable_To_Use_Follower_NPCs, MSGBOX_DEFAULT
-	release
-	end
+        msgbox Debug_Enable_To_Use_Follower_NPCs, MSGBOX_DEFAULT
+        release
+        end
+
+Debug_SingleSaveSlotMessage::
+        msgbox Debug_SingleSaveSlotText, MSGBOX_DEFAULT
+        release
+        end
+
+Debug_SingleSaveSlotText:
+        .string "Only one save slot active.\nStorage expanded to 35 boxes.$"
 
 Debug_Enable_To_Use_Follower_NPCs:
 	.string "Feature unavailable.\nSet FNPC_ENABLE_NPC_FOLLOWERS to\lTRUE in 'include/config/follower_npc.h'.$"

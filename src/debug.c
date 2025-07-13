@@ -374,6 +374,7 @@ extern const u8 Debug_Follower_NPC_Not_Enabled[];
 extern const u8 Debug_EventScript_Steven_Multi[];
 extern const u8 Debug_EventScript_PrintTimeOfDay[];
 extern const u8 Debug_EventScript_TellTheTime[];
+extern const u8 Debug_SingleSaveSlotMessage[];
 extern const u8 Debug_EventScript_FakeRTCNotEnabled[];
 
 extern const u8 Debug_BerryPestsDisabled[];
@@ -629,6 +630,7 @@ static const struct DebugMenuOption sDebugMenu_Actions_ROMInfo2[] =
     { COMPOUND_STRING("Save Block space"),  DebugAction_ExecuteScript, Debug_CheckSaveBlock },
     { COMPOUND_STRING("ROM space"),         DebugAction_ExecuteScript, Debug_CheckROMSpace },
     { COMPOUND_STRING("Expansion Version"), DebugAction_ExecuteScript, Debug_ShowExpansionVersion },
+    { COMPOUND_STRING("Single Save Slot"),  DebugAction_ExecuteScript, Debug_SingleSaveSlotMessage },
     { NULL }
 };
 

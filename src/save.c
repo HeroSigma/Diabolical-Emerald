@@ -29,18 +29,14 @@ static void CopyFromSaveBlock3(u32, struct SaveSector *);
 /*
  * Sector Layout:
  *
- * Sectors 0 - 13:      Save Slot 1
- * Sectors 14 - 27:     Save Slot 2
+ * Sectors 0 - 27:     Save Slot (single)
  * Sectors 28 - 29:     Hall of Fame
  * Sector 30:           Trainer Hill
  * Sector 31:           Recorded Battle
  *
- * There are two save slots for saving the player's game data. We alternate between
- * them each time the game is saved, so that if the current save slot is corrupt,
- * we can load the previous one. We also rotate the sectors in each save slot
- * so that the same data is not always being written to the same sector. This
- * might be done to reduce wear on the flash memory, but I'm not sure, since all
- * 14 sectors get written anyway.
+ * The second save slot has been removed to free additional space for Pokémon
+ * storage. All 28 sectors are used for the single save slot, so corruption
+ * protection via slot swapping is no longer available.
  *
  * See SECTOR_ID_* constants in save.h
  */
@@ -73,7 +69,21 @@ struct
     SAVEBLOCK_CHUNK(struct PokemonStorage, 5),
     SAVEBLOCK_CHUNK(struct PokemonStorage, 6),
     SAVEBLOCK_CHUNK(struct PokemonStorage, 7),
-    SAVEBLOCK_CHUNK(struct PokemonStorage, 8), // SECTOR_ID_PKMN_STORAGE_END
+    SAVEBLOCK_CHUNK(struct PokemonStorage, 8),
+    SAVEBLOCK_CHUNK(struct PokemonStorage, 9),
+    SAVEBLOCK_CHUNK(struct PokemonStorage, 10),
+    SAVEBLOCK_CHUNK(struct PokemonStorage, 11),
+    SAVEBLOCK_CHUNK(struct PokemonStorage, 12),
+    SAVEBLOCK_CHUNK(struct PokemonStorage, 13),
+    SAVEBLOCK_CHUNK(struct PokemonStorage, 14),
+    SAVEBLOCK_CHUNK(struct PokemonStorage, 15),
+    SAVEBLOCK_CHUNK(struct PokemonStorage, 16),
+    SAVEBLOCK_CHUNK(struct PokemonStorage, 17),
+    SAVEBLOCK_CHUNK(struct PokemonStorage, 18),
+    SAVEBLOCK_CHUNK(struct PokemonStorage, 19),
+    SAVEBLOCK_CHUNK(struct PokemonStorage, 20),
+    SAVEBLOCK_CHUNK(struct PokemonStorage, 21),
+    SAVEBLOCK_CHUNK(struct PokemonStorage, 22), // SECTOR_ID_PKMN_STORAGE_END
 };
 
 // These will produce an error if a save struct is larger than the space
