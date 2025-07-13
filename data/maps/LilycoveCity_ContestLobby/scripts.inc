@@ -310,17 +310,11 @@ LilycoveCity_ContestLobby_Movement_LinkArtistReturnToPlayer:
 
 @ EventScript_SpeakToContestReceptionist either ends or returns after a contest entry is submitted
 LilycoveCity_ContestLobby_EventScript_ContestReceptionist::
-	special ClearLinkContestFlags
-	specialvar VAR_RESULT, IsContestDebugActive  @ Always FALSE
-	goto_if_eq VAR_RESULT, TRUE, LilycoveCity_ContestLobby_EventScript_SetDebug
-	call LilycoveCity_ContestLobby_EventScript_SpeakToContestReceptionist
-	call LilycoveCity_ContestLobby_EventScript_LeadToContestHall
-	special SetContestTrainerGfxIds
-	call LilycoveCity_ContestLobby_EventScript_SetPlayerGfx
-	call LilycoveCity_ContestLobby_EventScript_SetContestType
-	call LilycoveCity_ContestLobby_EventScript_WarpToContestHall
-	waitstate
-	end
+        lock
+        faceplayer
+        msgbox LilycoveCity_ContestLobby_Text_ContestDisabled, MSGBOX_DEFAULT
+        release
+        end
 
 LilycoveCity_ContestLobby_EventScript_SetContestType::
 	switch VAR_CONTEST_RANK
@@ -612,12 +606,11 @@ LilycoveCity_ContestLobby_EventScript_FaceOriginalDirection::
 	end
 
 LilycoveCity_ContestLobby_EventScript_LinkContestReceptionist::
-	special ClearLinkContestFlags
-	lock
-	faceplayer
-	msgbox LilycoveCity_ContestLobby_Text_LinkContestReception, MSGBOX_DEFAULT
-	goto LilycoveCity_ContestLobby_EventScript_AskEnterLinkContest
-	end
+        lock
+        faceplayer
+        msgbox LilycoveCity_ContestLobby_Text_ContestDisabled, MSGBOX_DEFAULT
+        release
+        end
 
 LilycoveCity_ContestLobby_EventScript_AskEnterLinkContest::
 	message LilycoveCity_ContestLobby_Text_EnterContest3
@@ -1073,8 +1066,11 @@ LilycoveCity_ContestLobby_Text_LavishedCareOnMon:
 	.string "Today, victory is mine!$"
 
 LilycoveCity_ContestLobby_Text_MadePokeblocksWithFamily:
-	.string "I made {POKEBLOCK}S with Mom, Dad, and\n"
-	.string "Big Sister. They turned out great!\p"
-	.string "I bet you can make smoother, better\n"
-	.string "{POKEBLOCK}S if you have more people.$"
+        .string "I made {POKEBLOCK}S with Mom, Dad, and\n"
+        .string "Big Sister. They turned out great!\p"
+        .string "I bet you can make smoother, better\n"
+        .string "{POKEBLOCK}S if you have more people.$"
+
+LilycoveCity_ContestLobby_Text_ContestDisabled:
+        .string "Sorry, this feature has been disabled for now.$"
 
