@@ -260,5 +260,4 @@ gScriptCmdTable::
 gScriptCmdTableEnd::
         .4byte ScrCmd_nop
         .endif
-        enum_end
         .endif
