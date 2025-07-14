@@ -2744,8 +2744,18 @@ static void FreeResources(void)
 		try_free(questNameArray[i]);
 	}
 
-	try_free(questNameArray);
-	FreeAllWindowBuffers();
+        try_free(questNameArray);
+        FreeAllWindowBuffers();
+}
+
+void Task_QuestMenu_OpenFromStartMenu(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        CleanupOverworldWindowsAndTilemaps();
+        QuestMenu_Init(0, CB2_ReturnToFieldWithOpenMenu);
+        DestroyTask(taskId);
+    }
 }
 
 void TurnOffQuestMenu(u8 taskId)
