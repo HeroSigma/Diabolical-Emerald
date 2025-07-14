@@ -1,7 +1,8 @@
 #ifndef GUARD_CONSTANTS_QUEST_MENU_H
 #define GUARD_CONSTANTS_QUEST_MENU_H
 
-// Quest IDs for defeating each Gym Leader
+// Quest IDs for defeating each Gym Leader.
+// These are used by the quest menu and script macros.
 #define QUEST_DEFEAT_ROXANNE       0
 #define QUEST_DEFEAT_BRAWLY        1
 #define QUEST_DEFEAT_WATTSON       2
