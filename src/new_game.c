@@ -46,6 +46,7 @@
 #include "union_room_chat.h"
 #include "constants/map_groups.h"
 #include "constants/quests.h"
+#include "quests.h"
 #include "constants/items.h"
 #include "difficulty.h"
 #include "follower_npc.h"

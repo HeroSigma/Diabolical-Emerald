@@ -2198,7 +2198,7 @@ static void QuestMenu_CreateSprite(u16 itemId, u8 idx, u8 spriteType)
 				break;
 		}
 
-                if (spriteId != MAX_SPRITES)
+                if (spriteId != SPRITE_NONE)
                 {
                         gSprites[spriteId].oam.objMode = ST_OAM_OBJ_BLEND;
                         ptr[idx] = spriteId;
