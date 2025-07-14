@@ -1530,4 +1530,3 @@ void Script_ForceSaveGame(struct ScriptContext *ctx)
     gMenuCallback = SaveCallback;
     sSaveDialogCallback = SaveSavingMessageCallback;
 }
-static bool8 QuestMenuCallback(void)

@@ -1,0 +1,26 @@
+#ifndef GUARD_CONSTANTS_QUEST_MENU_H
+#define GUARD_CONSTANTS_QUEST_MENU_H
+
+// Quest IDs for defeating each Gym Leader
+#define QUEST_DEFEAT_ROXANNE       0
+#define QUEST_DEFEAT_BRAWLY        1
+#define QUEST_DEFEAT_WATTSON       2
+#define QUEST_DEFEAT_FLANNERY      3
+#define QUEST_DEFEAT_NORMAN        4
+#define QUEST_DEFEAT_WINONA        5
+#define QUEST_DEFEAT_TATE_AND_LIZA 6
+#define QUEST_DEFEAT_JUAN          7
+
+#define GYM_LEADER_QUEST_COUNT     8
+
+// Rewards for completing each Gym Leader quest
+#define QUEST_REWARD_ROXANNE       ITEM_TM39
+#define QUEST_REWARD_BRAWLY        ITEM_TM08
+#define QUEST_REWARD_WATTSON       ITEM_TM34
+#define QUEST_REWARD_FLANNERY      ITEM_TM50
+#define QUEST_REWARD_NORMAN        ITEM_TM42
+#define QUEST_REWARD_WINONA        ITEM_TM40
+#define QUEST_REWARD_TATE_AND_LIZA ITEM_TM04
+#define QUEST_REWARD_JUAN          ITEM_TM03
+
+#endif // GUARD_CONSTANTS_QUEST_MENU_H
