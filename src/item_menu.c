@@ -55,15 +55,11 @@
 #define TAG_POCKET_SCROLL_ARROW 110
 #define TAG_BAG_SCROLL_ARROW    111
 
-// The buffer for the bag item list needs to be large enough to hold the maximum
-// number of item slots that could fit in a single pocket, + 1 for Cancel.
-// This constant picks the max of the existing pocket sizes.
-// By default, the largest pocket is BAG_TMHM_COUNT at 64.
-#define MAX_POCKET_ITEMS  ((max(BAG_TMHM_COUNT,              \
-                            max(BAG_BERRIES_COUNT,           \
-                            max(BAG_ITEMS_COUNT,             \
-                            max(BAG_KEYITEMS_COUNT,          \
-                                BAG_POKEBALLS_COUNT))))) + 1)
+// The buffer for the bag item list needs to be large enough to hold the
+// maximum number of item slots that can fit in a pocket, plus one for the
+// Cancel entry.  The TM/HM pocket is the largest at 64 slots, so the buffer
+// length is 65.
+#define MAX_POCKET_ITEMS (BAG_TMHM_COUNT + 1)
 
 // Up to 8 item slots can be visible at a time
 #define MAX_ITEMS_SHOWN 8

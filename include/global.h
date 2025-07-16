@@ -1047,10 +1047,13 @@ struct ExternalEventFlags
 struct Bag
 {
     struct ItemSlot items[BAG_ITEMS_COUNT];
-    struct ItemSlot keyItems[BAG_KEYITEMS_COUNT];
+    struct ItemSlot medicine[BAG_MEDICINE_COUNT];
     struct ItemSlot pokeBalls[BAG_POKEBALLS_COUNT];
+    struct ItemSlot battleItems[BAG_BATTLE_COUNT];
+    struct ItemSlot training[BAG_TRAINING_COUNT];
     struct ItemSlot TMsHMs[BAG_TMHM_COUNT];
     struct ItemSlot berries[BAG_BERRIES_COUNT];
+    struct ItemSlot keyItems[BAG_KEYITEMS_COUNT];
 };
 
 struct SaveBlock1
