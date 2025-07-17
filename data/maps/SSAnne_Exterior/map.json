@@ -1,0 +1,60 @@
+{
+  "id": "MAP_SSANNE_EXTERIOR",
+  "name": "SSAnne_Exterior",
+  "layout": "LAYOUT_SSANNE_EXTERIOR",
+  "music": "MUS_RG_SS_ANNE",
+  "region_map_section": "MAPSEC_S_S_ANNE",
+  "requires_flash": false,
+  "weather": "WEATHER_SUNNY",
+  "map_type": "MAP_TYPE_CITY",
+  "allow_cycling": true,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": 0,
+  "object_events": [
+    {
+      "graphics_id": "OBJ_EVENT_GFX_BEAUTY",
+      "x": 32,
+      "y": 14,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "SSAnne_Exterior_EventScript_FerryAttendant",
+      "flag": "0"
+    }
+  ],
+  "warp_events": [
+    {
+      "x": 31,
+      "y": 5,
+      "elevation": 0,
+      "dest_map": "MAP_VERMILION_CITY",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 32,
+      "y": 5,
+      "elevation": 0,
+      "dest_map": "MAP_VERMILION_CITY",
+      "dest_warp_id": "1"
+    },
+    {
+      "x": 33,
+      "y": 5,
+      "elevation": 0,
+      "dest_map": "MAP_VERMILION_CITY",
+      "dest_warp_id": "2"
+    }
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
+}
