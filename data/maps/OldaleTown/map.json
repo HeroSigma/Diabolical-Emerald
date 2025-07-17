@@ -105,7 +105,7 @@
       "x": 5,
       "y": 7,
       "elevation": 0,
-      "dest_map": "MAP_OLDALE_TOWN_HOUSE1",
+      "dest_map": "MAP_OLDALE_TOWN_RIVALS_HOUSE",
       "dest_warp_id": "0"
     },
     {
@@ -131,42 +131,7 @@
     }
   ],
   "coord_events": [
-    {
-      "type": "trigger",
-      "x": 0,
-      "y": 10,
-      "elevation": 3,
-      "var": "VAR_OLDALE_TOWN_STATE",
-      "var_value": "0",
-      "script": "OldaleTown_EventScript_BlockedPath"
-    },
-    {
-      "type": "trigger",
-      "x": 8,
-      "y": 19,
-      "elevation": 3,
-      "var": "VAR_OLDALE_RIVAL_STATE",
-      "var_value": "1",
-      "script": "OldaleTown_EventScript_RivalTrigger1"
-    },
-    {
-      "type": "trigger",
-      "x": 9,
-      "y": 19,
-      "elevation": 3,
-      "var": "VAR_OLDALE_RIVAL_STATE",
-      "var_value": "1",
-      "script": "OldaleTown_EventScript_RivalTrigger2"
-    },
-    {
-      "type": "trigger",
-      "x": 10,
-      "y": 19,
-      "elevation": 3,
-      "var": "VAR_OLDALE_RIVAL_STATE",
-      "var_value": "1",
-      "script": "OldaleTown_EventScript_RivalTrigger3"
-    }
+
   ],
   "bg_events": [
     {
@@ -208,6 +173,14 @@
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
       "script": "Common_EventScript_ShowPokemartSign"
+    },
+    {
+      "type": "sign",
+      "x": 4,
+      "y": 8,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "OldaleTown_EventScript_RivalsHouseSign"
     }
   ]
 }

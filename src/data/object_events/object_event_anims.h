@@ -187,21 +187,9 @@ static const union AnimCmd sAnim_FaceNorth[] =
     ANIMCMD_JUMP(0),
 };
 
-static const union AnimCmd sAnim_FaceNorth2F[] =
-{
-    ANIMCMD_FRAME(2, 16),
-    ANIMCMD_JUMP(0),
-};
-
 static const union AnimCmd sAnim_FaceWest[] =
 {
     ANIMCMD_FRAME(2, 16),
-    ANIMCMD_JUMP(0),
-};
-
-static const union AnimCmd sAnim_FaceWest2F[] =
-{
-    ANIMCMD_FRAME(4, 16),
     ANIMCMD_JUMP(0),
 };
 
@@ -232,15 +220,6 @@ static const union AnimCmd sAnim_GoSouth[] =
     ANIMCMD_JUMP(0),
 };
 
-static const union AnimCmd sAnim_GoSouth2F[] =
-{
-    ANIMCMD_FRAME(0, 6),
-    ANIMCMD_FRAME(1, 6),
-    ANIMCMD_FRAME(1, 6),
-    ANIMCMD_FRAME(0, 6),
-    ANIMCMD_JUMP(0),
-};
-
 static const union AnimCmd sAnim_GoNorth[] =
 {
     ANIMCMD_FRAME(5, 8),
@@ -265,15 +244,6 @@ static const union AnimCmd sAnim_GoWest[] =
     ANIMCMD_FRAME(2, 8),
     ANIMCMD_FRAME(8, 8),
     ANIMCMD_FRAME(2, 8),
-    ANIMCMD_JUMP(0),
-};
-
-static const union AnimCmd sAnim_GoWest2F[] =
-{
-    ANIMCMD_FRAME(4, 6),
-    ANIMCMD_FRAME(5, 6),
-    ANIMCMD_FRAME(5, 6),
-    ANIMCMD_FRAME(4, 6),
     ANIMCMD_JUMP(0),
 };
 
@@ -313,15 +283,6 @@ static const union AnimCmd sAnim_GoFastSouth[] =
     ANIMCMD_JUMP(0),
 };
 
-static const union AnimCmd sAnim_GoFastSouth2F[] =
-{
-    ANIMCMD_FRAME(0, 4),
-    ANIMCMD_FRAME(1, 4),
-    ANIMCMD_FRAME(1, 4),
-    ANIMCMD_FRAME(0, 4),
-    ANIMCMD_JUMP(0),
-};
-
 static const union AnimCmd sAnim_GoFastNorth[] =
 {
     ANIMCMD_FRAME(5, 4),
@@ -331,30 +292,12 @@ static const union AnimCmd sAnim_GoFastNorth[] =
     ANIMCMD_JUMP(0),
 };
 
-static const union AnimCmd sAnim_GoFastNorth2F[] =
-{
-    ANIMCMD_FRAME(2, 4),
-    ANIMCMD_FRAME(3, 4),
-    ANIMCMD_FRAME(3, 4),
-    ANIMCMD_FRAME(2, 4),
-    ANIMCMD_JUMP(0),
-};
-
 static const union AnimCmd sAnim_GoFastWest[] =
 {
     ANIMCMD_FRAME(7, 4),
     ANIMCMD_FRAME(2, 4),
     ANIMCMD_FRAME(8, 4),
     ANIMCMD_FRAME(2, 4),
-    ANIMCMD_JUMP(0),
-};
-
-static const union AnimCmd sAnim_GoFastWest2F[] =
-{
-    ANIMCMD_FRAME(4, 4),
-    ANIMCMD_FRAME(5, 4),
-    ANIMCMD_FRAME(5, 4),
-    ANIMCMD_FRAME(4, 4),
     ANIMCMD_JUMP(0),
 };
 
@@ -480,36 +423,12 @@ static const union AnimCmd sAnim_GoFasterNorth[] =
     ANIMCMD_JUMP(0),
 };
 
-static const union AnimCmd sAnim_EnterNorth[] =
-{
-    ANIMCMD_FRAME(2, 8),
-    ANIMCMD_FRAME(4, 1),
-    ANIMCMD_FRAME(3, 1),
-    ANIMCMD_FRAME(2, 1),
-    ANIMCMD_FRAME(1, 1),
-    ANIMCMD_FRAME(0, 1),
-    ANIMCMD_FRAME(0, 3),
-    ANIMCMD_JUMP(0),
-};
-
 static const union AnimCmd sAnim_GoFasterWest[] =
 {
     ANIMCMD_FRAME(7, 2),
     ANIMCMD_FRAME(2, 2),
     ANIMCMD_FRAME(8, 2),
     ANIMCMD_FRAME(2, 2),
-    ANIMCMD_JUMP(0),
-};
-
-static const union AnimCmd sAnim_EnterWest[] =
-{
-    ANIMCMD_FRAME(4, 8),
-    ANIMCMD_FRAME(4, 1),
-    ANIMCMD_FRAME(3, 1),
-    ANIMCMD_FRAME(2, 1),
-    ANIMCMD_FRAME(1, 1),
-    ANIMCMD_FRAME(0, 1),
-    ANIMCMD_FRAME(0, 3),
     ANIMCMD_JUMP(0),
 };
 
@@ -1452,6 +1371,30 @@ static const union AnimCmd *const sAnimTable_Nurse[] = {
     [ANIM_NURSE_BOW] = sAnim_NurseBow,
 };
 
+static const union AnimCmd *const sAnimTable_KantoNurse[] = {
+    [ANIM_STD_FACE_SOUTH] = sAnim_FaceSouth,
+    [ANIM_STD_FACE_NORTH] = sAnim_FaceNorth,
+    [ANIM_STD_FACE_WEST] = sAnim_FaceWest,
+    [ANIM_STD_FACE_EAST] = sAnim_FaceEast,
+    [ANIM_STD_GO_SOUTH] = sAnim_GoSouth,
+    [ANIM_STD_GO_NORTH] = sAnim_GoNorth,
+    [ANIM_STD_GO_WEST] = sAnim_GoWest,
+    [ANIM_STD_GO_EAST] = sAnim_GoEast,
+    [ANIM_STD_GO_FAST_SOUTH] = sAnim_GoFastSouth,
+    [ANIM_STD_GO_FAST_NORTH] = sAnim_GoFastNorth,
+    [ANIM_STD_GO_FAST_WEST] = sAnim_GoFastWest,
+    [ANIM_STD_GO_FAST_EAST] = sAnim_GoFastEast,
+    [ANIM_STD_GO_FASTER_SOUTH] = sAnim_GoFasterSouth,
+    [ANIM_STD_GO_FASTER_NORTH] = sAnim_GoFasterNorth,
+    [ANIM_STD_GO_FASTER_WEST]  = sAnim_GoFasterWest,
+    [ANIM_STD_GO_FASTER_EAST]  = sAnim_GoFasterEast,
+    [ANIM_STD_GO_FASTEST_SOUTH] = sAnim_GoFastestSouth,
+    [ANIM_STD_GO_FASTEST_NORTH] = sAnim_GoFastestNorth,
+    [ANIM_STD_GO_FASTEST_WEST] = sAnim_GoFastestWest,
+    [ANIM_STD_GO_FASTEST_EAST] = sAnim_GoFastestEast,
+    [ANIM_NURSE_BOW] = sAnim_NurseBow,
+};
+
 static const union AnimCmd *const sAnimTable_FieldMove[] = {
     [ANIM_FIELD_MOVE] = sAnim_FieldMove,
 };
@@ -1471,7 +1414,17 @@ static const union AnimCmd *const sAnimTable_BreakableRock[] = {
     [ANIM_REMOVE_OBSTACLE] = sAnim_RockBreak,
 };
 
+static const union AnimCmd *const sAnimTable_RockSmashRock[] = {
+    [ANIM_STAY_STILL] = sAnim_StayStill,
+    [ANIM_REMOVE_OBSTACLE] = sAnim_RockBreak,
+};
+
 static const union AnimCmd *const sAnimTable_CuttableTree[] = {
+    [ANIM_STAY_STILL] = sAnim_StayStill,
+    [ANIM_REMOVE_OBSTACLE] = sAnim_TreeCut,
+};
+
+static const union AnimCmd *const sAnimTable_CutTree[] = {
     [ANIM_STAY_STILL] = sAnim_StayStill,
     [ANIM_REMOVE_OBSTACLE] = sAnim_TreeCut,
 };
@@ -1511,10 +1464,6 @@ static const struct StepAnimTable sStepAnimTables[] = {
         .animPos = {1, 3, 0, 2},
     },
     {
-        .anims = sAnimTable_Following,
-        .animPos = {1, 3, 0, 2},
-    },
-    {
         .anims = sAnimTable_BrendanMayNormal,
         .animPos = {1, 3, 0, 2},
     },
@@ -1528,6 +1477,10 @@ static const struct StepAnimTable sStepAnimTables[] = {
     },
     {
         .anims = sAnimTable_Nurse,
+        .animPos = {1, 3, 0, 2},
+    },
+    {
+        .anims = sAnimTable_KantoNurse,
         .animPos = {1, 3, 0, 2},
     },
     {

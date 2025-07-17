@@ -118,7 +118,7 @@ __attribute__((section(".text.header_gf"))) USED static const struct GFRomHeader
     .seen1Offset = offsetof(struct SaveBlock1, dexSeen),
     .seen2Offset = offsetof(struct SaveBlock1, dexSeen), // dex flags are combined, just provide the same pointer
     .pokedexVar = VAR_NATIONAL_DEX - VARS_START,
-    .pokedexFlag = FLAG_RECEIVED_POKEDEX_FROM_BIRCH,
+    .pokedexFlag = FLAG_RECEIVED_POKEDEX,
     .mysteryEventFlag = FLAG_SYS_MYSTERY_EVENT_ENABLE,
     .pokedexCount = NATIONAL_DEX_COUNT,
     .playerNameLength = PLAYER_NAME_LENGTH,

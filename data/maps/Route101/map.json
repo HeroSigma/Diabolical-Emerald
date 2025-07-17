@@ -49,7 +49,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "0x0",
+      "script": "Route101_EventScript_HelpMe",
       "flag": "FLAG_HIDE_ROUTE_101_BIRCH_ZIGZAGOON_BATTLE"
     },
     {
@@ -76,7 +76,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "0x0",
+      "script": "Route101_EventScript_ZigzagoonBattle",
       "flag": "FLAG_HIDE_ROUTE_101_ZIGZAGOON"
     },
     {
@@ -106,14 +106,16 @@
       "flag": "FLAG_HIDE_ROUTE_101_BOY"
     }
   ],
-  "warp_events": [],
+  "warp_events": [
+
+  ],
   "coord_events": [
     {
       "type": "trigger",
       "x": 10,
       "y": 19,
       "elevation": 3,
-      "var": "VAR_ROUTE101_STATE",
+      "var": "VAR_INTRO_BATTLE_STATE",
       "var_value": "1",
       "script": "Route101_EventScript_StartBirchRescue"
     },
@@ -122,7 +124,7 @@
       "x": 11,
       "y": 19,
       "elevation": 3,
-      "var": "VAR_ROUTE101_STATE",
+      "var": "VAR_INTRO_BATTLE_STATE",
       "var_value": "1",
       "script": "Route101_EventScript_StartBirchRescue"
     },
@@ -131,7 +133,7 @@
       "x": 10,
       "y": 18,
       "elevation": 3,
-      "var": "VAR_ROUTE101_STATE",
+      "var": "VAR_INTRO_BATTLE_STATE",
       "var_value": "2",
       "script": "Route101_EventScript_PreventExitSouth"
     },
@@ -140,7 +142,7 @@
       "x": 11,
       "y": 18,
       "elevation": 3,
-      "var": "VAR_ROUTE101_STATE",
+      "var": "VAR_INTRO_BATTLE_STATE",
       "var_value": "2",
       "script": "Route101_EventScript_PreventExitSouth"
     },
@@ -149,16 +151,7 @@
       "x": 6,
       "y": 16,
       "elevation": 3,
-      "var": "VAR_ROUTE101_STATE",
-      "var_value": "2",
-      "script": "Route101_EventScript_PreventExitWest"
-    },
-    {
-      "type": "trigger",
-      "x": 6,
-      "y": 15,
-      "elevation": 3,
-      "var": "VAR_ROUTE101_STATE",
+      "var": "VAR_INTRO_BATTLE_STATE",
       "var_value": "2",
       "script": "Route101_EventScript_PreventExitWest"
     },
@@ -167,7 +160,7 @@
       "x": 6,
       "y": 17,
       "elevation": 3,
-      "var": "VAR_ROUTE101_STATE",
+      "var": "VAR_INTRO_BATTLE_STATE",
       "var_value": "2",
       "script": "Route101_EventScript_PreventExitWest"
     },
@@ -176,18 +169,9 @@
       "x": 6,
       "y": 18,
       "elevation": 3,
-      "var": "VAR_ROUTE101_STATE",
+      "var": "VAR_INTRO_BATTLE_STATE",
       "var_value": "2",
       "script": "Route101_EventScript_PreventExitWest"
-    },
-    {
-      "type": "trigger",
-      "x": 7,
-      "y": 13,
-      "elevation": 3,
-      "var": "VAR_ROUTE101_STATE",
-      "var_value": "2",
-      "script": "Route101_EventScript_PreventExitNorth"
     }
   ],
   "bg_events": [

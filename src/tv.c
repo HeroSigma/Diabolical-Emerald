@@ -3353,6 +3353,7 @@ u8 CheckForPlayersHouseNews(void)
     return PLAYERS_HOUSE_TV_LATI;
 }
 
+
 void GetMomOrDadStringForTVMessage(void)
 {
     // If the player is checking the TV in their house it will only refer to their Mom.
@@ -3375,6 +3376,8 @@ void GetMomOrDadStringForTVMessage(void)
             }
         }
     }
+    /* remaining code unchanged */
+}
     if (VarGet(VAR_TEMP_3) == 1)
     {
         StringCopy(gStringVar1, gText_Mom);

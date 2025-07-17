@@ -1293,6 +1293,8 @@ bool8 ScrCmd_applymovement(struct ScriptContext *ctx)
     const u8 *movementScript = (const u8 *)ScriptReadWord(ctx);
     struct ObjectEvent *objEvent;
 
+    ScriptMovement_StartObjectMovementScript(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, movementScript);
+    sMovingNpcId = localId;
     Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
 
     // When applying script movements to follower, it may have frozen animation that must be cleared
@@ -1644,10 +1646,6 @@ bool8 ScrCmd_releaseall(struct ScriptContext *ctx)
     Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
 
     u8 playerObjectId;
-    struct ObjectEvent *followerObject = GetFollowerObject();
-    // Release follower from movement iff it exists and is in the shadowing state
-    if (followerObject && gSprites[followerObject->spriteId].data[1] == 0)
-        ClearObjectEventMovement(followerObject, &gSprites[followerObject->spriteId]);
 
     HideFieldMessageBox();
     playerObjectId = GetObjectEventIdByLocalIdAndMap(LOCALID_PLAYER, 0, 0);
@@ -1663,10 +1661,6 @@ bool8 ScrCmd_release(struct ScriptContext *ctx)
     Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
 
     u8 playerObjectId;
-    struct ObjectEvent *followerObject = GetFollowerObject();
-    // Release follower from movement iff it exists and is in the shadowing state
-    if (followerObject && gSprites[followerObject->spriteId].data[1] == 0)
-        ClearObjectEventMovement(followerObject, &gSprites[followerObject->spriteId]);
 
     HideFieldMessageBox();
     if (gObjectEvents[gSelectedObjectEvent].active)
@@ -2696,6 +2690,12 @@ bool8 ScrCmd_checkplayergender(struct ScriptContext *ctx)
     Script_RequestEffects(SCREFF_V1);
 
     gSpecialVar_Result = gSaveBlock2Ptr->playerGender;
+    return FALSE;
+}
+
+bool8 ScrCmd_checkplayerregion(struct ScriptContext *ctx)
+{
+    gSpecialVar_Result = gSaveBlock2Ptr->playerRegion;
     return FALSE;
 }
 

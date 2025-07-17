@@ -115,3 +115,115 @@ AncientTomb_Braille_ShineInTheMiddle:
 	.braille "INHERIT OUR\n"
 	.braille "WILL, SHINE\n"
 	.braille "IN THE MIDDLE.$"
+
+Braille_Text_Everything::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "EVERYTHING$"
+
+Braille_Text_HasMeaning1::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "HAS MEANING$"
+
+Braille_Text_Existence::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "EXISTENCE$"
+
+Braille_Text_HasMeaning2::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "HAS MEANING$"
+
+Braille_Text_BeingAlive::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "BEING ALIVE$"
+
+Braille_Text_HasMeaning3::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "HAS MEANING$"
+
+Braille_Text_HaveDreams::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "HAVE DREAMS$"
+
+Braille_Text_UsePower::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "USE POWER.$"
+
+Braille_Text_LetTheTwo::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "LET THE TWO$"
+
+Braille_Text_Glittering::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "GLITTERING$"
+
+Braille_Text_Stones::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "STONES$"
+
+Braille_Text_OneInRed::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "ONE IN RED$"
+
+Braille_Text_OneInBlue::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "ONE IN BLUE$"
+
+Braille_Text_ConnectThe::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "CONNECT THE$"
+
+Braille_Text_Past::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "PAST.$"
+
+Braille_Text_TwoFriends::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "TWO FRIENDS$"
+
+Braille_Text_Sharing::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "SHARING$"
+
+Braille_Text_PowerOpen::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "POWER OPEN$"
+
+Braille_Text_AWindowTo::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "A WINDOW TO$"
+
+Braille_Text_ANewWorld::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "A NEW WORLD$"
+
+Braille_Text_ThatGlows::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "THAT GLOWS.$"
+
+Braille_Text_TheNext::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "THE NEXT$"
+
+Braille_Text_WorldWaits::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "WORLD WAITS$"
+
+Braille_Text_ForYou::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "FOR YOU.$"
+
+Braille_Text_Up::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "UP$"
+
+Braille_Text_Down::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "DOWN$"
+
+Braille_Text_Right::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "RIGHT$"
+
+Braille_Text_Left::
+	brailleformat 4, 6, 26, 13, 7, 9
+	.braille "LEFT$"

@@ -1,3 +1,9 @@
+.set LOCALID_WALLY, 1
+.set LOCALID_BOY, 2
+.set LOCALID_WALLYS_DAD, 4
+.set LOCALID_GYM_BOY, 7
+.set LOCALID_SCOTT, 8
+
 PetalburgCity_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, PetalburgCity_OnTransition
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, PetalburgCity_OnFrame
@@ -5,15 +11,10 @@ PetalburgCity_MapScripts::
 
 PetalburgCity_OnTransition:
 	setflag FLAG_VISITED_PETALBURG_CITY
-	call_if_eq VAR_PETALBURG_CITY_STATE, 0, PetalburgCity_EventScript_MoveGymBoyToWestEntrance
 	call_if_eq VAR_PETALBURG_CITY_STATE, 2, PetalburgCity_EventScript_DisableMapNameAndMusic
 	call_if_eq VAR_PETALBURG_CITY_STATE, 4, PetalburgCity_EventScript_DisableMapNameAndMusic
 	call_if_eq VAR_PETALBURG_GYM_STATE, 8, PetalburgCity_EventScript_SetGymDoorsUnlocked
 	end
-
-PetalburgCity_EventScript_MoveGymBoyToWestEntrance::
-	setobjectxyperm LOCALID_GYM_BOY, 5, 11
-	return
 
 PetalburgCity_EventScript_DisableMapNameAndMusic::
 	setflag FLAG_HIDE_MAP_NAME_POPUP
@@ -90,32 +91,27 @@ PetalburgCity_EventScript_Boy::
 	release
 	end
 
-PetalburgCity_EventScript_WallysMom::
-	msgbox PetalburgCity_Text_WhereIsWally, MSGBOX_NPC
-	end
-
 PetalburgCity_Movement_WalkToWallyHousePlayer:
 	delay_8
 	walk_down
 	walk_down
 	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
 	walk_left
 	walk_left
 	walk_left
 	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_up
-	walk_up
-	walk_up
-	walk_up
-	walk_up
 	step_end
 
 PetalburgCity_Movement_WalkInsideHousePlayer:
-	walk_up
+	walk_left
 	walk_up
 	step_end
 
@@ -123,20 +119,20 @@ PetalburgCity_Movement_WalkToWallyHouseWallysDad:
 	delay_8
 	walk_down
 	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
 	walk_left
 	walk_left
 	walk_left
 	walk_left
 	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_up
-	walk_up
-	walk_up
-	walk_up
-	walk_up
-	walk_up
+	walk_in_place_up
 	step_end
 
 PetalburgCity_Movement_WalkInsideHouseWallysDad:
@@ -234,10 +230,8 @@ PetalburgCity_EventScript_WallyHouseSign::
 	msgbox PetalburgCity_Text_WallyHouseSign, MSGBOX_SIGN
 	end
 
-PetalburgCity_EventScript_ShowGymToPlayer0::
-	lockall
-	setvar VAR_0x8008, 0
-	goto PetalburgCity_EventScript_ShowGymToPlayer
+PetalburgCity_EventScript_NormanHouseSign::
+	msgbox PetalburgCity_Text_NormanHouseSign, MSGBOX_SIGN
 	end
 
 PetalburgCity_EventScript_ShowGymToPlayer1::
@@ -698,25 +692,13 @@ PetalburgCity_EventScript_GymBoy::
 	msgbox PetalburgCity_Text_AreYouRookieTrainer, MSGBOX_NPC
 	end
 
-PetalburgCity_Text_WhereIsWally:
-	.string "Where has our WALLY gone?\p"
-	.string "We have to leave for VERDANTURF TOWN\n"
-	.string "very soon…$"
-
 PetalburgCity_Text_AreYouRookieTrainer:
 	.string "Hiya! Are you maybe…\n"
-	.string "A rookie TRAINER?\p"
-	.string "Do you know what POKéMON TRAINERS\n"
+	.string "A rookie trainer?\p"
+	.string "Do you know what pokémon trainers\n"
 	.string "do when they reach a new town?\p"
-	.string "They first check what kind of GYM\n"
+	.string "They first check what kind of gym\n"
 	.string "is in the town.$"
-
-PetalburgCity_Text_ThisIsPetalburgGym:
-	.string "See? This is PETALBURG CITY's GYM.$"
-
-PetalburgCity_Text_ThisIsGymSign:
-	.string "This is the GYM's sign. Look for it\n"
-	.string "whenever you're looking for a GYM.$"
 
 PetalburgCity_Text_WaterReflection:
 	.string "My face is reflected in the water.\p"
@@ -726,10 +708,10 @@ PetalburgCity_Text_WaterReflection:
 	.string "What do you see reflected in your face?$"
 
 PetalburgCity_Text_FullPartyExplanation:
-	.string "Let's say you have six POKéMON.\n"
+	.string "Let's say you have six pokémon.\n"
 	.string "If you catch another one…\p"
-	.string "It is automatically sent to a STORAGE\n"
-	.string "BOX over a PC connection.$"
+	.string "It is automatically sent to a storage\n"
+	.string "box over a PC connection.$"
 
 PetalburgCity_Text_GymSign:
 	.string "PETALBURG CITY POKéMON GYM\n"
@@ -743,19 +725,22 @@ PetalburgCity_Text_CitySign:
 PetalburgCity_Text_WallyHouseSign:
 	.string "WALLY'S HOUSE$"
 
+PetalburgCity_Text_NormanHouseSign:
+	.string "NORMAN'S HOUSE$"
+
 PetalburgCity_Text_AreYouATrainer:
 	.string "Excuse me!\p"
 	.string "Let me guess, from the way you're\n"
-	.string "dressed, are you a POKéMON TRAINER?$"
+	.string "dressed, are you a pokémon trainer?$"
 
 PetalburgCity_Text_WellMaybeNot:
 	.string "… … … … … …\p"
 	.string "Well, maybe not.\n"
 	.string "Your clothes aren't all that dirty.\p"
-	.string "You're either a rookie TRAINER,\n"
+	.string "You're either a rookie trainer,\n"
 	.string "or maybe you're just an ordinary kid.$"
 
 PetalburgCity_Text_ImLookingForTalentedTrainers:
 	.string "I'm roaming the land in search of\n"
-	.string "talented TRAINERS.\p"
+	.string "talented trainers.\p"
 	.string "I'm sorry to have taken your time.$"

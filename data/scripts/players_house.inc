@@ -1,13 +1,16 @@
+@ Local IDs are the same for both players houses
+.set LOCALID_MOM, 1
+.set LOCALID_DAD, 5
+
 PlayersHouse_2F_EventScript_BlockStairsUntilClockIsSet::
-	setvar VAR_LITTLEROOT_INTRO_STATE, 5
+	setvar VAR_INTRO_STATE, 5
 	return
 
 PlayersHouse_1F_EventScript_EnterHouseMovingIn::
-	msgbox PlayersHouse_1F_Text_IsntItNiceInHere, MSGBOX_DEFAULT
 	applymovement VAR_0x8004, Common_Movement_FacePlayer
 	waitmovement 0
-	call_if_eq VAR_0x8005, MALE, PlayersHouse_1F_EventScript_MomFacePlayerMovingInMale
-	call_if_eq VAR_0x8005, FEMALE, PlayersHouse_1F_EventScript_MomFacePlayerMovingInFemale
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterRight
+	waitmovement 0
 	msgbox PlayersHouse_1F_Text_MoversPokemonGoSetClock, MSGBOX_DEFAULT
 	closemessage
 	setvar VAR_LITTLEROOT_INTRO_STATE, 4
@@ -32,7 +35,7 @@ PlayersHouse_1F_Movement_PlayerWalkIn:
 	step_end
 
 PlayersHouse_1F_EventScript_MomGoSeeRoom::
-	msgbox PlayersHouse_1F_Text_ArentYouInterestedInRoom, MSGBOX_DEFAULT
+	msgbox PlayersHouse_1F_Text_GoSetTheClock, MSGBOX_DEFAULT
 	closemessage
 	applymovement VAR_0x8004, Common_Movement_WalkInPlaceFasterUp
 	applymovement LOCALID_PLAYER, PlayersHouse_1F_Movement_MovePlayerAwayFromDoor
@@ -40,32 +43,15 @@ PlayersHouse_1F_EventScript_MomGoSeeRoom::
 	releaseall
 	end
 
-LittlerootTown_BrendansHouse_2F_EventScript_WallClock::
-	lockall
-	setvar VAR_0x8004, MALE
-	goto PlayersHouse_2F_EventScript_WallClock
-	end
-
-LittlerootTown_MaysHouse_2F_EventScript_WallClock::
-	lockall
-	setvar VAR_0x8004, FEMALE
-	goto PlayersHouse_2F_EventScript_WallClock
-	end
-
 PlayersHouse_2F_EventScript_WallClock::
 	goto_if_set FLAG_SET_WALL_CLOCK, PlayersHouse_2F_EventScript_CheckWallClock
 	msgbox PlayersHouse_2F_Text_ClockIsStopped, MSGBOX_DEFAULT
 	call PlayersHouse_2F_EventScript_SetWallClock
 	delay 30
-	setvar VAR_LITTLEROOT_INTRO_STATE, 6
+	setvar VAR_INTRO_STATE, 6
 	setflag FLAG_SET_WALL_CLOCK
-	setflag FLAG_HIDE_LITTLEROOT_TOWN_PLAYERS_HOUSE_VIGOROTH_1
-	setflag FLAG_HIDE_LITTLEROOT_TOWN_PLAYERS_HOUSE_VIGOROTH_2
-	checkplayergender
-	call_if_eq VAR_RESULT, MALE, PlayersHouse_2F_EventScript_MomComesUpstairsMale
-	call_if_eq VAR_RESULT, FEMALE, PlayersHouse_2F_EventScript_MomComesUpstairsFemale
-	playse SE_EXIT
-	removeobject VAR_0x8008
+	setflag FLAG_HIDE_PLAYERS_HOUSE_VIGOROTH_1
+	setflag FLAG_HIDE_PLAYERS_HOUSE_VIGOROTH_2
 	releaseall
 	end
 
@@ -276,96 +262,10 @@ PlayersHouse_1F_Movement_MomApproachPlayerAfterTVFemale:
 	walk_right
 	step_end
 
-PlayersHouse_1F_Movement_MomMakeRoomToSeeTVMale:
+PlayersHouse_1F_Movement_MomMakeRoomToSeeTV:
 	walk_left
 	walk_in_place_faster_right
 	step_end
-
-PlayersHouse_1F_Movement_MomMakeRoomToSeeTVFemale:
-	walk_right
-	walk_in_place_faster_left
-	step_end
-
-PlayersHouse_1F_Movement_MomReturnToSeatMale:
-	walk_left
-	walk_down
-	walk_in_place_faster_right
-	step_end
-
-PlayersHouse_1F_Movement_MomReturnToSeatFemale:
-	walk_right
-	walk_down
-	walk_in_place_faster_left
-	step_end
-
-PlayersHouse_1F_EventScript_Mom::
-	lock
-	faceplayer
-	goto_if_eq VAR_LITTLEROOT_HOUSES_STATE_MAY, 4, PlayersHouse_1F_EventScript_DontPushYourselfTooHard
-	goto_if_eq VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 4, PlayersHouse_1F_EventScript_DontPushYourselfTooHard
-	goto_if_set FLAG_HAS_MATCH_CALL, PlayersHouse_1F_EventScript_TryRegisterMom
-	goto_if_set FLAG_RESCUED_BIRCH, PlayersHouse_1F_EventScript_MomHealsParty
-	goto_if_eq VAR_TEMP_1, 1, PlayersHouse_1F_EventScript_SeeYouHoney
-	goto_if_eq VAR_LITTLEROOT_INTRO_STATE, 7, PlayersHouse_1F_EventScript_DidYouMeetProfBirch
-	msgbox PlayersHouse_1F_Text_IsntItNiceInHere, MSGBOX_DEFAULT
-	release
-	end
-
-PlayersHouse_1F_EventScript_DontPushYourselfTooHard::
-	msgbox PlayersHouse_1F_Text_DontPushYourselfTooHard, MSGBOX_DEFAULT
-	release
-	end
-
-PlayersHouse_1F_EventScript_TryRegisterMom::
-	goto_if_set FLAG_ENABLE_MOM_MATCH_CALL, PlayersHouse_1F_EventScript_CheckGiveAmuletCoin
-	msgbox PlayersHouse_1F_Text_IsThatAPokenav, MSGBOX_DEFAULT
-	closemessage
-	delay 30
-	playfanfare MUS_REGISTER_MATCH_CALL
-	msgbox PlayersHouse_1F_Text_RegisteredMom, MSGBOX_DEFAULT
-	waitfanfare
-	closemessage
-	delay 30
-	setflag FLAG_ENABLE_MOM_MATCH_CALL
-	release
-	end
-
-PlayersHouse_1F_EventScript_CheckGiveAmuletCoin::
-	goto_if_set FLAG_BADGE05_GET, PlayersHouse_1F_EventScript_TryGiveAmuletCoin
-	goto PlayersHouse_1F_EventScript_MomHealsParty
-
-PlayersHouse_1F_EventScript_TryGiveAmuletCoin::
-	goto_if_set FLAG_RECEIVED_AMULET_COIN, PlayersHouse_1F_EventScript_MomHealsParty
-	msgbox PlayersHouse_1F_Text_GotDadsBadgeHeresSomethingFromMom, MSGBOX_DEFAULT
-	giveitem ITEM_AMULET_COIN
-	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
-	msgbox PlayersHouse_1F_Text_DontPushYourselfTooHard, MSGBOX_DEFAULT
-	setflag FLAG_RECEIVED_AMULET_COIN
-	release
-	end
-
-PlayersHouse_1F_EventScript_MomHealsParty::
-	msgbox PlayersHouse_1F_Text_YouShouldRestABit, MSGBOX_DEFAULT
-	goto PlayersHouse_1F_EventScript_HealParty
-	end
-
-PlayersHouse_1F_EventScript_SeeYouHoney::
-	msgbox PlayersHouse_1F_Text_SeeYouHoney, MSGBOX_DEFAULT
-	release
-	end
-
-PlayersHouse_1F_EventScript_HealParty::
-	closemessage
-	call Common_EventScript_OutOfCenterPartyHeal
-	incrementgamestat GAME_STAT_RESTED_AT_HOME
-	msgbox PlayersHouse_1F_Text_TakeCareHoney, MSGBOX_DEFAULT
-	release
-	end
-
-PlayersHouse_1F_EventScript_DidYouMeetProfBirch::
-	msgbox PlayersHouse_1F_Text_DidYouMeetProfBirch, MSGBOX_DEFAULT
-	release
-	end
 
 PlayersHouse_1F_EventScript_Vigoroth1::
 	lock
@@ -387,28 +287,13 @@ PlayersHouse_1F_EventScript_Vigoroth2::
 	release
 	end
 
-PlayersHouse_1F_Movement_PlayerApproachTVForGymMale:
-	walk_down
-	walk_down
-	walk_left
-	walk_left
+PlayersHouse_1F_Movement_PlayerMoveToTV:
 	walk_left
 	step_end
 
-PlayersHouse_1F_Movement_PlayerMoveToTVMale:
-	walk_left
-	step_end
-
-PlayersHouse_1F_Movement_PlayerApproachTVForGymFemale:
+PlayersHouse_1F_Movement_MomLeave:
 	walk_down
 	walk_down
-	walk_right
-	walk_right
-	walk_right
-	step_end
-
-PlayersHouse_1F_Movement_PlayerMoveToTVFemale:
-	walk_right
 	step_end
 
 PlayersHouse_1F_Movement_MovePlayerAwayFromDoor:
@@ -475,8 +360,7 @@ PlayersHouse_1F_EventScript_GetSSTicketAndSeeLatiTV::
 	copyvar VAR_ROAMER_POKEMON, VAR_RESULT
 	msgbox PlayersHouse_1F_Text_StillUnknownPokemon, MSGBOX_DEFAULT
 	closemessage
-	setvar VAR_LITTLEROOT_HOUSES_STATE_MAY, 4
-	setvar VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 4
+	setvar VAR_LITTLEROOT_HOUSE_STATE, 4
 	releaseall
 	end
 
@@ -673,3 +557,145 @@ PlayersHouse_1F_Movement_PlayerApproachTVForLatiFemale:
 EventScript_RunningShoesManual::
 	msgbox PlayersHouse_1F_Text_RunningShoesManual, MSGBOX_SIGN
 	end
+
+PlayersHouse_1F_Text_MoversPokemonGoSetClock:
+	.string "The mover's pokémon do all the work\n"
+	.string "of moving you in and cleaning up after.\l"
+	.string "This is so convenient!\p"
+	.string "{PLAYER}, Dad bought you a new clock\n"
+	.string "as a housewarming gift, it's in your\l"
+	.string "room upstairs!\p"
+	.string "Go check it out, honey, and don't\n"
+	.string "forget to set it!$"
+
+PlayersHouse_1F_Text_GoSetTheClock:
+	.string "MOM: {PLAYER}.\p"
+	.string "Go set the clock in your room, honey.$"
+
+PlayersHouse_1F_Text_OhComeQuickly:
+	.string "MOM: Oh! {PLAYER}, {PLAYER}!\n"
+	.string "Quick! Come quickly!$"
+
+PlayersHouse_1F_Text_MaybeDadWillBeOn:
+	.string "MOM: Look! It's Petalburg Gym!\n"
+	.string "Maybe Dad will be on!$"
+
+PlayersHouse_1F_Text_ItsOverWeMissedHim:
+	.string "MOM: Oh… It's over.\p"
+	.string "I think Dad was on, but we missed him.\n"
+	.string "Too bad.$"
+
+PlayersHouse_1F_Text_ThingsMovedOut:
+	.string "Well honey, all of your things have been\n"
+	.string "moved in.\p"
+	.string "Are you sure that you're going to be ok\n"
+	.string "living here alone?\p"
+	.string "You're still welcome to continue living\n"
+	.string "with us in Petalburg!$"
+
+PlayersHouse_1F_Text_StartYourAdventure:
+	.string "Ok ok, I understand you're ready to\n"
+	.string "start your own adventure.\p"
+	.string "I'm just going to miss you so much!\p"
+	.string "Your father and I got you something...\n"
+	.string "Please take this.$"
+
+PlayersHouse_1F_Text_ItsAPokemon:
+	.string "It's a pokémon, we thought it would be a\n"
+	.string "good idea so you don't get lonely!$"
+
+PlayersHouse_1F_Text_TakeCareOfHouse:
+	.string "I'm really going to miss you.\p"
+	.string "Please take good care of your home,\n"
+	.string "I know you and your new friend will do\l"
+	.string "just fine!\p"
+	.string "Come and visit us in Petalburg soon,\n"
+	.string "honey! I love you!$"
+
+PlayersHouse_1F_Text_IsThatAPokenav:
+	.string "MOM: What is that, honey? A pokénav?\n"
+	.string "Someone from DEVON gave it to you?\p"
+	.string "Well, honey, how about registering\n"
+	.string "your mom?\p"
+	.string "… … …$"
+
+PlayersHouse_1F_Text_RegisteredMom:
+	.string "Registered Mom\n"
+	.string "in the pokénav.$"
+
+PlayersHouse_1F_Text_Vigoroth1:
+	.string "Fugiiiiih!$"
+
+PlayersHouse_1F_Text_Vigoroth2:
+	.string "Huggoh, uggo uggo…$"
+
+PlayersHouse_1F_Text_ReportFromPetalburgGym:
+	.string "INTERVIEWER: …We brought you this\n"
+	.string "report from in front of Petalburg Gym.$"
+
+PlayersHouse_1F_Text_TheresAMovieOnTV:
+	.string "There is a movie on TV.\p"
+	.string "Two men are dancing on a big piano\n"
+	.string "keyboard.\p"
+	.string "Better get going!$"
+
+PlayersHouse_1F_Text_RunningShoesManual:
+	.string "It's the instruction booklet for the\n"
+	.string "RUNNING SHOES.\p"
+	.string "“Press the B Button to run while\n"
+	.string "wearing your RUNNING SHOES.\p"
+	.string "“Lace up your RUNNING SHOES and hit\n"
+	.string "the road running!”$"
+
+PlayersHouse_1F_Text_TicketFromBrineyCameForYou:
+	.string "DAD: Hm?\p"
+	.string "Hey, it's {PLAYER}!\p"
+	.string "It's been a while since I saw you,\n"
+	.string "but you look…stronger, somehow.\p"
+	.string "That's the impression I get.\n"
+	.string "But your old man hasn't given up yet!\p"
+	.string "Oh, yes, I have something for you.\n"
+	.string "This came to you from someone named\l"
+	.string "MR. BRINEY.$"
+
+PlayersHouse_1F_Text_PortsInSlateportLilycove:
+	.string "DAD: Hm, a TICKET for a ferry?\p"
+	.string "If I recall, there are ferry ports in\n"
+	.string "SLATEPORT and LILYCOVE.$"
+
+PlayersHouse_1F_Text_BetterGetBackToGym:
+	.string "I'd better get back to PETALBURG GYM.\p"
+	.string "MOM, thanks for looking after the house\n"
+	.string "while I'm away.$"
+
+PlayersHouse_1F_Text_DadShouldStayLonger:
+	.string "MOM: That Dad of yours…\p"
+	.string "He comes home for the first time in a\n"
+	.string "while, but all he talks about is pokémon.\p"
+	.string "He should relax and stay a little longer.$"
+
+PlayersHouse_1F_Text_IsThatABreakingStory:
+	.string "MOM: Is that a breaking news story?$"
+
+PlayersHouse_1F_Text_LatiEmergencyNewsFlash:
+	.string "We bring you this emergency\n"
+	.string "news flash!\p"
+	.string "In various HOENN locales, there have\n"
+	.string "been reports of a BZZT…colored\l"
+	.string "pokémon in flight.\p"
+	.string "The identity of this pokémon is\n"
+	.string "currently unknown.\p"
+	.string "We now return you to the regular\n"
+	.string "movie program.$"
+
+PlayersHouse_1F_Text_WhatColorDidTheySay:
+	.string "MOM: {PLAYER}, did you catch that?\p"
+	.string "What color did the announcer say\n"
+	.string "that pokémon was?$"
+
+PlayersHouse_1F_Text_StillUnknownPokemon:
+	.string "MOM: Well, isn't that something!\n"
+	.string "There are still unknown pokémon.$"
+
+PlayersHouse_1F_Text_PlayerReceivedPichu:
+	.string "{PLAYER} received PICHU!$"
