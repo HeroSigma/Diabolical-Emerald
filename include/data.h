@@ -2,7 +2,6 @@
 #define GUARD_DATA_H
 
 #include "constants/moves.h"
-#define SPECIES_SHINY_TAG 500
 #include "constants/trainers.h"
 #include "constants/battle.h"
 #include "difficulty.h"
@@ -167,8 +166,6 @@ extern const struct SpriteFrameImage gTrainerBackPicTable_RubySapphireBrendan[];
 extern const struct SpriteFrameImage gTrainerBackPicTable_RubySapphireMay[];
 extern const struct SpriteFrameImage gTrainerBackPicTable_Wally[];
 extern const struct SpriteFrameImage gTrainerBackPicTable_Steven[];
-extern const struct SpriteFrameImage gTrainerBackPicTable_Gold[];
-extern const struct SpriteFrameImage gTrainerBackPicTable_Lyra[];
 
 extern const union AffineAnimCmd *const gAffineAnims_BattleSpritePlayerSide[];
 extern const union AffineAnimCmd *const gAffineAnims_BattleSpriteOpponentSide[];

@@ -115,7 +115,6 @@ bool8 IsRegionMapZoomed(void);
 void TrySetPlayerIconBlink(void);
 void BlendRegionMap(u16 color, u32 coeff);
 void SetRegionMapDataForZoom(void);
-void SetMapGraphics(u8 mapNum);
 void CreateRoamerIcons(void);
 void FreeRoamerIcons(void);
 
@@ -124,8 +123,5 @@ u32 FilterFlyDestination(struct RegionMap* regionMap);
 void SetFlyDestination(struct RegionMap* regionMap);
 
 extern const struct RegionMapLocation gRegionMapEntries[];
-extern const struct RegionMapLocation gRegionMapEntries_Johto[];
-extern const struct RegionMapLocation gRegionMapEntries_Kanto[];
-extern const struct RegionMapLocation gRegionMapEntries_Sevii[];
 
 #endif //GUARD_REGION_MAP_H

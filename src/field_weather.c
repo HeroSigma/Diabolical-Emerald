@@ -898,10 +898,6 @@ void UpdateSpritePaletteWithWeather(u8 spritePaletteIndex, bool8 allowFog)
 
 void ApplyWeatherColorMapToPals(u8 startPalIndex, u8 numPalettes)
 {
-    ApplyColorMap(paletteIndex, 1, gWeatherPtr->colorMapIndex);
-}
-
-void ApplyWeatherColorMapToPals(u8 startPalIndex, u8 numPalettes) {
     ApplyColorMap(startPalIndex, numPalettes, gWeatherPtr->colorMapIndex);
 }
 

@@ -1,4 +1,3 @@
-.set LOCALID_DAYCARE_MAN, 3
 .set LOCALID_DAYCARE_MON_0, 25
 .set LOCALID_DAYCARE_MON_1, 26
 
@@ -8,6 +7,13 @@ Route117_MapScripts::
 
 Route117_OnTransition:
 	call Route117_EventScript_TryMoveDayCareMan
+	@ set flags for OW daycare mons
+	setflag FLAG_TEMP_1
+	setflag FLAG_TEMP_2
+	getdaycaregfx VAR_OBJ_GFX_ID_0, VAR_OBJ_GFX_ID_1, VAR_TEMP_0, VAR_TEMP_1
+	switch VAR_RESULT
+	case 2, Route117_EventScript_ShowDaycareMon1
+	case 1, Route117_EventScript_ShowDaycareMon0
 	end
 
 Route117_EventScript_ShowDaycareMon1:

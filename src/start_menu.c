@@ -43,6 +43,8 @@
 #include "text_window.h"
 #include "trainer_card.h"
 #include "window.h"
+#include "quests.h"
+#include "constants/songs.h"
 #include "union_room.h"
 #include "dexnav.h"
 #include "wild_encounter.h"
@@ -350,6 +352,8 @@ static void BuildNormalStartMenu(void)
         AddStartMenuAction(MENU_ACTION_POKENAV);
 
     AddStartMenuAction(MENU_ACTION_PLAYER);
+    
+    
     AddStartMenuAction(MENU_ACTION_SAVE);
     AddStartMenuAction(MENU_ACTION_QUEST_MENU);
     AddStartMenuAction(MENU_ACTION_OPTION);

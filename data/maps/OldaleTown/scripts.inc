@@ -1,6 +1,3 @@
-.set LOCALID_MART_EMPLOYEE, 2
-.set LOCALID_RIVAL, 3
-
 OldaleTown_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, OldaleTown_OnTransition
 	.byte 0
@@ -8,8 +5,20 @@ OldaleTown_MapScripts::
 OldaleTown_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
 	setflag FLAG_VISITED_OLDALE_TOWN
+	call_if_unset FLAG_ADVENTURE_STARTED, OldaleTown_EventScript_BlockWestEntrance
 	call_if_unset FLAG_RECEIVED_POTION_OLDALE, OldaleTown_EventScript_MoveMartEmployee
+	call_if_set FLAG_ADVENTURE_STARTED, OldaleTown_EventScript_SetOldaleState
 	end
+
+@ This script seems pointless because nothing uses VAR_OLDALE_TOWN_STATE
+OldaleTown_EventScript_SetOldaleState::
+	setvar VAR_OLDALE_TOWN_STATE, 1
+	return
+
+OldaleTown_EventScript_BlockWestEntrance::
+	setobjectxyperm LOCALID_FOOTPRINTS_MAN, 1, 11
+	setobjectmovementtype LOCALID_FOOTPRINTS_MAN, MOVEMENT_TYPE_FACE_LEFT
+	return
 
 OldaleTown_EventScript_MoveMartEmployee::
 	setobjectxyperm LOCALID_OLDALE_MART_EMPLOYEE, 13, 14
@@ -20,8 +29,8 @@ OldaleTown_EventScript_TownSign::
 	msgbox OldaleTown_Text_TownSign, MSGBOX_SIGN
 	end
 
-OldaleTown_EventScript_RivalsHouseSign::
-	msgbox OldaleTown_Text_RivalsHouseSign, MSGBOX_SIGN
+OldaleTown_EventScript_Girl::
+	msgbox OldaleTown_Text_SavingMyProgress, MSGBOX_NPC
 	end
 
 OldaleTown_EventScript_MartEmployee::
@@ -113,6 +122,22 @@ OldaleTown_Movement_EmployeeNorth:
 	walk_up
 	walk_up
 	walk_up
+	walk_in_place_faster_down
+	step_end
+
+OldaleTown_Movement_Unknown1:
+	walk_up
+	walk_up
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	delay_8
 	walk_in_place_faster_down
 	step_end
 
@@ -336,6 +361,36 @@ OldaleTown_Text_PotionExplanation:
 	.string "even more useful than a POKéMON CENTER\l"
 	.string "in certain situations.$"
 
+OldaleTown_Text_WaitDontComeInHere:
+	.string "Aaaaah! Wait!\n"
+	.string "Please don't come in here.\p"
+	.string "I just discovered the footprints of\n"
+	.string "a rare POKéMON!\p"
+	.string "Wait until I finish sketching\n"
+	.string "them, okay?$"
+
+OldaleTown_Text_DiscoveredFootprints:
+	.string "I just discovered the footprints of\n"
+	.string "a rare POKéMON!\p"
+	.string "Wait until I finish sketching\n"
+	.string "them, okay?$"
+
+OldaleTown_Text_FinishedSketchingFootprints:
+	.string "I finished sketching the footprints of\n"
+	.string "a rare POKéMON.\p"
+	.string "But it turns out they were only my\n"
+	.string "own footprints…$"
+
+OldaleTown_Text_MayLetsGoBack:
+	.string "MAY: {PLAYER}{KUN}!\n"
+	.string "Over here!\l"
+	.string "Let's hurry home!$"
+
+OldaleTown_Text_BrendanLetsGoBack:
+	.string "BRENDAN: I'm heading back to my dad's\n"
+	.string "LAB now.\l"
+	.string "{PLAYER}, you should hustle back, too.$"
+
 OldaleTown_Text_TownSign:
         .string "OLDALE TOWN\n"
         .string "“Where things start off scarce.”$"
@@ -527,5 +582,3 @@ OldaleTown_Text_TeraNoMoney:
 OldaleTown_Text_TeraComeAgain:
         .string "Come again if you change your mind.$"
 
-OldaleTown_Text_RivalsHouseSign:
-	.string "{RIVAL}'S HOUSE$"

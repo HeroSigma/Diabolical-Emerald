@@ -33,7 +33,6 @@ u8 TrySetDiveWarp(void);
 const u8 *GetInteractedLinkPlayerScript(struct MapPosition *position, u8 metatileBehavior, u8 direction);
 const u8 *GetCoordEventScriptAtMapPosition(struct MapPosition *position);
 void ClearPoisonStepCounter(void);
-
 void CancelSignPostMessageBox(struct FieldInput *input);
 
 #define NOT_SIGNPOST 0

@@ -3326,7 +3326,8 @@ static void SpriteCB_FlashMatchingLines(struct Sprite *sprite)
                 if (sprite->sNumFullFlashes)
                     sprite->sNumFullFlashes--;
             }
-            else if (sprite->sColor >= maxColorChange) {
+            else if (sprite->sColor >= maxColorChange)
+            {
                 // Reached peak darkness, reverse
                 sprite->sColorIncr = -sprite->sColorIncr;
             }
@@ -6986,7 +6987,7 @@ static const struct SubspriteTable sSubspriteTable_DigitalDisplay_Win[] =
     {ARRAY_COUNT(sSubsprites_DigitalDisplay_Win), sSubsprites_DigitalDisplay_Win}
 };
 
-static const struct Subsprite sSubsprites_DigitalDisplay_Smoke[] =
+static const struct Subsprite sSubsprites_DigitalDisplay_SmokeBig[] =
 {
     {
         .x = -16,
@@ -6998,7 +6999,7 @@ static const struct Subsprite sSubsprites_DigitalDisplay_Smoke[] =
     }
 };
 
-static const struct Subsprite sSubsprites_DigitalDisplay_Unused2[] =
+static const struct Subsprite sSubsprites_DigitalDisplay_SmokeSmall[] =
 {
     {
         .x = -8,
@@ -7012,12 +7013,8 @@ static const struct Subsprite sSubsprites_DigitalDisplay_Unused2[] =
 
 static const struct SubspriteTable sSubspriteTable_DigitalDisplay_Smoke[] =
 {
-    {ARRAY_COUNT(sSubsprites_DigitalDisplay_Smoke), sSubsprites_DigitalDisplay_Smoke}
-};
-
-static const struct SubspriteTable sSubspriteTable_DigitalDisplay_Unused2[] =
-{
-    {ARRAY_COUNT(sSubsprites_DigitalDisplay_Unused2), sSubsprites_DigitalDisplay_Unused2}
+    {ARRAY_COUNT(sSubsprites_DigitalDisplay_SmokeBig),   sSubsprites_DigitalDisplay_SmokeBig},
+    {ARRAY_COUNT(sSubsprites_DigitalDisplay_SmokeSmall), sSubsprites_DigitalDisplay_SmokeSmall}
 };
 
 /*

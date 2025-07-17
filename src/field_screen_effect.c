@@ -51,7 +51,6 @@ static void Task_ExitDoor(u8);
 static bool32 WaitForWeatherFadeIn(void);
 static void Task_SpinEnterWarp(u8 taskId);
 static void Task_EnableScriptAfterMusicFade(u8 taskId);
-static void Task_ExitStairs(u8 taskId);
 
 static void ExitStairsMovement(s16*, s16*, s16*, s16*, s16*);
 static void GetStairsMovementDirection(u32, s16*, s16*);
@@ -741,11 +740,6 @@ void Task_DoDoorWarp(u8 taskId)
         FreezeObjectEvents();
         PlayerGetDestCoords(x, y);
         PlaySE(GetDoorSoundEffect(*x, *y - 1));
-        task->data[1] = FieldAnimateDoorOpen(*x, *y - 1);
-        task->tState = 1;
-        break;
-    case 1:
-        if (task->data[1] < 0 || gTasks[task->data[1]].isActive != TRUE)
         if (followerObject)
         {
             // Put follower into pokeball
@@ -1349,47 +1343,6 @@ static void Task_EnableScriptAfterMusicFade(u8 taskId)
     }
 }
 
-//stair warps
-static void GetStairsMovementDirection(u8 a0, s16 *a1, s16 *a2)
-{
-    if (MetatileBehavior_IsDirectionalUpRightStairWarp(a0))
-    {
-        *a1 = 16;
-        *a2 = -10;
-    }
-    else if (MetatileBehavior_IsDirectionalUpLeftStairWarp(a0))
-    {
-        *a1 = -17;
-        *a2 = -10;
-    }
-    else if (MetatileBehavior_IsDirectionalDownRightStairWarp(a0))
-    {
-        *a1 = 17;
-        *a2 = 3;
-    }
-    else if (MetatileBehavior_IsDirectionalDownLeftStairWarp(a0))
-    {
-        *a1 = -17;
-        *a2 = 3;
-    }
-    else
-    {
-        *a1 = 0;
-        *a2 = 0;
-    }
-}
-
-static bool8 WaitStairExitMovementFinished(s16 *a0, s16 *a1, s16 *a2, s16 *a3, s16 *a4)
-{
-    struct Sprite *sprite;
-    sprite = &gSprites[gPlayerAvatar.spriteId];
-    if (*a4 != 0)
-    {
-        *a2 += *a0;
-        *a3 += *a1;
-        sprite->x2 = *a2 >> 5;
-        sprite->y2 = *a3 >> 5;
-        (*a4)--;
 static const struct WindowTemplate sWindowTemplate_WhiteoutText =
 {
     .bg = 0,

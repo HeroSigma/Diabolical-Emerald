@@ -55,6 +55,5 @@ void MapGridSetMetatileImpassabilityAt(int x, int y, bool32 impassable);
 
 // field_region_map.c
 void FieldInitRegionMap(MainCallback callback);
-void SetFieldMapNumber(u8 mapNum);
 
 #endif //GUARD_FIELDMAP_H

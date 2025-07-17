@@ -18,7 +18,6 @@
 #include "constants/pokemon.h"
 #include "constants/easy_chat.h"
 #include "constants/trainer_hill.h"
-#include "fame_checker.h"
 #include "constants/items.h"
 #include "constants/quests.h"
 #include "config/save.h"
@@ -72,7 +71,7 @@
 // Used in cases where division by 0 can occur in the retail version.
 // Avoids invalid opcodes on some emulators, and the otherwise UB.
 #ifdef UBFIX
-#define SAFE_DIV(a, b) ((b) ? (a) / (b) : 0)
+#define SAFE_DIV(a, b) (((b) != 0) ? (a) / (b) : 0)
 #else
 #define SAFE_DIV(a, b) ((a) / (b))
 #endif
@@ -562,6 +561,9 @@ struct RankingHall2P
     //u8 padding;
 };
 
+// quest menu
+#include "constants/quests.h"
+
 struct SaveBlock2
 {
     /*0x00*/ u8 playerName[PLAYER_NAME_LENGTH + 1];
@@ -600,7 +602,6 @@ struct SaveBlock2
 #endif //FREE_RECORD_MIXING_HALL_RECORDS
     /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
     /*0x64C*/ struct BattleFrontier frontier;
-              u8 playerRegion; // KANTO, JOHTO, HOENN
 	// Quest progress tracking -- moved from SaveBlock1 to SaveBlock2
     // so that the larger arrays do not bloat SaveBlock1.
     u8 questData[(QUEST_COUNT * 5 + 7) / 8];
@@ -1005,6 +1006,7 @@ struct MysteryGiftSave
     u32 trainerIds[2][5]; // Saved ids for 10 trainers, 5 each for battles and trades
 }; // 0x36C 0x3598
 
+
 // For external event data storage. The majority of these may have never been used.
 // In Emerald, the only known used fields are the PokeCoupon and BoxRS ones, but hacking the distribution discs allows Emerald to receive events and set the others
 struct ExternalEventData
@@ -1051,11 +1053,6 @@ struct ExternalEventFlags
 
 } __attribute__((packed));/*size = 0x15*/
 
-struct FameCheckerSaveData
-{
-    /*3a54*/ u16 pickState:2;
-    u16 flavorTextFlags:12;
-    u16 unk_0_E:2;
 struct Bag
 {
     struct ItemSlot items[BAG_ITEMS_COUNT];
@@ -1155,8 +1152,7 @@ struct SaveBlock1
     /*0x31F8*/ struct EnigmaBerry enigmaBerry;
 #endif //FREE_ENIGMA_BERRY
 #if FREE_MYSTERY_GIFT == FALSE
-    /*0x3A54*/ struct FameCheckerSaveData fameChecker[NUM_FAMECHECKER_PERSONS];
-    /*0x3B98*/ struct TrainerNameRecord trainerNameRecords[20];
+    /*0x322C*/ struct MysteryGiftSave mysteryGift;
 #endif //FREE_MYSTERY_GIFT
     /*0x3???*/ u8 dexSeen[NUM_DEX_FLAG_BYTES];
     /*0x3???*/ u8 dexCaught[NUM_DEX_FLAG_BYTES];

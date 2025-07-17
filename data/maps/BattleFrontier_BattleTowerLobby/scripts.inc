@@ -88,6 +88,7 @@ BattleFrontier_BattleTowerLobby_EventScript_LookForwardToChallenge::
 	msgbox BattleFrontier_BattleTowerLobby_Text_LookForwardToAnotherChallenge, MSGBOX_DEFAULT
 	closemessage
 	setvar VAR_TEMP_CHALLENGE_STATUS, 255
+	callnative UpdateFollowingPokemon
 	release
 	end
 
@@ -107,6 +108,7 @@ BattleFrontier_BattleTowerLobby_EventScript_LostThanksForPlaying::
 	msgbox BattleFrontier_BattleTowerLobby_Text_LookForwardToAnotherChallenge, MSGBOX_DEFAULT
 	closemessage
 	setvar VAR_TEMP_CHALLENGE_STATUS, 255
+	callnative UpdateFollowingPokemon
 	release
 	end
 

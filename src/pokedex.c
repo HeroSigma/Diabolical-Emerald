@@ -103,8 +103,6 @@ enum {
     WIN_VU_METER,
 };
 
-static u8 mapNumber = 0;
-
 // For scrolling search parameter
 #define MAX_SEARCH_PARAM_ON_SCREEN   6
 #define MAX_SEARCH_PARAM_CURSOR_POS  (MAX_SEARCH_PARAM_ON_SCREEN - 1)
@@ -3611,17 +3609,6 @@ static void Task_SwitchScreensFromAreaScreen(u8 taskId)
             gTasks[taskId].func = Task_LoadCryScreen;
             break;
         case 3:
-            if(mapNumber == 0)
-                mapNumber = 3;
-            else
-                mapNumber--;
-            gTasks[taskId].func = Task_LoadAreaScreen;
-            break;
-        case 4:
-            if(mapNumber == 3)
-                mapNumber = 0;
-            else
-                mapNumber++;
             gTasks[taskId].func = Task_ReloadAreaScreen;
             break;
         }

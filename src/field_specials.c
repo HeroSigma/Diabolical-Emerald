@@ -532,7 +532,7 @@ void SpawnLinkPartnerObjectEvent(void)
     };
     u8 myLinkPlayerNumber;
     u8 playerFacingDirection;
-    u16 linkSpriteId;
+    u8 linkSpriteId;
     u8 i;
 
     myLinkPlayerNumber = GetMultiplayerId();
@@ -979,29 +979,6 @@ static void CB2_FieldShowRegionMap(void)
 
 void FieldShowRegionMap(void)
 {
-    SetMapGraphics(2);
-    SetFieldMapNumber(2);
-    SetMainCallback2(CB2_FieldShowRegionMap);
-}
-
-void FieldShowRegionMapKanto(void)
-{
-    SetMapGraphics(0);
-    SetFieldMapNumber(0);
-    SetMainCallback2(CB2_FieldShowRegionMap);
-}
-
-void FieldShowRegionMapJohto(void)
-{
-    SetMapGraphics(1);
-    SetFieldMapNumber(1);
-    SetMainCallback2(CB2_FieldShowRegionMap);
-}
-
-void FieldShowRegionMapSevii(void)
-{
-    SetMapGraphics(3);
-    SetFieldMapNumber(3);
     SetMainCallback2(CB2_FieldShowRegionMap);
 }
 
@@ -2422,136 +2399,6 @@ void ShowScrollableMultichoice(void)
         break;
     case SCROLL_MULTI_SS_TIDAL_DESTINATION:
         task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 10;
-        task->tLeft = 19;
-        task->tTop = 1;
-        task->tWidth = 10;
-        task->tHeight = 12;
-        task->tKeepOpenAfterSelect = FALSE;
-        task->tTaskId = taskId;
-        break;
-    case SCROLL_MULTI_SS_TIDAL_DESTINATION_SLATEPORT:
-        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 10;
-        task->tLeft = 19;
-        task->tTop = 1;
-        task->tWidth = 10;
-        task->tHeight = 12;
-        task->tKeepOpenAfterSelect = FALSE;
-        task->tTaskId = taskId;
-        break;
-    case SCROLL_MULTI_SS_TIDAL_DESTINATION_VERMILION:
-        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 10;
-        task->tLeft = 19;
-        task->tTop = 1;
-        task->tWidth = 10;
-        task->tHeight = 12;
-        task->tKeepOpenAfterSelect = FALSE;
-        task->tTaskId = taskId;
-        break;
-    case SCROLL_MULTI_SS_TIDAL_DESTINATION_OLIVINE:
-        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 10;
-        task->tLeft = 19;
-        task->tTop = 1;
-        task->tWidth = 10;
-        task->tHeight = 12;
-        task->tKeepOpenAfterSelect = FALSE;
-        task->tTaskId = taskId;
-        break;
-    case SCROLL_MULTI_SS_TIDAL_DESTINATION_SEVII:
-        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 7;
-        task->tLeft = 19;
-        task->tTop = 1;
-        task->tWidth = 10;
-        task->tHeight = 12;
-        task->tKeepOpenAfterSelect = FALSE;
-        task->tTaskId = taskId;
-        break;
-    case SCROLL_MULTI_SS_TIDAL_DESTINATION_S:
-        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 11;
-        task->tLeft = 19;
-        task->tTop = 1;
-        task->tWidth = 10;
-        task->tHeight = 12;
-        task->tKeepOpenAfterSelect = FALSE;
-        task->tTaskId = taskId;
-        break;
-    case SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION:
-        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 8;
-        task->tLeft = 19;
-        task->tTop = 1;
-        task->tWidth = 10;
-        task->tHeight = 12;
-        task->tKeepOpenAfterSelect = FALSE;
-        task->tTaskId = taskId;
-        break;
-    case SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION1:
-        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 7;
-        task->tLeft = 19;
-        task->tTop = 1;
-        task->tWidth = 10;
-        task->tHeight = 12;
-        task->tKeepOpenAfterSelect = FALSE;
-        task->tTaskId = taskId;
-        break;
-    case SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION2:
-        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 7;
-        task->tLeft = 19;
-        task->tTop = 1;
-        task->tWidth = 10;
-        task->tHeight = 12;
-        task->tKeepOpenAfterSelect = FALSE;
-        task->tTaskId = taskId;
-            break;
-    case SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION3:
-        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 7;
-        task->tLeft = 19;
-        task->tTop = 1;
-        task->tWidth = 10;
-        task->tHeight = 12;
-        task->tKeepOpenAfterSelect = FALSE;
-        task->tTaskId = taskId;
-        break;
-    case SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION4:
-        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 7;
-        task->tLeft = 19;
-        task->tTop = 1;
-        task->tWidth = 10;
-        task->tHeight = 12;
-        task->tKeepOpenAfterSelect = FALSE;
-        task->tTaskId = taskId;
-        break;
-    case SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION5:
-        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 7;
-        task->tLeft = 19;
-        task->tTop = 1;
-        task->tWidth = 10;
-        task->tHeight = 12;
-        task->tKeepOpenAfterSelect = FALSE;
-        task->tTaskId = taskId;
-        break;
-    case SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION6:
-        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 7;
-        task->tLeft = 19;
-        task->tTop = 1;
-        task->tWidth = 10;
-        task->tHeight = 12;
-        task->tKeepOpenAfterSelect = FALSE;
-        task->tTaskId = taskId;
-        break;
-    case SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION7:
-        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
         task->tNumItems = 7;
         task->tLeft = 19;
         task->tTop = 1;
@@ -2734,158 +2581,11 @@ static const u8 *const sScrollableMultichoiceOptions[][MAX_SCROLL_MULTI_LENGTH] 
     [SCROLL_MULTI_SS_TIDAL_DESTINATION] =
     {
         gText_SlateportCity,
-        gText_VermilionCity,
-        gText_OlivineCity,
-        gText_Sevii,
         gText_BattleFrontier,
         gText_SouthernIsland,
         gText_NavelRock,
         gText_BirthIsland,
         gText_FarawayIsland,
-        gText_Exit
-    },
-    [SCROLL_MULTI_SS_TIDAL_DESTINATION_SLATEPORT] =
-    {
-        gText_LilycoveCity,
-        gText_VermilionCity,
-        gText_OlivineCity,
-        gText_Sevii,
-        gText_BattleFrontier,
-        gText_SouthernIsland,
-        gText_NavelRock,
-        gText_BirthIsland,
-        gText_FarawayIsland,
-        gText_Exit
-    },
-    [SCROLL_MULTI_SS_TIDAL_DESTINATION_VERMILION] =
-    {
-        gText_SlateportCity,
-        gText_LilycoveCity,
-        gText_OlivineCity,
-        gText_Sevii,
-        gText_BattleFrontier,
-        gText_SouthernIsland,
-        gText_NavelRock,
-        gText_BirthIsland,
-        gText_FarawayIsland,
-        gText_Exit
-    },
-    [SCROLL_MULTI_SS_TIDAL_DESTINATION_OLIVINE] =
-    {
-        gText_SlateportCity,
-        gText_LilycoveCity,
-        gText_VermilionCity,
-        gText_Sevii,
-        gText_BattleFrontier,
-        gText_SouthernIsland,
-        gText_NavelRock,
-        gText_BirthIsland,
-        gText_FarawayIsland,
-        gText_Exit
-    },
-    [SCROLL_MULTI_SS_TIDAL_DESTINATION_SEVII] =
-    {
-        gText_SlateportCity,
-        gText_LilycoveCity,
-        gText_VermilionCity,
-        gText_OlivineCity,
-        gText_Sevii,
-        gText_BattleFrontier,
-        gText_Exit
-    },
-    [SCROLL_MULTI_SS_TIDAL_DESTINATION_S] =
-    {
-        gText_SlateportCity,
-        gText_LilycoveCity,
-        gText_VermilionCity,
-        gText_OlivineCity,
-        gText_Sevii,
-        gText_BattleFrontier,
-        gText_SouthernIsland,
-        gText_NavelRock,
-        gText_BirthIsland,
-        gText_FarawayIsland,
-        gText_Exit
-    },
-    [SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION] =
-    {
-        gText_Sevii1,
-        gText_Sevii2,
-        gText_Sevii3,
-        gText_Sevii4,
-        gText_Sevii5,
-        gText_Sevii6,
-        gText_Sevii7,
-        gText_Exit
-    },
-    [SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION1] =
-    {
-        gText_Sevii2,
-        gText_Sevii3,
-        gText_Sevii4,
-        gText_Sevii5,
-        gText_Sevii6,
-        gText_Sevii7,
-        gText_Exit
-    },
-    [SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION2] =
-    {
-        gText_Sevii1,
-        gText_Sevii3,
-        gText_Sevii4,
-        gText_Sevii5,
-        gText_Sevii6,
-        gText_Sevii7,
-        gText_Exit
-    },
-    [SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION3] =
-    {
-        gText_Sevii1,
-        gText_Sevii2,
-        gText_Sevii4,
-        gText_Sevii5,
-        gText_Sevii6,
-        gText_Sevii7,
-        gText_Exit
-    },
-    [SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION4] =
-    {
-        gText_Sevii1,
-        gText_Sevii2,
-        gText_Sevii3,
-        gText_Sevii5,
-        gText_Sevii6,
-        gText_Sevii7,
-        gText_Exit
-    },
-    [SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION5] =
-    {
-        gText_Sevii1,
-        gText_Sevii2,
-        gText_Sevii3,
-        gText_Sevii4,
-        gText_Sevii6,
-        gText_Sevii7,
-        gText_Exit
-    },
-    [SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION6] =
-    {
-        gText_Sevii1,
-        gText_Sevii2,
-        gText_Sevii3,
-        gText_Sevii4,
-        gText_Sevii5,
-        gText_Sevii7,
-        gText_Exit
-    },
-    [SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION7] =
-    {
-        gText_Sevii1,
-        gText_Sevii2,
-        gText_Sevii3,
-        gText_Sevii4,
-        gText_Sevii5,
-        gText_Sevii6,
         gText_Exit
     },
     [SCROLL_MULTI_BATTLE_TENT_RULES] =

@@ -38,15 +38,18 @@ void *AllocInternal(void *heapStart, u32 size, const char *location)
     if (size & 3)
         size = 4 * ((size / 4) + 1);
 
-    for (;;) {
+    for (;;)
+    {
         // Loop through the blocks looking for unused block that's big enough.
 
         if (!pos->allocated)
         {
             foundBlockSize = pos->size;
 
-            if (foundBlockSize >= size) {
-                if (foundBlockSize - size < 2 * sizeof(struct MemBlock)) {
+            if (foundBlockSize >= size)
+            {
+                if (foundBlockSize - size < 2 * sizeof(struct MemBlock))
+                {
                     // The block isn't much bigger than the requested size,
                     // so just use it.
                     pos->allocated = TRUE;
@@ -112,7 +115,8 @@ void *AllocInternal(void *heapStart, u32 size, const char *location)
 
 void FreeInternal(void *heapStart, void *pointer)
 {
-    if (pointer) {
+    if (pointer)
+    {
         struct MemBlock *head = (struct MemBlock *)heapStart;
         struct MemBlock *block = (struct MemBlock *)((u8 *)pointer - sizeof(struct MemBlock));
         AGB_ASSERT(block->magic == MALLOC_SYSTEM_ID);
@@ -157,7 +161,8 @@ void *AllocZeroedInternal(void *heapStart, u32 size, const char *location)
 {
     void *mem = AllocInternal(heapStart, size, location);
 
-    if (mem != NULL) {
+    if (mem != NULL)
+    {
         if (size & 3)
             size = 4 * ((size / 4) + 1);
 

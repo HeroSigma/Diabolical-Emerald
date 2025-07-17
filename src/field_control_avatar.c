@@ -40,7 +40,6 @@
 #include "constants/metatile_behaviors.h"
 #include "constants/songs.h"
 #include "constants/trainer_hill.h"
-#include "constants/metatile_behaviors.h"
 
 static EWRAM_DATA u8 sWildEncounterImmunitySteps = 0;
 static EWRAM_DATA u16 sPrevMetatileBehavior = 0;
@@ -288,7 +287,7 @@ static bool8 TryStartInteractionScript(struct MapPosition *position, u16 metatil
         return FALSE;
 
     // Don't play interaction sound for certain scripts.
-    if (script != LittlerootTown_PlayersHouse_2F_EventScript_PC
+    if (script != LittlerootTown_BrendansHouse_2F_EventScript_PC
      && script != LittlerootTown_MaysHouse_2F_EventScript_PC
      && script != SecretBase_EventScript_PC
      && script != SecretBase_EventScript_RecordMixingPC
@@ -484,12 +483,6 @@ static const u8 *GetInteractedMetatileScript(struct MapPosition *position, u8 me
         return Route110_TrickHousePuzzle_EventScript_Door;
     if (MetatileBehavior_IsRegionMap(metatileBehavior) == TRUE)
         return EventScript_RegionMap;
-    if (MetatileBehavior_IsRegionMapKanto(metatileBehavior) == TRUE)
-        return EventScript_RegionMapKanto;
-    if (MetatileBehavior_IsRegionMapJohto(metatileBehavior) == TRUE)
-        return EventScript_RegionMapJohto;
-    if (MetatileBehavior_IsRegionMapSevii(metatileBehavior) == TRUE)
-        return EventScript_RegionMapSevii;
     if (MetatileBehavior_IsRunningShoesManual(metatileBehavior) == TRUE)
         return EventScript_RunningShoesManual;
     if (MetatileBehavior_IsPictureBookShelf(metatileBehavior) == TRUE)
@@ -847,7 +840,6 @@ static void StorePlayerStateAndSetupWarp(struct MapPosition *position, s32 warpE
 
 static bool8 TryArrowWarp(struct MapPosition *position, u16 metatileBehavior, u8 direction)
 {
-
     s32 warpEventId = GetWarpEventAtMapPosition(&gMapHeader, position);
     u32 delay;
 
@@ -919,12 +911,6 @@ static bool8 TryStartWarpEventScript(struct MapPosition *position, u16 metatileB
             DoMossdeepGymWarp();
             return TRUE;
         }
-        if (MetatileBehavior_IsFallWarp(metatileBehavior) == TRUE)
-        {
-            ResetInitialPlayerAvatarState();
-            ScriptContext_SetupScript(EventScript_FallDownHoleMtPyre);
-            return TRUE;
-        }
         DoWarp();
         return TRUE;
     }
@@ -942,8 +928,7 @@ static bool8 IsWarpMetatileBehavior(u16 metatileBehavior)
      && MetatileBehavior_IsAquaHideoutWarp(metatileBehavior) != TRUE
      && MetatileBehavior_IsMtPyreHole(metatileBehavior) != TRUE
      && MetatileBehavior_IsMossdeepGymWarp(metatileBehavior) != TRUE
-     && MetatileBehavior_IsUnionRoomWarp(metatileBehavior) != TRUE
-     && MetatileBehavior_IsFallWarp(metatileBehavior) != TRUE)
+     && MetatileBehavior_IsUnionRoomWarp(metatileBehavior) != TRUE)
         return FALSE;
     return TRUE;
 }
@@ -1107,16 +1092,6 @@ static const u8 *GetCoordEventScriptAtPosition(struct MapHeader *mapHeader, u16 
         }
     }
     return NULL;
-}
-
-void HandleBoulderFallThroughHole(struct ObjectEvent * object)
-{
-    if (MapGridGetMetatileBehaviorAt(object->currentCoords.x, object->currentCoords.y) == MB_FALL_WARP)
-    {
-        PlaySE(SE_FALL);
-        RemoveObjectEventByLocalIdAndMap(object->localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
-        FlagClear(GetBoulderRevealFlagByLocalIdAndMap(object->localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup));
-    }
 }
 
 const u8 *GetCoordEventScriptAtMapPosition(struct MapPosition *position)

@@ -77,7 +77,6 @@
 #include "constants/songs.h"
 #include "constants/trainer_hill.h"
 #include "constants/weather.h"
-#include "dns.h"
 
 STATIC_ASSERT((B_FLAG_FOLLOWERS_DISABLED == 0 || OW_FOLLOWERS_ENABLED), FollowersFlagAssignedWithoutEnablingThem);
 
@@ -1697,7 +1696,6 @@ u8 UpdateSpritePaletteWithTime(u8 paletteNum)
 static void OverworldBasic(void)
 {
     ScriptContext_RunScript();
-    DnsApplyFilters();
     RunTasks();
     AnimateSprites();
     CameraUpdate();

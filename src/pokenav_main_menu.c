@@ -164,11 +164,6 @@ static const struct CompressedSpriteSheet sMenuLeftHeaderSpriteSheets[] =
         .data = gPokenavLeftHeaderHoennMap_Gfx,
         .size = 0x40,
         .tag = 0
-    },
-    [POKENAV_GFX_REGIONMAPS_MENU] = {
-        .data = gPokenavLeftHeaderRegionMaps_Gfx,
-        .size = 0x20,
-        .tag = 1
     }
 };
 
@@ -427,7 +422,7 @@ static u32 LoopedTask_SlideMenuHeaderUp(s32 state)
     case 0:
         return LT_INC_AND_PAUSE;
     case 2:
-        if (ChangeBgY(0, 512, BG_COORD_ADD) >= 0x2000u)
+        if (ChangeBgY(0, 384, BG_COORD_ADD) >= 0x2000u)
         {
             ChangeBgY(0, 0x2000, BG_COORD_SET);
             return LT_FINISH;
@@ -439,7 +434,7 @@ static u32 LoopedTask_SlideMenuHeaderUp(s32 state)
 
 static u32 LoopedTask_SlideMenuHeaderDown(s32 state)
 {
-    if (ChangeBgY(0, 512, BG_COORD_SUB) <= 0)
+    if (ChangeBgY(0, 384, BG_COORD_SUB) <= 0)
     {
         ChangeBgY(0, 0, BG_COORD_SET);
         return LT_FINISH;

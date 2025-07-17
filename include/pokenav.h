@@ -101,7 +101,6 @@ enum
     POKENAV_GFX_MATCH_CALL_MENU,
     POKENAV_GFX_MAP_MENU_ZOOMED_OUT,
     POKENAV_GFX_MAP_MENU_ZOOMED_IN,
-    POKENAV_GFX_REGIONMAPS_MENU,
     POKENAV_GFX_PARTY_MENU,
     POKENAV_GFX_SEARCH_MENU,
     POKENAV_GFX_COOL_MENU,
@@ -131,7 +130,6 @@ enum
     POKENAV_MATCH_CALL,
     POKENAV_RIBBONS_MON_LIST,                   // The list of Pokémon with ribbons
     POKENAV_RIBBONS_SUMMARY_SCREEN,             // The ribbon summary screen shown when a Pokémon has been selected
-    POKENAV_REGIONMAPS_MENU,
     POKENAV_RIBBONS_RETURN_TO_MON_LIST,         // Exited the summary screen back to the ribbon list
 };
 
@@ -142,7 +140,6 @@ enum
     POKENAV_MENU_TYPE_UNLOCK_MC_RIBBONS,
     POKENAV_MENU_TYPE_CONDITION,
     POKENAV_MENU_TYPE_CONDITION_SEARCH,
-    POKENAV_MENU_TYPE_REGION_MAPS,
     POKENAV_MENU_TYPE_COUNT
 };
 
@@ -164,10 +161,6 @@ enum
     POKENAV_MENUITEM_CONDITION_SEARCH_SMART,
     POKENAV_MENUITEM_CONDITION_SEARCH_TOUGH,
     POKENAV_MENUITEM_CONDITION_SEARCH_CANCEL,
-    POKENAV_MENUITEM_KANTO,
-    POKENAV_MENUITEM_JOHTO,
-    POKENAV_MENUITEM_HOENN,
-    POKENAV_MENUITEM_SEVII
 };
 
 // Max menu options (condition search uses 6)
@@ -255,7 +248,6 @@ enum RegionMapFuncIds
     POKENAV_MENU_FUNC_NO_RIBBON_WINNERS,
     POKENAV_MENU_FUNC_RESHOW_DESCRIPTION,
     POKENAV_MENU_FUNC_OPEN_FEATURE,
-    POKENAV_MENU_FUNC_OPEN_REGIONMAPS,
 };
 
 enum
@@ -399,7 +391,6 @@ bool32 PokenavCallback_Init_MainMenuCursorOnMatchCall(void);
 bool32 PokenavCallback_Init_MainMenuCursorOnRibbons(void);
 bool32 PokenavCallback_Init_ConditionMenu(void);
 bool32 PokenavCallback_Init_ConditionSearchMenu(void);
-bool32 PokenavCallback_Init_RegionMapsMenu(void);
 u32 GetMenuHandlerCallback(void);
 void FreeMenuHandlerSubstruct1(void);
 int GetPokenavMenuType(void);

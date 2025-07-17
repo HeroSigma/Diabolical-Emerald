@@ -1346,7 +1346,8 @@ static void DecorationItemsMenuAction_AttemptPlace(u8 taskId)
         else
         {
             ConvertIntToDecimalStringN(gStringVar1, sDecorationContext.size, STR_CONV_MODE_RIGHT_ALIGN, 2);
-            if (sDecorationContext.isPlayerRoom == FALSE) {
+            if (sDecorationContext.isPlayerRoom == FALSE)
+            {
                 StringExpandPlaceholders(gStringVar4, gText_NoMoreDecorations);
             }
             else
@@ -1375,6 +1376,7 @@ static void Task_PlaceDecoration(u8 taskId)
             }
             break;
         case 1:
+            RemoveFollowingPokemon();
             gPaletteFade.bufferTransferDisabled = TRUE;
             ConfigureCameraObjectForPlacingDecoration(&sPlaceDecorationGraphicsDataBuffer, gCurDecorationItems[gCurDecorationIndex]);
             SetUpDecorationShape(taskId);
@@ -2293,7 +2295,8 @@ static void Task_PutAwayDecoration(u8 taskId)
         gTasks[taskId].tState = 1;
         break;
     case 1:
-        if (!gPaletteFade.active) {
+        if (!gPaletteFade.active)
+        {
             DrawWholeMapView();
             ScriptContext_SetupScript(SecretBase_EventScript_PutAwayDecoration);
             ClearDialogWindowAndFrame(0, TRUE);
@@ -2364,6 +2367,7 @@ static void Task_ContinuePuttingAwayDecorations(u8 taskId)
         }
         break;
     case 1:
+        RemoveFollowingPokemon();
         SetUpPuttingAwayDecorationPlayerAvatar();
         FadeInFromBlack();
         tState = 2;

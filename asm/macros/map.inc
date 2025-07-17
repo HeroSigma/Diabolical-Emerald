@@ -25,8 +25,6 @@
 	.2byte \gfx
 	.byte OBJ_KIND_NORMAL
 	.2byte \x, \y
-	.byte \elevation, \movement_type, ((\y_radius << 4) | \x_radius), 0
-    .2byte \trainer_type, \sight_radius_tree_etc
 	.byte \elevation
 	.byte \movement_type
 	.if \x_radius > 15
@@ -35,6 +33,8 @@
 	.endif
 	.byte ((\y_radius << 4) | \x_radius)
 	.space 1  @ Padding
+	.2byte \trainer_type
+	.2byte \sight_radius_tree_etc
 	.4byte \script
 	.2byte \event_flag
 	.space 2  @ Padding

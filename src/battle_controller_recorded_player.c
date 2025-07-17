@@ -407,26 +407,8 @@ static void RecordedPlayerHandleIntroTrainerBallThrow(u32 battler)
     else
         trainerPicId = gSaveBlock2Ptr->playerGender + TRAINER_BACK_PIC_BRENDAN;
 
-        if(gSaveBlock2Ptr->playerRegion == KANTO) {
-            LoadCompressedPalette(gTrainerBackPicPaletteTable[gSaveBlock2Ptr->playerGender + TRAINER_BACK_PIC_RED].data, OBJ_PLTT_ID(paletteNum), PLTT_SIZE_4BPP);
-        }
-        if(gSaveBlock2Ptr->playerRegion == JOHTO) {
-            LoadCompressedPalette(gTrainerBackPicPaletteTable[gSaveBlock2Ptr->playerGender + TRAINER_BACK_PIC_GOLD].data, OBJ_PLTT_ID(paletteNum), PLTT_SIZE_4BPP);
-        }
-        if(gSaveBlock2Ptr->playerRegion == HOENN) {
-            LoadCompressedPalette(gTrainerBackPicPaletteTable[gSaveBlock2Ptr->playerGender].data, OBJ_PLTT_ID(paletteNum), PLTT_SIZE_4BPP);
-        }
-
-    gSprites[gBattlerSpriteIds[gActiveBattler]].oam.paletteNum = paletteNum;
-
-    taskId = CreateTask(Task_StartSendOutAnim, 5);
-    gTasks[taskId].data[0] = gActiveBattler;
-
-    if (gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].partyStatusSummaryShown)
-        gTasks[gBattlerStatusSummaryTaskId[gActiveBattler]].func = Task_HidePartyStatusSummary;
-
-    gBattleSpritesDataPtr->animationData->introAnimActive = TRUE;
-    gBattlerControllerFuncs[gActiveBattler] = RecordedPlayerDummy;
+    trainerPal = gTrainerBacksprites[trainerPicId].palette.data;
+    BtlController_HandleIntroTrainerBallThrow(battler, 0xD6F9, trainerPal, 24, Intro_TryShinyAnimShowHealthbox);
 }
 
 static void RecordedPlayerHandleDrawPartyStatusSummary(u32 battler)

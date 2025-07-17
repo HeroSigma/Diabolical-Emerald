@@ -37,19 +37,9 @@
 //   determined by the data for the corresponding MAPSEC in gRegionMapEntries.
 
 // Only maps in the following map groups have their encounters considered for the area screen
-// Hoenn map groups
-#define MAP_GROUP_TOWNS_AND_ROUTES MAP_GROUP(PETALBURG_CITY)
-#define MAP_GROUP_DUNGEONS MAP_GROUP(METEOR_FALLS_1F_1R)
-#define MAP_GROUP_SPECIAL_AREA MAP_GROUP(SAFARI_ZONE_NORTHWEST)
-//Kanto map groups
-#define MAP_GROUP_KANTO_TOWNS_AND_ROUTES MAP_GROUP(PALLET_TOWN)
-#define MAP_GROUP_KANTO_DUNGEONS MAP_GROUP(VIRIDIAN_FOREST)
-//Johto map groups
-#define MAP_GROUP_JOHTO_TOWNS_AND_ROUTES MAP_GROUP(NEW_BARK_TOWN)
-#define MAP_GROUP_JOHTO_DUNGEONS MAP_GROUP(UNION_CAVE_1F)
-//Sevii map groups
-#define MAP_GROUP_SEVII_TOWNS_AND_ROUTES MAP_GROUP(ONE_ISLAND)
-#define MAP_GROUP_SEVII_DUNGEONS MAP_GROUP(ONE_ISLAND_KINDLE_ROAD_EMBER_SPA)
+#define MAP_GROUP_TOWNS_AND_ROUTES MAP_GROUP(MAP_PETALBURG_CITY)
+#define MAP_GROUP_DUNGEONS MAP_GROUP(MAP_METEOR_FALLS_1F_1R)
+#define MAP_GROUP_SPECIAL_AREA MAP_GROUP(MAP_SAFARI_ZONE_NORTHWEST)
 
 #define AREA_SCREEN_WIDTH 32
 #define AREA_SCREEN_HEIGHT 20
@@ -145,8 +135,6 @@ static void PrintAreaLabelText(const u8 *text, enum PokedexAreaLabels labelId, i
 static void ClearAreaWindowLabel(enum PokedexAreaLabels labelId);
 
 bool32 ShouldShowAreaUnknownLabel(void);
-
-static u8 mapNumber = 0;
 
 static const u32 sAreaGlow_Pal[] = INCBIN_U32("graphics/pokedex/area_glow.gbapal");
 static const u32 sAreaGlow_Gfx[] = INCBIN_U32("graphics/pokedex/area_glow.4bpp.smol");
@@ -340,86 +328,13 @@ static void FindMapsWithMon(u16 species)
         {
             switch (sFeebasData[i][1])
             {
-                switch (sFeebasData[i][1])
-                {
-                case MAP_GROUP_KANTO_TOWNS_AND_ROUTES:
-                    if(mapNumber == 0)
-                        SetAreaHasMon(sFeebasData[i][1], sFeebasData[i][2]);
-                    break;
-                case MAP_GROUP_JOHTO_TOWNS_AND_ROUTES:
-                    if(mapNumber == 1)
-                        SetAreaHasMon(sFeebasData[i][1], sFeebasData[i][2]);
-                    break;
-                case MAP_GROUP_TOWNS_AND_ROUTES:
-                    if(mapNumber == 2)
-                        SetAreaHasMon(sFeebasData[i][1], sFeebasData[i][2]);
-                    break;
-                case MAP_GROUP_SEVII_TOWNS_AND_ROUTES:
-                    if(mapNumber == 3)
-                        SetAreaHasMon(sFeebasData[i][1], sFeebasData[i][2]);
-                    break;
-                case MAP_GROUP_KANTO_DUNGEONS:
-                    if(mapNumber == 0)
-                        SetSpecialMapHasMon(sFeebasData[i][1], sFeebasData[i][2]);
-                    break;
-                case MAP_GROUP_JOHTO_DUNGEONS:
-                    if(mapNumber == 1)
-                        SetSpecialMapHasMon(sFeebasData[i][1], sFeebasData[i][2]);
-                    break;
-                case MAP_GROUP_DUNGEONS:
-                case MAP_GROUP_SPECIAL_AREA:
-                    if(mapNumber == 2)
-                        SetSpecialMapHasMon(sFeebasData[i][1], sFeebasData[i][2]);
-                    break;
-                case MAP_GROUP_SEVII_DUNGEONS:
-                    if(mapNumber == 3)
-                        SetSpecialMapHasMon(sFeebasData[i][1], sFeebasData[i][2]);
-                    break;
-                }
-            }
-        }
-
-        // Add regular species to the area map
-        for (i = 0; gWildMonHeaders[i].mapGroup != MAP_GROUP(UNDEFINED); i++)
-        {
-            if (MapHasSpecies(&gWildMonHeaders[i], species))
-            {
-                switch (gWildMonHeaders[i].mapGroup)
-                {
-                case MAP_GROUP_KANTO_TOWNS_AND_ROUTES:
-                    if(mapNumber == 0)
-                        SetAreaHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
-                    break;
-                case MAP_GROUP_JOHTO_TOWNS_AND_ROUTES:
-                    if(mapNumber == 1)
-                        SetAreaHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
-                    break;
-                case MAP_GROUP_TOWNS_AND_ROUTES:
-                    if(mapNumber == 2)
-                        SetAreaHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
-                    break;
-                case MAP_GROUP_SEVII_TOWNS_AND_ROUTES:
-                    if(mapNumber == 3)
-                        SetAreaHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
-                    break;
-                case MAP_GROUP_KANTO_DUNGEONS:
-                    if(mapNumber == 0)
-                        SetSpecialMapHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
-                    break;
-                case MAP_GROUP_JOHTO_DUNGEONS:
-                    if(mapNumber == 1)
-                        SetSpecialMapHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
-                    break;
-                case MAP_GROUP_DUNGEONS:
-                case MAP_GROUP_SPECIAL_AREA:
-                    if(mapNumber == 2)
-                        SetSpecialMapHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
-                    break;
-                case MAP_GROUP_SEVII_DUNGEONS:
-                    if(mapNumber == 3)
-                        SetSpecialMapHasMon(gWildMonHeaders[i].mapGroup, gWildMonHeaders[i].mapNum);
-                    break;
-                }
+            case MAP_GROUP_TOWNS_AND_ROUTES:
+                SetAreaHasMon(sFeebasData[i][1], sFeebasData[i][2]);
+                break;
+            case MAP_GROUP_DUNGEONS:
+            case MAP_GROUP_SPECIAL_AREA:
+                SetSpecialMapHasMon(sFeebasData[i][1], sFeebasData[i][2]);
+                break;
             }
         }
     }
@@ -483,7 +398,7 @@ static void SetSpecialMapHasMon(u16 mapGroup, u16 mapNum)
                 if (regionMapSectionId == sMovingRegionMapSections[i])
                     return;
             }
-    
+
             // Don't highlight the area if it's an undiscovered landmark (e.g. Sky Pillar)
             for (i = 0; sLandmarkData[i][0] != MAPSEC_NONE; i++)
             {
@@ -799,8 +714,6 @@ void DisplayPokedexAreaScreen(u16 species, u8 *screenSwitchState, enum TimeOfDay
 {
     u8 taskId;
 
-    mapNumber = mapNum;
-
     sPokedexAreaScreen = AllocZeroed(sizeof(*sPokedexAreaScreen));
     sPokedexAreaScreen->species = species;
     sPokedexAreaScreen->screenSwitchState = screenSwitchState;
@@ -818,8 +731,6 @@ void DisplayPokedexAreaScreen(u16 species, u8 *screenSwitchState, enum TimeOfDay
 
 static void Task_ShowPokedexAreaScreen(u8 taskId)
 {
-    SetMapGraphics(mapNumber);
-    
     switch (gTasks[taskId].tState)
     {
     case 0:
@@ -831,18 +742,7 @@ static void Task_ShowPokedexAreaScreen(u8 taskId)
         break;
     case 1:
         SetBgAttribute(3, BG_ATTR_CHARBASEINDEX, 3);
-        //Kanto
-        if(mapNumber == 0)
-            LoadPokedexAreaMapGfx_Kanto(&sPokedexAreaMapTemplate);
-        //Johto
-        if(mapNumber == 1)
-            LoadPokedexAreaMapGfx_Johto(&sPokedexAreaMapTemplate);
-        //Hoenn
-        if(mapNumber == 2)
-            LoadPokedexAreaMapGfx(&sPokedexAreaMapTemplate);
-        //Sevii
-        if(mapNumber == 3)
-            LoadPokedexAreaMapGfx_Sevii(&sPokedexAreaMapTemplate);
+        LoadPokedexAreaMapGfx(&sPokedexAreaMapTemplate);
         StringFill(sPokedexAreaScreen->charBuffer, CHAR_SPACE, 16);
         break;
     case 2:
@@ -1055,42 +955,12 @@ static void CreateAreaMarkerSprites(void)
     numSprites = 0;
     for (i = 0; i < sPokedexAreaScreen->numSpecialAreas; i++)
     {
-        //Kanto
-        if(mapNumber == 0) {
-            mapSecId = sPokedexAreaScreen->specialAreaRegionMapSectionIds[i];
-            x = 8 * (gRegionMapEntries_Kanto[mapSecId].x + 1) + 4;
-            y = 8 * (gRegionMapEntries_Kanto[mapSecId].y) + 28;
-            x += 4 * (gRegionMapEntries_Kanto[mapSecId].width - 1);
-            y += 4 * (gRegionMapEntries_Kanto[mapSecId].height - 1);
-            spriteId = CreateSprite(&sAreaMarkerSpriteTemplate, x, y, 0);
-        }
-        //Johto
-        if(mapNumber == 1) {
-            mapSecId = sPokedexAreaScreen->specialAreaRegionMapSectionIds[i];
-            x = 8 * (gRegionMapEntries_Johto[mapSecId].x + 1) + 4;
-            y = 8 * (gRegionMapEntries_Johto[mapSecId].y) + 28;
-            x += 4 * (gRegionMapEntries_Johto[mapSecId].width - 1);
-            y += 4 * (gRegionMapEntries_Johto[mapSecId].height - 1);
-            spriteId = CreateSprite(&sAreaMarkerSpriteTemplate, x, y, 0);
-        }
-        //Hoenn
-        if(mapNumber == 2) {
-            mapSecId = sPokedexAreaScreen->specialAreaRegionMapSectionIds[i];
-            x = 8 * (gRegionMapEntries[mapSecId].x + 1) + 4;
-            y = 8 * (gRegionMapEntries[mapSecId].y) + 28;
-            x += 4 * (gRegionMapEntries[mapSecId].width - 1);
-            y += 4 * (gRegionMapEntries[mapSecId].height - 1);
-            spriteId = CreateSprite(&sAreaMarkerSpriteTemplate, x, y, 0);
-        }
-        //Sevii
-        if(mapNumber == 3) {
-            mapSecId = sPokedexAreaScreen->specialAreaRegionMapSectionIds[i];
-            x = 8 * (gRegionMapEntries_Sevii[mapSecId].x + 1) + 4;
-            y = 8 * (gRegionMapEntries_Sevii[mapSecId].y) + 28;
-            x += 4 * (gRegionMapEntries_Sevii[mapSecId].width - 1);
-            y += 4 * (gRegionMapEntries_Sevii[mapSecId].height - 1);
-            spriteId = CreateSprite(&sAreaMarkerSpriteTemplate, x, y, 0);
-        }
+        mapSecId = sPokedexAreaScreen->specialAreaRegionMapSectionIds[i];
+        x = 8 * (gRegionMapEntries[mapSecId].x + 1) + 4;
+        y = 8 * (gRegionMapEntries[mapSecId].y) + 28;
+        x += 4 * (gRegionMapEntries[mapSecId].width - 1);
+        y += 4 * (gRegionMapEntries[mapSecId].height - 1);
+        spriteId = CreateSprite(&sAreaMarkerSpriteTemplate, x, y, 0);
         if (spriteId != MAX_SPRITES)
         {
             gSprites[spriteId].invisible = TRUE;
@@ -1136,22 +1006,18 @@ static void LoadAreaUnknownGraphics(void)
     LoadSpritePalette(&sAreaUnknownSpritePalette);
 }
 
-//Hijack the Area Unknown graphics to display our Switch Maps graphics
 static void CreateAreaUnknownSprites(void)
 {
     u16 i;
 
-    // Comment out the if/else statements since we always want our Switch Maps graphics to appear
-
-
-    // if (sPokedexAreaScreen->numOverworldAreas || sPokedexAreaScreen->numSpecialAreas)
-    // {
-    //     // The current species is present on the map, don't create any "Area Unknown" sprites
-    //     for (i = 0; i < ARRAY_COUNT(sPokedexAreaScreen->areaUnknownSprites); i++)
-    //         sPokedexAreaScreen->areaUnknownSprites[i] = NULL;
-    // }
-    // else
-    // {
+    if (sPokedexAreaScreen->numOverworldAreas || sPokedexAreaScreen->numSpecialAreas)
+    {
+        // The current species is present on the map, don't create any "Area Unknown" sprites
+        for (i = 0; i < ARRAY_COUNT(sPokedexAreaScreen->areaUnknownSprites); i++)
+            sPokedexAreaScreen->areaUnknownSprites[i] = NULL;
+    }
+    else
+    {
         // The current species is absent on the map, try to create "Area Unknown" sprites
         for (i = 0; i < ARRAY_COUNT(sPokedexAreaScreen->areaUnknownSprites); i++)
         {
@@ -1167,7 +1033,7 @@ static void CreateAreaUnknownSprites(void)
                 sPokedexAreaScreen->areaUnknownSprites[i] = NULL;
             }
         }
-    // }
+    }
 }
 
 static void LoadHGSSScreenSelectBarSubmenu(void)
