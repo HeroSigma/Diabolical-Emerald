@@ -2,8 +2,10 @@
 #include "battle_setup.h"
 #include "event_data.h"
 #include "event_object_movement.h"
+#include "event_scripts.h"
 #include "field_effect.h"
 #include "field_player_avatar.h"
+#include "follower_npc.h"
 #include "pokemon.h"
 #include "script.h"
 #include "script_movement.h"
@@ -49,11 +51,11 @@ static bool8 WaitRevealBuriedTrainer(u8 taskId, struct Task *task, struct Object
 static void SpriteCB_TrainerIcons(struct Sprite *sprite);
 
 // IWRAM common
-u16 gWhichTrainerToFaceAfterBattle;
-u8 gPostBattleMovementScript[4];
-struct ApproachingTrainer gApproachingTrainers[2];
-u8 gNoOfApproachingTrainers;
-bool8 gTrainerApproachedPlayer;
+COMMON_DATA u16 gWhichTrainerToFaceAfterBattle = 0;
+COMMON_DATA u8 gPostBattleMovementScript[4] = {0};
+COMMON_DATA struct ApproachingTrainer gApproachingTrainers[2] = {0};
+COMMON_DATA u8 gNoOfApproachingTrainers = 0;
+COMMON_DATA bool8 gTrainerApproachedPlayer = 0;
 
 // EWRAM
 EWRAM_DATA u8 gApproachingTrainerId = 0;
@@ -62,9 +64,10 @@ EWRAM_DATA u8 gApproachingTrainerId = 0;
 static const u8 sEmotion_ExclamationMarkGfx[] = INCBIN_U8("graphics/field_effects/pics/emotion_exclamation.4bpp");
 static const u8 sEmotion_QuestionMarkGfx[] = INCBIN_U8("graphics/field_effects/pics/emotion_question.4bpp");
 static const u8 sEmotion_HeartGfx[] = INCBIN_U8("graphics/field_effects/pics/emotion_heart.4bpp");
-// TODO: Credit https://www.spriters-resource.com/ds_dsi/pokemonheartgoldsoulsilver/sheet/30497/
+static const u8 sEmotion_DoubleExclamationMarkGfx[] = INCBIN_U8("graphics/field_effects/pics/emotion_double_exclamation.4bpp");
+static const u8 sEmotion_XGfx[] = INCBIN_U8("graphics/field_effects/pics/emote_x.4bpp");
+// HGSS emote graphics ripped by Lemon on The Spriters Resource: https://www.spriters-resource.com/ds_dsi/pokemonheartgoldsoulsilver/sheet/30497/
 static const u8 sEmotion_Gfx[] = INCBIN_U8("graphics/misc/emotes.4bpp");
-
 
 static u8 (*const sDirectionalApproachDistanceFuncs[])(struct ObjectEvent *trainerObj, s16 range, s16 x, s16 y) =
 {
@@ -139,6 +142,14 @@ static const struct SpriteFrameImage sSpriteImageTable_ExclamationQuestionMark[]
     {
         .data = sEmotion_QuestionMarkGfx,
         .size = sizeof(sEmotion_QuestionMarkGfx)
+    },
+    {
+        .data = sEmotion_DoubleExclamationMarkGfx,
+        .size = sizeof(sEmotion_DoubleExclamationMarkGfx)
+    },
+    {
+        .data = sEmotion_XGfx,
+        .size = sizeof(sEmotion_XGfx)
     }
 };
 
@@ -152,101 +163,112 @@ static const struct SpriteFrameImage sSpriteImageTable_HeartIcon[] =
 
 static const struct SpriteFrameImage sSpriteImageTable_Emotes[] =
 {
-  { .data = (u8 *)sEmotion_Gfx+0*0x80, .size = 0x80}, // FOLLOWER_EMOTION_HAPPY
-  { .data = (u8 *)sEmotion_Gfx+1*0x80, .size = 0x80}, // FOLLOWER_EMOTION_HAPPY
-  { .data = (u8 *)sEmotion_Gfx+2*0x80, .size = 0x80}, // FOLLOWER_EMOTION_NEUTRAL
-  { .data = (u8 *)sEmotion_Gfx+3*0x80, .size = 0x80}, // FOLLOWER_EMOTION_NEUTRAL
-  { .data = (u8 *)sEmotion_Gfx+4*0x80, .size = 0x80}, // FOLLOWER_EMOTION_SAD
-  { .data = (u8 *)sEmotion_Gfx+5*0x80, .size = 0x80}, // FOLLOWER_EMOTION_SAD
-  { .data = (u8 *)sEmotion_Gfx+6*0x80, .size = 0x80}, // FOLLOWER_EMOTION_UPSET
-  { .data = (u8 *)sEmotion_Gfx+7*0x80, .size = 0x80}, // FOLLOWER_EMOTION_UPSET
-  { .data = (u8 *)sEmotion_Gfx+8*0x80, .size = 0x80}, // FOLLOWER_EMOTION_ANGRY
-  { .data = (u8 *)sEmotion_Gfx+9*0x80, .size = 0x80}, // FOLLOWER_EMOTION_ANGRY
-  { .data = (u8 *)sEmotion_Gfx+10*0x80, .size = 0x80}, // FOLLOWER_EMOTION_PENSIVE
-  { .data = (u8 *)sEmotion_Gfx+11*0x80, .size = 0x80}, // FOLLOWER_EMOTION_PENSIVE
-  { .data = (u8 *)sEmotion_Gfx+12*0x80, .size = 0x80}, // FOLLOWER_EMOTION_LOVE
-  { .data = (u8 *)sEmotion_Gfx+13*0x80, .size = 0x80}, // FOLLOWER_EMOTION_LOVE
-  { .data = (u8 *)sEmotion_Gfx+14*0x80, .size = 0x80}, // FOLLOWER_EMOTION_SURPRISE
-  { .data = (u8 *)sEmotion_Gfx+15*0x80, .size = 0x80}, // FOLLOWER_EMOTION_SURPRISE
-  { .data = (u8 *)sEmotion_Gfx+16*0x80, .size = 0x80}, // FOLLOWER_EMOTION_CURIOUS
-  { .data = (u8 *)sEmotion_Gfx+17*0x80, .size = 0x80}, // FOLLOWER_EMOTION_CURIOUS
-  { .data = (u8 *)sEmotion_Gfx+18*0x80, .size = 0x80}, // FOLLOWER_EMOTION_MUSIC
-  { .data = (u8 *)sEmotion_Gfx+19*0x80, .size = 0x80}, // FOLLOWER_EMOTION_MUSIC
-  { .data = (u8 *)sEmotion_Gfx+20*0x80, .size = 0x80}, // FOLLOWER_EMOTION_POISONED
-  { .data = (u8 *)sEmotion_Gfx+21*0x80, .size = 0x80}, // FOLLOWER_EMOTION_POISONED
+    overworld_frame(sEmotion_Gfx, 2, 2, 0), // FOLLOWER_EMOTION_HAPPY
+    overworld_frame(sEmotion_Gfx, 2, 2, 1), // FOLLOWER_EMOTION_HAPPY
+    overworld_frame(sEmotion_Gfx, 2, 2, 2), // FOLLOWER_EMOTION_NEUTRAL
+    overworld_frame(sEmotion_Gfx, 2, 2, 3), // FOLLOWER_EMOTION_NEUTRAL
+    overworld_frame(sEmotion_Gfx, 2, 2, 4), // FOLLOWER_EMOTION_SAD
+    overworld_frame(sEmotion_Gfx, 2, 2, 5), // FOLLOWER_EMOTION_SAD
+    overworld_frame(sEmotion_Gfx, 2, 2, 6), // FOLLOWER_EMOTION_UPSET
+    overworld_frame(sEmotion_Gfx, 2, 2, 7), // FOLLOWER_EMOTION_UPSET
+    overworld_frame(sEmotion_Gfx, 2, 2, 8), // FOLLOWER_EMOTION_ANGRY
+    overworld_frame(sEmotion_Gfx, 2, 2, 9), // FOLLOWER_EMOTION_ANGRY
+    overworld_frame(sEmotion_Gfx, 2, 2, 10), // FOLLOWER_EMOTION_PENSIVE
+    overworld_frame(sEmotion_Gfx, 2, 2, 11), // FOLLOWER_EMOTION_PENSIVE
+    overworld_frame(sEmotion_Gfx, 2, 2, 12), // FOLLOWER_EMOTION_LOVE
+    overworld_frame(sEmotion_Gfx, 2, 2, 13), // FOLLOWER_EMOTION_LOVE
+    overworld_frame(sEmotion_Gfx, 2, 2, 14), // FOLLOWER_EMOTION_SURPRISE
+    overworld_frame(sEmotion_Gfx, 2, 2, 15), // FOLLOWER_EMOTION_SURPRISE
+    overworld_frame(sEmotion_Gfx, 2, 2, 16), // FOLLOWER_EMOTION_CURIOUS
+    overworld_frame(sEmotion_Gfx, 2, 2, 17), // FOLLOWER_EMOTION_CURIOUS
+    overworld_frame(sEmotion_Gfx, 2, 2, 18), // FOLLOWER_EMOTION_MUSIC
+    overworld_frame(sEmotion_Gfx, 2, 2, 19), // FOLLOWER_EMOTION_MUSIC
+    overworld_frame(sEmotion_Gfx, 2, 2, 20), // FOLLOWER_EMOTION_POISONED
+    overworld_frame(sEmotion_Gfx, 2, 2, 21), // FOLLOWER_EMOTION_POISONED
 };
 
-static const union AnimCmd sSpriteAnim_Emotes0[] = {
+static const union AnimCmd sSpriteAnim_Emotes0[] =
+{
     ANIMCMD_FRAME(0*2, 30),
     ANIMCMD_FRAME(0*2+1, 25),
     ANIMCMD_FRAME(0*2, 30),
     ANIMCMD_END
 };
 
-static const union AnimCmd sSpriteAnim_Emotes1[] = {
+static const union AnimCmd sSpriteAnim_Emotes1[] =
+{
     ANIMCMD_FRAME(1*2, 30),
     ANIMCMD_FRAME(1*2+1, 25),
     ANIMCMD_FRAME(1*2, 30),
     ANIMCMD_END
 };
 
-static const union AnimCmd sSpriteAnim_Emotes2[] = {
+static const union AnimCmd sSpriteAnim_Emotes2[] =
+{
     ANIMCMD_FRAME(2*2, 30),
     ANIMCMD_FRAME(2*2+1, 25),
     ANIMCMD_FRAME(2*2, 30),
     ANIMCMD_END
 };
 
-static const union AnimCmd sSpriteAnim_Emotes3[] = {
+static const union AnimCmd sSpriteAnim_Emotes3[] =
+{
     ANIMCMD_FRAME(3*2, 30),
     ANIMCMD_FRAME(3*2+1, 25),
     ANIMCMD_FRAME(3*2, 30),
     ANIMCMD_END
 };
 
-static const union AnimCmd sSpriteAnim_Emotes4[] = {
+static const union AnimCmd sSpriteAnim_Emotes4[] =
+{
     ANIMCMD_FRAME(4*2, 30),
     ANIMCMD_FRAME(4*2+1, 25),
     ANIMCMD_FRAME(4*2, 30),
     ANIMCMD_END
 };
 
-static const union AnimCmd sSpriteAnim_Emotes5[] = {
+static const union AnimCmd sSpriteAnim_Emotes5[] =
+{
     ANIMCMD_FRAME(5*2, 30),
     ANIMCMD_FRAME(5*2+1, 25),
     ANIMCMD_FRAME(5*2, 30),
     ANIMCMD_END
 };
 
-static const union AnimCmd sSpriteAnim_Emotes6[] = {
+static const union AnimCmd sSpriteAnim_Emotes6[] =
+{
     ANIMCMD_FRAME(6*2, 30),
     ANIMCMD_FRAME(6*2+1, 25),
     ANIMCMD_FRAME(6*2, 30),
     ANIMCMD_END
 };
 
-static const union AnimCmd sSpriteAnim_Emotes7[] = {
+static const union AnimCmd sSpriteAnim_Emotes7[] =
+{
     ANIMCMD_FRAME(7*2, 30),
     ANIMCMD_FRAME(7*2+1, 25),
     ANIMCMD_FRAME(7*2, 30),
     ANIMCMD_END
 };
 
-static const union AnimCmd sSpriteAnim_Emotes8[] = {
+static const union AnimCmd sSpriteAnim_Emotes8[] =
+{
     ANIMCMD_FRAME(8*2, 30),
     ANIMCMD_FRAME(8*2+1, 25),
     ANIMCMD_FRAME(8*2, 30),
     ANIMCMD_END
 };
 
-static const union AnimCmd sSpriteAnim_Emotes9[] = {
+static const union AnimCmd sSpriteAnim_Emotes9[] =
+{
     ANIMCMD_FRAME(9*2, 30),
     ANIMCMD_FRAME(9*2+1, 25),
     ANIMCMD_FRAME(9*2, 30),
     ANIMCMD_END
 };
 
-static const union AnimCmd sSpriteAnim_Emotes10[] = {
+static const union AnimCmd sSpriteAnim_Emotes10[] =
+{
     ANIMCMD_FRAME(10*2, 30),
     ANIMCMD_FRAME(10*2+1, 25),
     ANIMCMD_FRAME(10*2, 30),
@@ -265,13 +287,29 @@ static const union AnimCmd sSpriteAnim_Icons2[] =
     ANIMCMD_END
 };
 
+
+static const union AnimCmd sSpriteAnim_Icons3[] =
+{
+    ANIMCMD_FRAME(2, 60),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_Icons4[] =
+{
+    ANIMCMD_FRAME(3, 60),
+    ANIMCMD_END
+};
+
 static const union AnimCmd *const sSpriteAnimTable_Icons[] =
 {
     sSpriteAnim_Icons1,
-    sSpriteAnim_Icons2
+    sSpriteAnim_Icons2,
+    sSpriteAnim_Icons3,
+    sSpriteAnim_Icons4
 };
 
-static const union AnimCmd *const sSpriteAnimTable_Emotes[] = {
+static const union AnimCmd *const sSpriteAnimTable_Emotes[] =
+{
     sSpriteAnim_Emotes0,
     sSpriteAnim_Emotes1,
     sSpriteAnim_Emotes2,
@@ -284,10 +322,6 @@ static const union AnimCmd *const sSpriteAnimTable_Emotes[] = {
     sSpriteAnim_Emotes9,
     sSpriteAnim_Emotes10,
 };
-
-// TODO: Move these declarations into even_object_movement.h
-#define OBJ_EVENT_PAL_TAG_MAY 0x1110
-#define OBJ_EVENT_PAL_TAG_EMOTES 0x8003
 
 static const struct SpriteTemplate sSpriteTemplate_ExclamationQuestionMark =
 {
@@ -303,7 +337,7 @@ static const struct SpriteTemplate sSpriteTemplate_ExclamationQuestionMark =
 static const struct SpriteTemplate sSpriteTemplate_HeartIcon =
 {
     .tileTag = TAG_NONE,
-    .paletteTag = FLDEFF_PAL_TAG_NPC_1,
+    .paletteTag = OBJ_EVENT_PAL_TAG_NPC_1,
     .oam = &sOamData_Icons,
     .anims = sSpriteAnimTable_Icons,
     .images = sSpriteImageTable_HeartIcon,
@@ -311,8 +345,9 @@ static const struct SpriteTemplate sSpriteTemplate_HeartIcon =
     .callback = SpriteCB_TrainerIcons
 };
 
-static const struct SpriteTemplate sSpriteTemplate_Emote = {
-    .tileTag = 0xffff,
+static const struct SpriteTemplate sSpriteTemplate_Emote =
+{
+    .tileTag = TAG_NONE,
     .paletteTag = OBJ_EVENT_PAL_TAG_EMOTES,
     .oam = &sOamData_Icons,
     .anims = sSpriteAnimTable_Emotes,
@@ -325,6 +360,9 @@ static const struct SpriteTemplate sSpriteTemplate_Emote = {
 bool8 CheckForTrainersWantingBattle(void)
 {
     u8 i;
+
+    if (FlagGet(OW_FLAG_NO_TRAINER_SEE))
+        return FALSE;
 
     gNoOfApproachingTrainers = 0;
     gApproachingTrainerId = 0;
@@ -339,6 +377,16 @@ bool8 CheckForTrainersWantingBattle(void)
             continue;
 
         numTrainers = CheckTrainer(i);
+        if (numTrainers == 0xFF) // non-trainerbatle script
+        {
+            u32 objectEventId = gApproachingTrainers[gNoOfApproachingTrainers - 1].objectEventId;
+            gSelectedObjectEvent = objectEventId;
+            gSpecialVar_LastTalked = gObjectEvents[objectEventId].localId;
+            ScriptContext_SetupScript(EventScript_ObjectApproachPlayer);
+            LockPlayerFieldControls();
+            return TRUE;
+        }
+
         if (numTrainers == 2)
             break;
 
@@ -381,14 +429,33 @@ bool8 CheckForTrainersWantingBattle(void)
 
 static u8 CheckTrainer(u8 objectEventId)
 {
-    const u8 *scriptPtr;
+    const u8 *scriptPtr, *trainerBattlePtr;
     u8 numTrainers = 1;
-    u8 approachDistance;
+
+    u8 approachDistance = GetTrainerApproachDistance(&gObjectEvents[objectEventId]);
+    if (approachDistance == 0)
+        return 0;
 
     if (InTrainerHill() == TRUE)
-        scriptPtr = GetTrainerHillTrainerScript();
+    {
+        trainerBattlePtr = scriptPtr = GetTrainerHillTrainerScript();
+    }
     else
-        scriptPtr = GetObjectEventScriptPointerByObjectEventId(objectEventId);
+    {
+        trainerBattlePtr = scriptPtr = GetObjectEventScriptPointerByObjectEventId(objectEventId);
+        struct ScriptContext ctx;
+        if (RunScriptImmediatelyUntilEffect(SCREFF_V1 | SCREFF_SAVE | SCREFF_HARDWARE | SCREFF_TRAINERBATTLE, scriptPtr, &ctx))
+        {
+            if (*ctx.scriptPtr == 0x5c) // trainerbattle
+                trainerBattlePtr = ctx.scriptPtr;
+            else
+                trainerBattlePtr = NULL;
+        }
+        else
+        {
+            return 0; // no effect
+        }
+    }
 
     if (InBattlePyramid())
     {
@@ -400,36 +467,37 @@ static u8 CheckTrainer(u8 objectEventId)
         if (GetHillTrainerFlag(objectEventId))
             return 0;
     }
-    else
+    else if (trainerBattlePtr)
     {
-        if (GetTrainerFlagFromScriptPointer(scriptPtr))
+        if (GetTrainerFlagFromScriptPointer(trainerBattlePtr))
             return 0;
     }
-
-    approachDistance = GetTrainerApproachDistance(&gObjectEvents[objectEventId]);
-
-    if (approachDistance != 0)
+    else
     {
-        if (scriptPtr[1] == TRAINER_BATTLE_DOUBLE
-            || scriptPtr[1] == TRAINER_BATTLE_REMATCH_DOUBLE
-            || scriptPtr[1] == TRAINER_BATTLE_CONTINUE_SCRIPT_DOUBLE)
+        numTrainers = 0xFF;
+    }
+
+    if (trainerBattlePtr)
+    {
+        TrainerBattleParameter *temp = (TrainerBattleParameter *)(trainerBattlePtr + 1);
+        if (temp->params.mode == TRAINER_BATTLE_DOUBLE
+            || temp->params.mode == TRAINER_BATTLE_REMATCH_DOUBLE
+            || temp->params.mode == TRAINER_BATTLE_CONTINUE_SCRIPT_DOUBLE)
         {
             if (GetMonsStateToDoubles_2() != PLAYER_HAS_TWO_USABLE_MONS)
                 return 0;
 
             numTrainers = 2;
         }
-
-        gApproachingTrainers[gNoOfApproachingTrainers].objectEventId = objectEventId;
-        gApproachingTrainers[gNoOfApproachingTrainers].trainerScriptPtr = scriptPtr;
-        gApproachingTrainers[gNoOfApproachingTrainers].radius = approachDistance;
-        InitTrainerApproachTask(&gObjectEvents[objectEventId], approachDistance - 1);
-        gNoOfApproachingTrainers++;
-
-        return numTrainers;
     }
 
-    return 0;
+    gApproachingTrainers[gNoOfApproachingTrainers].objectEventId = objectEventId;
+    gApproachingTrainers[gNoOfApproachingTrainers].trainerScriptPtr = scriptPtr;
+    gApproachingTrainers[gNoOfApproachingTrainers].radius = approachDistance;
+    InitTrainerApproachTask(&gObjectEvents[objectEventId], approachDistance - 1);
+    gNoOfApproachingTrainers++;
+
+    return numTrainers;
 }
 
 static u8 GetTrainerApproachDistance(struct ObjectEvent *trainerObj)
@@ -523,15 +591,15 @@ static u8 CheckPathBetweenTrainerAndPlayer(struct ObjectEvent *trainerObj, u8 ap
             return 0;
     }
 
-    rangeX = trainerObj->rangeX;
-    rangeY = trainerObj->rangeY;
-    trainerObj->rangeX = 0;
-    trainerObj->rangeY = 0;
+    rangeX = trainerObj->range.rangeX;
+    rangeY = trainerObj->range.rangeY;
+    trainerObj->range.rangeX = 0;
+    trainerObj->range.rangeY = 0;
 
     collision = GetCollisionAtCoords(trainerObj, x, y, direction);
 
-    trainerObj->rangeX = rangeX;
-    trainerObj->rangeY = rangeY;
+    trainerObj->range.rangeX = rangeX;
+    trainerObj->range.rangeY = rangeY;
     if (collision == COLLISION_OBJECT_EVENT)
         return approachDistance;
 
@@ -562,6 +630,9 @@ static void StartTrainerApproach(TaskFunc followupFunc)
         taskId = gApproachingTrainers[0].taskId;
     else
         taskId = gApproachingTrainers[1].taskId;
+
+    if (PlayerHasFollowerNPC() && (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_ON_FOOT))
+        ObjectEventForceSetHeldMovement(&gObjectEvents[GetFollowerNPCObjectId()], GetFaceDirectionAnimNum(gObjectEvents[GetFollowerNPCObjectId()].facingDirection));
 
     taskFunc = Task_RunTrainerSeeFuncList;
     SetTaskFuncWithFollowupFunc(taskId, taskFunc, followupFunc);
@@ -598,7 +669,7 @@ static bool8 TrainerExclamationMark(u8 taskId, struct Task *task, struct ObjectE
     FieldEffectStart(FLDEFF_EXCLAMATION_MARK_ICON);
     direction = GetFaceDirectionMovementAction(trainerObj->facingDirection);
     ObjectEventSetHeldMovement(trainerObj, direction);
-    task->tFuncId++;
+    task->tFuncId++; // TRSEE_EXCLAMATION_WAIT
     return TRUE;
 }
 
@@ -729,7 +800,7 @@ static bool8 JumpInPlaceBuriedTrainer(u8 taskId, struct Task *task, struct Objec
     if (gSprites[task->tOutOfAshSpriteId].animCmdIndex == 2)
     {
         trainerObj->fixedPriority = 0;
-        trainerObj->triggerGroundEffectsOnMove = 1;
+        trainerObj->triggerGroundEffectsOnMove = TRUE;
 
         sprite = &gSprites[trainerObj->spriteId];
         sprite->oam.priority = 2;
@@ -831,9 +902,10 @@ u8 FldEff_ExclamationMarkIcon(void)
 {
     u8 spriteId = CreateSpriteAtEnd(&sSpriteTemplate_ExclamationQuestionMark, 0, 0, 0x53);
 
-    if (spriteId != MAX_SPRITES) {
-      SetIconSpriteData(&gSprites[spriteId], FLDEFF_EXCLAMATION_MARK_ICON, 0);
-      UpdateSpritePaletteByTemplate(&sSpriteTemplate_ExclamationQuestionMark, &gSprites[spriteId]);
+    if (spriteId != MAX_SPRITES)
+    {
+        SetIconSpriteData(&gSprites[spriteId], FLDEFF_EXCLAMATION_MARK_ICON, 0);
+        UpdateSpritePaletteByTemplate(&sSpriteTemplate_ExclamationQuestionMark, &gSprites[spriteId]);
     }
 
     return 0;
@@ -842,20 +914,23 @@ u8 FldEff_ExclamationMarkIcon(void)
 u8 FldEff_QuestionMarkIcon(void)
 {
     u8 spriteId;
-    if (gFieldEffectArguments[7] >= 0) { // Use follower emotes
-      u8 emotion = gFieldEffectArguments[7];
-      spriteId = CreateSpriteAtEnd(&sSpriteTemplate_Emote, 0, 0, 0x52);
-      if (spriteId == MAX_SPRITES)
+    if (gFieldEffectArguments[7] >= 0)
+    {
+        // Use follower emotes
+        u8 emotion = gFieldEffectArguments[7];
+        spriteId = CreateSpriteAtEnd(&sSpriteTemplate_Emote, 0, 0, 0x52);
+        if (spriteId == MAX_SPRITES)
+            return 0;
+        SetIconSpriteData(&gSprites[spriteId], FLDEFF_EMOTE, emotion); // Set animation based on emotion
+        UpdateSpritePaletteByTemplate(&sSpriteTemplate_Emote, &gSprites[spriteId]);
         return 0;
-      SetIconSpriteData(&gSprites[spriteId], FLDEFF_EMOTE, emotion); // Set animation based on emotion
-      UpdateSpritePaletteByTemplate(&sSpriteTemplate_Emote, &gSprites[spriteId]);
-      return 0;
     }
     spriteId = CreateSpriteAtEnd(&sSpriteTemplate_ExclamationQuestionMark, 0, 0, 0x52);
 
-    if (spriteId != MAX_SPRITES) {
-      SetIconSpriteData(&gSprites[spriteId], FLDEFF_QUESTION_MARK_ICON, 1);
-      UpdateSpritePaletteByTemplate(&sSpriteTemplate_ExclamationQuestionMark, &gSprites[spriteId]);
+    if (spriteId != MAX_SPRITES)
+    {
+        SetIconSpriteData(&gSprites[spriteId], FLDEFF_QUESTION_MARK_ICON, 1);
+        UpdateSpritePaletteByTemplate(&sSpriteTemplate_ExclamationQuestionMark, &gSprites[spriteId]);
     }
 
     return 0;
@@ -864,6 +939,7 @@ u8 FldEff_QuestionMarkIcon(void)
 u8 FldEff_HeartIcon(void)
 {
     u8 spriteId = CreateSpriteAtEnd(&sSpriteTemplate_HeartIcon, 0, 0, 0x52);
+
     if (spriteId != MAX_SPRITES)
     {
         struct Sprite *sprite = &gSprites[spriteId];
@@ -871,6 +947,27 @@ u8 FldEff_HeartIcon(void)
         SetIconSpriteData(sprite, FLDEFF_HEART_ICON, 0);
         UpdateSpritePaletteByTemplate(&sSpriteTemplate_HeartIcon, sprite);
     }
+
+    return 0;
+}
+
+
+u8 FldEff_DoubleExclMarkIcon(void)
+{
+    u8 spriteId = CreateSpriteAtEnd(&sSpriteTemplate_ExclamationQuestionMark, 0, 0, 0x53);
+
+    if (spriteId != MAX_SPRITES)
+        SetIconSpriteData(&gSprites[spriteId], FLDEFF_EXCLAMATION_MARK_ICON, 2);
+
+    return 0;
+}
+
+u8 FldEff_XIcon(void)
+{
+    u8 spriteId = CreateSpriteAtEnd(&sSpriteTemplate_ExclamationQuestionMark, 0, 0, 0x53);
+
+    if (spriteId != MAX_SPRITES)
+        SetIconSpriteData(&gSprites[spriteId], FLDEFF_EXCLAMATION_MARK_ICON, 3);
 
     return 0;
 }
@@ -947,15 +1044,15 @@ void PlayerFaceTrainerAfterBattle(void)
         objEvent = &gObjectEvents[gApproachingTrainers[gWhichTrainerToFaceAfterBattle].objectEventId];
         gPostBattleMovementScript[0] = GetFaceDirectionMovementAction(GetOppositeDirection(objEvent->facingDirection));
         gPostBattleMovementScript[1] = MOVEMENT_ACTION_STEP_END;
-        ScriptMovement_StartObjectMovementScript(OBJ_EVENT_ID_PLAYER, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, gPostBattleMovementScript);
+        ScriptMovement_StartObjectMovementScript(LOCALID_PLAYER, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, gPostBattleMovementScript);
     }
     else
     {
         objEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
         gPostBattleMovementScript[0] = GetFaceDirectionMovementAction(objEvent->facingDirection);
         gPostBattleMovementScript[1] = MOVEMENT_ACTION_STEP_END;
-        ScriptMovement_StartObjectMovementScript(OBJ_EVENT_ID_PLAYER, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, gPostBattleMovementScript);
+        ScriptMovement_StartObjectMovementScript(LOCALID_PLAYER, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, gPostBattleMovementScript);
     }
 
-    SetMovingNpcId(OBJ_EVENT_ID_PLAYER);
+    SetMovingNpcId(LOCALID_PLAYER);
 }

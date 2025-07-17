@@ -101,6 +101,7 @@
       "flag": "0"
     },
     {
+      "local_id": "LOCALID_MAUVILLE_WALLY",
       "graphics_id": "OBJ_EVENT_GFX_WALLY",
       "x": 8,
       "y": 6,
@@ -114,6 +115,7 @@
       "flag": "FLAG_HIDE_MAUVILLE_CITY_WALLY"
     },
     {
+      "local_id": "LOCALID_MAUVILLE_WALLYS_UNCLE",
       "graphics_id": "OBJ_EVENT_GFX_POKEFAN_M",
       "x": 9,
       "y": 6,
@@ -148,8 +150,8 @@
       "movement_range_x": 1,
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "MauvilleCity_EventScript_ItemXSpeed",
+      "trainer_sight_or_berry_tree_id": "ITEM_X_SPEED",
+      "script": "Common_EventScript_FindItem",
       "flag": "FLAG_ITEM_MAUVILLE_CITY_X_SPEED"
     },
     {
@@ -166,6 +168,7 @@
       "flag": "0"
     },
     {
+      "local_id": "LOCALID_MAUVILLE_SCOTT",
       "graphics_id": "OBJ_EVENT_GFX_SCOTT",
       "x": 12,
       "y": 14,

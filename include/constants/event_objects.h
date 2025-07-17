@@ -1,6 +1,9 @@
 #ifndef GUARD_CONSTANTS_EVENT_OBJECTS_H
 #define GUARD_CONSTANTS_EVENT_OBJECTS_H
 
+#include "constants/global.h"
+#include "constants/map_event_ids.h"
+
 #define OBJ_EVENT_GFX_BRENDAN_NORMAL               0
 #define OBJ_EVENT_GFX_BRENDAN_MACH_BIKE            1
 #define OBJ_EVENT_GFX_BRENDAN_SURFING              2
@@ -446,13 +449,21 @@
 // stores graphics ids will need to be increased in size. See wiki entry below:
 // https://github.com/pret/pokeemerald/wiki/Feature-Branches#overworld-expansion
 #define NUM_OBJ_EVENT_GFX                         430
+#define OBJ_EVENT_GFX_POKE_BALL                  431
+#define OBJ_EVENT_GFX_OW_MON                     432
+#define OBJ_EVENT_GFX_LIGHT_SPRITE               433
+
+// NOTE: The maximum amount of object events has been expanded from 255 to 65535.
+// Since dynamic graphics ids still require at least 16 free values, the actual limit
+// is 65519, but even considering follower Pokémon, this should be more than enough :)
+#define NUM_OBJ_EVENT_GFX                        434
 
 
 // These are dynamic object gfx ids.
 // They correspond with the values of the VAR_OBJ_GFX_ID_X vars.
 // More info about them in include/constants/vars.h
 #define OBJ_EVENT_GFX_VARS   (NUM_OBJ_EVENT_GFX + 1)
-#define OBJ_EVENT_GFX_VAR_0  (OBJ_EVENT_GFX_VARS + 0x0) // 240
+#define OBJ_EVENT_GFX_VAR_0  (OBJ_EVENT_GFX_VARS + 0x0)
 #define OBJ_EVENT_GFX_VAR_1  (OBJ_EVENT_GFX_VARS + 0x1)
 #define OBJ_EVENT_GFX_VAR_2  (OBJ_EVENT_GFX_VARS + 0x2)
 #define OBJ_EVENT_GFX_VAR_3  (OBJ_EVENT_GFX_VARS + 0x3)
@@ -467,13 +478,74 @@
 #define OBJ_EVENT_GFX_VAR_C  (OBJ_EVENT_GFX_VARS + 0xC)
 #define OBJ_EVENT_GFX_VAR_D  (OBJ_EVENT_GFX_VARS + 0xD)
 #define OBJ_EVENT_GFX_VAR_E  (OBJ_EVENT_GFX_VARS + 0xE)
-#define OBJ_EVENT_GFX_VAR_F  (OBJ_EVENT_GFX_VARS + 0xF) // 255
+#define OBJ_EVENT_GFX_VAR_F  (OBJ_EVENT_GFX_VARS + 0xF)
 
-#define SHADOW_SIZE_S   0
-#define SHADOW_SIZE_M   1
-#define SHADOW_SIZE_L   2
-#define SHADOW_SIZE_XL  3 // unused; repurposed to mean no shadow
-#define SHADOW_SIZE_NONE 3
+// Don't use (1u << 15) to avoid conflict with BLEND_IMMUNE_FLAG.
+#define OBJ_EVENT_MON               (1u << 14)
+#define OBJ_EVENT_MON_SHINY         (1u << 13)
+#define OBJ_EVENT_MON_FEMALE        (1u << 12)
+#define OBJ_EVENT_MON_SPECIES_MASK  (~(7u << 12))
+
+// Used to call a specific species' follower graphics. Useful for static encounters.
+#define OBJ_EVENT_GFX_SPECIES(name)                 (SPECIES_##name + OBJ_EVENT_MON)
+#define OBJ_EVENT_GFX_SPECIES_SHINY(name)           (SPECIES_##name + OBJ_EVENT_MON + OBJ_EVENT_MON_SHINY)
+#define OBJ_EVENT_GFX_SPECIES_FEMALE(name)          (SPECIES_##name + OBJ_EVENT_MON + OBJ_EVENT_MON_FEMALE)
+#define OBJ_EVENT_GFX_SPECIES_SHINY_FEMALE(name)    (SPECIES_##name + OBJ_EVENT_MON + OBJ_EVENT_MON_SHINY + OBJ_EVENT_MON_FEMALE)
+
+// Convenience macros for static Legendary encounters
+#define OBJ_EVENT_GFX_ARTICUNO  OBJ_EVENT_GFX_SPECIES(ARTICUNO)
+#define OBJ_EVENT_GFX_ZAPDOS    OBJ_EVENT_GFX_SPECIES(ZAPDOS)
+#define OBJ_EVENT_GFX_MOLTRES   OBJ_EVENT_GFX_SPECIES(MOLTRES)
+#define OBJ_EVENT_GFX_MEWTWO    OBJ_EVENT_GFX_SPECIES(MEWTWO)
+#define OBJ_EVENT_GFX_ARCEUS    OBJ_EVENT_GFX_SPECIES(ARCEUS)
+#define OBJ_EVENT_GFX_CELEBI    OBJ_EVENT_GFX_SPECIES(CELEBI)
+#define OBJ_EVENT_GFX_UXIE      OBJ_EVENT_GFX_SPECIES(UXIE)
+#define OBJ_EVENT_GFX_MESPRIT   OBJ_EVENT_GFX_SPECIES(MESPRIT)
+#define OBJ_EVENT_GFX_AZELF     OBJ_EVENT_GFX_SPECIES(AZELF)
+#define OBJ_EVENT_GFX_DIALGA    OBJ_EVENT_GFX_SPECIES(DIALGA)
+#define OBJ_EVENT_GFX_PALKIA    OBJ_EVENT_GFX_SPECIES(PALKIA)
+#define OBJ_EVENT_GFX_GIRATINA  OBJ_EVENT_GFX_SPECIES(GIRATINA)
+#define OBJ_EVENT_GFX_ZEKROM    OBJ_EVENT_GFX_SPECIES(ZEKROM)
+#define OBJ_EVENT_GFX_RESHIRAM  OBJ_EVENT_GFX_SPECIES(RESHIRAM)
+#define OBJ_EVENT_GFX_KYUREM    OBJ_EVENT_GFX_SPECIES(KYUREM)
+#define OBJ_EVENT_GFX_KELDEO    OBJ_EVENT_GFX_SPECIES(KELDEO)
+#define OBJ_EVENT_GFX_XERNEAS   OBJ_EVENT_GFX_SPECIES(XERNEAS)
+#define OBJ_EVENT_GFX_YVELTAL   OBJ_EVENT_GFX_SPECIES(YVELTAL)
+#define OBJ_EVENT_GFX_ZYGARDE   OBJ_EVENT_GFX_SPECIES(ZYGARDE)
+#define OBJ_EVENT_GFX_COBALION  OBJ_EVENT_GFX_SPECIES(COBALION)
+#define OBJ_EVENT_GFX_TERRAKION OBJ_EVENT_GFX_SPECIES(TERRAKION)
+#define OBJ_EVENT_GFX_VIRIZION  OBJ_EVENT_GFX_SPECIES(VIRIZION)
+#define OBJ_EVENT_GFX_VOLCANION OBJ_EVENT_GFX_SPECIES(VOLCANION)
+#define OBJ_EVENT_GFX_TAPU_BULU OBJ_EVENT_GFX_SPECIES(TAPU_BULU)
+#define OBJ_EVENT_GFX_SOLGALEO  OBJ_EVENT_GFX_SPECIES(SOLGALEO)
+#define OBJ_EVENT_GFX_LUNALA    OBJ_EVENT_GFX_SPECIES(LUNALA)
+#define OBJ_EVENT_GFX_CALYREX   OBJ_EVENT_GFX_SPECIES(CALYREX)
+#define OBJ_EVENT_GFX_GLASTRIER OBJ_EVENT_GFX_SPECIES(GLASTRIER)
+#define OBJ_EVENT_GFX_SPECTRIER OBJ_EVENT_GFX_SPECIES(SPECTRIER)
+#define OBJ_EVENT_GFX_NECROZMA  OBJ_EVENT_GFX_SPECIES(NECROZMA)
+#define OBJ_EVENT_GFX_TYPE_NULL OBJ_EVENT_GFX_SPECIES(TYPE_NULL)
+#define OBJ_EVENT_GFX_ETERNATUS OBJ_EVENT_GFX_SPECIES(ETERNATUS)
+#define OBJ_EVENT_GFX_JIRACHI   OBJ_EVENT_GFX_SPECIES(JIRACHI)
+#define OBJ_EVENT_GFX_REGIDRAGO OBJ_EVENT_GFX_SPECIES(REGIDRAGO)
+#define OBJ_EVENT_GFX_REGIELEKI OBJ_EVENT_GFX_SPECIES(REGIELEKI)
+#define OBJ_EVENT_GFX_REGIGIGAS OBJ_EVENT_GFX_SPECIES(REGIGIGAS)
+#define OBJ_EVENT_GFX_TAPU_KOKO OBJ_EVENT_GFX_SPECIES(TAPU_KOKO)
+#define OBJ_EVENT_GFX_TAPU_LELE OBJ_EVENT_GFX_SPECIES(TAPU_LELE)
+#define OBJ_EVENT_GFX_TAPU_FINI OBJ_EVENT_GFX_SPECIES(TAPU_FINI)
+
+#define OW_SPECIES(x) ((x)->graphicsId & OBJ_EVENT_MON_SPECIES_MASK)
+#define OW_SHINY(x) ((x)->graphicsId & OBJ_EVENT_MON_SHINY)
+#define OW_FEMALE(x) ((x)->graphicsId & OBJ_EVENT_MON_FEMALE)
+
+// Whether Object Event is an OW pokemon
+#define IS_OW_MON_OBJ(obj) ((obj)->graphicsId & OBJ_EVENT_MON)
+
+#define SHADOW_SIZE_S       0
+#define SHADOW_SIZE_M       1
+#define SHADOW_SIZE_L       2
+#define SHADOW_SIZE_NONE    3   // Originally SHADOW_SIZE_XL, which went unused due to shadowSize in ObjectEventGraphicsInfo being only 2 bits.
+
+#define SHADOW_SIZE_XL_BATTLE_ONLY  SHADOW_SIZE_NONE    // Battle-only definition for XL shadow size.
 
 #define F_INANIMATE                        (1 << 6)
 #define F_DISABLE_REFLECTION_PALETTE_LOAD  (1 << 7)
@@ -481,6 +553,10 @@
 #define TRACKS_NONE       0
 #define TRACKS_FOOT       1
 #define TRACKS_BIKE_TIRE  2
+
+#define LIGHT_TYPE_BALL             0
+#define LIGHT_TYPE_PKMN_CENTER_SIGN 1
+#define LIGHT_TYPE_POKE_MART_SIGN   2
 
 #define FIRST_DECORATION_SPRITE_GFX OBJ_EVENT_GFX_PICHU_DOLL
 
@@ -490,35 +566,115 @@
 // Special object event local ids
 #define OBJ_EVENT_ID_PLAYER 0xFF
 #define OBJ_EVENT_ID_CAMERA 0x7F
+// Used for link player OWs in CreateLinkPlayerSprite
+#define OBJ_EVENT_ID_DYNAMIC_BASE 0xF0
 
-// Object event local ids referenced in C files
-#define LOCALID_ROUTE111_PLAYER_FALLING 45
-#define LOCALID_BIRTH_ISLAND_EXTERIOR_ROCK 1
-#define LOCALID_FARAWAY_ISLAND_MEW 1
-#define LOCALID_UNION_ROOM_PLAYER_4 2
-#define LOCALID_UNION_ROOM_PLAYER_8 3
-#define LOCALID_UNION_ROOM_PLAYER_7 4
-#define LOCALID_UNION_ROOM_PLAYER_6 5
-#define LOCALID_UNION_ROOM_PLAYER_5 6
-#define LOCALID_UNION_ROOM_PLAYER_3 7
-#define LOCALID_UNION_ROOM_PLAYER_2 8
-#define LOCALID_UNION_ROOM_PLAYER_1 9
-#define LOCALID_BATTLE_TOWER_LOBBY_REPORTER 5
-#define LOCALID_TRUCK_BOX_TOP 1
-#define LOCALID_TRUCK_BOX_BOTTOM_L 2
-#define LOCALID_TRUCK_BOX_BOTTOM_R 3
-#define LOCALID_OLDALE_MART_CLERK 1
-#define LOCALID_LAVARIDGE_MART_CLERK 1
-#define LOCALID_FALLARBOR_MART_CLERK 1
-#define LOCALID_VERDANTURF_MART_CLERK 1
-#define LOCALID_PETALBURG_MART_CLERK 1
-#define LOCALID_SLATEPORT_MART_CLERK 1
-#define LOCALID_MAUVILLE_MART_CLERK 1
-#define LOCALID_RUSTBORO_MART_CLERK 1
-#define LOCALID_FORTREE_MART_CLERK 1
-#define LOCALID_MOSSDEEP_MART_CLERK 1
-#define LOCALID_SOOTOPOLIS_MART_CLERK 1
-#define LOCALID_BATTLE_FRONTIER_MART_CLERK 1
-#define LOCALID_SLATEPORT_ENERGY_GURU 25
+// Each object event template gets an ID that can be used to refer to it in scripts and elsewhere.
+// This is referred to as the "local id" (and it's really just 1 + its index in the templates array).
+// There are a few special IDs reserved for objects that don't have templates in the map data -- one for the player
+// in regular offline play, five for linked players while playing Berry Blender, and one for an invisible object that
+// can be spawned for the camera to track instead of the player. Additionally, the value 0 is reserved as an "empty" indicator.
+#define LOCALID_NONE                         0
+#define LOCALID_CAMERA                     127
+#define LOCALID_BERRY_BLENDER_PLAYER_END   240 // This will use 5 (MAX_RFU_PLAYERS) IDs ending at 240, i.e. 236-240
+#define LOCALID_FOLLOWING_POKEMON          254
+#define LOCALID_PLAYER                     255
+#define OBJ_EVENT_ID_FOLLOWER              0xFE
+#define OBJ_EVENT_ID_NPC_FOLLOWER          0xFD
+
+// Aliases for old names. "object event id" normally refers to an index into gObjectEvents, which these are not.
+// Used for link player OWs in CreateLinkPlayerSprite
+#define OBJ_EVENT_ID_DYNAMIC_BASE 0xF0
+#define OBJ_EVENT_ID_CAMERA LOCALID_CAMERA
+#define OBJ_EVENT_ID_PLAYER LOCALID_PLAYER
+
+// Moved from src/event_object_movement.c so that they're accesible from other files.
+#define OBJ_EVENT_PAL_TAG_BRENDAN                 0x1100
+#define OBJ_EVENT_PAL_TAG_BRENDAN_REFLECTION      0x1101
+#define OBJ_EVENT_PAL_TAG_BRIDGE_REFLECTION       0x1102
+#define OBJ_EVENT_PAL_TAG_NPC_1                   0x1103
+#define OBJ_EVENT_PAL_TAG_NPC_2                   0x1104
+#define OBJ_EVENT_PAL_TAG_NPC_3                   0x1105
+#define OBJ_EVENT_PAL_TAG_NPC_4                   0x1106
+#define OBJ_EVENT_PAL_TAG_NPC_1_REFLECTION        0x1107
+#define OBJ_EVENT_PAL_TAG_NPC_2_REFLECTION        0x1108
+#define OBJ_EVENT_PAL_TAG_NPC_3_REFLECTION        0x1109
+#define OBJ_EVENT_PAL_TAG_NPC_4_REFLECTION        0x110A
+#define OBJ_EVENT_PAL_TAG_QUINTY_PLUMP            0x110B
+#define OBJ_EVENT_PAL_TAG_QUINTY_PLUMP_REFLECTION 0x110C
+#define OBJ_EVENT_PAL_TAG_TRUCK                   0x110D
+#define OBJ_EVENT_PAL_TAG_VIGOROTH                0x110E
+#define OBJ_EVENT_PAL_TAG_ZIGZAGOON               0x110F
+#define OBJ_EVENT_PAL_TAG_MAY                     0x1110
+#define OBJ_EVENT_PAL_TAG_MAY_REFLECTION          0x1111
+#define OBJ_EVENT_PAL_TAG_MOVING_BOX              0x1112
+#define OBJ_EVENT_PAL_TAG_CABLE_CAR               0x1113
+#define OBJ_EVENT_PAL_TAG_SSTIDAL                 0x1114
+#define OBJ_EVENT_PAL_TAG_PLAYER_UNDERWATER       0x1115
+#define OBJ_EVENT_PAL_TAG_KYOGRE                  0x1116
+#define OBJ_EVENT_PAL_TAG_KYOGRE_REFLECTION       0x1117
+#define OBJ_EVENT_PAL_TAG_GROUDON                 0x1118
+#define OBJ_EVENT_PAL_TAG_GROUDON_REFLECTION      0x1119
+#define OBJ_EVENT_PAL_TAG_UNUSED                  0x111A
+#define OBJ_EVENT_PAL_TAG_SUBMARINE_SHADOW        0x111B
+#define OBJ_EVENT_PAL_TAG_POOCHYENA               0x111C
+#define OBJ_EVENT_PAL_TAG_RED_LEAF                0x111D
+#define OBJ_EVENT_PAL_TAG_DEOXYS                  0x111E
+#define OBJ_EVENT_PAL_TAG_BIRTH_ISLAND_STONE      0x111F
+#define OBJ_EVENT_PAL_TAG_HO_OH                   0x1120
+#define OBJ_EVENT_PAL_TAG_LUGIA                   0x1121
+#define OBJ_EVENT_PAL_TAG_RS_BRENDAN              0x1122
+#define OBJ_EVENT_PAL_TAG_RS_MAY                  0x1123
+#define OBJ_EVENT_PAL_TAG_DYNAMIC                 0x1124
+
+#if OW_FOLLOWERS_POKEBALLS
+// Vanilla
+#define OBJ_EVENT_PAL_TAG_BALL_MASTER             0x1150
+#define OBJ_EVENT_PAL_TAG_BALL_ULTRA              0x1151
+#define OBJ_EVENT_PAL_TAG_BALL_GREAT              0x1152
+#define OBJ_EVENT_PAL_TAG_BALL_SAFARI             0x1153
+#define OBJ_EVENT_PAL_TAG_BALL_NET                0x1154
+#define OBJ_EVENT_PAL_TAG_BALL_DIVE               0x1155
+#define OBJ_EVENT_PAL_TAG_BALL_NEST               0x1156
+#define OBJ_EVENT_PAL_TAG_BALL_REPEAT             0x1157
+#define OBJ_EVENT_PAL_TAG_BALL_TIMER              0x1158
+#define OBJ_EVENT_PAL_TAG_BALL_LUXURY             0x1159
+#define OBJ_EVENT_PAL_TAG_BALL_PREMIER            0x115A
+// Gen IV/Sinnoh
+#define OBJ_EVENT_PAL_TAG_BALL_DUSK               0x115B
+#define OBJ_EVENT_PAL_TAG_BALL_HEAL               0x115C
+#define OBJ_EVENT_PAL_TAG_BALL_QUICK              0x115D
+#define OBJ_EVENT_PAL_TAG_BALL_CHERISH            0x115E
+#define OBJ_EVENT_PAL_TAG_BALL_PARK               0x115F
+// Gen II/Johto Apricorns
+#define OBJ_EVENT_PAL_TAG_BALL_FAST               0x1160
+#define OBJ_EVENT_PAL_TAG_BALL_LEVEL              0x1161
+#define OBJ_EVENT_PAL_TAG_BALL_LURE               0x1162
+#define OBJ_EVENT_PAL_TAG_BALL_HEAVY              0x1163
+#define OBJ_EVENT_PAL_TAG_BALL_LOVE               0x1164
+#define OBJ_EVENT_PAL_TAG_BALL_FRIEND             0x1165
+#define OBJ_EVENT_PAL_TAG_BALL_MOON               0x1166
+#define OBJ_EVENT_PAL_TAG_BALL_SPORT              0x1167
+// Gen V
+#define OBJ_EVENT_PAL_TAG_BALL_DREAM              0x1168
+// Gen VII
+#define OBJ_EVENT_PAL_TAG_BALL_BEAST              0x1169
+// Gen VIII
+#define OBJ_EVENT_PAL_TAG_BALL_STRANGE            0x116A
+#endif //OW_FOLLOWERS_POKEBALLS
+// Used as a placeholder follower graphic
+#define OBJ_EVENT_PAL_TAG_SUBSTITUTE              0x7611
+#define OBJ_EVENT_PAL_TAG_LIGHT                   0x8001
+#define OBJ_EVENT_PAL_TAG_LIGHT_2                 0x8002
+#define OBJ_EVENT_PAL_TAG_EMOTES                  0x8003
+#define OBJ_EVENT_PAL_TAG_NEON_LIGHT              0x8004
+// Not a real OW palette tag; used for the white flash applied to followers
+#define OBJ_EVENT_PAL_TAG_WHITE                   (OBJ_EVENT_PAL_TAG_NONE - 1)
+#define OBJ_EVENT_PAL_TAG_NONE                    0x11FF
+
+// This + localId is used as the tileTag
+// for compressed graphicsInfos
+// '(C)ompressed (E)vent'
+#define COMP_OW_TILE_TAG_BASE 0xCE00
 
 #endif  // GUARD_CONSTANTS_EVENT_OBJECTS_H

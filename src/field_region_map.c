@@ -1,17 +1,23 @@
 #include "global.h"
 #include "bg.h"
+#include "event_data.h"
+#include "field_effect.h"
 #include "gpu_regs.h"
 #include "international_string_util.h"
 #include "main.h"
 #include "malloc.h"
 #include "menu.h"
+#include "overworld.h"
 #include "palette.h"
+#include "roamer.h"
 #include "region_map.h"
+#include "sound.h"
 #include "strings.h"
 #include "text.h"
 #include "text_window.h"
 #include "window.h"
 #include "constants/rgb.h"
+#include "constants/songs.h"
 
 /*
  *  This is the type of map shown when interacting with the metatiles for
@@ -46,7 +52,8 @@ static void MCB2_InitRegionMapRegisters(void);
 static void VBCB_FieldUpdateRegionMap(void);
 static void MCB2_FieldUpdateRegionMap(void);
 static void FieldUpdateRegionMap(void);
-static void PrintRegionMapSecName(void);
+static void PrintRegionMapSecName();
+static void PrintTitleWindowText();
 
 static const struct BgTemplate sFieldRegionMapBgTemplates[] = {
     {
@@ -145,14 +152,13 @@ static void MCB2_FieldUpdateRegionMap(void)
 
 static void FieldUpdateRegionMap(void)
 {
-    u8 offset;
-
     switch (sFieldRegionMapHandler->state)
     {
         case 0:
             InitRegionMap(&sFieldRegionMapHandler->regionMap, FALSE);
             CreateRegionMapPlayerIcon(TAG_PLAYER_ICON, TAG_PLAYER_ICON);
             CreateRegionMapCursor(TAG_CURSOR, TAG_CURSOR);
+            CreateRoamerIcons();
             sFieldRegionMapHandler->state++;
             break;
         case 1:
@@ -173,6 +179,8 @@ static void FieldUpdateRegionMap(void)
                 offset = GetStringCenterAlignXOffset(FONT_NORMAL, gText_Sevii_Menu, 0x38);
                 AddTextPrinterParameterized(WIN_TITLE, FONT_NORMAL, gText_Sevii_Menu, offset, 1, 0, NULL);
             }
+            FillWindowPixelBuffer(WIN_TITLE, PIXEL_FILL(1));
+            PrintTitleWindowText();
             ScheduleBgCopyTilemapToVram(0);
             DrawStdFrameWithCustomTileAndPalette(WIN_MAPSEC_NAME, FALSE, 0x27, 0xd);
             PrintRegionMapSecName();
@@ -196,11 +204,21 @@ static void FieldUpdateRegionMap(void)
             {
                 case MAP_INPUT_MOVE_END:
                     PrintRegionMapSecName();
+                    PrintTitleWindowText();
                     break;
                 case MAP_INPUT_A_BUTTON:
                 case MAP_INPUT_B_BUTTON:
                     sFieldRegionMapHandler->state++;
                     break;
+                case MAP_INPUT_R_BUTTON:
+                    if (sFieldRegionMapHandler->regionMap.mapSecType == MAPSECTYPE_CITY_CANFLY 
+                        && FlagGet(OW_FLAG_POKE_RIDER) && Overworld_MapTypeAllowsTeleportAndFly(gMapHeader.mapType) == TRUE)
+                    {
+                        PlaySE(SE_SELECT);
+                        SetFlyDestination(&sFieldRegionMapHandler->regionMap);
+                        gSkipShowMonAnim = TRUE;
+                        ReturnToFieldFromFlyMapSelect();
+                    }
             }
             break;
         case 5:
@@ -210,6 +228,7 @@ static void FieldUpdateRegionMap(void)
         case 6:
             if (!gPaletteFade.active)
             {
+                FreeRoamerIcons();
                 FreeRegionMapIconResources();
                 SetMainCallback2(sFieldRegionMapHandler->callback);
                 TRY_FREE_AND_SET_NULL(sFieldRegionMapHandler);
@@ -231,5 +250,26 @@ static void PrintRegionMapSecName(void)
     {
         FillWindowPixelBuffer(WIN_MAPSEC_NAME, PIXEL_FILL(1));
         CopyWindowToVram(WIN_MAPSEC_NAME, COPYWIN_FULL);
+    }
+}
+
+static void PrintTitleWindowText(void)
+{
+    static const u8 FlyPromptText[] = _("{R_BUTTON} FLY");
+    u32 hoennOffset = GetStringCenterAlignXOffset(FONT_NORMAL, gText_Hoenn, 0x38);
+    u32 flyOffset = GetStringCenterAlignXOffset(FONT_NORMAL, FlyPromptText, 0x38);
+
+    FillWindowPixelBuffer(WIN_TITLE, PIXEL_FILL(1));
+
+    if (sFieldRegionMapHandler->regionMap.mapSecType == MAPSECTYPE_CITY_CANFLY
+        && FlagGet(OW_FLAG_POKE_RIDER) && Overworld_MapTypeAllowsTeleportAndFly(gMapHeader.mapType) == TRUE)
+    {
+        AddTextPrinterParameterized(WIN_TITLE, FONT_NORMAL, FlyPromptText, flyOffset, 1, 0, NULL);
+        ScheduleBgCopyTilemapToVram(WIN_TITLE);
+    }
+    else
+    {
+        AddTextPrinterParameterized(WIN_TITLE, FONT_NORMAL, gText_Hoenn, hoennOffset, 1, 0, NULL);
+        CopyWindowToVram(WIN_TITLE, COPYWIN_FULL);
     }
 }

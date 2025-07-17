@@ -12,8 +12,7 @@
 #include "constants/rgb.h"
 
 extern const struct CompressedSpriteSheet gBattleAnimPicTable[];
-extern const struct CompressedSpritePalette gBattleAnimPaletteTable[];
-extern const u8 *const gBattleAnims_StatusConditions[];
+extern const struct SpritePalette gBattleAnimPaletteTable[];
 extern const struct OamData gOamData_AffineOff_ObjNormal_8x8;
 extern const struct OamData gOamData_AffineOff_ObjBlend_64x64;
 
@@ -107,7 +106,7 @@ static const union AnimCmd sAnim_SpinningSparkle[] =
     ANIMCMD_END
 };
 
-static const union AnimCmd *const sAnims_SpinningSparkle[] =
+const union AnimCmd *const gAnims_SpinningSparkle[] =
 {
     sAnim_SpinningSparkle
 };
@@ -117,7 +116,7 @@ const struct SpriteTemplate gSpinningSparkleSpriteTemplate =
     .tileTag = ANIM_TAG_SPARKLE_4,
     .paletteTag = ANIM_TAG_SPARKLE_4,
     .oam = &gOamData_AffineOff_ObjNormal_32x32,
-    .anims = sAnims_SpinningSparkle,
+    .anims = gAnims_SpinningSparkle,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = AnimSpinningSparkle,
@@ -270,16 +269,16 @@ static const struct SpriteTemplate sFlashingCircleImpactSpriteTemplate =
     .callback = AnimFlashingCircleImpact,
 };
 
-static u8 UNUSED Task_FlashingCircleImpacts(u8 battlerId, bool8 red)
+static u8 UNUSED Task_FlashingCircleImpacts(u8 battler, bool8 red)
 {
-    u8 battlerSpriteId = gBattlerSpriteIds[battlerId];
+    u8 battlerSpriteId = gBattlerSpriteIds[battler];
     u8 taskId = CreateTask(Task_UpdateFlashingCircleImpacts, 10);
     u8 spriteId;
     u8 i;
 
     LoadCompressedSpriteSheetUsingHeap(&gBattleAnimPicTable[GET_TRUE_SPRITE_INDEX(ANIM_TAG_CIRCLE_IMPACT)]);
-    LoadCompressedSpritePaletteUsingHeap(&gBattleAnimPaletteTable[GET_TRUE_SPRITE_INDEX(ANIM_TAG_CIRCLE_IMPACT)]);
-    gTasks[taskId].data[0] = battlerId;
+    LoadSpritePalette(&gBattleAnimPaletteTable[GET_TRUE_SPRITE_INDEX(ANIM_TAG_CIRCLE_IMPACT)]);
+    gTasks[taskId].data[0] = battler;
     if (red)
     {
         gTasks[taskId].data[1] = RGB_RED;
@@ -376,6 +375,55 @@ static void AnimFlashingCircleImpact_Step(struct Sprite *sprite)
         else
             DestroySprite(sprite);
     }
+}
+
+void AnimTask_FrozenIceCubeAttacker(u8 taskId)
+{
+    s16 x = GetBattlerSpriteCoord(gBattleAnimAttacker, BATTLER_COORD_X_2) - 32;
+    s16 y = GetBattlerSpriteCoord(gBattleAnimAttacker, BATTLER_COORD_Y_PIC_OFFSET) - 36;
+    u8 spriteId;
+
+    if (IsContest())
+        x -= 6;
+    SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_ALL);
+    SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(0, 16));
+    spriteId = CreateSprite(&sFrozenIceCubeSpriteTemplate, x, y, 4);
+    if (GetSpriteTileStartByTag(ANIM_TAG_ICE_CUBE) == 0xFFFF)
+        gSprites[spriteId].invisible = TRUE;
+    SetSubspriteTables(&gSprites[spriteId], sFrozenIceCubeSubspriteTable);
+    gTasks[taskId].data[15] = spriteId;
+    gTasks[taskId].func = AnimTask_FrozenIceCube_Step1;
+}
+
+void AnimTask_CentredFrozenIceCube(u8 taskId)
+{
+    // same as AnimTask_FrozenIceCube but center position on target(s)
+    s16 x, y;
+    u8 spriteId;
+    u8 battler1 = gBattleAnimTarget;
+    u8 battler2 = BATTLE_PARTNER(battler1);
+
+    if (!IsDoubleBattle() || IsBattlerAlly(gBattleAnimAttacker, gBattleAnimTarget))
+    {
+        x = GetBattlerSpriteCoord(battler1, BATTLER_COORD_X_2);
+        y = GetBattlerSpriteCoord(battler1, BATTLER_COORD_Y_PIC_OFFSET);
+    }
+    else
+    {
+        x = (GetBattlerSpriteCoord(battler1, BATTLER_COORD_X_2) + GetBattlerSpriteCoord(battler2, BATTLER_COORD_X_2)) / 2;
+        y = (GetBattlerSpriteCoord(battler1, BATTLER_COORD_Y_PIC_OFFSET) + GetBattlerSpriteCoord(battler2, BATTLER_COORD_Y_PIC_OFFSET)) / 2;
+    }
+
+    x -= 32;
+    y -= 36;
+
+    spriteId = CreateSprite(&sFrozenIceCubeSpriteTemplate, x, y, 4);
+    if (GetSpriteTileStartByTag(ANIM_TAG_ICE_CUBE) == 0xFFFF)
+        gSprites[spriteId].invisible = TRUE;
+
+    SetSubspriteTables(&gSprites[spriteId], sFrozenIceCubeSubspriteTable);
+    gTasks[taskId].data[15] = spriteId;
+    gTasks[taskId].func = AnimTask_FrozenIceCube_Step1;
 }
 
 void AnimTask_FrozenIceCube(u8 taskId)
@@ -540,15 +588,15 @@ void AnimTask_StatsChange(u8 taskId)
 
 #undef CASE
 
-void LaunchStatusAnimation(u8 battlerId, u8 statusAnimId)
+void LaunchStatusAnimation(u8 battler, u8 statusAnimId)
 {
     u8 taskId;
 
-    gBattleAnimAttacker = battlerId;
-    gBattleAnimTarget = battlerId;
-    LaunchBattleAnimation(gBattleAnims_StatusConditions, statusAnimId, FALSE);
+    gBattleAnimAttacker = battler;
+    gBattleAnimTarget = battler;
+    LaunchBattleAnimation(ANIM_TYPE_STATUS, statusAnimId);
     taskId = CreateTask(Task_DoStatusAnimation, 10);
-    gTasks[taskId].data[0] = battlerId;
+    gTasks[taskId].data[0] = battler;
 }
 
 static void Task_DoStatusAnimation(u8 taskId)

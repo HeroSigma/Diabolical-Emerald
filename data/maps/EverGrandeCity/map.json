@@ -20,6 +20,20 @@
     }
   ],
   "object_events": [
+    {
+      "local_id": "LOCALID_EVER_GRANDE_KELDEO",
+      "graphics_id": "OBJ_EVENT_GFX_KELDEO",
+      "x": 28,
+      "y": 15,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "EverGrandeCity_Keldeo",
+      "flag": "FLAG_HIDE_KELDEO"
+    }
   ],
   "warp_events": [
     {

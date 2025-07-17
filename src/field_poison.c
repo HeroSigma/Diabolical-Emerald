@@ -16,6 +16,7 @@
 #include "task.h"
 #include "trainer_hill.h"
 #include "constants/field_poison.h"
+#include "constants/form_change_types.h"
 #include "constants/party_menu.h"
 
 static bool32 IsMonValidSpecies(struct Pokemon *pokemon)
@@ -45,7 +46,9 @@ static void FaintFromFieldPoison(u8 partyIdx)
     struct Pokemon *pokemon = &gPlayerParty[partyIdx];
     u32 status = STATUS1_NONE;
 
-    AdjustFriendship(pokemon, FRIENDSHIP_EVENT_FAINT_FIELD_PSN);
+    if (OW_POISON_DAMAGE < GEN_4)
+        AdjustFriendship(pokemon, FRIENDSHIP_EVENT_FAINT_FIELD_PSN);
+
     SetMonData(pokemon, MON_DATA_STATUS, &status);
     GetMonData(pokemon, MON_DATA_NICKNAME, gStringVar1);
     StringGet_Nickname(gStringVar1);
@@ -54,7 +57,7 @@ static void FaintFromFieldPoison(u8 partyIdx)
 static bool32 MonFaintedFromPoison(u8 partyIdx)
 {
     struct Pokemon *pokemon = &gPlayerParty[partyIdx];
-    if (IsMonValidSpecies(pokemon) && GetMonData(pokemon, MON_DATA_HP) == 0 && GetAilmentFromStatus(GetMonData(pokemon, MON_DATA_STATUS)) == AILMENT_PSN)
+    if (IsMonValidSpecies(pokemon) && GetMonData(pokemon, MON_DATA_HP) == ((OW_POISON_DAMAGE < GEN_4) ? 0 : 1) && GetAilmentFromStatus(GetMonData(pokemon, MON_DATA_STATUS)) == AILMENT_PSN)
         return TRUE;
 
     return FALSE;
@@ -90,7 +93,11 @@ static void Task_TryFieldPoisonWhiteOut(u8 taskId)
         if (AllMonsFainted())
         {
             // Battle facilities have their own white out script to handle the challenge loss
+#ifdef BUGFIX
+            if (InBattlePyramid() || InBattlePike() || InTrainerHillChallenge())
+#else
             if (InBattlePyramid() | InBattlePike() || InTrainerHillChallenge())
+#endif
                 gSpecialVar_Result = FLDPSN_FRONTIER_WHITEOUT;
             else
                 gSpecialVar_Result = FLDPSN_WHITEOUT;
@@ -128,7 +135,12 @@ s32 DoPoisonFieldEffect(void)
         {
             // Apply poison damage
             hp = GetMonData(pokemon, MON_DATA_HP);
-            if (hp == 0 || --hp == 0)
+            if (OW_POISON_DAMAGE < GEN_4 && (hp == 0 || --hp == 0))
+            {
+                TryFormChange(i, B_SIDE_PLAYER, FORM_CHANGE_FAINT);
+                numFainted++;
+            }
+            else if (OW_POISON_DAMAGE >= GEN_4 && (hp == 1 || --hp == 1))
                 numFainted++;
 
             SetMonData(pokemon, MON_DATA_HP, &hp);

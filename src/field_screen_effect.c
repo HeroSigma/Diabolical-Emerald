@@ -7,11 +7,14 @@
 #include "field_effect.h"
 #include "event_object_lock.h"
 #include "event_object_movement.h"
+#include "event_scripts.h"
 #include "field_player_avatar.h"
 #include "field_screen_effect.h"
 #include "field_special_scene.h"
 #include "field_weather.h"
+#include "follower_npc.h"
 #include "gpu_regs.h"
+#include "heal_location.h"
 #include "io_reg.h"
 #include "link.h"
 #include "link_rfu.h"
@@ -21,19 +24,24 @@
 #include "mirage_tower.h"
 #include "metatile_behavior.h"
 #include "palette.h"
+#include "oras_dowse.h"
 #include "overworld.h"
 #include "scanline_effect.h"
 #include "script.h"
 #include "sound.h"
 #include "start_menu.h"
+#include "strings.h"
+#include "string_util.h"
 #include "task.h"
 #include "text.h"
 #include "constants/event_object_movement.h"
 #include "constants/event_objects.h"
+#include "constants/heal_locations.h"
 #include "constants/songs.h"
 #include "constants/rgb.h"
 #include "trainer_hill.h"
 #include "fldeff.h"
+#include "battle.h"
 
 static void Task_ExitNonAnimDoor(u8);
 static void Task_ExitNonDoor(u8);
@@ -42,10 +50,16 @@ static void FillPalBufferWhite(void);
 static void Task_ExitDoor(u8);
 static bool32 WaitForWeatherFadeIn(void);
 static void Task_SpinEnterWarp(u8 taskId);
-static void Task_WarpAndLoadMap(u8 taskId);
-static void Task_DoDoorWarp(u8 taskId);
 static void Task_EnableScriptAfterMusicFade(u8 taskId);
 static void Task_ExitStairs(u8 taskId);
+
+static void ExitStairsMovement(s16*, s16*, s16*, s16*, s16*);
+static void GetStairsMovementDirection(u32, s16*, s16*);
+static void Task_ExitStairs(u8);
+static bool8 WaitStairExitMovementFinished(s16*, s16*, s16*, s16*, s16*);
+static void UpdateStairsMovement(s16, s16, s16*, s16*, s16*);
+static void Task_StairWarp(u8);
+static void ForceStairsMovement(u32, s16*, s16*);
 
 // data[0] is used universally by tasks in this file as a state for switches
 #define tState       data[0]
@@ -74,7 +88,7 @@ static void FillPalBufferBlack(void)
 
 void WarpFadeInScreen(void)
 {
-    u8 previousMapType = GetLastUsedWarpMapType();
+    enum MapType previousMapType = GetLastUsedWarpMapType();
     switch (GetMapPairFadeFromType(previousMapType, GetCurrentMapType()))
     {
     case 0:
@@ -101,7 +115,7 @@ void FadeInFromBlack(void)
 
 void WarpFadeOutScreen(void)
 {
-    u8 currentMapType = GetCurrentMapType();
+    enum MapType currentMapType = GetCurrentMapType();
     switch (GetMapPairFadeToType(currentMapType, GetDestinationWarpMapHeader()->mapType))
     {
     case 0:
@@ -112,7 +126,7 @@ void WarpFadeOutScreen(void)
     }
 }
 
-static void SetPlayerVisibility(bool8 visible)
+void SetPlayerVisibility(bool8 visible)
 {
     SetPlayerInvisibility(!visible);
 }
@@ -264,12 +278,14 @@ static void SetUpWarpExitTask(void)
     behavior = MapGridGetMetatileBehaviorAt(x, y);
     if (MetatileBehavior_IsDoor(behavior) == TRUE)
         func = Task_ExitDoor;
-    else if (MetatileBehavior_IsDirectionalStairWarp(behavior) == TRUE)
+    else if (MetatileBehavior_IsDirectionalStairWarp(behavior) == TRUE && !gExitStairsMovementDisabled)
         func = Task_ExitStairs;
     else if (MetatileBehavior_IsNonAnimDoor(behavior) == TRUE)
         func = Task_ExitNonAnimDoor;
     else
         func = Task_ExitNonDoor;
+
+    gExitStairsMovementDisabled = FALSE;
     CreateTask(func, 10);
 }
 
@@ -278,6 +294,7 @@ void FieldCB_DefaultWarpExit(void)
     Overworld_PlaySpecialMapMusic();
     WarpFadeInScreen();
     SetUpWarpExitTask();
+    FollowerNPC_WarpSetEnd();
     LockPlayerFieldControls();
 }
 
@@ -326,6 +343,7 @@ static void Task_ExitDoor(u8 taskId)
     switch (task->tState)
     {
     case 0:
+        HideNPCFollower();
         SetPlayerVisibility(FALSE);
         FreezeObjectEvents();
         PlayerGetDestCoords(x, y);
@@ -337,7 +355,7 @@ static void Task_ExitDoor(u8 taskId)
         {
             u8 objEventId;
             SetPlayerVisibility(TRUE);
-            objEventId = GetObjectEventIdByLocalIdAndMap(OBJ_EVENT_ID_PLAYER, 0, 0);
+            objEventId = GetObjectEventIdByLocalIdAndMap(LOCALID_PLAYER, 0, 0);
             ObjectEventSetHeldMovement(&gObjectEvents[objEventId], MOVEMENT_ACTION_WALK_NORMAL_DOWN);
             task->tState = 2;
         }
@@ -347,7 +365,7 @@ static void Task_ExitDoor(u8 taskId)
         {
             u8 objEventId;
             task->data[1] = FieldAnimateDoorClose(*x, *y);
-            objEventId = GetObjectEventIdByLocalIdAndMap(OBJ_EVENT_ID_PLAYER, 0, 0);
+            objEventId = GetObjectEventIdByLocalIdAndMap(LOCALID_PLAYER, 0, 0);
             ObjectEventClearHeldMovementIfFinished(&gObjectEvents[objEventId]);
             task->tState = 3;
         }
@@ -355,6 +373,8 @@ static void Task_ExitDoor(u8 taskId)
     case 3:
         if (task->data[1] < 0 || gTasks[task->data[1]].isActive != TRUE)
         {
+            FollowerNPC_SetIndicatorToComeOutDoor();
+            FollowerNPC_WarpSetEnd();
             UnfreezeObjectEvents();
             task->tState = 4;
         }
@@ -375,6 +395,7 @@ static void Task_ExitNonAnimDoor(u8 taskId)
     switch (task->tState)
     {
     case 0:
+        HideNPCFollower();
         SetPlayerVisibility(FALSE);
         FreezeObjectEvents();
         PlayerGetDestCoords(x, y);
@@ -385,7 +406,7 @@ static void Task_ExitNonAnimDoor(u8 taskId)
         {
             u8 objEventId;
             SetPlayerVisibility(TRUE);
-            objEventId = GetObjectEventIdByLocalIdAndMap(OBJ_EVENT_ID_PLAYER, 0, 0);
+            objEventId = GetObjectEventIdByLocalIdAndMap(LOCALID_PLAYER, 0, 0);
             ObjectEventSetHeldMovement(&gObjectEvents[objEventId], GetWalkNormalMovementAction(GetPlayerFacingDirection()));
             task->tState = 2;
         }
@@ -393,6 +414,14 @@ static void Task_ExitNonAnimDoor(u8 taskId)
     case 2:
         if (IsPlayerStandingStill())
         {
+            s16 x, y;
+
+            PlayerGetDestCoords(&x, &y);
+            if (!MetatileBehavior_IsDeepSouthWarp(MapGridGetMetatileBehaviorAt(x, y + 1)))
+                FollowerNPC_SetIndicatorToComeOutDoor();
+            // TODO: Add specific follower door warp behavior for MB_DEEP_SOUTH_WARP.
+
+            FollowerNPC_WarpSetEnd();
             UnfreezeObjectEvents();
             task->tState = 3;
         }
@@ -501,6 +530,7 @@ void DoDiveWarp(void)
     TryFadeOutOldMapMusic();
     WarpFadeOutScreen();
     PlayRainStoppingSoundEffect();
+    SetFollowerNPCData(FNPC_DATA_COME_OUT_DOOR, FNPC_DOOR_NONE);
     gFieldCallback = FieldCB_DefaultWarpExit;
     CreateTask(Task_WarpAndLoadMap, 10);
 }
@@ -566,6 +596,7 @@ void DoMossdeepGymWarp(void)
     SaveObjectEvents();
     TryFadeOutOldMapMusic();
     WarpFadeOutScreen();
+    SetFollowerNPCData(FNPC_DATA_WARP_END, FNPC_WARP_REAPPEAR);
     PlaySE(SE_WARP_IN);
     CreateTask(Task_WarpAndLoadMap, 10);
     gFieldCallback = FieldCB_MossdeepGymWarpExit;
@@ -646,7 +677,7 @@ void ReturnFromLinkRoom(void)
     CreateTask(Task_ReturnToWorldFromLinkRoom, 10);
 }
 
-static void Task_WarpAndLoadMap(u8 taskId)
+void Task_WarpAndLoadMap(u8 taskId)
 {
     struct Task *task = &gTasks[taskId];
 
@@ -655,6 +686,7 @@ static void Task_WarpAndLoadMap(u8 taskId)
     case 0:
         FreezeObjectEvents();
         LockPlayerFieldControls();
+        EndORASDowsing();
         task->tState++;
         break;
     case 1:
@@ -677,15 +709,35 @@ static void Task_WarpAndLoadMap(u8 taskId)
     }
 }
 
-static void Task_DoDoorWarp(u8 taskId)
+#define tDoorTask   data[1]
+
+enum
+{
+    DOORWARP_OPEN_DOOR,
+    DOORWARP_START_WALK_UP,
+    DOORWARP_HIDE_PLAYER,
+    DOORWARP_WAIT_DOOR_ANIM_TASK,
+    DOORWARP_DO_WARP
+};
+
+void Task_DoDoorWarp(u8 taskId)
 {
     struct Task *task = &gTasks[taskId];
     s16 *x = &task->data[2];
     s16 *y = &task->data[3];
+    u8 playerObjId = gPlayerAvatar.objectEventId;
+    u8 followerObjId = GetFollowerNPCObjectId();
+    struct ObjectEvent *followerObject = GetFollowerObject();
 
     switch (task->tState)
     {
-    case 0:
+    case DOORWARP_OPEN_DOOR:
+        // Stop running.
+        if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_DASH))
+            SetPlayerAvatarTransitionFlags(PLAYER_AVATAR_FLAG_ON_FOOT);
+
+        // Just in case came out and went right back in, reset follower NPC door state.
+        SetFollowerNPCData(FNPC_DATA_COME_OUT_DOOR, FNPC_DOOR_NONE);
         FreezeObjectEvents();
         PlayerGetDestCoords(x, y);
         PlaySE(GetDoorSoundEffect(*x, *y - 1));
@@ -694,33 +746,56 @@ static void Task_DoDoorWarp(u8 taskId)
         break;
     case 1:
         if (task->data[1] < 0 || gTasks[task->data[1]].isActive != TRUE)
+        if (followerObject)
         {
-            u8 objEventId;
-            objEventId = GetObjectEventIdByLocalIdAndMap(OBJ_EVENT_ID_PLAYER, 0, 0);
-            ObjectEventClearHeldMovementIfActive(&gObjectEvents[objEventId]);
-            objEventId = GetObjectEventIdByLocalIdAndMap(OBJ_EVENT_ID_PLAYER, 0, 0);
-            ObjectEventSetHeldMovement(&gObjectEvents[objEventId], MOVEMENT_ACTION_WALK_NORMAL_UP);
-            task->tState = 2;
+            // Put follower into pokeball
+            ClearObjectEventMovement(followerObject, &gSprites[followerObject->spriteId]);
+            ObjectEventSetHeldMovement(followerObject, MOVEMENT_ACTION_ENTER_POKEBALL);
+        }
+        task->tDoorTask = FieldAnimateDoorOpen(*x, *y - 1);
+        EndORASDowsing();
+        task->tState = DOORWARP_START_WALK_UP;
+        break;
+    case DOORWARP_START_WALK_UP:
+        if (task->tDoorTask < 0 || gTasks[task->tDoorTask].isActive != TRUE)
+        {
+            ObjectEventClearHeldMovementIfActive(&gObjectEvents[playerObjId]);
+            ObjectEventSetHeldMovement(&gObjectEvents[playerObjId], MOVEMENT_ACTION_WALK_NORMAL_UP);
+
+            if (PlayerHasFollowerNPC() && !gObjectEvents[followerObjId].invisible)
+            {
+                u8 newState = DetermineFollowerNPCState(&gObjectEvents[followerObjId], MOVEMENT_ACTION_WALK_NORMAL_UP,
+                                                        DetermineFollowerNPCDirection(&gObjectEvents[playerObjId], &gObjectEvents[followerObjId]));
+                ObjectEventClearHeldMovementIfActive(&gObjectEvents[followerObjId]);
+                ObjectEventSetHeldMovement(&gObjectEvents[followerObjId], newState);
+            }
+
+            task->tState = DOORWARP_HIDE_PLAYER;
         }
         break;
-    case 2:
+    case DOORWARP_HIDE_PLAYER:
         if (IsPlayerStandingStill())
         {
-            u8 objEventId;
-            task->data[1] = FieldAnimateDoorClose(*x, *y - 1);
-            objEventId = GetObjectEventIdByLocalIdAndMap(OBJ_EVENT_ID_PLAYER, 0, 0);
-            ObjectEventClearHeldMovementIfFinished(&gObjectEvents[objEventId]);
+            // Don't close door on NPC follower.
+            if (!PlayerHasFollowerNPC() || gObjectEvents[followerObjId].invisible)
+                task->tDoorTask = FieldAnimateDoorClose(*x, *y - 1);
+
+            ObjectEventClearHeldMovementIfFinished(&gObjectEvents[playerObjId]);
             SetPlayerVisibility(FALSE);
-            task->tState = 3;
+            task->tState = DOORWARP_WAIT_DOOR_ANIM_TASK;
         }
         break;
-    case 3:
-        if (task->data[1] < 0 || gTasks[task->data[1]].isActive != TRUE)
+    case DOORWARP_WAIT_DOOR_ANIM_TASK:
+        if (task->tDoorTask < 0 || gTasks[task->tDoorTask].isActive != TRUE)
+            task->tState = DOORWARP_DO_WARP;
+        break;
+    case DOORWARP_DO_WARP:
+        if (PlayerHasFollowerNPC())
         {
-            task->tState = 4;
+            ObjectEventClearHeldMovementIfActive(&gObjectEvents[followerObjId]);
+            ObjectEventSetHeldMovement(&gObjectEvents[followerObjId], MOVEMENT_ACTION_WALK_NORMAL_UP);
         }
-        break;
-    case 4:
+
         TryFadeOutOldMapMusic();
         WarpFadeOutScreen();
         PlayRainStoppingSoundEffect();
@@ -1013,6 +1088,7 @@ static void Task_SpinEnterWarp(u8 taskId)
     case 1:
         if (WaitForWeatherFadeIn() && IsPlayerSpinEntranceActive() != TRUE)
         {
+            FollowerNPC_WarpSetEnd();
             UnfreezeObjectEvents();
             UnlockPlayerFieldControls();
             DestroyTask(taskId);
@@ -1135,7 +1211,7 @@ static void Task_OrbEffect(u8 taskId)
         ClearGpuRegBits(REG_OFFSET_DISPCNT, DISPCNT_WIN1_ON);
         SetGpuRegBits(REG_OFFSET_BLDCNT, gOrbEffectBackgroundLayerFlags[0]);
         SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(12, 7));
-        UpdateShadowColor(0x2109); // force shadows to gray
+        UpdateShadowColor(RGB(9, 8, 8));
         SetGpuReg(REG_OFFSET_WININ, WININ_WIN0_BG_ALL | WININ_WIN0_OBJ | WININ_WIN0_CLR);
         SetGpuReg(REG_OFFSET_WINOUT, WINOUT_WIN01_BG1 | WINOUT_WIN01_BG2 | WINOUT_WIN01_BG3 | WINOUT_WIN01_OBJ);
         SetBgTilemapPalette(0, 0, 0, DISPLAY_TILE_WIDTH, DISPLAY_TILE_HEIGHT, 0xF);
@@ -1203,7 +1279,7 @@ static void Task_OrbEffect(u8 taskId)
         SetGpuReg(REG_OFFSET_DISPCNT, tDispCnt);
         SetGpuReg(REG_OFFSET_BLDCNT, tBldCnt);
         SetGpuReg(REG_OFFSET_BLDALPHA, tBldAlpha);
-        UpdateShadowColor(RGB_BLACK); // force shadows to gray
+        UpdateShadowColor(RGB_BLACK);
         SetGpuReg(REG_OFFSET_WININ, tWinIn);
         SetGpuReg(REG_OFFSET_WINOUT, tWinOut);
         ScriptContext_Enable();
@@ -1314,6 +1390,169 @@ static bool8 WaitStairExitMovementFinished(s16 *a0, s16 *a1, s16 *a2, s16 *a3, s
         sprite->x2 = *a2 >> 5;
         sprite->y2 = *a3 >> 5;
         (*a4)--;
+static const struct WindowTemplate sWindowTemplate_WhiteoutText =
+{
+    .bg = 0,
+    .tilemapLeft = 0,
+    .tilemapTop = 5,
+    .width = 30,
+    .height = 11,
+    .paletteNum = 15,
+    .baseBlock = 1,
+};
+
+static const u8 sWhiteoutTextColors[] = { TEXT_COLOR_TRANSPARENT, TEXT_COLOR_WHITE, TEXT_COLOR_DARK_GRAY };
+
+#define tState         data[0]
+#define tWindowId      data[1]
+#define tPrintState    data[2]
+#define tIsPlayerHouse data[3]
+
+static bool32 PrintWhiteOutRecoveryMessage(u8 taskId, const u8 *text, u32 x, u32 y)
+{
+    u32 windowId = gTasks[taskId].tWindowId;
+
+    switch (gTasks[taskId].tPrintState)
+    {
+    case 0:
+        FillWindowPixelBuffer(windowId, PIXEL_FILL(0));
+        StringExpandPlaceholders(gStringVar4, text);
+        AddTextPrinterParameterized4(windowId, FONT_NORMAL, x, y, 1, 0, sWhiteoutTextColors, 1, gStringVar4);
+        gTextFlags.canABSpeedUpPrint = FALSE;
+        gTasks[taskId].tPrintState = 1;
+        break;
+    case 1:
+        RunTextPrinters();
+        if (!IsTextPrinterActive(windowId))
+        {
+            gTasks[taskId].tPrintState = 0;
+            return TRUE;
+        }
+        break;
+    }
+    return FALSE;
+}
+
+enum {
+    FRLG_WHITEOUT_ENTER_MSG_SCREEN,
+    FRLG_WHITEOUT_PRINT_MSG,
+    FRLG_WHITEOUT_LEAVE_MSG_SCREEN,
+    FRLG_WHITEOUT_HEAL_SCRIPT,
+};
+
+static const u8 *GenerateRecoveryMessage(u8 taskId)
+{
+    bool32 forfeitTrainer = DidPlayerForfeitNormalTrainerBattle();
+    bool32 destinationIsPlayersHouse = (gTasks[taskId].tIsPlayerHouse == TRUE);
+
+    if (forfeitTrainer && destinationIsPlayersHouse)
+        return gText_PlayerRegroupHome;
+    else if (forfeitTrainer && !destinationIsPlayersHouse)
+        return gText_PlayerRegroupCenter;
+    else if (!forfeitTrainer && destinationIsPlayersHouse)
+        return gText_PlayerScurriedBackHome;
+    else
+        return gText_PlayerScurriedToCenter;
+}
+
+static void Task_RushInjuredPokemonToCenter(u8 taskId)
+{
+    u32 windowId;
+
+    switch (gTasks[taskId].tState)
+    {
+    case FRLG_WHITEOUT_ENTER_MSG_SCREEN:
+        windowId = AddWindow(&sWindowTemplate_WhiteoutText);
+        gTasks[taskId].tWindowId = windowId;
+        Menu_LoadStdPalAt(BG_PLTT_ID(15));
+        FillWindowPixelBuffer(windowId, PIXEL_FILL(0));
+        PutWindowTilemap(windowId);
+        CopyWindowToVram(windowId, COPYWIN_FULL);
+
+        gTasks[taskId].tIsPlayerHouse = IsLastHealLocationPlayerHouse();
+        gTasks[taskId].tState = FRLG_WHITEOUT_PRINT_MSG;
+        break;
+    case FRLG_WHITEOUT_PRINT_MSG:
+    {
+        const u8 *recoveryMessage = GenerateRecoveryMessage(taskId);
+
+        if (PrintWhiteOutRecoveryMessage(taskId, recoveryMessage, 2, 8))
+        {
+            ObjectEventTurn(&gObjectEvents[gPlayerAvatar.objectEventId], DIR_NORTH);
+            gTasks[taskId].tState = FRLG_WHITEOUT_LEAVE_MSG_SCREEN;
+        }
+        break;
+    }
+    case FRLG_WHITEOUT_LEAVE_MSG_SCREEN:
+        windowId = gTasks[taskId].tWindowId;
+        ClearWindowTilemap(windowId);
+        CopyWindowToVram(windowId, COPYWIN_MAP);
+        RemoveWindow(windowId);
+        FadeInFromBlack();
+        gTasks[taskId].tState = FRLG_WHITEOUT_HEAL_SCRIPT;
+        break;
+    case FRLG_WHITEOUT_HEAL_SCRIPT:
+        if (WaitForWeatherFadeIn() == TRUE)
+        {
+            DestroyTask(taskId);
+            if (gTasks[taskId].tIsPlayerHouse)
+                ScriptContext_SetupScript(EventScript_AfterWhiteOutMomHeal);
+            else
+                ScriptContext_SetupScript(EventScript_AfterWhiteOutHeal);
+        }
+        break;
+    }
+}
+
+void FieldCB_RushInjuredPokemonToCenter(void)
+{
+    u8 taskId;
+
+    LockPlayerFieldControls();
+    FillPalBufferBlack();
+    taskId = CreateTask(Task_RushInjuredPokemonToCenter, 10);
+    gTasks[taskId].tState = FRLG_WHITEOUT_ENTER_MSG_SCREEN;
+}
+
+static void GetStairsMovementDirection(u32 metatileBehavior, s16 *speedX, s16 *speedY)
+{
+    if (MetatileBehavior_IsDirectionalUpRightStairWarp(metatileBehavior))
+    {
+        *speedX = 16;
+        *speedY = -10;
+    }
+    else if (MetatileBehavior_IsDirectionalUpLeftStairWarp(metatileBehavior))
+    {
+        *speedX = -17;
+        *speedY = -10;
+    }
+    else if (MetatileBehavior_IsDirectionalDownRightStairWarp(metatileBehavior))
+    {
+        *speedX = 17;
+        *speedY = 3;
+    }
+    else if (MetatileBehavior_IsDirectionalDownLeftStairWarp(metatileBehavior))
+    {
+        *speedX = -17;
+        *speedY = 3;
+    }
+    else
+    {
+        *speedX = 0;
+        *speedY = 0;
+    }
+}
+
+static bool8 WaitStairExitMovementFinished(s16 *speedX, s16 *speedY, s16 *offsetX, s16 *offsetY, s16 *timer)
+{
+    struct Sprite *sprite = &gSprites[gPlayerAvatar.spriteId];
+    if (*timer != 0)
+    {
+        *offsetX += *speedX;
+        *offsetY += *speedY;
+        sprite->x2 = *offsetX >> 5;
+        sprite->y2 = *offsetY >> 5;
+        (*timer)--;
         return TRUE;
     }
     else
@@ -1324,42 +1563,49 @@ static bool8 WaitStairExitMovementFinished(s16 *a0, s16 *a1, s16 *a2, s16 *a3, s
     }
 }
 
-static void ExitStairsMovement(s16 *a0, s16 *a1, s16 *a2, s16 *a3, s16 *a4)
+static void ExitStairsMovement(s16 *speedX, s16 *speedY, s16 *offsetX, s16 *offsetY, s16 *timer)
 {
     s16 x, y;
-    u8 behavior;
-    s32 r1;
+    u32 metatileBehavior;
+    s32 direction;
     struct Sprite *sprite;
 
     PlayerGetDestCoords(&x, &y);
-    behavior = MapGridGetMetatileBehaviorAt(x, y);
-    if (MetatileBehavior_IsDirectionalDownRightStairWarp(behavior) || MetatileBehavior_IsDirectionalUpRightStairWarp(behavior))
-        r1 = 3;
+    metatileBehavior = MapGridGetMetatileBehaviorAt(x, y);
+    if (MetatileBehavior_IsDirectionalDownRightStairWarp(metatileBehavior) || MetatileBehavior_IsDirectionalUpRightStairWarp(metatileBehavior))
+        direction = DIR_WEST;
     else
-        r1 = 4;
+        direction = DIR_EAST;
 
-    ObjectEventForceSetHeldMovement(&gObjectEvents[gPlayerAvatar.objectEventId], GetWalkInPlaceSlowMovementAction(r1));
-    GetStairsMovementDirection(behavior, a0, a1);
-    *a2 = *a0 * 16;
-    *a3 = *a1 * 16;
-    *a4 = 16;
+    ObjectEventForceSetHeldMovement(&gObjectEvents[gPlayerAvatar.objectEventId], GetWalkInPlaceSlowMovementAction(direction));
+    GetStairsMovementDirection(metatileBehavior, speedX, speedY);
+    *offsetX = *speedX * 16;
+    *offsetY = *speedY * 16;
+    *timer = 16;
     sprite = &gSprites[gPlayerAvatar.spriteId];
-    sprite->x2 = *a2 >> 5;
-    sprite->y2 = *a3 >> 5;
-    *a0 *= -1;
-    *a1 *= -1;
+    sprite->x2 = *offsetX >> 5;
+    sprite->y2 = *offsetY >> 5;
+    *speedX *= -1;
+    *speedY *= -1;
 }
+
+#define tState data[0]
+#define tSpeedX data[1]
+#define tSpeedY data[2]
+#define tOffsetX data[3]
+#define tOffsetY data[4]
+#define tTimer data[5]
 
 static void Task_ExitStairs(u8 taskId)
 {
     s16 * data = gTasks[taskId].data;
-    switch (data[0])
+    switch (tState)
     {
     default:
         if (WaitForWeatherFadeIn() == TRUE)
         {
-            CameraObjectReset1();
-            UnlockPlayerFieldControls();;
+            CameraObjectReset();
+            UnlockPlayerFieldControls();
             DestroyTask(taskId);
         }
         break;
@@ -1367,101 +1613,96 @@ static void Task_ExitStairs(u8 taskId)
         Overworld_PlaySpecialMapMusic();
         WarpFadeInScreen();
         LockPlayerFieldControls();
-        ExitStairsMovement(&data[1], &data[2], &data[3], &data[4], &data[5]);
-        data[0]++;
+        ExitStairsMovement(&tSpeedX, &tSpeedY, &tOffsetX, &tOffsetY, &tTimer);
+        tState++;
         break;
     case 1:
-        if (!WaitStairExitMovementFinished(&data[1], &data[2], &data[3], &data[4], &data[5]))
-            data[0]++;
+        if (!WaitStairExitMovementFinished(&tSpeedX, &tSpeedY, &tOffsetX, &tOffsetY, &tTimer))
+            tState++;
         break;
     }
 }
 
-bool8 IsDirectionalStairWarpMetatileBehavior(u16 metatileBehavior, u8 playerDirection)
-{
-    switch (playerDirection)
-    {
-    case DIR_WEST:
-        if (MetatileBehavior_IsDirectionalUpLeftStairWarp(metatileBehavior))
-            return TRUE;
-        if (MetatileBehavior_IsDirectionalDownLeftStairWarp(metatileBehavior))
-            return TRUE;
-        break;
-    case DIR_EAST:
-        if (MetatileBehavior_IsDirectionalUpRightStairWarp(metatileBehavior))
-            return TRUE;
-        if (MetatileBehavior_IsDirectionalDownRightStairWarp(metatileBehavior))
-            return TRUE;
-        break;
-    }
-    return FALSE;
-}
-
-static void ForceStairsMovement(u16 a0, s16 *a1, s16 *a2)
+static void ForceStairsMovement(u32 metatileBehavior, s16 *speedX, s16 *speedY)
 {
     ObjectEventForceSetHeldMovement(&gObjectEvents[gPlayerAvatar.objectEventId], GetWalkInPlaceNormalMovementAction(GetPlayerFacingDirection()));
-    GetStairsMovementDirection(a0, a1, a2);
+    GetStairsMovementDirection(metatileBehavior, speedX, speedY);
 }
+#undef tSpeedX
+#undef tSpeedY
+#undef tOffsetX
+#undef tOffsetY
+#undef tTimer
 
-static void UpdateStairsMovement(s16 a0, s16 a1, s16 *a2, s16 *a3, s16 *a4)
+#define tMetatileBehavior data[1]
+#define tSpeedX           data[2]
+#define tSpeedY           data[3]
+#define tOffsetX          data[4]
+#define tOffsetY          data[5]
+#define tTimer            data[6]
+#define tDelay            data[15]
+
+static void UpdateStairsMovement(s16 speedX, s16 speedY, s16 *offsetX, s16 *offsetY, s16 *timer)
 {
-    struct Sprite *playerSpr = &gSprites[gPlayerAvatar.spriteId];
-    struct ObjectEvent *playerObj = &gObjectEvents[gPlayerAvatar.objectEventId];
+    struct Sprite *playerSprite = &gSprites[gPlayerAvatar.spriteId];
+    struct ObjectEvent *playerObjectEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
 
-    if (a1 > 0 || *a4 > 6)
-        *a3 += a1;
+    if (speedY > 0 || *timer > 6)
+        *offsetY += speedY;
 
-    *a2 += a0;
-    (*a4)++;
-    playerSpr->x2 = *a2 >> 5;
-    playerSpr->y2 = *a3 >> 5;
-    if (playerObj->heldMovementFinished)
-        ObjectEventForceSetHeldMovement(playerObj, GetWalkInPlaceNormalMovementAction(GetPlayerFacingDirection()));
+    *offsetX += speedX;
+    (*timer)++;
+    playerSprite->x2 = *offsetX >> 5;
+    playerSprite->y2 = *offsetY >> 5;
+    if (playerObjectEvent->heldMovementFinished)
+        ObjectEventForceSetHeldMovement(playerObjectEvent, GetWalkInPlaceNormalMovementAction(GetPlayerFacingDirection()));
 }
 
 static void Task_StairWarp(u8 taskId)
 {
     s16 * data = gTasks[taskId].data;
-    struct ObjectEvent *playerObj = &gObjectEvents[gPlayerAvatar.objectEventId];
-    struct Sprite *playerSpr = &gSprites[gPlayerAvatar.spriteId];
+    struct ObjectEvent *playerObjectEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
+    struct Sprite *playerSprite = &gSprites[gPlayerAvatar.spriteId];
 
-    switch (data[0])
+    switch (tState)
     {
     case 0:
         LockPlayerFieldControls();
         FreezeObjectEvents();
-        CameraObjectReset2();
-        data[0]++;
+        CameraObjectFreeze();
+        tState++;
         break;
     case 1:
-        if (!ObjectEventIsMovementOverridden(playerObj) || ObjectEventClearHeldMovementIfFinished(playerObj))
+        if (!ObjectEventIsMovementOverridden(playerObjectEvent) || ObjectEventClearHeldMovementIfFinished(playerObjectEvent))
         {
-            if (data[15] != 0)
-                data[15]--;
+            if (tDelay != 0)
+            {
+                tDelay--;
+            }
             else
             {
                 TryFadeOutOldMapMusic();
                 PlayRainStoppingSoundEffect();
-                playerSpr->oam.priority = 1;
-                ForceStairsMovement(data[1], &data[2], &data[3]);
+                playerSprite->oam.priority = 1;
+                ForceStairsMovement(tMetatileBehavior, &tSpeedX, &tSpeedY);
                 PlaySE(SE_EXIT);
-                data[0]++;
+                tState++;
             }
         }
         break;
     case 2:
-        UpdateStairsMovement(data[2], data[3], &data[4], &data[5], &data[6]);
-        data[15]++;
-        if (data[15] >= 12)
+        UpdateStairsMovement(tSpeedX, tSpeedY, &tOffsetX, &tOffsetY, &tTimer);
+        tDelay++;
+        if (tDelay >= 12)
         {
             WarpFadeOutScreen();
-            data[0]++;
+            tState++;
         }
         break;
     case 3:
-        UpdateStairsMovement(data[2], data[3], &data[4], &data[5], &data[6]);
+        UpdateStairsMovement(tSpeedX, tSpeedY, &tOffsetX, &tOffsetY, &tTimer);
         if (!PaletteFadeActive() && BGMusicStopped())
-            data[0]++;
+            tState++;
         break;
     default:
         gFieldCallback = FieldCB_DefaultWarpExit;
@@ -1475,7 +1716,34 @@ static void Task_StairWarp(u8 taskId)
 void DoStairWarp(u16 metatileBehavior, u16 delay)
 {
     u8 taskId = CreateTask(Task_StairWarp, 10);
-    gTasks[taskId].data[1] = metatileBehavior;
-    gTasks[taskId].data[15] = delay;
+    gTasks[taskId].tMetatileBehavior = metatileBehavior;
+    gTasks[taskId].tDelay = delay;
     Task_StairWarp(taskId);
+}
+
+#undef tMetatileBehavior
+#undef tSpeedX
+#undef tSpeedY
+#undef tOffsetX
+#undef tOffsetY
+#undef tTimer
+#undef tDelay
+
+bool32 IsDirectionalStairWarpMetatileBehavior(u16 metatileBehavior, u8 playerDirection)
+{
+    if (playerDirection == DIR_WEST)
+    {
+        if (MetatileBehavior_IsDirectionalUpLeftStairWarp(metatileBehavior))
+            return TRUE;
+        if (MetatileBehavior_IsDirectionalDownLeftStairWarp(metatileBehavior))
+            return TRUE;
+    }
+    else if (playerDirection == DIR_EAST)
+    {
+        if (MetatileBehavior_IsDirectionalUpRightStairWarp(metatileBehavior))
+            return TRUE;
+        if (MetatileBehavior_IsDirectionalDownRightStairWarp(metatileBehavior))
+            return TRUE;
+    }
+    return FALSE;
 }

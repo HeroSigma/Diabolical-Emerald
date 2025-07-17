@@ -11,12 +11,12 @@
 #include "constants/battle_move_effects.h"
 
 // this file's functions
-static bool8 IsNotSpecialBattleString(u16 stringId);
+static bool8 IsNotSpecialBattleString(enum StringID stringId);
 static void AddMovePoints(u8 caseId, u16 arg1, u8 arg2, u8 arg3);
 static void TrySetBattleSeminarShow(void);
 static void AddPointsOnFainting(bool8 targetFainted);
-static void AddPointsBasedOnWeather(u16 weatherFlags, u16 moveId, u8 moveSlot);
-static bool8 ShouldCalculateDamage(u16 moveId, s32 *dmg, u16 *powerOverride);
+static void AddPointsBasedOnWeather(u16 weatherFlags, u16 move, u8 moveSlot);
+static bool8 ShouldCalculateDamage(u16 move, s32 *dmg, u16 *powerOverride);
 
 #define TABLE_END ((u16)-1)
 
@@ -27,10 +27,10 @@ enum {
     PTS_RAIN,
     PTS_SUN,
     PTS_SANDSTORM,
-    PTS_HAIL,
+    PTS_HAIL_SNOW,
     PTS_ELECTRIC,
     PTS_STATUS_DMG,
-    PTS_STATUS,
+    PTS_STATUS_SKIP_TURN,
     PTS_SPIKES,
     PTS_WATER_SPORT,
     PTS_MUD_SPORT,
@@ -45,9 +45,11 @@ enum {
     PTS_FLINCHED,
     PTS_STAT_INCREASE_1,
     PTS_STAT_INCREASE_2,
+    PTS_STAT_INCREASE_3,
     PTS_STAT_DECREASE_SELF,
     PTS_STAT_DECREASE_1,
     PTS_STAT_DECREASE_2,
+    PTS_STAT_DECREASE_3,
     PTS_STAT_INCREASE_NOT_SELF,
 };
 
@@ -84,224 +86,6 @@ static const u16 sVariableDmgMoves[] =
     MOVE_MAGNITUDE, MOVE_PSYWAVE, TABLE_END
 };
 
-static const u16 sPoints_MoveEffect[NUM_BATTLE_MOVE_EFFECTS] =
-{
-    [EFFECT_HIT] = 1,
-    [EFFECT_SLEEP] = 1,
-    [EFFECT_POISON_HIT] = 1,
-    [EFFECT_ABSORB] = 4,
-    [EFFECT_BURN_HIT] = 1,
-    [EFFECT_FREEZE_HIT] = 1,
-    [EFFECT_PARALYZE_HIT] = 1,
-    [EFFECT_EXPLOSION] = 0,
-    [EFFECT_DREAM_EATER] = 5,
-    [EFFECT_MIRROR_MOVE] = 1,
-    [EFFECT_ATTACK_UP] = 1,
-    [EFFECT_DEFENSE_UP] = 1,
-    [EFFECT_SPEED_UP] = 1,
-    [EFFECT_SPECIAL_ATTACK_UP] = 1,
-    [EFFECT_SPECIAL_DEFENSE_UP] = 1,
-    [EFFECT_ACCURACY_UP] = 1,
-    [EFFECT_EVASION_UP] = 1,
-    [EFFECT_ALWAYS_HIT] = 2,
-    [EFFECT_ATTACK_DOWN] = 1,
-    [EFFECT_DEFENSE_DOWN] = 1,
-    [EFFECT_SPEED_DOWN] = 1,
-    [EFFECT_SPECIAL_ATTACK_DOWN] = 1,
-    [EFFECT_SPECIAL_DEFENSE_DOWN] = 1,
-    [EFFECT_ACCURACY_DOWN] = 1,
-    [EFFECT_EVASION_DOWN] = 1,
-    [EFFECT_HAZE] = 5,
-    [EFFECT_BIDE] = 5,
-    [EFFECT_RAMPAGE] = 4,
-    [EFFECT_ROAR] = 5,
-    [EFFECT_MULTI_HIT] = 1,
-    [EFFECT_CONVERSION] = 3,
-    [EFFECT_FLINCH_HIT] = 1,
-    [EFFECT_RESTORE_HP] = 3,
-    [EFFECT_TOXIC] = 5,
-    [EFFECT_PAY_DAY] = 1,
-    [EFFECT_LIGHT_SCREEN] = 7,
-    [EFFECT_TRI_ATTACK] = 1,
-    [EFFECT_REST] = 7,
-    [EFFECT_OHKO] = 7,
-    [EFFECT_RAZOR_WIND] = 1,
-    [EFFECT_SUPER_FANG] = 5,
-    [EFFECT_DRAGON_RAGE] = 2,
-    [EFFECT_TRAP] = 4,
-    [EFFECT_HIGH_CRITICAL] = 1,
-    [EFFECT_DOUBLE_HIT] = 1,
-    [EFFECT_RECOIL_IF_MISS] = 1,
-    [EFFECT_MIST] = 5,
-    [EFFECT_FOCUS_ENERGY] = 1,
-    [EFFECT_RECOIL] = 2,
-    [EFFECT_CONFUSE] = 4,
-    [EFFECT_ATTACK_UP_2] = 1,
-    [EFFECT_DEFENSE_UP_2] = 1,
-    [EFFECT_SPEED_UP_2] = 1,
-    [EFFECT_SPECIAL_ATTACK_UP_2] = 1,
-    [EFFECT_SPECIAL_DEFENSE_UP_2] = 1,
-    [EFFECT_ACCURACY_UP_2] = 1,
-    [EFFECT_EVASION_UP_2] = 1,
-    [EFFECT_TRANSFORM] = 0,
-    [EFFECT_ATTACK_DOWN_2] = 1,
-    [EFFECT_DEFENSE_DOWN_2] = 1,
-    [EFFECT_SPEED_DOWN_2] = 1,
-    [EFFECT_SPECIAL_ATTACK_DOWN_2] = 1,
-    [EFFECT_SPECIAL_DEFENSE_DOWN_2] = 1,
-    [EFFECT_ACCURACY_DOWN_2] = 1,
-    [EFFECT_EVASION_DOWN_2] = 1,
-    [EFFECT_REFLECT] = 7,
-    [EFFECT_POISON] = 4,
-    [EFFECT_PARALYZE] = 4,
-    [EFFECT_ATTACK_DOWN_HIT] = 1,
-    [EFFECT_DEFENSE_DOWN_HIT] = 1,
-    [EFFECT_SPEED_DOWN_HIT] = 1,
-    [EFFECT_SPECIAL_ATTACK_DOWN_HIT] = 1,
-    [EFFECT_SPECIAL_DEFENSE_DOWN_HIT] = 1,
-    [EFFECT_ACCURACY_DOWN_HIT] = 1,
-    [EFFECT_EVASION_DOWN_HIT] = 1,
-    [EFFECT_SKY_ATTACK] = 4,
-    [EFFECT_CONFUSE_HIT] = 1,
-    [EFFECT_TWINEEDLE] = 1,
-    [EFFECT_VITAL_THROW] = 1,
-    [EFFECT_SUBSTITUTE] = 4,
-    [EFFECT_RECHARGE] = 5,
-    [EFFECT_RAGE] = 2,
-    [EFFECT_MIMIC] = 4,
-    [EFFECT_METRONOME] = 1,
-    [EFFECT_LEECH_SEED] = 4,
-    [EFFECT_SPLASH] = 1,
-    [EFFECT_DISABLE] = 7,
-    [EFFECT_LEVEL_DAMAGE] = 2,
-    [EFFECT_PSYWAVE] = 1,
-    [EFFECT_COUNTER] = 5,
-    [EFFECT_ENCORE] = 7,
-    [EFFECT_PAIN_SPLIT] = 3,
-    [EFFECT_SNORE] = 3,
-    [EFFECT_CONVERSION_2] = 4,
-    [EFFECT_LOCK_ON] = 3,
-    [EFFECT_SKETCH] = 3,
-    [EFFECT_UNUSED_60] = 3,
-    [EFFECT_SLEEP_TALK] = 3,
-    [EFFECT_DESTINY_BOND] = 3,
-    [EFFECT_FLAIL] = 2,
-    [EFFECT_SPITE] = 4,
-    [EFFECT_FALSE_SWIPE] = 1,
-    [EFFECT_HEAL_BELL] = 5,
-    [EFFECT_QUICK_ATTACK] = 1,
-    [EFFECT_TRIPLE_KICK] = 1,
-    [EFFECT_THIEF] = 4,
-    [EFFECT_MEAN_LOOK] = 5,
-    [EFFECT_NIGHTMARE] = 3,
-    [EFFECT_MINIMIZE] = 1,
-    [EFFECT_CURSE] = 2,
-    [EFFECT_UNUSED_6E] = 1,
-    [EFFECT_PROTECT] = 5,
-    [EFFECT_SPIKES] = 4,
-    [EFFECT_FORESIGHT] = 3,
-    [EFFECT_PERISH_SONG] = 6,
-    [EFFECT_SANDSTORM] = 4,
-    [EFFECT_ENDURE] = 3,
-    [EFFECT_ROLLOUT] = 3,
-    [EFFECT_SWAGGER] = 3,
-    [EFFECT_FURY_CUTTER] = 2,
-    [EFFECT_ATTRACT] = 4,
-    [EFFECT_RETURN] = 1,
-    [EFFECT_PRESENT] = 1,
-    [EFFECT_FRUSTRATION] = 1,
-    [EFFECT_SAFEGUARD] = 5,
-    [EFFECT_THAW_HIT] = 1,
-    [EFFECT_MAGNITUDE] = 1,
-    [EFFECT_BATON_PASS] = 7,
-    [EFFECT_PURSUIT] = 2,
-    [EFFECT_RAPID_SPIN] = 2,
-    [EFFECT_SONICBOOM] = 1,
-    [EFFECT_UNUSED_83] = 1,
-    [EFFECT_MORNING_SUN] = 4,
-    [EFFECT_SYNTHESIS] = 4,
-    [EFFECT_MOONLIGHT] = 4,
-    [EFFECT_HIDDEN_POWER] = 1,
-    [EFFECT_RAIN_DANCE] = 4,
-    [EFFECT_SUNNY_DAY] = 4,
-    [EFFECT_DEFENSE_UP_HIT] = 1,
-    [EFFECT_ATTACK_UP_HIT] = 1,
-    [EFFECT_ALL_STATS_UP_HIT] = 1,
-    [EFFECT_UNUSED_8D] = 1,
-    [EFFECT_BELLY_DRUM] = 7,
-    [EFFECT_PSYCH_UP] = 7,
-    [EFFECT_MIRROR_COAT] = 6,
-    [EFFECT_SKULL_BASH] = 3,
-    [EFFECT_TWISTER] = 1,
-    [EFFECT_EARTHQUAKE] = 1,
-    [EFFECT_FUTURE_SIGHT] = 1,
-    [EFFECT_GUST] = 1,
-    [EFFECT_FLINCH_MINIMIZE_HIT] = 1,
-    [EFFECT_SOLAR_BEAM] = 1,
-    [EFFECT_THUNDER] = 1,
-    [EFFECT_TELEPORT] = 1,
-    [EFFECT_BEAT_UP] = 2,
-    [EFFECT_SEMI_INVULNERABLE] = 3,
-    [EFFECT_DEFENSE_CURL] = 1,
-    [EFFECT_SOFTBOILED] = 1,
-    [EFFECT_FAKE_OUT] = 4,
-    [EFFECT_UPROAR] = 4,
-    [EFFECT_STOCKPILE] = 3,
-    [EFFECT_SPIT_UP] = 3,
-    [EFFECT_SWALLOW] = 3,
-    [EFFECT_UNUSED_A3] = 1,
-    [EFFECT_HAIL] = 4,
-    [EFFECT_TORMENT] = 7,
-    [EFFECT_FLATTER] = 7,
-    [EFFECT_WILL_O_WISP] = 5,
-    [EFFECT_MEMENTO] = 7,
-    [EFFECT_FACADE] = 1,
-    [EFFECT_FOCUS_PUNCH] = 7,
-    [EFFECT_SMELLINGSALT] = 1,
-    [EFFECT_FOLLOW_ME] = 5,
-    [EFFECT_NATURE_POWER] = 0,
-    [EFFECT_CHARGE] = 4,
-    [EFFECT_TAUNT] = 4,
-    [EFFECT_HELPING_HAND] = 4,
-    [EFFECT_TRICK] = 4,
-    [EFFECT_ROLE_PLAY] = 4,
-    [EFFECT_WISH] = 2,
-    [EFFECT_ASSIST] = 2,
-    [EFFECT_INGRAIN] = 6,
-    [EFFECT_SUPERPOWER] = 3,
-    [EFFECT_MAGIC_COAT] = 6,
-    [EFFECT_RECYCLE] = 4,
-    [EFFECT_REVENGE] = 4,
-    [EFFECT_BRICK_BREAK] = 2,
-    [EFFECT_YAWN] = 5,
-    [EFFECT_KNOCK_OFF] = 2,
-    [EFFECT_ENDEAVOR] = 1,
-    [EFFECT_ERUPTION] = 1,
-    [EFFECT_SKILL_SWAP] = 6,
-    [EFFECT_IMPRISON] = 6,
-    [EFFECT_REFRESH] = 6,
-    [EFFECT_GRUDGE] = 1,
-    [EFFECT_SNATCH] = 1,
-    [EFFECT_LOW_KICK] = 1,
-    [EFFECT_SECRET_POWER] = 1,
-    [EFFECT_DOUBLE_EDGE] = 2,
-    [EFFECT_TEETER_DANCE] = 6,
-    [EFFECT_BLAZE_KICK] = 1,
-    [EFFECT_MUD_SPORT] = 4,
-    [EFFECT_POISON_FANG] = 1,
-    [EFFECT_WEATHER_BALL] = 1,
-    [EFFECT_OVERHEAT] = 3,
-    [EFFECT_TICKLE] = 1,
-    [EFFECT_COSMIC_POWER] = 1,
-    [EFFECT_SKY_UPPERCUT] = 1,
-    [EFFECT_BULK_UP] = 1,
-    [EFFECT_POISON_TAIL] = 1,
-    [EFFECT_WATER_SPORT] = 4,
-    [EFFECT_CALM_MIND] = 1,
-    [EFFECT_DRAGON_DANCE] = 1,
-    [EFFECT_CAMOUFLAGE] = 3
-};
-
 static const u16 sPoints_Effectiveness[] =
 {
     4,  // Super Effective
@@ -318,89 +102,6 @@ static const u16 sPoints_SetUp[] =
     6,
     2  // Ingrain
 };
-static const u16 sPoints_RainMoves[] =
-{
-    MOVE_BUBBLE, 3,
-    MOVE_WHIRLPOOL, 3,
-    MOVE_OCTAZOOKA, 3,
-    MOVE_CLAMP, 3,
-    MOVE_WITHDRAW, 3,
-    MOVE_CRABHAMMER, 3,
-    MOVE_WATER_SPOUT, 3,
-    MOVE_DIVE, 3,
-    MOVE_WATERFALL, 3,
-    MOVE_MUDDY_WATER, 3,
-    MOVE_SURF, 3,
-    MOVE_HYDRO_CANNON, 3,
-    MOVE_HYDRO_PUMP, 3,
-    MOVE_BUBBLE_BEAM, 3,
-    MOVE_WATER_SPORT, 0, // Unnecessary, unlisted moves are already given 0 points
-    MOVE_WATER_GUN, 3,
-    MOVE_WATER_PULSE, 3,
-    MOVE_WEATHER_BALL, 3,
-    MOVE_THUNDER, 3,
-    MOVE_SOLAR_BEAM, -4,
-    MOVE_OVERHEAT, -4,
-    MOVE_FLAME_WHEEL, -4,
-    MOVE_FLAMETHROWER, -4,
-    MOVE_SACRED_FIRE, -4,
-    MOVE_FIRE_BLAST, -4,
-    MOVE_HEAT_WAVE, -4,
-    MOVE_EMBER, -4,
-    MOVE_BLAST_BURN, -4,
-    MOVE_BLAZE_KICK, -4,
-    MOVE_ERUPTION, -4,
-    MOVE_FIRE_SPIN, -4,
-    MOVE_FIRE_PUNCH, -4,
-    MOVE_SOLAR_BEAM, -4, // Repeated
-    TABLE_END, 0
-};
-static const u16 sPoints_SunMoves[] =
-{
-    MOVE_OVERHEAT, 3,
-    MOVE_FLAME_WHEEL, 3,
-    MOVE_FLAMETHROWER, 3,
-    MOVE_SACRED_FIRE, 3,
-    MOVE_FIRE_BLAST, 3,
-    MOVE_HEAT_WAVE, 3,
-    MOVE_EMBER, 3,
-    MOVE_BLAST_BURN, 3,
-    MOVE_BLAZE_KICK, 3,
-    MOVE_ERUPTION, 3,
-    MOVE_FIRE_SPIN, 3,
-    MOVE_FIRE_PUNCH, 3,
-    MOVE_SOLAR_BEAM, 5,
-    MOVE_SYNTHESIS, 3,
-    MOVE_MORNING_SUN, 3,
-    MOVE_MOONLIGHT, 3,
-    MOVE_WEATHER_BALL, 3,
-    TABLE_END, 0
-};
-static const u16 sPoints_SandstormMoves[] =
-{
-    MOVE_WEATHER_BALL, 3,
-    MOVE_SOLAR_BEAM, -3,
-    TABLE_END, 0
-};
-static const u16 sPoints_HailMoves[] =
-{
-    MOVE_WEATHER_BALL, 3,
-    MOVE_SOLAR_BEAM, -3,
-    TABLE_END, 0
-};
-static const u16 sPoints_ElectricMoves[] =
-{
-    MOVE_THUNDERBOLT, 3,
-    MOVE_THUNDER_PUNCH, 3,
-    MOVE_SPARK, 3,
-    MOVE_THUNDER_SHOCK, 3,
-    MOVE_ZAP_CANNON, 3,
-    MOVE_SHOCK_WAVE, 3,
-    MOVE_THUNDER_WAVE, 0, // Unnecessary, unlisted moves are already given 0 points
-    MOVE_THUNDER, 3,
-    MOVE_VOLT_TACKLE, 3,
-    TABLE_END, 0
-};
 static const u16 sPoints_StatusDmg[] =
 {
     5, // Curse
@@ -411,118 +112,12 @@ static const u16 sPoints_StatusDmg[] =
     3, // Nightmare
     3  // Wrap (Trapping move)
 };
-static const u16 sPoints_Status[] =
-{
-    5, // Attraction
-    5, // Confusion
-    5, // Paralysis
-    5, // Sleep
-    5  // Freeze
-};
-
-static const u16 sPoints_Spikes[] = { 4 };
-static const u16 sPoints_WaterSport[] = { 5 };
-static const u16 sPoints_MudSport[] = { 5 };
-static const u16 sPoints_Reflect[] = { 3 };
-static const u16 sPoints_LightScreen[] = { 3 };
-static const u16 sPoints_Safeguard[] = { 4 };
-static const u16 sPoints_Mist[] = { 3 };
-static const u16 sPoints_BreakWall[] = { 6 };
-static const u16 sPoints_CriticalHit[] = { 6 };
-static const u16 sPoints_Faint[] = { 6 };
-static const u16 sPoints_Flinched[] = { 4 };
-
-static const u16 sPoints_StatIncrease1[NUM_BATTLE_STATS - 1] =
-{
-    [STAT_ATK - 1]     = 2,
-    [STAT_DEF - 1]     = 2,
-    [STAT_SPEED - 1]   = 2,
-    [STAT_SPATK - 1]   = 2,
-    [STAT_SPDEF - 1]   = 2,
-    [STAT_ACC - 1]     = 2,
-    [STAT_EVASION - 1] = 2
-};
-static const u16 sPoints_StatIncrease2[NUM_BATTLE_STATS - 1] =
-{
-    [STAT_ATK - 1]     = 4,
-    [STAT_DEF - 1]     = 4,
-    [STAT_SPEED - 1]   = 4,
-    [STAT_SPATK - 1]   = 4,
-    [STAT_SPDEF - 1]   = 4,
-    [STAT_ACC - 1]     = 4,
-    [STAT_EVASION - 1] = 4
-};
-static const u16 sPoints_StatDecreaseSelf[NUM_BATTLE_STATS - 1] =
-{
-    [STAT_ATK - 1]     = -1,
-    [STAT_DEF - 1]     = -1,
-    [STAT_SPEED - 1]   = -1,
-    [STAT_SPATK - 1]   = -1,
-    [STAT_SPDEF - 1]   = -1,
-    [STAT_ACC - 1]     = -1,
-    [STAT_EVASION - 1] = -1
-};
-static const u16 sPoints_StatDecrease1[NUM_BATTLE_STATS - 1] =
-{
-    [STAT_ATK - 1]     = 2,
-    [STAT_DEF - 1]     = 2,
-    [STAT_SPEED - 1]   = 2,
-    [STAT_SPATK - 1]   = 2,
-    [STAT_SPDEF - 1]   = 2,
-    [STAT_ACC - 1]     = 2,
-    [STAT_EVASION - 1] = 2
-};
-static const u16 sPoints_StatDecrease2[NUM_BATTLE_STATS - 1] =
-{
-    [STAT_ATK - 1]     = 4,
-    [STAT_DEF - 1]     = 4,
-    [STAT_SPEED - 1]   = 4,
-    [STAT_SPATK - 1]   = 4,
-    [STAT_SPDEF - 1]   = 4,
-    [STAT_ACC - 1]     = 4,
-    [STAT_EVASION - 1] = 4
-};
-static const u16 sPoints_StatIncreaseNotSelf[NUM_BATTLE_STATS - 1] =
-{
-    [STAT_ATK - 1]     = -2,
-    [STAT_DEF - 1]     = -2,
-    [STAT_SPEED - 1]   = -2,
-    [STAT_SPATK - 1]   = -2,
-    [STAT_SPDEF - 1]   = -2,
-    [STAT_ACC - 1]     = -2,
-    [STAT_EVASION - 1] = -2
-};
 
 static const u16 *const sPointsArray[] =
 {
-    [PTS_MOVE_EFFECT]            = sPoints_MoveEffect,
     [PTS_EFFECTIVENESS]          = sPoints_Effectiveness,
     [PTS_SET_UP]                 = sPoints_SetUp,
-    [PTS_RAIN]                   = sPoints_RainMoves,
-    [PTS_SUN]                    = sPoints_SunMoves,
-    [PTS_SANDSTORM]              = sPoints_SandstormMoves,
-    [PTS_HAIL]                   = sPoints_HailMoves,
-    [PTS_ELECTRIC]               = sPoints_ElectricMoves,
     [PTS_STATUS_DMG]             = sPoints_StatusDmg,
-    [PTS_STATUS]                 = sPoints_Status,
-    [PTS_SPIKES]                 = sPoints_Spikes,
-    [PTS_WATER_SPORT]            = sPoints_WaterSport,
-    [PTS_MUD_SPORT]              = sPoints_MudSport,
-    [PTS_REFLECT]                = sPoints_Reflect,
-    [PTS_LIGHT_SCREEN]           = sPoints_LightScreen,
-    [PTS_SAFEGUARD]              = sPoints_Safeguard,
-    [PTS_MIST]                   = sPoints_Mist,
-    [PTS_BREAK_WALL]             = sPoints_BreakWall,
-    [PTS_CRITICAL_HIT]           = sPoints_CriticalHit,
-    [PTS_FAINT]                  = sPoints_Faint,
-    [PTS_FAINT_SET_UP]           = sPoints_Faint,
-    [PTS_FLINCHED]               = sPoints_Flinched,
-    [PTS_STAT_INCREASE_1]        = sPoints_StatIncrease1,
-    [PTS_STAT_INCREASE_2]        = sPoints_StatIncrease2,
-    [PTS_STAT_DECREASE_SELF]     = sPoints_StatDecreaseSelf,
-    [PTS_STAT_DECREASE_1]        = sPoints_StatDecrease1,
-    [PTS_STAT_DECREASE_2]        = sPoints_StatDecrease2,
-    [PTS_STAT_INCREASE_NOT_SELF] = sPoints_StatIncreaseNotSelf
 };
 
 // Points will always be calculated for these messages
@@ -538,7 +133,7 @@ static const u16 sSpecialBattleStrings[] =
 };
 
 // code
-void BattleTv_SetDataBasedOnString(u16 stringId)
+void BattleTv_SetDataBasedOnString(enum StringID stringId)
 {
     struct BattleTv *tvPtr;
     u32 atkSide, defSide, effSide, scriptingSide;
@@ -557,20 +152,11 @@ void BattleTv_SetDataBasedOnString(u16 stringId)
     defSide = GetBattlerSide(gBattlerTarget);
     effSide = GetBattlerSide(gEffectBattler);
     scriptingSide = GetBattlerSide(gBattleMsgDataPtr->scrActive);
-
-    if (atkSide == B_SIDE_PLAYER)
-        atkMon = &gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]];
-    else
-        atkMon = &gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker]];
-
-    if (defSide == B_SIDE_PLAYER)
-        defMon = &gPlayerParty[gBattlerPartyIndexes[gBattlerTarget]];
-    else
-        defMon = &gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]];
-
+    atkMon = GetBattlerMon(gBattlerAttacker);
+    defMon = GetBattlerMon(gBattlerTarget);
     moveSlot = GetBattlerMoveSlotId(gBattlerAttacker, gBattleMsgDataPtr->currentMove);
 
-    if (moveSlot >= MAX_MON_MOVES && IsNotSpecialBattleString(stringId) && stringId > BATTLESTRINGS_TABLE_START)
+    if (moveSlot >= MAX_MON_MOVES && IsNotSpecialBattleString(stringId) && stringId > STRINGID_TABLE_START)
     {
         tvPtr->side[atkSide].faintCause = FNT_OTHER;
         return;
@@ -587,16 +173,19 @@ void BattleTv_SetDataBasedOnString(u16 stringId)
     switch (stringId)
     {
     case STRINGID_ITDOESNTAFFECT:
+    case STRINGID_ITDOESNTAFFECTTWOFOES:
         AddMovePoints(PTS_EFFECTIVENESS, moveSlot, 2, 0);
         if (!(gBattleTypeFlags & BATTLE_TYPE_LINK))
             TrySetBattleSeminarShow();
         break;
     case STRINGID_NOTVERYEFFECTIVE:
+    case STRINGID_NOTVERYEFFECTIVETWOFOES:
         AddMovePoints(PTS_EFFECTIVENESS, moveSlot, 1, 0);
         if (!(gBattleTypeFlags & BATTLE_TYPE_LINK) && GetMonData(defMon, MON_DATA_HP, NULL) != 0)
             TrySetBattleSeminarShow();
         break;
     case STRINGID_SUPEREFFECTIVE:
+    case STRINGID_SUPEREFFECTIVETWOFOES:
         AddMovePoints(PTS_EFFECTIVENESS, moveSlot, 0, 0);
         break;
     case STRINGID_PKMNFORESAWATTACK:
@@ -669,7 +258,9 @@ void BattleTv_SetDataBasedOnString(u16 stringId)
     case STRINGID_ATTACKERSSTATROSE:
         if (gBattleTextBuff1[2] != 0)
         {
-            if (*statStringId == STRINGID_STATSHARPLY)
+            if (*statStringId == STRINGID_DRASTICALLY)
+                AddMovePoints(PTS_STAT_INCREASE_3, moveSlot, gBattleTextBuff1[2] - 1, 0);
+            else if (*statStringId == STRINGID_STATSHARPLY)
                 AddMovePoints(PTS_STAT_INCREASE_2, moveSlot, gBattleTextBuff1[2] - 1, 0);
             else
                 AddMovePoints(PTS_STAT_INCREASE_1, moveSlot, gBattleTextBuff1[2] - 1, 0);
@@ -680,7 +271,9 @@ void BattleTv_SetDataBasedOnString(u16 stringId)
         {
             if (gBattlerAttacker == gBattlerTarget)
             {
-                if (*statStringId == STRINGID_STATSHARPLY)
+                if (*statStringId == STRINGID_DRASTICALLY)
+                    AddMovePoints(PTS_STAT_INCREASE_3, moveSlot, gBattleTextBuff1[2] - 1, 0);
+                else if (*statStringId == STRINGID_STATSHARPLY)
                     AddMovePoints(PTS_STAT_INCREASE_2, moveSlot, gBattleTextBuff1[2] - 1, 0);
                 else
                     AddMovePoints(PTS_STAT_INCREASE_1, moveSlot, gBattleTextBuff1[2] - 1, 0);
@@ -698,7 +291,9 @@ void BattleTv_SetDataBasedOnString(u16 stringId)
     case STRINGID_DEFENDERSSTATFELL:
         if (gBattleTextBuff1[2] != 0)
         {
-            if (*statStringId == STRINGID_STATHARSHLY)
+            if (*statStringId == STRINGID_SEVERELY)
+                AddMovePoints(PTS_STAT_DECREASE_3, moveSlot, gBattleTextBuff1[2] - 1, 0);
+            else if (*statStringId == STRINGID_STATHARSHLY)
                 AddMovePoints(PTS_STAT_DECREASE_2, moveSlot, gBattleTextBuff1[2] - 1, 0);
             else
                 AddMovePoints(PTS_STAT_DECREASE_1, moveSlot, gBattleTextBuff1[2] - 1, 0);
@@ -797,7 +392,7 @@ void BattleTv_SetDataBasedOnString(u16 stringId)
         break;
     case STRINGID_PKMNIMMOBILIZEDBYLOVE:
         if (tvPtr->pos[atkSide][atkFlank].attractMonId != 0)
-            AddMovePoints(PTS_STATUS, 0, tvPtr->pos[atkSide][atkFlank].attractMonId - 1, tvPtr->pos[atkSide][atkFlank].attractMoveSlot);
+            AddMovePoints(PTS_STATUS_SKIP_TURN, 0, tvPtr->pos[atkSide][atkFlank].attractMonId - 1, tvPtr->pos[atkSide][atkFlank].attractMoveSlot);
         break;
     case STRINGID_PKMNWASPARALYZED:
         tvPtr->mon[effSide][gBattlerPartyIndexes[gEffectBattler]].prlzMonId = gBattlerPartyIndexes[gBattlerAttacker] + 1;
@@ -805,7 +400,7 @@ void BattleTv_SetDataBasedOnString(u16 stringId)
         break;
     case STRINGID_PKMNISPARALYZED:
         if (tvPtr->mon[atkSide][gBattlerPartyIndexes[gBattlerAttacker]].prlzMonId != 0)
-            AddMovePoints(PTS_STATUS, 2, tvPtr->mon[atkSide][gBattlerPartyIndexes[gBattlerAttacker]].prlzMonId - 1, tvPtr->mon[atkSide][gBattlerPartyIndexes[gBattlerAttacker]].prlzMoveSlot);
+            AddMovePoints(PTS_STATUS_SKIP_TURN, 2, tvPtr->mon[atkSide][gBattlerPartyIndexes[gBattlerAttacker]].prlzMonId - 1, tvPtr->mon[atkSide][gBattlerPartyIndexes[gBattlerAttacker]].prlzMoveSlot);
         break;
     case STRINGID_PKMNFELLASLEEP:
         tvPtr->mon[effSide][gBattlerPartyIndexes[gEffectBattler]].slpMonId = gBattlerPartyIndexes[gBattlerAttacker] + 1;
@@ -813,9 +408,9 @@ void BattleTv_SetDataBasedOnString(u16 stringId)
         break;
     case STRINGID_PKMNFASTASLEEP:
         if (tvPtr->mon[atkSide][gBattlerPartyIndexes[gBattlerAttacker]].slpMonId != 0
-            && gBattleMsgDataPtr->currentMove != MOVE_SNORE
-            && gBattleMsgDataPtr->currentMove != MOVE_SLEEP_TALK)
-            AddMovePoints(PTS_STATUS, 3, tvPtr->mon[atkSide][gBattlerPartyIndexes[gBattlerAttacker]].slpMonId - 1, tvPtr->mon[atkSide][gBattlerPartyIndexes[gBattlerAttacker]].slpMoveSlot);
+            && GetMoveEffect(gBattleMsgDataPtr->currentMove) != EFFECT_SNORE
+            && GetMoveEffect(gBattleMsgDataPtr->currentMove) != EFFECT_SLEEP_TALK)
+            AddMovePoints(PTS_STATUS_SKIP_TURN, 3, tvPtr->mon[atkSide][gBattlerPartyIndexes[gBattlerAttacker]].slpMonId - 1, tvPtr->mon[atkSide][gBattlerPartyIndexes[gBattlerAttacker]].slpMoveSlot);
         break;
     case STRINGID_PKMNWASFROZEN:
         tvPtr->mon[effSide][gBattlerPartyIndexes[gEffectBattler]].frzMonId = gBattlerPartyIndexes[gBattlerAttacker] + 1;
@@ -823,7 +418,7 @@ void BattleTv_SetDataBasedOnString(u16 stringId)
         break;
     case STRINGID_PKMNISFROZEN:
         if (tvPtr->mon[atkSide][gBattlerPartyIndexes[gBattlerAttacker]].frzMonId != 0)
-            AddMovePoints(PTS_STATUS, 4, tvPtr->mon[atkSide][gBattlerPartyIndexes[gBattlerAttacker]].frzMonId - 1, tvPtr->mon[atkSide][gBattlerPartyIndexes[gBattlerAttacker]].frzMoveSlot);
+            AddMovePoints(PTS_STATUS_SKIP_TURN, 4, tvPtr->mon[atkSide][gBattlerPartyIndexes[gBattlerAttacker]].frzMonId - 1, tvPtr->mon[atkSide][gBattlerPartyIndexes[gBattlerAttacker]].frzMoveSlot);
         break;
     case STRINGID_PKMNWASCONFUSED:
         tvPtr->pos[effSide][effFlank].confusionMonId = gBattlerPartyIndexes[gBattlerAttacker] + 1;
@@ -831,7 +426,7 @@ void BattleTv_SetDataBasedOnString(u16 stringId)
         break;
     case STRINGID_ITHURTCONFUSION:
         if (tvPtr->pos[atkSide][atkFlank].confusionMonId != 0)
-            AddMovePoints(PTS_STATUS, 1, tvPtr->pos[atkSide][atkFlank].confusionMonId - 1, tvPtr->pos[atkSide][atkFlank].confusionMoveSlot);
+            AddMovePoints(PTS_STATUS_SKIP_TURN, 1, tvPtr->pos[atkSide][atkFlank].confusionMonId - 1, tvPtr->pos[atkSide][atkFlank].confusionMoveSlot);
         tvPtr->side[atkSide].faintCause = FNT_CONFUSION;
         break;
     case STRINGID_SPIKESSCATTERED:
@@ -948,10 +543,12 @@ void BattleTv_SetDataBasedOnString(u16 stringId)
     case STRINGID_PKMNHITWITHRECOIL:
         tvPtr->side[atkSide].faintCause = FNT_RECOIL;
         break;
+    default:
+        break;
     }
 }
 
-static bool8 IsNotSpecialBattleString(u16 stringId)
+static bool8 IsNotSpecialBattleString(enum StringID stringId)
 {
     s32 i = 0;
 
@@ -992,9 +589,9 @@ void BattleTv_SetDataBasedOnMove(u16 move, u16 weatherFlags, struct DisableStruc
     tvPtr->pos[defSide][GetBattlerPosition(gBattlerAttacker) / 2].attackedByMonId = gBattlerPartyIndexes[gBattlerAttacker] + 1;
     tvPtr->pos[defSide][GetBattlerPosition(gBattlerAttacker) / 2].attackedByMoveSlot = moveSlot;
     tvPtr->side[atkSide].usedMoveSlot = moveSlot;
-    AddMovePoints(PTS_MOVE_EFFECT, moveSlot, gBattleMoves[move].effect, 0);
+    AddMovePoints(PTS_MOVE_EFFECT, moveSlot, move, 0);
     AddPointsBasedOnWeather(weatherFlags, move, moveSlot);
-    if (disableStructPtr->chargeTimer != 0)
+    if (gStatuses3[gBattlerAttacker] & STATUS3_CHARGED_UP)
         AddMovePoints(PTS_ELECTRIC, move, moveSlot, 0);
 
     if (move == MOVE_WISH)
@@ -1002,7 +599,8 @@ void BattleTv_SetDataBasedOnMove(u16 move, u16 weatherFlags, struct DisableStruc
         tvPtr->side[atkSide].wishMonId = gBattlerPartyIndexes[gBattlerAttacker] + 1;
         tvPtr->side[atkSide].wishMoveSlot = moveSlot;
     }
-    if (move == MOVE_SELF_DESTRUCT || move == MOVE_EXPLOSION)
+    enum BattleMoveEffects effect = GetMoveEffect(move);
+    if (effect == EFFECT_EXPLOSION || effect == EFFECT_MISTY_EXPLOSION)
     {
         tvPtr->side[atkSide ^ BIT_SIDE].explosionMonId = gBattlerPartyIndexes[gBattlerAttacker] + 1;
         tvPtr->side[atkSide ^ BIT_SIDE].explosionMoveSlot = moveSlot;
@@ -1010,10 +608,11 @@ void BattleTv_SetDataBasedOnMove(u16 move, u16 weatherFlags, struct DisableStruc
         tvPtr->side[atkSide ^ BIT_SIDE].explosion = TRUE;
     }
 
-    AddMovePoints(PTS_REFLECT,      gBattleMoves[move].type, gBattleMoves[move].power, 0);
-    AddMovePoints(PTS_LIGHT_SCREEN, gBattleMoves[move].type, gBattleMoves[move].power, 0);
-    AddMovePoints(PTS_WATER_SPORT,  gBattleMoves[move].type, 0,                        0);
-    AddMovePoints(PTS_MUD_SPORT,    gBattleMoves[move].type, 0,                        0);
+    u32 movePower = GetMovePower(move);
+    AddMovePoints(PTS_REFLECT,      move, movePower, 0);
+    AddMovePoints(PTS_LIGHT_SCREEN, move, movePower, 0);
+    AddMovePoints(PTS_WATER_SPORT,  move, 0,         0);
+    AddMovePoints(PTS_MUD_SPORT,    move, 0,         0);
 }
 
 void BattleTv_SetDataBasedOnAnimation(u8 animationId)
@@ -1056,7 +655,7 @@ void TryPutLinkBattleTvShowOnAir(void)
     u8 countPlayer = 0, countOpponent = 0;
     s16 sum = 0;
     u16 species = 0;
-    u16 moveId = 0;
+    u16 move = MOVE_NONE;
     s32 i, j;
     int zero = 0, one = 1; //needed for matching
 
@@ -1124,8 +723,8 @@ void TryPutLinkBattleTvShowOnAir(void)
         }
     }
 
-    moveId = GetMonData(&gPlayerParty[playerBestMonId], MON_DATA_MOVE1 + i, NULL);
-    if (playerBestSum == 0 || moveId == 0)
+    move = GetMonData(&gPlayerParty[playerBestMonId], MON_DATA_MOVE1 + i, NULL);
+    if (playerBestSum == 0 || move == MOVE_NONE)
         return;
 
     if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
@@ -1134,12 +733,12 @@ void TryPutLinkBattleTvShowOnAir(void)
          || (playerBestMonId >= MULTI_PARTY_SIZE && GetLinkTrainerFlankId(gBattleScripting.multiplayerId)))
         {
             j = (opponentBestMonId < MULTI_PARTY_SIZE) ? FALSE : TRUE;
-            PutBattleUpdateOnTheAir(GetOpposingLinkMultiBattlerId(j, gBattleScripting.multiplayerId), moveId, playerBestSpecies, opponentBestSpecies);
+            PutBattleUpdateOnTheAir(GetOpposingLinkMultiBattlerId(j, gBattleScripting.multiplayerId), move, playerBestSpecies, opponentBestSpecies);
         }
     }
     else
     {
-        PutBattleUpdateOnTheAir(gBattleScripting.multiplayerId ^ 1, moveId, playerBestSpecies, opponentBestSpecies);
+        PutBattleUpdateOnTheAir(gBattleScripting.multiplayerId ^ 1, move, playerBestSpecies, opponentBestSpecies);
     }
 }
 
@@ -1149,118 +748,322 @@ static void AddMovePoints(u8 caseId, u16 arg1, u8 arg2, u8 arg3)
     struct BattleTv *tvPtr = &gBattleStruct->tv;
     u32 atkSide = GetBattlerSide(gBattlerAttacker);
     u32 defSide = GetBattlerSide(gBattlerTarget);
-    const u16 *ptr;
     s32 i;
 
     switch (caseId)
     {
-    case PTS_MOVE_EFFECT:
+#define move arg2
+    case PTS_MOVE_EFFECT: // arg1 -> move slot, arg2 -> move
+    {
+        enum BattleMoveEffects effect = GetMoveEffect(move);
+        u8 baseFromEffect = gBattleMoveEffects[effect].battleTvScore;
+
+        // Changes depending on the effect
+        switch (effect)
+        {
+        case EFFECT_FIXED_HP_DAMAGE:
+            baseFromEffect *= (GetMoveFixedHPDamage(move) / 20);
+            break;
+        case EFFECT_TWO_TURNS_ATTACK:
+            for (i = 0; i < GetMoveAdditionalEffectCount(move); i++)
+            {
+                const struct AdditionalEffect *additionalEffect = GetMoveAdditionalEffectById(move, i);
+                switch ((enum MoveEffects)additionalEffect->moveEffect)
+                {
+                case MOVE_EFFECT_ATK_PLUS_1:
+                case MOVE_EFFECT_DEF_PLUS_1:
+                case MOVE_EFFECT_SP_ATK_PLUS_1:
+                case MOVE_EFFECT_SP_DEF_PLUS_1:
+                case MOVE_EFFECT_SPD_PLUS_1:
+                case MOVE_EFFECT_ACC_PLUS_1:
+                case MOVE_EFFECT_EVS_PLUS_1:
+                    if (additionalEffect->self == TRUE && (additionalEffect->chance == 100 || additionalEffect->chance == 0))
+                        baseFromEffect += 2;
+                    break;
+                case MOVE_EFFECT_ATK_PLUS_2:
+                case MOVE_EFFECT_DEF_PLUS_2:
+                case MOVE_EFFECT_SP_ATK_PLUS_2:
+                case MOVE_EFFECT_SP_DEF_PLUS_2:
+                case MOVE_EFFECT_SPD_PLUS_2:
+                case MOVE_EFFECT_ACC_PLUS_2:
+                case MOVE_EFFECT_EVS_PLUS_2:
+                    if (additionalEffect->self == TRUE && (additionalEffect->chance == 100 || additionalEffect->chance == 0))
+                        baseFromEffect += 3;
+                    break;
+                case MOVE_EFFECT_FLINCH:
+                    if (additionalEffect->self == FALSE)
+                        baseFromEffect += 3;
+                    break;
+                default:
+                    break;
+                }
+            }
+            break;
+        case EFFECT_FIRST_TURN_ONLY:
+            if (MoveHasAdditionalEffectWithChance(move, MOVE_EFFECT_FLINCH, 100))
+                baseFromEffect += 3;
+            break;
+        case EFFECT_CONFUSE:
+            if (GetMoveTarget(move) == MOVE_TARGET_FOES_AND_ALLY)
+                baseFromEffect += 2;
+            break;
+        default:
+            break;
+        }
+        switch(GetMoveNonVolatileStatus(arg2))
+        {
+        case MOVE_EFFECT_SLEEP:
+            baseFromEffect++;
+            break;
+        case MOVE_EFFECT_PARALYSIS:
+            baseFromEffect += 3;
+            break;
+        case MOVE_EFFECT_BURN:
+        case MOVE_EFFECT_POISON:
+            baseFromEffect += 4;
+            break;
+        case MOVE_EFFECT_TOXIC:
+            baseFromEffect += 5;
+            break;
+        }
+
+        // Guaranteed hit but without negative priority
+        if (GetMoveAccuracy(move) == 0 && GetMovePriority(move) >= 0)
+            baseFromEffect++;
+        // User recoil damage
+        if (GetMoveRecoil(move) > 0)
+            baseFromEffect++;
+
+        // Additional move effects in any move
+        for (i = 0; i < GetMoveAdditionalEffectCount(move); i++)
+        {
+            const struct AdditionalEffect *additionalEffect = GetMoveAdditionalEffectById(move, i);
+            switch (additionalEffect->moveEffect)
+            {
+            case MOVE_EFFECT_STEAL_ITEM:
+                if ((additionalEffect->chance == 100 || additionalEffect->chance == 0))
+                    baseFromEffect += 3;
+                break;
+            case MOVE_EFFECT_THRASH:
+                if (additionalEffect->self == TRUE)
+                    baseFromEffect += 3;
+                break;
+            case MOVE_EFFECT_WRAP:
+                if (additionalEffect->self == FALSE)
+                    baseFromEffect += 3;
+                break;
+            case MOVE_EFFECT_RECHARGE:
+                if (additionalEffect->self == TRUE)
+                    baseFromEffect += 4;
+                break;
+            case MOVE_EFFECT_ATK_DEF_DOWN:
+            case MOVE_EFFECT_ATK_MINUS_2:
+            case MOVE_EFFECT_DEF_MINUS_2:
+            case MOVE_EFFECT_SP_ATK_MINUS_2:
+            case MOVE_EFFECT_SP_DEF_MINUS_2:
+            case MOVE_EFFECT_SPD_MINUS_2:
+            case MOVE_EFFECT_ACC_MINUS_2:
+            case MOVE_EFFECT_EVS_MINUS_2:
+                if (additionalEffect->self == TRUE && (additionalEffect->chance == 100 || additionalEffect->chance == 0))
+                    baseFromEffect += 2;
+                break;
+            }
+        }
+
+        movePoints->points[atkSide][gBattlerPartyIndexes[gBattlerAttacker] * 4 + arg1] += baseFromEffect;
+        break;
+    }
+#undef move
     case PTS_EFFECTIVENESS:
-    case PTS_CRITICAL_HIT:
-    case PTS_STAT_INCREASE_1:
-    case PTS_STAT_INCREASE_2:
-    case PTS_STAT_DECREASE_SELF:
-    case PTS_STAT_DECREASE_1:
-    case PTS_STAT_DECREASE_2:
-    case PTS_STAT_INCREASE_NOT_SELF:
         movePoints->points[atkSide][gBattlerPartyIndexes[gBattlerAttacker] * 4 + arg1] += sPointsArray[caseId][arg2];
+        break;
+    case PTS_STAT_INCREASE_1:
+    case PTS_STAT_DECREASE_1:
+        movePoints->points[atkSide][gBattlerPartyIndexes[gBattlerAttacker] * 4 + arg1] += 2;
+        break;
+    case PTS_STAT_INCREASE_2:
+    case PTS_STAT_DECREASE_2:
+        movePoints->points[atkSide][gBattlerPartyIndexes[gBattlerAttacker] * 4 + arg1] += 4;
+        break;
+    case PTS_STAT_INCREASE_3:
+    case PTS_STAT_DECREASE_3:
+    case PTS_CRITICAL_HIT:
+        movePoints->points[atkSide][gBattlerPartyIndexes[gBattlerAttacker] * 4 + arg1] += 6;
+        break;
+    case PTS_STAT_DECREASE_SELF:
+        movePoints->points[atkSide][gBattlerPartyIndexes[gBattlerAttacker] * 4 + arg1] -= 1;
+        break;
+    case PTS_STAT_INCREASE_NOT_SELF:
+        movePoints->points[atkSide][gBattlerPartyIndexes[gBattlerAttacker] * 4 + arg1] -= 2;
         break;
 
 #define move arg1
     case PTS_RAIN:
-    case PTS_SUN:
-    case PTS_SANDSTORM:
-    case PTS_HAIL:
-    case PTS_ELECTRIC:
-        i = 0;
-        ptr = sPointsArray[caseId];
-        do
+    {
+        s32 points = 0;
+
+        if (!IsBattleMoveStatus(move))
         {
-            if (move == ptr[i])
+            switch (GetMoveType(move))
             {
-                movePoints->points[atkSide][gBattlerPartyIndexes[gBattlerAttacker] * 4 + arg2] += ptr[i+1];
-                break;
+            case TYPE_WATER: points += 3; break;
+            case TYPE_FIRE:  points -= 4; break;
+            default: break;
             }
-            i += 2;
-        } while (ptr[i] != TABLE_END);
+        }
+        else if (move == MOVE_WITHDRAW) // For some reason, vanilla gives points to it
+        {
+            points += 3;
+        }
+
+        switch (GetMoveEffect(move))
+        {
+        case EFFECT_WEATHER_BALL:
+            points += 3;
+            break;
+        case EFFECT_SOLAR_BEAM:
+            points -= 4;
+            break;
+        default:
+            break;
+        }
+
+        if (MoveAlwaysHitsInRain(move))
+            points += 3;
+
+        movePoints->points[atkSide][gBattlerPartyIndexes[gBattlerAttacker] * 4 + arg2] += points;
+        break;
+    }
+    case PTS_SUN:
+    {
+        s32 points = 0;
+
+        if (!IsBattleMoveStatus(move) && GetMoveType(move) == TYPE_FIRE)
+            points += 3;
+
+        switch (GetMoveEffect(move))
+        {
+        case EFFECT_SOLAR_BEAM:
+            points += 5;
+            break;
+        case EFFECT_WEATHER_BALL:
+        case EFFECT_SYNTHESIS:
+        case EFFECT_MORNING_SUN:
+        case EFFECT_MOONLIGHT:
+            points += 3;
+            break;
+        default:
+            break;
+        }
+        movePoints->points[atkSide][gBattlerPartyIndexes[gBattlerAttacker] * 4 + arg2] += points;
+        break;
+    }
+    case PTS_SANDSTORM:
+    case PTS_HAIL_SNOW:
+    {
+        s32 points = 0;
+        switch (GetMoveEffect(move))
+        {
+        case EFFECT_WEATHER_BALL:
+            points += 3;
+            break;
+        case EFFECT_SOLAR_BEAM:
+            points -= 3;
+            break;
+        default:
+            break;
+        }
+        movePoints->points[atkSide][gBattlerPartyIndexes[gBattlerAttacker] * 4 + arg2] += points;
+        break;
+    }
+    case PTS_ELECTRIC:
+        if (!IsBattleMoveStatus(move) && GetMoveType(move) == TYPE_ELECTRIC)
+            movePoints->points[atkSide][gBattlerPartyIndexes[gBattlerAttacker] * 4 + arg2] += 3;
         break;
 #undef move
 
     case PTS_FAINT:
-        tvPtr->side[arg2 ^ 1].faintCause = FNT_NONE;
-        movePoints->points[arg2][0 * 4 + arg3] += sPointsArray[caseId][arg1];
+        tvPtr->side[arg2 ^ BIT_SIDE].faintCause = FNT_NONE;
+        movePoints->points[arg2][0 * 4 + arg3] += 6;
         break;
     case PTS_FAINT_SET_UP:
         tvPtr->side[arg2].faintCause = FNT_NONE;
-        // fallthrough
+        movePoints->points[arg2][0 * 4 + arg3] += 6;
+        break;
     case PTS_SET_UP:
         movePoints->points[arg2][0 * 4 + arg3] += sPointsArray[caseId][arg1];
         break;
     case PTS_BREAK_WALL:
-        movePoints->points[atkSide][arg2 * 4 + arg3] += sPointsArray[caseId][arg1];
+        movePoints->points[atkSide][arg2 * 4 + arg3] += 6;
         break;
     case PTS_STATUS_DMG:
-    case PTS_STATUS:
-    case PTS_SAFEGUARD:
-    case PTS_MIST:
-    case PTS_FLINCHED:
         movePoints->points[atkSide ^ BIT_SIDE][arg2 * 4 + arg3] += sPointsArray[caseId][arg1];
         break;
+    case PTS_STATUS_SKIP_TURN:
+        movePoints->points[atkSide ^ BIT_SIDE][arg2 * 4 + arg3] += 5;
+        break;
+    case PTS_MIST:
+        movePoints->points[atkSide ^ BIT_SIDE][arg2 * 4 + arg3] += 3;
+        break;
+    case PTS_SAFEGUARD:
+    case PTS_FLINCHED:
+        movePoints->points[atkSide ^ BIT_SIDE][arg2 * 4 + arg3] += 4;
+        break;
     case PTS_SPIKES:
-        movePoints->points[arg1][arg2 * 4 + arg3] += sPointsArray[caseId][0];
+        movePoints->points[arg1][arg2 * 4 + arg3] += 4;
         break;
 
-#define type arg1
+#define move arg1
 #define power arg2
     case PTS_WATER_SPORT:
         // If used fire move during Water Sport
-        if (tvPtr->pos[defSide][0].waterSportMonId != -(tvPtr->pos[defSide][1].waterSportMonId) && type == TYPE_FIRE)
+        if (tvPtr->pos[defSide][0].waterSportMonId != -(tvPtr->pos[defSide][1].waterSportMonId) && GetMoveType(move) == TYPE_FIRE)
         {
             if (tvPtr->pos[defSide][0].waterSportMonId != 0)
             {
                 u32 id = (tvPtr->pos[defSide][0].waterSportMonId - 1) * 4;
-                movePoints->points[defSide][id + tvPtr->pos[defSide][0].waterSportMoveSlot] += sPointsArray[caseId][0];
+                movePoints->points[defSide][id + tvPtr->pos[defSide][0].waterSportMoveSlot] += 5;
             }
             if (tvPtr->pos[defSide][1].waterSportMonId != 0)
             {
                 u32 id = (tvPtr->pos[defSide][1].waterSportMonId - 1) * 4;
-                movePoints->points[defSide][id + tvPtr->pos[defSide][1].waterSportMoveSlot] += sPointsArray[caseId][0];
+                movePoints->points[defSide][id + tvPtr->pos[defSide][1].waterSportMoveSlot] += 5;
             }
         }
         break;
     case PTS_MUD_SPORT:
         // If used Electric move during Mud Sport
-        if (tvPtr->pos[defSide][0].mudSportMonId != -(tvPtr->pos[defSide][1].mudSportMonId) && type == TYPE_ELECTRIC)
+        if (tvPtr->pos[defSide][0].mudSportMonId != -(tvPtr->pos[defSide][1].mudSportMonId) && GetMoveType(move) == TYPE_ELECTRIC)
         {
             if (tvPtr->pos[defSide][0].mudSportMonId != 0)
             {
                 u32 id = (tvPtr->pos[defSide][0].mudSportMonId - 1) * 4;
-                movePoints->points[defSide][id + tvPtr->pos[defSide][0].mudSportMoveSlot] += sPointsArray[caseId][0];
+                movePoints->points[defSide][id + tvPtr->pos[defSide][0].mudSportMoveSlot] += 5;
             }
             if (tvPtr->pos[defSide][1].mudSportMonId != 0)
             {
                 u32 id = (tvPtr->pos[defSide][1].mudSportMonId - 1) * 4;
-                movePoints->points[defSide][id + tvPtr->pos[defSide][1].mudSportMoveSlot] += sPointsArray[caseId][0];
+                movePoints->points[defSide][id + tvPtr->pos[defSide][1].mudSportMoveSlot] += 5;
             }
         }
         break;
     case PTS_REFLECT:
         // If hit Reflect with damaging physical move
-        if (IS_TYPE_PHYSICAL(type) && power != 0 && tvPtr->side[defSide].reflectMonId != 0)
+        if (IsBattleMovePhysical(move) && power != 0 && tvPtr->side[defSide].reflectMonId != 0)
         {
             u32 id = (tvPtr->side[defSide].reflectMonId - 1) * 4;
-            movePoints->points[defSide][id + tvPtr->side[defSide].reflectMoveSlot] += sPointsArray[caseId][0];
+            movePoints->points[defSide][id + tvPtr->side[defSide].reflectMoveSlot] += 3;
         }
         break;
     case PTS_LIGHT_SCREEN:
         // If hit Light Screen with damaging special move
-        if (!IS_TYPE_PHYSICAL(type) && power != 0 && tvPtr->side[defSide].lightScreenMonId != 0)
+        if (IsBattleMoveSpecial(move) && power != 0 && tvPtr->side[defSide].lightScreenMonId != 0)
         {
             u32 id = (tvPtr->side[defSide].lightScreenMonId - 1) * 4;
             movePoints->points[defSide][id + tvPtr->side[defSide].lightScreenMoveSlot] += sPointsArray[caseId][0];
         }
         break;
-#undef type
+#undef move
 #undef power
     }
 }
@@ -1425,7 +1228,7 @@ static void TrySetBattleSeminarShow(void)
 
     if (gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK))
         return;
-    else if (GetBattlerSide(gBattlerAttacker) == B_SIDE_OPPONENT)
+    else if (!IsOnPlayerSide(gBattlerAttacker))
         return;
     else if (gBattleMons[gBattlerAttacker].statStages[STAT_ACC] < DEFAULT_STAT_STAGE)
         return;
@@ -1435,7 +1238,7 @@ static void TrySetBattleSeminarShow(void)
         return;
     else if (gBattleTypeFlags & (BATTLE_TYPE_PALACE | BATTLE_TYPE_PIKE | BATTLE_TYPE_PYRAMID))
         return;
-    else if (gBattleMoves[gBattleMons[gBattlerAttacker].moves[gMoveSelectionCursor[gBattlerAttacker]]].power == 0)
+    else if (IsBattleMoveStatus(gBattleMons[gBattlerAttacker].moves[gMoveSelectionCursor[gBattlerAttacker]]))
         return;
 
     i = 0;
@@ -1450,7 +1253,7 @@ static void TrySetBattleSeminarShow(void)
     if (sVariableDmgMoves[i] != TABLE_END)
         return;
 
-    dmgByMove[gMoveSelectionCursor[gBattlerAttacker]] = gBattleMoveDamage;
+    dmgByMove[gMoveSelectionCursor[gBattlerAttacker]] = gBattleStruct->moveDamage[gBattlerTarget]; // TODO: Not sure
     currMoveSaved = gCurrentMove;
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
@@ -1458,20 +1261,18 @@ static void TrySetBattleSeminarShow(void)
         powerOverride = 0;
         if (ShouldCalculateDamage(gCurrentMove, &dmgByMove[i], &powerOverride))
         {
-            u8 moveResultFlags;
-            u16 sideStatus = gSideStatuses[GET_BATTLER_SIDE(gBattlerTarget)];
-            gBattleMoveDamage = CalculateBaseDamage(&gBattleMons[gBattlerAttacker], &gBattleMons[gBattlerTarget], gCurrentMove,
-                                                    sideStatus, powerOverride,
-                                                    0, gBattlerAttacker, gBattlerTarget);
-
-            if (gStatuses3[gBattlerAttacker] & STATUS3_CHARGED_UP && gBattleMoves[gCurrentMove].type == TYPE_ELECTRIC)
-                gBattleMoveDamage *= 2;
-            if (gProtectStructs[gBattlerAttacker].helpingHand)
-                gBattleMoveDamage = gBattleMoveDamage * 15 / 10;
-
-            moveResultFlags = TypeCalc(gCurrentMove, gBattlerAttacker, gBattlerTarget);
-            dmgByMove[i] = gBattleMoveDamage;
-            if (dmgByMove[i] == 0 && !(moveResultFlags & MOVE_RESULT_NO_EFFECT))
+            struct DamageContext ctx;
+            ctx.battlerAtk = gBattlerAttacker;
+            ctx.battlerDef = gBattlerTarget;
+            ctx.move = gCurrentMove;
+            ctx.moveType = GetMoveType(gCurrentMove);
+            ctx.isCrit = FALSE;
+            ctx.randomFactor = FALSE;
+            ctx.updateFlags = FALSE;
+            ctx.fixedBasePower = powerOverride;
+            gBattleStruct->moveDamage[gBattlerTarget] = CalculateMoveDamage(&ctx);
+            dmgByMove[i] = gBattleStruct->moveDamage[gBattlerTarget];
+            if (dmgByMove[i] == 0 && !(gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT))
                 dmgByMove[i] = 1;
         }
     }
@@ -1494,20 +1295,20 @@ static void TrySetBattleSeminarShow(void)
                     bestMoveId = i;
             }
 
-            opponentSpecies = GetMonData(&gEnemyParty [gBattlerPartyIndexes[gBattlerTarget]],   MON_DATA_SPECIES, NULL);
-            playerSpecies   = GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_SPECIES, NULL);
+            opponentSpecies = GetMonData(GetBattlerMon(gBattlerTarget),   MON_DATA_SPECIES, NULL);
+            playerSpecies   = GetMonData(GetBattlerMon(gBattlerAttacker), MON_DATA_SPECIES, NULL);
             TryPutBattleSeminarOnAir(opponentSpecies, playerSpecies, gMoveSelectionCursor[gBattlerAttacker], gBattleMons[gBattlerAttacker].moves, gBattleMons[gBattlerAttacker].moves[bestMoveId]);
             break;
         }
     }
 
-    gBattleMoveDamage = dmgByMove[gMoveSelectionCursor[gBattlerAttacker]];
+    gBattleStruct->moveDamage[gBattlerTarget] = dmgByMove[gMoveSelectionCursor[gBattlerAttacker]];
     gCurrentMove = currMoveSaved;
 }
 
-static bool8 ShouldCalculateDamage(u16 moveId, s32 *dmg, u16 *powerOverride)
+static bool8 ShouldCalculateDamage(u16 move, s32 *dmg, u16 *powerOverride)
 {
-    if (gBattleMoves[moveId].power == 0)
+    if (IsBattleMoveStatus(move))
     {
         *dmg = 0;
         return FALSE;
@@ -1517,7 +1318,7 @@ static bool8 ShouldCalculateDamage(u16 moveId, s32 *dmg, u16 *powerOverride)
         s32 i = 0;
         do
         {
-            if (moveId == sVariableDmgMoves[i])
+            if (move == sVariableDmgMoves[i])
                 break;
             i++;
         } while (sVariableDmgMoves[i] != TABLE_END);
@@ -1527,13 +1328,13 @@ static bool8 ShouldCalculateDamage(u16 moveId, s32 *dmg, u16 *powerOverride)
             *dmg = 0;
             return FALSE;
         }
-        else if (moveId == MOVE_PSYWAVE)
+        else if (move == MOVE_PSYWAVE)
         {
             *dmg = gBattleMons[gBattlerAttacker].level;
             *dmg /= 2;
             return FALSE;
         }
-        else if (moveId == MOVE_MAGNITUDE)
+        else if (move == MOVE_MAGNITUDE)
         {
             *powerOverride = 10;
             return TRUE;
@@ -1568,22 +1369,17 @@ void BattleTv_ClearExplosionFaintCause(void)
     }
 }
 
-u8 GetBattlerMoveSlotId(u8 battlerId, u16 moveId)
+u8 GetBattlerMoveSlotId(u8 battler, u16 move)
 {
     s32 i;
-    struct Pokemon *party;
-
-    if (GetBattlerSide(battlerId) == B_SIDE_PLAYER)
-        party = gPlayerParty;
-    else
-        party = gEnemyParty;
+    struct Pokemon *mon = GetBattlerMon(battler);
 
     i = 0;
     while (1)
     {
         if (i >= MAX_MON_MOVES)
             break;
-        if (GetMonData(&party[gBattlerPartyIndexes[battlerId]], MON_DATA_MOVE1 + i, NULL) == moveId)
+        if (GetMonData(mon, MON_DATA_MOVE1 + i, NULL) == move)
             break;
         i++;
     }
@@ -1591,14 +1387,14 @@ u8 GetBattlerMoveSlotId(u8 battlerId, u16 moveId)
     return i;
 }
 
-static void AddPointsBasedOnWeather(u16 weatherFlags, u16 moveId, u8 moveSlot)
+static void AddPointsBasedOnWeather(u16 weatherFlags, u16 move, u8 moveSlot)
 {
     if (weatherFlags & B_WEATHER_RAIN)
-        AddMovePoints(PTS_RAIN, moveId, moveSlot, 0);
+        AddMovePoints(PTS_RAIN, move, moveSlot, 0);
     else if (weatherFlags & B_WEATHER_SUN)
-        AddMovePoints(PTS_SUN, moveId, moveSlot, 0);
+        AddMovePoints(PTS_SUN, move, moveSlot, 0);
     else if (weatherFlags & B_WEATHER_SANDSTORM)
-        AddMovePoints(PTS_SANDSTORM, moveId, moveSlot, 0);
-    else if (weatherFlags & B_WEATHER_HAIL)
-        AddMovePoints(PTS_HAIL, moveId, moveSlot, 0);
+        AddMovePoints(PTS_SANDSTORM, move, moveSlot, 0);
+    else if (weatherFlags & (B_WEATHER_HAIL | B_WEATHER_SNOW))
+        AddMovePoints(PTS_HAIL_SNOW, move, moveSlot, 0);
 }

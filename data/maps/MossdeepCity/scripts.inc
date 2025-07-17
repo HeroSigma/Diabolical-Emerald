@@ -1,21 +1,21 @@
-.set LOCALID_GRUNT_1, 10
-.set LOCALID_GRUNT_2, 11
-.set LOCALID_GRUNT_3, 12
-.set LOCALID_GRUNT_4, 13
-.set LOCALID_MAXIE, 14
-.set LOCALID_SCOTT, 16
-
 MossdeepCity_MapScripts::
-	map_script MAP_SCRIPT_ON_TRANSITION, MossdeepCity_OnTransition
-	.byte 0
+        map_script MAP_SCRIPT_ON_TRANSITION, MossdeepCity_OnTransition
+        map_script MAP_SCRIPT_ON_RESUME, MossdeepCity_OnResume
+        .byte 0
 
 MossdeepCity_OnTransition:
-	clearflag FLAG_MOSSDEEP_GYM_SWITCH_1
-	clearflag FLAG_MOSSDEEP_GYM_SWITCH_2
-	clearflag FLAG_MOSSDEEP_GYM_SWITCH_3
-	clearflag FLAG_MOSSDEEP_GYM_SWITCH_4
-	call_if_set FLAG_SYS_WEATHER_CTRL, Common_EventScript_SetAbnormalWeather
-	end
+        clearflag FLAG_MOSSDEEP_GYM_SWITCH_1
+        clearflag FLAG_MOSSDEEP_GYM_SWITCH_2
+        clearflag FLAG_MOSSDEEP_GYM_SWITCH_3
+        clearflag FLAG_MOSSDEEP_GYM_SWITCH_4
+        call_if_set FLAG_SYS_WEATHER_CTRL, Common_EventScript_SetAbnormalWeather
+        call_if_set FLAG_CAUGHT_JIRACHI, MossdeepCity_HideJirachi
+        call_if_unset FLAG_CAUGHT_JIRACHI, MossdeepCity_TryShowJirachi
+        end
+
+MossdeepCity_OnResume:
+        call_if_set FLAG_SYS_CTRL_OBJ_DELETE, MossdeepCity_TryRemoveJirachi
+        end
 
 MossdeepCity_EventScript_PokefanF::
 	lock
@@ -60,8 +60,57 @@ MossdeepCity_EventScript_Woman::
 	end
 
 MossdeepCity_EventScript_WhiteRock::
-	msgbox MossdeepCity_Text_ItsAWhiteRock, MSGBOX_SIGN
-	end
+        msgbox MossdeepCity_Text_ItsAWhiteRock, MSGBOX_SIGN
+        end
+
+MossdeepCity_HideJirachi::
+        setflag FLAG_HIDE_JIRACHI
+        return
+
+MossdeepCity_TryShowJirachi::
+        goto_if_unset FLAG_BADGE06_GET, Common_EventScript_NopReturn
+        goto_if_unset FLAG_CAUGHT_HOOPA, Common_EventScript_NopReturn
+        checkflag FLAG_CAUGHT_MEW
+        goto_if_eq VAR_RESULT, FALSE, Common_EventScript_NopReturn
+        checkspecies SPECIES_MEW
+        goto_if_eq VAR_RESULT, FALSE, Common_EventScript_NopReturn
+        clearflag FLAG_HIDE_JIRACHI
+        return
+
+MossdeepCity_TryRemoveJirachi::
+        specialvar VAR_RESULT, GetBattleOutcome
+        goto_if_ne VAR_RESULT, B_OUTCOME_CAUGHT, Common_EventScript_NopReturn
+        removeobject LOCALID_MOSSDEEP_JIRACHI
+        return
+
+MossdeepCity_Jirachi::
+        lock
+        faceplayer
+        waitse
+        playmoncry SPECIES_JIRACHI, CRY_MODE_ENCOUNTER
+        waitmoncry
+        seteventmon SPECIES_JIRACHI, 70
+        setflag FLAG_SYS_CTRL_OBJ_DELETE
+        special BattleSetup_StartLegendaryBattle
+        waitstate
+        clearflag FLAG_SYS_CTRL_OBJ_DELETE
+        specialvar VAR_RESULT, GetBattleOutcome
+        goto_if_eq VAR_RESULT, B_OUTCOME_WON, MossdeepCity_DefeatedJirachi
+        goto_if_eq VAR_RESULT, B_OUTCOME_RAN, MossdeepCity_RanFromJirachi
+        goto_if_eq VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED, MossdeepCity_RanFromJirachi
+        setflag FLAG_CAUGHT_JIRACHI
+        release
+        end
+
+MossdeepCity_DefeatedJirachi::
+        setvar VAR_0x8004, SPECIES_JIRACHI
+        goto Common_EventScript_LegendaryFlewAway
+        end
+
+MossdeepCity_RanFromJirachi::
+        setvar VAR_0x8004, SPECIES_JIRACHI
+        goto Common_EventScript_LegendaryFlewAway
+        end
 
 MossdeepCity_EventScript_GymSign::
 	msgbox MossdeepCity_Text_GymSign, MSGBOX_SIGN
@@ -82,24 +131,24 @@ MossdeepCity_EventScript_VisitedMossdeep::
 
 MossdeepCity_EventScript_TeamMagmaEnterSpaceCenter::
 	lockall
-	applymovement LOCALID_MAXIE, MossdeepCity_Movement_MaxieGestureToSpaceCenter
+	applymovement LOCALID_MOSSDEEP_MAXIE, MossdeepCity_Movement_MaxieGestureToSpaceCenter
 	waitmovement 0
-	applymovement LOCALID_GRUNT_1, MossdeepCity_Movement_GruntFaceSpaceCenter
-	applymovement LOCALID_GRUNT_2, MossdeepCity_Movement_GruntFaceSpaceCenter
-	applymovement LOCALID_GRUNT_3, MossdeepCity_Movement_GruntFaceSpaceCenter
-	applymovement LOCALID_GRUNT_4, MossdeepCity_Movement_GruntFaceSpaceCenter
+	applymovement LOCALID_MOSSDEEP_GRUNT_1, MossdeepCity_Movement_GruntFaceSpaceCenter
+	applymovement LOCALID_MOSSDEEP_GRUNT_2, MossdeepCity_Movement_GruntFaceSpaceCenter
+	applymovement LOCALID_MOSSDEEP_GRUNT_3, MossdeepCity_Movement_GruntFaceSpaceCenter
+	applymovement LOCALID_MOSSDEEP_GRUNT_4, MossdeepCity_Movement_GruntFaceSpaceCenter
 	waitmovement 0
-	applymovement LOCALID_MAXIE, MossdeepCity_Movement_MaxieEnterSpaceCenter
-	applymovement LOCALID_GRUNT_1, MossdeepCity_Movement_Grunt1EnterSpaceCenter
-	applymovement LOCALID_GRUNT_2, MossdeepCity_Movement_Grunt2EnterSpaceCenter
-	applymovement LOCALID_GRUNT_3, MossdeepCity_Movement_Grunt3EnterSpaceCenter
-	applymovement LOCALID_GRUNT_4, MossdeepCity_Movement_Grunt4EnterSpaceCenter
+	applymovement LOCALID_MOSSDEEP_MAXIE, MossdeepCity_Movement_MaxieEnterSpaceCenter
+	applymovement LOCALID_MOSSDEEP_GRUNT_1, MossdeepCity_Movement_Grunt1EnterSpaceCenter
+	applymovement LOCALID_MOSSDEEP_GRUNT_2, MossdeepCity_Movement_Grunt2EnterSpaceCenter
+	applymovement LOCALID_MOSSDEEP_GRUNT_3, MossdeepCity_Movement_Grunt3EnterSpaceCenter
+	applymovement LOCALID_MOSSDEEP_GRUNT_4, MossdeepCity_Movement_Grunt4EnterSpaceCenter
 	waitmovement 0
-	removeobject LOCALID_MAXIE
-	removeobject LOCALID_GRUNT_1
-	removeobject LOCALID_GRUNT_2
-	removeobject LOCALID_GRUNT_3
-	removeobject LOCALID_GRUNT_4
+	removeobject LOCALID_MOSSDEEP_MAXIE
+	removeobject LOCALID_MOSSDEEP_GRUNT_1
+	removeobject LOCALID_MOSSDEEP_GRUNT_2
+	removeobject LOCALID_MOSSDEEP_GRUNT_3
+	removeobject LOCALID_MOSSDEEP_GRUNT_4
 	delay 30
 	setvar VAR_MOSSDEEP_CITY_STATE, 2
 	setflag FLAG_HIDE_MOSSDEEP_CITY_TEAM_MAGMA
@@ -263,19 +312,19 @@ MossdeepCity_EventScript_Scott::
 	call_if_eq VAR_FACING, DIR_NORTH, MossdeepCity_EventScript_ScottExitNorth
 	call_if_eq VAR_FACING, DIR_EAST, MossdeepCity_EventScript_ScottExitEast
 	addvar VAR_SCOTT_STATE, 1
-	removeobject LOCALID_SCOTT
+	removeobject LOCALID_MOSSDEEP_SCOTT
 	release
 	end
 
 MossdeepCity_EventScript_ScottExitNorth::
-	applymovement OBJ_EVENT_ID_PLAYER, MossdeepCity_Movement_PlayerWatchScottExit
-	applymovement LOCALID_SCOTT, MossdeepCity_Movement_ScottExitNorth
+	applymovement LOCALID_PLAYER, MossdeepCity_Movement_PlayerWatchScottExit
+	applymovement LOCALID_MOSSDEEP_SCOTT, MossdeepCity_Movement_ScottExitNorth
 	waitmovement 0
 	return
 
 MossdeepCity_EventScript_ScottExitEast::
-	applymovement OBJ_EVENT_ID_PLAYER, MossdeepCity_Movement_PlayerWatchScottExit
-	applymovement LOCALID_SCOTT, MossdeepCity_Movement_ScottExitEast
+	applymovement LOCALID_PLAYER, MossdeepCity_Movement_PlayerWatchScottExit
+	applymovement LOCALID_MOSSDEEP_SCOTT, MossdeepCity_Movement_ScottExitEast
 	waitmovement 0
 	return
 

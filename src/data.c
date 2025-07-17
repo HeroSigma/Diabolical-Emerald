@@ -3,14 +3,17 @@
 #include "battle.h"
 #include "data.h"
 #include "graphics.h"
+#include "trainer_pools.h"
+#include "battle_transition.h"
+#include "constants/abilities.h"
 #include "constants/items.h"
 #include "constants/moves.h"
 #include "constants/trainers.h"
 #include "constants/battle_ai.h"
 
 const u16 gMinigameDigits_Pal[] = INCBIN_U16("graphics/link/minigame_digits.gbapal");
-const u32 gMinigameDigits_Gfx[] = INCBIN_U32("graphics/link/minigame_digits.4bpp.lz");
-static const u32 sMinigameDigitsThin_Gfx[] = INCBIN_U32("graphics/link/minigame_digits2.4bpp.lz"); // Unused
+const u32 gMinigameDigits_Gfx[] = INCBIN_U32("graphics/link/minigame_digits.4bpp.smol");
+static const u32 sMinigameDigitsThin_Gfx[] = INCBIN_U32("graphics/link/minigame_digits2.4bpp.smol"); // Unused
 
 #define BATTLER_OFFSET(i) (gHeap + 0x8000 + MON_PIC_SIZE * (i))
 
@@ -131,12 +134,13 @@ const struct SpriteFrameImage gTrainerBackPicTable_Lyra[] =
 };
 
 static const union AnimCmd sAnim_GeneralFrame0[] =
+const union AnimCmd sAnim_GeneralFrame0[] =
 {
     ANIMCMD_FRAME(0, 0),
     ANIMCMD_END,
 };
 
-static const union AnimCmd sAnim_GeneralFrame3[] =
+const union AnimCmd sAnim_GeneralFrame3[] =
 {
     ANIMCMD_FRAME(3, 0),
     ANIMCMD_END,
@@ -296,51 +300,24 @@ static const union AnimCmd sAnim_MonPic_1[] =
     ANIMCMD_END,
 };
 
-static const union AnimCmd sAnim_MonPic_2[] =
-{
-    ANIMCMD_FRAME(2, 0),
-    ANIMCMD_END,
-};
-
-static const union AnimCmd sAnim_MonPic_3[] =
-{
-    ANIMCMD_FRAME(3, 0),
-    ANIMCMD_END,
-};
-
 const union AnimCmd *const gAnims_MonPic[MAX_MON_PIC_FRAMES] =
 {
     sAnim_MonPic_0,
     sAnim_MonPic_1,
-    sAnim_MonPic_2,
-    sAnim_MonPic_3,
 };
 
-#define SPECIES_SPRITE(species, sprite) [SPECIES_##species] = {sprite, MON_PIC_SIZE, SPECIES_##species}
-#define SPECIES_PAL(species, pal) [SPECIES_##species] = {pal, SPECIES_##species}
-#define SPECIES_SHINY_PAL(species, pal) [SPECIES_##species] = {pal, SPECIES_##species + SPECIES_SHINY_TAG}
-
-#include "data/pokemon_graphics/unused_anims.h"
-#include "data/pokemon_graphics/front_pic_coordinates.h"
-#include "data/pokemon_graphics/still_front_pic_table.h"
-#include "data/pokemon_graphics/back_pic_coordinates.h"
-
-#include "data/pokemon_graphics/back_pic_table.h"
-#include "data/pokemon_graphics/palette_table.h"
-#include "data/pokemon_graphics/shiny_palette_table.h"
-
-#include "data/trainer_graphics/front_pic_anims.h"
-#include "data/trainer_graphics/front_pic_tables.h"
-#include "data/trainer_graphics/back_pic_anims.h"
-#include "data/trainer_graphics/back_pic_tables.h"
-
-#include "data/pokemon_graphics/enemy_mon_elevation.h"
-#include "data/pokemon_graphics/front_pic_anims.h"
-#include "data/pokemon_graphics/front_pic_table.h"
-#include "data/pokemon_graphics/unknown_table.h"
+const union AnimCmd *const gAnims_Trainer[] ={
+    sAnim_GeneralFrame0,
+    sAnim_GeneralFrame0,
+};
 
 #include "data/trainer_parties.h"
-#include "data/text/trainer_class_names.h"
+
+const struct Trainer gTrainers[DIFFICULTY_COUNT][TRAINERS_COUNT] =
+{
 #include "data/trainers.h"
 #include "data/text/species_names.h"
 #include "data/text/move_names.h"
+};
+
+#include "data/text/follower_messages.h"

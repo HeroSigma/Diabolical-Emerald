@@ -1,6 +1,8 @@
 #ifndef GUARD_OVERWORLD_H
 #define GUARD_OVERWORLD_H
 
+#include "constants/map_types.h"
+
 #define LINK_KEY_CODE_NULL 0x00
 #define LINK_KEY_CODE_EMPTY 0x11
 #define LINK_KEY_CODE_DPAD_DOWN 0x12
@@ -25,10 +27,11 @@
 #define MOVEMENT_MODE_SCRIPTED 2
 
 #define SKIP_OBJECT_EVENT_LOAD  1
-#define TIME_OF_DAY_NIGHT 0
-#define TIME_OF_DAY_TWILIGHT 1
-#define TIME_OF_DAY_DAY 2
-#define TIME_OF_DAY_MAX TIME_OF_DAY_DAY
+
+// trigger a time-of-day blend once
+#define HOURS_BLEND_ONCE 25
+// don't update gTimeBlend
+#define HOURS_FREEZE_BLEND 26
 
 struct InitialPlayerAvatarState
 {
@@ -44,14 +47,6 @@ struct LinkPlayerObjectEvent
     u8 movementMode;
 };
 
-struct __attribute__((packed)) TimeBlendSettings {
-  u16 weight:9;
-  u16 time1:3;
-  u16 time0:3;
-  u16 unused:1;
-  u16 altWeight;
-};
-
 // Exported RAM declarations
 extern struct WarpData gLastUsedWarp;
 extern struct LinkPlayerObjectEvent gLinkPlayerObjectEvents[4];
@@ -64,10 +59,12 @@ extern void (*gFieldCallback)(void);
 extern bool8 (*gFieldCallback2)(void);
 extern u8 gLocalLinkPlayerId;
 extern u8 gFieldLinkPlayerCount;
+extern bool8 gExitStairsMovementDisabled;
+extern bool8 gSkipShowMonAnim;
 extern u8 gTimeOfDay;
-extern u16 gTimeUpdateCounter;
+extern s16 gTimeUpdateCounter;
 
-extern struct TimeBlendSettings currentTimeBlend;
+extern struct TimeBlendSettings gTimeBlend;
 
 extern const struct UCoords32 gDirectionToVectors[];
 
@@ -84,7 +81,7 @@ void LoadObjEventTemplatesFromHeader(void);
 void LoadSaveblockObjEventScripts(void);
 void SetObjEventTemplateCoords(u8 localId, s16 x, s16 y);
 void SetObjEventTemplateMovementType(u8 localId, u8 movementType);
-const struct MapLayout *GetMapLayout(void);
+const struct MapLayout *GetMapLayout(u16 mapLayoutId);
 void ApplyCurrentWarp(void);
 struct MapHeader const *const Overworld_GetMapHeaderByGroupAndId(u16 mapGroup, u16 mapNum);
 struct MapHeader const *const GetDestinationWarpMapHeader(void);
@@ -93,7 +90,7 @@ void SetWarpDestination(s8 mapGroup, s8 mapNum, s8 warpId, s8 x, s8 y);
 void SetWarpDestinationToMapWarp(s8 mapGroup, s8 mapNum, s8 warpId);
 void SetDynamicWarp(s32 unused, s8 mapGroup, s8 mapNum, s8 warpId);
 void SetDynamicWarpWithCoords(s32 unused, s8 mapGroup, s8 mapNum, s8 warpId, s8 x, s8 y);
-void SetWarpDestinationToDynamicWarp(u8 unused);
+void SetWarpDestinationToDynamicWarp(u8 unusedWarpId);
 void SetWarpDestinationToHealLocation(u8 healLocationId);
 void SetWarpDestinationToLastHealLocation(void);
 void SetLastHealLocationWarp(u8 healLocationId);
@@ -116,7 +113,7 @@ void SetDefaultFlashLevel(void);
 void SetFlashLevel(s32 flashLevel);
 u8 GetFlashLevel(void);
 void SetCurrentMapLayout(u16 mapLayoutId);
-void SetObjectEventLoadFlag(u8 var);
+void SetObjectEventLoadFlag(u8 flag);
 u16 GetLocationMusic(struct WarpData *warp);
 u16 GetCurrLocationDefaultMusic(void);
 u16 GetWarpDestinationMusic(void);
@@ -131,22 +128,23 @@ void TryFadeOutOldMapMusic(void);
 bool8 BGMusicStopped(void);
 void Overworld_FadeOutMapMusic(void);
 void UpdateAmbientCry(s16 *state, u16 *delayCounter);
-u8 GetMapTypeByGroupAndId(s8 mapGroup, s8 mapNum);
-u8 GetMapTypeByWarpData(struct WarpData *warp);
-u8 GetCurrentMapType(void);
-u8 GetLastUsedWarpMapType(void);
-bool8 IsMapTypeOutdoors(u8 mapType);
-bool8 Overworld_MapTypeAllowsTeleportAndFly(u8 mapType);
-bool8 IsMapTypeIndoors(u8 mapType);
+enum MapType GetMapTypeByGroupAndId(s8 mapGroup, s8 mapNum);
+enum MapType GetMapTypeByWarpData(struct WarpData *warp);
+enum MapType GetCurrentMapType(void);
+enum MapType GetLastUsedWarpMapType(void);
+bool8 IsMapTypeOutdoors(enum MapType mapType);
+bool8 Overworld_MapTypeAllowsTeleportAndFly(enum MapType mapType);
+bool8 IsMapTypeIndoors(enum MapType mapType);
 u8 GetSavedWarpRegionMapSectionId(void);
 u8 GetCurrentRegionMapSectionId(void);
-u8 GetCurrentMapBattleScene(void);
+enum MapBattleScene GetCurrentMapBattleScene(void);
 void CleanupOverworldWindowsAndTilemaps(void);
 bool32 IsOverworldLinkActive(void);
 void CB1_Overworld(void);
 void CB2_OverworldBasic(void);
-u8 UpdateTimeOfDay(void);
-bool8 MapHasNaturalLight(u8 mapType);
+void UpdateTimeOfDay(void);
+bool32 MapHasNaturalLight(u8 mapType);
+bool32 CurrentMapHasShadows(void);
 void UpdateAltBgPalettes(u16 palettes);
 void UpdatePalettesWithTime(u32);
 void CB2_Overworld(void);
@@ -175,5 +173,14 @@ bool32 Overworld_RecvKeysFromLinkIsRunning(void);
 bool32 Overworld_SendKeysToLinkIsRunning(void);
 bool32 IsSendingKeysOverCable(void);
 void ClearLinkPlayerObjectEvents(void);
+bool16 SetTimeOfDay(u16 hours);
+
+// Item Description Headers
+enum ItemObtainFlags
+{
+    FLAG_GET_ITEM_OBTAINED,
+    FLAG_SET_ITEM_OBTAINED,
+};
+bool8 GetSetItemObtained(u16 item, enum ItemObtainFlags caseId);
 
 #endif // GUARD_OVERWORLD_H

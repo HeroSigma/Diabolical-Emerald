@@ -9,8 +9,8 @@
 static EWRAM_DATA u8 *sPokedexAreaMapBgNum = NULL;
 
 static const u16 ALIGNED(4) sPokedexAreaMap_Pal[] = INCBIN_U16("graphics/pokedex/region_map.gbapal");
-static const u32 sPokedexAreaMap_Gfx[] = INCBIN_U32("graphics/pokedex/region_map.8bpp.lz");
-static const u32 sPokedexAreaMap_Tilemap[] = INCBIN_U32("graphics/pokedex/region_map.bin.lz");
+static const u32 sPokedexAreaMap_Gfx[] = INCBIN_U32("graphics/pokedex/region_map.8bpp.smol");
+static const u32 sPokedexAreaMap_Tilemap[] = INCBIN_U32("graphics/pokedex/region_map.bin.smolTM");
 static const u16 ALIGNED(4) sPokedexAreaMap_Pal_Kanto[] = INCBIN_U16("graphics/pokedex/kanto_map.gbapal");
 static const u32 sPokedexAreaMap_Gfx_Kanto[] = INCBIN_U32("graphics/pokedex/kanto_map.8bpp.lz");
 static const u32 sPokedexAreaMap_Tilemap_Kanto[] = INCBIN_U32("graphics/pokedex/kanto_map.bin.lz");
@@ -20,13 +20,13 @@ static const u32 sPokedexAreaMap_Tilemap_Johto[] = INCBIN_U32("graphics/pokedex/
 static const u16 ALIGNED(4) sPokedexAreaMap_Pal_Sevii[] = INCBIN_U16("graphics/pokedex/sevii_map.gbapal");
 static const u32 sPokedexAreaMap_Gfx_Sevii[] = INCBIN_U32("graphics/pokedex/sevii_map.8bpp.lz");
 static const u32 sPokedexAreaMap_Tilemap_Sevii[] = INCBIN_U32("graphics/pokedex/sevii_map.bin.lz");
-static const u32 sPokedexAreaMapAffine_Gfx[] = INCBIN_U32("graphics/pokedex/region_map_affine.8bpp.lz");
-static const u32 sPokedexAreaMapAffine_Tilemap[] = INCBIN_U32("graphics/pokedex/region_map_affine.bin.lz");
+static const u32 sPokedexAreaMapAffine_Gfx[] = INCBIN_U32("graphics/pokedex/region_map_affine.8bpp.smol");
+static const u32 sPokedexAreaMapAffine_Tilemap[] = INCBIN_U32("graphics/pokedex/region_map_affine.bin.smolTM");
 
 void LoadPokedexAreaMapGfx(const struct PokedexAreaMapTemplate *template)
 {
     u8 mode;
-    void * tilemap;
+    void *tilemap;
     sPokedexAreaMapBgNum = Alloc(sizeof(sPokedexAreaMapBgNum));
     mode = template->mode;
 

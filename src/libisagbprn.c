@@ -1,7 +1,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include "gba/gba.h"
-#include "config.h"
+#include "config/general.h"
 #include "malloc.h"
 #include "mini_printf.h"
 
@@ -224,7 +224,7 @@ void MgbaClose(void)
     *REG_DEBUG_ENABLE = 0;
 }
 
-void MgbaPrintf(s32 level, const char* ptr, ...)
+void MgbaPrintf(s32 level, const char *ptr, ...)
 {
     va_list args;
 

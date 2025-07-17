@@ -52,6 +52,62 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "0x0",
       "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_SAFARI_ZONE_ENTRANCE_TAPU_BULU",
+      "graphics_id": "OBJ_EVENT_GFX_TAPU_BULU",
+      "x": 15,
+      "y": 3,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Route121_SafariZoneEntrance_TapuBulu",
+      "flag": "FLAG_HIDE_TAPU_BULU"
+    },
+    {
+      "local_id": "LOCALID_SAFARI_ZONE_ENTRANCE_TAPU_KOKO",
+      "graphics_id": "OBJ_EVENT_GFX_TAPU_KOKO",
+      "x": 15,
+      "y": 4,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Route121_SafariZoneEntrance_TapuKoko",
+      "flag": "FLAG_HIDE_TAPU_KOKO"
+    },
+    {
+      "local_id": "LOCALID_SAFARI_ZONE_ENTRANCE_TAPU_LELE",
+      "graphics_id": "OBJ_EVENT_GFX_TAPU_LELE",
+      "x": 17,
+      "y": 4,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Route121_SafariZoneEntrance_TapuLele",
+      "flag": "FLAG_HIDE_TAPU_LELE"
+    },
+    {
+      "local_id": "LOCALID_SAFARI_ZONE_ENTRANCE_TAPU_FINI",
+      "graphics_id": "OBJ_EVENT_GFX_TAPU_FINI",
+      "x": 17,
+      "y": 3,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Route121_SafariZoneEntrance_TapuFini",
+      "flag": "FLAG_HIDE_TAPU_FINI"
     }
   ],
   "warp_events": [

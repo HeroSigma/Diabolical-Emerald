@@ -1116,7 +1116,7 @@ static void PlaySlotMachine_Internal(u8 machineId, MainCallback exitCallback)
 {
     struct Task *task = &gTasks[CreateTask(SlotMachineDummyTask, 0xFF)];
     task->tMachineId = machineId;
-    StoreWordInTwoHalfwords(&task->tExitCallback, (intptr_t)exitCallback);
+    StoreWordInTwoHalfwords((u16*) &task->tExitCallback, (intptr_t)exitCallback);
 }
 
 // Extracts and assigns machineId and exit callback from task.
@@ -2324,7 +2324,9 @@ static bool8 ReelTask_MoveToStop(struct Task *task)
     memcpy(reelStopShocks, sReelStopShocks, sizeof(sReelStopShocks));
     reelPixelPos = sSlotMachine->reelPixelOffsets[task->tReelId] % REEL_SYMBOL_HEIGHT;
     if (reelPixelPos != 0)
+    {
         reelPixelPos = AdvanceSlotReelToNextSymbol(task->tReelId, sSlotMachine->reelSpeed);
+    }
     else if (sSlotMachine->reelExtraTurns[task->tReelId])
     {
         sSlotMachine->reelExtraTurns[task->tReelId]--;
@@ -5012,9 +5014,9 @@ static void LoadSlotMachineGfx(void)
 
     LoadReelBackground();
     sDigitalDisplayGfxPtr = Alloc(0x3200);
-    LZDecompressWram(gSlotMachineDigitalDisplay_Gfx, sDigitalDisplayGfxPtr);
+    DecompressDataWithHeaderWram(gSlotMachineDigitalDisplay_Gfx, sDigitalDisplayGfxPtr);
     sReelTimeGfxPtr = Alloc(0x3600);
-    LZDecompressWram(sReelTimeGfx, sReelTimeGfxPtr);
+    DecompressDataWithHeaderWram(sReelTimeGfx, sReelTimeGfxPtr);
     sSlotMachineSpritesheetsPtr = AllocZeroed(sizeof(struct SpriteSheet) * ARRAY_COUNT(sSlotMachineSpriteSheets));
     for (i = 0; i < ARRAY_COUNT(sSlotMachineSpriteSheets); i++)
     {
@@ -5052,7 +5054,7 @@ static void LoadReelBackground(void)
 static void LoadMenuGfx(void)
 {
     sMenuGfx = Alloc(0x2200);
-    LZDecompressWram(gSlotMachineMenu_Gfx, sMenuGfx);
+    DecompressDataWithHeaderWram(gSlotMachineMenu_Gfx, sMenuGfx);
     LoadBgTiles(2, sMenuGfx, 0x2200, 0);
     LoadPalette(gSlotMachineMenu_Pal, BG_PLTT_ID(0), 5 * PLTT_SIZE_4BPP);
     LoadPalette(sUnkPalette, BG_PLTT_ID(13), PLTT_SIZE_4BPP);
@@ -7946,6 +7948,6 @@ static const struct SpritePalette sSlotMachineSpritePalettes[] =
     {}
 };
 
-static const u32 sReelTimeGfx[] = INCBIN_U32("graphics/slot_machine/reel_time_gfx.4bpp.lz"); // reel_time_machine and reel_time_pikachu
+static const u32 sReelTimeGfx[] = INCBIN_U32("graphics/slot_machine/reel_time_gfx.4bpp.smol"); // reel_time_machine and reel_time_pikachu
 static const u16 sReelTimeWindow_Tilemap[] = INCBIN_U16("graphics/slot_machine/reel_time_window.bin");
 static const u16 sEmptyTilemap[] =  {0};

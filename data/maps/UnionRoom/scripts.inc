@@ -1,5 +1,3 @@
-@ Note: LOCALID_UNION_ROOM_PLAYER_# are local ids for this map used elsewhere. They're defined in event_objects.h
-
 UnionRoom_MapScripts::
 	map_script MAP_SCRIPT_ON_RESUME, UnionRoom_OnResume
 	map_script MAP_SCRIPT_ON_TRANSITION, UnionRoom_OnTransition
@@ -26,6 +24,7 @@ UnionRoom_OnResume:
 	end
 
 UnionRoom_OnTransition:
+	setflag FLAG_TEMP_HIDE_FOLLOWER
 	end
 
 UnionRoom_EventScript_Player1::
@@ -106,4 +105,3 @@ UnionRoom_EventScript_Unused::
 	waitstate
 	releaseall
 	end
-

@@ -1,4 +1,6 @@
-#include "config.h"
+#include "config/general.h"
+#include "config/battle.h"
+#include "config/item.h"
 #include "constants/global.h"
 #include "constants/apprentice.h"
 #include "constants/battle.h"
@@ -18,15 +20,18 @@
 #include "constants/contest.h"
 #include "constants/daycare.h"
 #include "constants/decorations.h"
+#include "constants/difficulty.h"
 #include "constants/easy_chat.h"
 #include "constants/event_objects.h"
 #include "constants/event_object_movement.h"
 #include "constants/field_effects.h"
+#include "constants/field_move.h"
 #include "constants/field_poison.h"
 #include "constants/field_specials.h"
 #include "constants/field_tasks.h"
 #include "constants/field_weather.h"
 #include "constants/flags.h"
+#include "constants/follower_npc.h"
 #include "constants/frontier_util.h"
 #include "constants/game_stat.h"
 #include "constants/item.h"
@@ -40,10 +45,13 @@
 #include "constants/metatile_labels.h"
 #include "constants/moves.h"
 #include "constants/party_menu.h"
+#include "constants/pokedex.h"
 #include "constants/pokemon.h"
+#include "constants/rtc.h"
 #include "constants/roulette.h"
 #include "constants/script_menu.h"
 #include "constants/secret_bases.h"
+#include "constants/siirtc.h"
 #include "constants/songs.h"
 #include "constants/sound.h"
 #include "constants/species.h"
@@ -61,6 +69,7 @@
 
 	.section script_data, "aw", %progbits
 
+	.set ALLOCATE_SCRIPT_CMD_TABLE, 1
 	.include "data/script_cmd_table.inc"
 
 gSpecialVars::
@@ -85,7 +94,7 @@ gSpecialVars::
 	.4byte gSpecialVar_MonBoxId
 	.4byte gSpecialVar_MonBoxPos
 	.4byte gSpecialVar_Unused_0x8014
-	.4byte gTrainerBattleOpponent_A
+	.4byte gTrainerBattleParameter + 2 // gTrainerBattleParameter.params.opponentA
 
 	.include "data/specials.inc"
 
@@ -1189,15 +1198,171 @@ gStdScripts_End::
     .include "data/maps/PalletTown/text.inc"
 
 	.include "data/scripts/shared_secret_base.inc"
+	.include "data/maps/BattleColosseum_2P/scripts.inc"
+	.include "data/maps/TradeCenter/scripts.inc"
+	.include "data/maps/RecordCorner/scripts.inc"
+	.include "data/maps/BattleColosseum_4P/scripts.inc"
+	.include "data/maps/ContestHall/scripts.inc"
+	.include "data/maps/InsideOfTruck/scripts.inc"
+	.include "data/maps/SSTidalCorridor/scripts.inc"
+	.include "data/maps/SSTidalLowerDeck/scripts.inc"
+	.include "data/maps/SSTidalRooms/scripts.inc"
+	.include "data/maps/BattlePyramidSquare01/scripts.inc"
+	.include "data/maps/UnionRoom/scripts.inc"
+	.include "data/maps/SafariZone_Northwest/scripts.inc"
+	.include "data/maps/SafariZone_North/scripts.inc"
+	.include "data/maps/SafariZone_Southwest/scripts.inc"
+	.include "data/maps/SafariZone_South/scripts.inc"
+	.include "data/maps/BattleFrontier_OutsideWest/scripts.inc"
+	.include "data/maps/BattleFrontier_BattleTowerLobby/scripts.inc"
+	.include "data/maps/BattleFrontier_BattleTowerElevator/scripts.inc"
+	.include "data/maps/BattleFrontier_BattleTowerCorridor/scripts.inc"
+	.include "data/maps/BattleFrontier_BattleTowerBattleRoom/scripts.inc"
+	.include "data/maps/SouthernIsland_Exterior/scripts.inc"
+	.include "data/maps/SouthernIsland_Interior/scripts.inc"
+	.include "data/maps/SafariZone_RestHouse/scripts.inc"
+	.include "data/maps/SafariZone_Northeast/scripts.inc"
+	.include "data/maps/SafariZone_Southeast/scripts.inc"
+	.include "data/maps/BattleFrontier_OutsideEast/scripts.inc"
+	.include "data/maps/BattleFrontier_BattleTowerMultiPartnerRoom/scripts.inc"
+	.include "data/maps/BattleFrontier_BattleTowerMultiCorridor/scripts.inc"
+	.include "data/maps/BattleFrontier_BattleTowerMultiBattleRoom/scripts.inc"
+	.include "data/maps/BattleFrontier_BattleDomeLobby/scripts.inc"
+	.include "data/maps/BattleFrontier_BattleDomeCorridor/scripts.inc"
+	.include "data/maps/BattleFrontier_BattleDomePreBattleRoom/scripts.inc"
+	.include "data/maps/BattleFrontier_BattleDomeBattleRoom/scripts.inc"
+	.include "data/maps/BattleFrontier_BattlePalaceLobby/scripts.inc"
+	.include "data/maps/BattleFrontier_BattlePalaceCorridor/scripts.inc"
+	.include "data/maps/BattleFrontier_BattlePalaceBattleRoom/scripts.inc"
+	.include "data/maps/BattleFrontier_BattlePyramidLobby/scripts.inc"
+	.include "data/maps/BattleFrontier_BattlePyramidFloor/scripts.inc"
+	.include "data/maps/BattleFrontier_BattlePyramidTop/scripts.inc"
+	.include "data/maps/BattleFrontier_BattleArenaLobby/scripts.inc"
+	.include "data/maps/BattleFrontier_BattleArenaCorridor/scripts.inc"
+	.include "data/maps/BattleFrontier_BattleArenaBattleRoom/scripts.inc"
+	.include "data/maps/BattleFrontier_BattleFactoryLobby/scripts.inc"
+	.include "data/maps/BattleFrontier_BattleFactoryPreBattleRoom/scripts.inc"
+	.include "data/maps/BattleFrontier_BattleFactoryBattleRoom/scripts.inc"
+	.include "data/maps/BattleFrontier_BattlePikeLobby/scripts.inc"
+	.include "data/maps/BattleFrontier_BattlePikeCorridor/scripts.inc"
+	.include "data/maps/BattleFrontier_BattlePikeThreePathRoom/scripts.inc"
+	.include "data/maps/BattleFrontier_BattlePikeRoomNormal/scripts.inc"
+	.include "data/maps/BattleFrontier_BattlePikeRoomFinal/scripts.inc"
+	.include "data/maps/BattleFrontier_BattlePikeRoomWildMons/scripts.inc"
+	.include "data/maps/BattleFrontier_RankingHall/scripts.inc"
+	.include "data/maps/BattleFrontier_Lounge1/scripts.inc"
+	.include "data/maps/BattleFrontier_ExchangeServiceCorner/scripts.inc"
+	.include "data/maps/BattleFrontier_Lounge2/scripts.inc"
+	.include "data/maps/BattleFrontier_Lounge3/scripts.inc"
+	.include "data/maps/BattleFrontier_Lounge4/scripts.inc"
+	.include "data/maps/BattleFrontier_ScottsHouse/scripts.inc"
+	.include "data/maps/BattleFrontier_Lounge5/scripts.inc"
+	.include "data/maps/BattleFrontier_Lounge6/scripts.inc"
+	.include "data/maps/BattleFrontier_Lounge7/scripts.inc"
+	.include "data/maps/BattleFrontier_ReceptionGate/scripts.inc"
+	.include "data/maps/BattleFrontier_Lounge8/scripts.inc"
+	.include "data/maps/BattleFrontier_Lounge9/scripts.inc"
+	.include "data/maps/BattleFrontier_PokemonCenter_1F/scripts.inc"
+	.include "data/maps/BattleFrontier_PokemonCenter_2F/scripts.inc"
+	.include "data/maps/BattleFrontier_Mart/scripts.inc"
+	.include "data/maps/FarawayIsland_Entrance/scripts.inc"
+	.include "data/maps/FarawayIsland_Interior/scripts.inc"
+	.include "data/maps/BirthIsland_Exterior/scripts.inc"
+	.include "data/maps/BirthIsland_Harbor/scripts.inc"
+	.include "data/maps/TrainerHill_Entrance/scripts.inc"
+	.include "data/maps/TrainerHill_1F/scripts.inc"
+	.include "data/maps/TrainerHill_2F/scripts.inc"
+	.include "data/maps/TrainerHill_3F/scripts.inc"
+	.include "data/maps/TrainerHill_4F/scripts.inc"
+	.include "data/maps/TrainerHill_Roof/scripts.inc"
+	.include "data/maps/NavelRock_Exterior/scripts.inc"
+	.include "data/maps/NavelRock_Harbor/scripts.inc"
+	.include "data/maps/NavelRock_Entrance/scripts.inc"
+	.include "data/maps/NavelRock_B1F/scripts.inc"
+	.include "data/maps/NavelRock_Fork/scripts.inc"
+	.include "data/maps/NavelRock_Up1/scripts.inc"
+	.include "data/maps/NavelRock_Up2/scripts.inc"
+	.include "data/maps/NavelRock_Up3/scripts.inc"
+	.include "data/maps/NavelRock_Up4/scripts.inc"
+	.include "data/maps/NavelRock_Top/scripts.inc"
+	.include "data/maps/NavelRock_Down01/scripts.inc"
+	.include "data/maps/NavelRock_Down02/scripts.inc"
+	.include "data/maps/NavelRock_Down03/scripts.inc"
+	.include "data/maps/NavelRock_Down04/scripts.inc"
+	.include "data/maps/NavelRock_Down05/scripts.inc"
+	.include "data/maps/NavelRock_Down06/scripts.inc"
+	.include "data/maps/NavelRock_Down07/scripts.inc"
+	.include "data/maps/NavelRock_Down08/scripts.inc"
+	.include "data/maps/NavelRock_Down09/scripts.inc"
+	.include "data/maps/NavelRock_Down10/scripts.inc"
+	.include "data/maps/NavelRock_Down11/scripts.inc"
+	.include "data/maps/NavelRock_Bottom/scripts.inc"
+	.include "data/maps/TrainerHill_Elevator/scripts.inc"
+	.include "data/maps/Route104_Prototype/scripts.inc"
+	.include "data/maps/Route104_PrototypePrettyPetalFlowerShop/scripts.inc"
+	.include "data/maps/Route109_SeashoreHouse/scripts.inc"
+	.include "data/maps/Route110_TrickHouseEntrance/scripts.inc"
+	.include "data/maps/Route110_TrickHouseEnd/scripts.inc"
+	.include "data/maps/Route110_TrickHouseCorridor/scripts.inc"
+	.include "data/maps/Route110_TrickHousePuzzle1/scripts.inc"
+	.include "data/maps/Route110_TrickHousePuzzle2/scripts.inc"
+	.include "data/maps/Route110_TrickHousePuzzle3/scripts.inc"
+	.include "data/maps/Route110_TrickHousePuzzle4/scripts.inc"
+	.include "data/maps/Route110_TrickHousePuzzle5/scripts.inc"
+	.include "data/maps/Route110_TrickHousePuzzle6/scripts.inc"
+	.include "data/maps/Route110_TrickHousePuzzle7/scripts.inc"
+	.include "data/maps/Route110_TrickHousePuzzle8/scripts.inc"
+	.include "data/maps/Route110_SeasideCyclingRoadSouthEntrance/scripts.inc"
+	.include "data/maps/Route110_SeasideCyclingRoadNorthEntrance/scripts.inc"
+	.include "data/maps/Route113_GlassWorkshop/scripts.inc"
+	.include "data/maps/Route123_BerryMastersHouse/scripts.inc"
+	.include "data/maps/Route119_WeatherInstitute_1F/scripts.inc"
+	.include "data/maps/Route119_WeatherInstitute_2F/scripts.inc"
+	.include "data/maps/Route119_House/scripts.inc"
+	.include "data/maps/Route124_DivingTreasureHuntersHouse/scripts.inc"
 
 	.include "data/scripts/std_msgbox.inc"
 	.include "data/scripts/trainer_battle.inc"
 	.include "data/scripts/new_game.inc"
 	.include "data/scripts/hall_of_fame.inc"
 
+	.include "data/scripts/config.inc"
+	.include "data/scripts/debug.inc"
+
 EventScript_WhiteOut::
 	call EverGrandeCity_HallOfFame_EventScript_ResetEliteFour
 	goto EventScript_ResetMrBriney
+	end
+
+EventScript_AfterWhiteOutHeal::
+	lockall
+	msgbox gText_FirstShouldRestoreMonsHealth
+	call EventScript_PkmnCenterNurse_TakeAndHealPkmn
+	call_if_unset FLAG_DEFEATED_RUSTBORO_GYM, EventScript_AfterWhiteOutHealMsgPreRoxanne
+	call_if_set FLAG_DEFEATED_RUSTBORO_GYM, EventScript_AfterWhiteOutHealMsg
+	applymovement VAR_LAST_TALKED, Movement_PkmnCenterNurse_Bow
+	waitmovement 0
+	fadedefaultbgm
+	releaseall
+	end
+
+EventScript_AfterWhiteOutHealMsgPreRoxanne::
+	msgbox gText_MonsHealedShouldBuyPotions
+	return
+
+EventScript_AfterWhiteOutHealMsg::
+	msgbox gText_MonsHealed
+	return
+
+EventScript_AfterWhiteOutMomHeal::
+	lockall
+	applymovement LOCALID_PLAYERS_HOUSE_1F_MOM, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	msgbox gText_HadQuiteAnExperienceTakeRest
+	call Common_EventScript_OutOfCenterPartyHeal
+	msgbox gText_MomExplainHPGetPotions
+	fadedefaultbgm
+	releaseall
 	end
 
 EventScript_ResetMrBriney::
@@ -1305,6 +1470,11 @@ EventScript_BackupMrBrineyLocation::
 	.include "data/scripts/surf.inc"
 	.include "data/scripts/rival_graphics.inc"
 	.include "data/scripts/set_gym_trainers.inc"
+
+EventScript_CancelMessageBox::
+	special UseBlankMessageToCancelPokemonPic
+	release
+	end
 
 Common_EventScript_ShowBagIsFull::
 	msgbox gText_TooBadBagIsFull, MSGBOX_DEFAULT
@@ -1419,8 +1589,8 @@ EventScript_HideMrBriney::
 	return
 
 RusturfTunnel_EventScript_SetRusturfTunnelOpen::
-	removeobject LOCALID_WANDAS_BF
-	removeobject LOCALID_WANDA
+	removeobject LOCALID_RUSTURF_TUNNEL_WANDAS_BF
+	removeobject LOCALID_RUSTURF_TUNNEL_WANDA
 	clearflag FLAG_HIDE_VERDANTURF_TOWN_WANDAS_HOUSE_WANDAS_BOYFRIEND
 	clearflag FLAG_HIDE_VERDANTURF_TOWN_WANDAS_HOUSE_WANDA
 	setvar VAR_RUSTURF_TUNNEL_STATE, 6
@@ -1429,11 +1599,11 @@ RusturfTunnel_EventScript_SetRusturfTunnelOpen::
 
 EventScript_UnusedBoardFerry::
 	delay 30
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
-	showobjectat OBJ_EVENT_ID_PLAYER, 0
+	showobjectat LOCALID_PLAYER, 0
 	delay 30
-	applymovement OBJ_EVENT_ID_PLAYER, Movement_UnusedBoardFerry
+	applymovement LOCALID_PLAYER, Movement_UnusedBoardFerry
 	waitmovement 0
 	delay 30
 	return
@@ -1446,7 +1616,7 @@ Common_EventScript_FerryDepartIsland::
 	call_if_eq VAR_FACING, DIR_SOUTH, Ferry_EventScript_DepartIslandSouth
 	call_if_eq VAR_FACING, DIR_WEST, Ferry_EventScript_DepartIslandWest
 	delay 30
-	hideobjectat OBJ_EVENT_ID_PLAYER, 0
+	hideobjectat LOCALID_PLAYER, 0
 	call Common_EventScript_FerryDepart
 	return
 
@@ -1526,6 +1696,48 @@ gText_PlayerWhitedOut::
 	.string "{PLAYER} is out of usable\n"
 	.string "POKéMON!\p{PLAYER} whited out!$"
 
+gText_FirstShouldRestoreMonsHealth::
+	.string "First, you should restore your\n"
+	.string "POKéMON to full health.$"
+
+gText_MonsHealedShouldBuyPotions::
+	.string "Your POKéMON have been healed\n"
+	.string "to perfect health.\p"
+	.string "If your POKéMON's energy, HP,\n"
+	.string "is down, please come see us.\p"
+	.string "If you're planning to go far in the\n"
+	.string "field, you should buy some POTIONS\l"
+	.string "at the POKéMON MART.\p"
+	.string "We hope you excel!$"
+
+gText_MonsHealed::
+	.string "Your POKéMON have been healed\n"
+	.string "to perfect health.\p"
+	.string "We hope you excel!$"
+
+gText_HadQuiteAnExperienceTakeRest::
+	.string "MOM: {PLAYER}!\n"
+	.string "Welcome home.\p"
+	.string "It sounds like you had quite\n"
+	.string "an experience.\p"
+	.string "Maybe you should take a quick\n"
+	.string "rest.$"
+
+gText_MomExplainHPGetPotions::
+	.string "MOM: Oh, good! You and your\n"
+	.string "POKéMON are looking great.\p"
+	.string "I just heard from PROF. BIRCH.\p"
+	.string "He said that POKéMON's energy is\n"
+	.string "measured in HP.\p"
+	.string "If your POKéMON lose their HP,\n"
+	.string "you can restore them at any\l"
+	.string "POKéMON CENTER.\p"
+	.string "If you're going to travel far away,\n"
+	.string "the smart TRAINER stocks up on\l"
+	.string "POTIONS at the POKéMON MART.\p"
+	.string "Make me proud, honey!\p"
+	.string "Take care!$"
+
 gText_RegisteredTrainerinPokeNav::
 	.string "Registered {STR_VAR_1} {STR_VAR_2}\n"
 	.string "in the POKéNAV.$"
@@ -1588,6 +1800,10 @@ gText_PlayerFoundOneTMHM::
 	.string "{PLAYER} found one {STR_VAR_1}\n"
 	.string "{STR_VAR_2}!$"
 
+gText_PlayerFoundTMHMs::
+	.string "{PLAYER} found {STR_VAR_3} {STR_VAR_1}\n"
+	.string "{STR_VAR_2}!$"
+
 gText_Sudowoodo_Attacked::
 	.string "The weird tree doesn't like the\n"
 	.string "WAILMER PAIL!\p"
@@ -1646,6 +1862,13 @@ Common_EventScript_LegendaryFlewAway::
 	release
 	end
 
+EventScript_VsSeekerChargingDone::
+	special VsSeekerFreezeObjectsAfterChargeComplete
+	waitstate
+	special VsSeekerResetObjectMovementAfterChargeComplete
+	releaseall
+	end
+
 	.include "data/scripts/pc_transfer.inc"
 	.include "data/scripts/questionnaire.inc"
 	.include "data/scripts/abnormal_weather.inc"
@@ -1658,7 +1881,6 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/text/contest_strings.inc"
 	.include "data/text/contest_link.inc"
 	.include "data/text/contest_painting.inc"
-	.include "data/text/trick_house_mechadolls.inc"
 	.include "data/scripts/tv.inc"
 	.include "data/text/tv.inc"
 	.include "data/scripts/interview.inc"
@@ -1705,3 +1927,5 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/text/sign_lady.inc"
     .include "data/scripts/fame_checker.inc"
     .include "data/text/fame_checker.inc"
+	.include "data/scripts/follower.inc"
+	.include "data/scripts/dexnav.inc"

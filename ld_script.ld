@@ -23,7 +23,6 @@ SECTIONS {
     {
         INCLUDE "sym_ewram.ld"
         src/*.o(ewram_data);
-        gflib/*.o(ewram_data);
 
         *libc.a:impure.o(.data);
         *libc.a:locale.o(.data);
@@ -36,7 +35,6 @@ SECTIONS {
         /* .bss starts at 0x3000000 */
         INCLUDE "sym_bss.ld"
         src/*.o(.bss);
-        gflib/*.o(.bss);
         data/*.o(.bss);
 
         /* .bss.code starts at 0x3001AA8 */
@@ -44,6 +42,7 @@ SECTIONS {
 
         /* COMMON starts at 0x30022A8 */
         INCLUDE "sym_common.ld"
+        src/*.o(COMMON);
         *libc.a:sbrkr.o(COMMON);
     } > IWRAM
 
@@ -57,15 +56,15 @@ SECTIONS {
         src/rom_header_gf.o(.text.*);
         src/crt0.o(.text);
         src/main.o(.text);
-        gflib/malloc.o(.text);
-        gflib/dma3_manager.o(.text);
-        gflib/gpu_regs.o(.text);
-        gflib/bg.o(.text);
-        gflib/blit.o(.text);
-        gflib/window.o(.text);
-        gflib/text.o(.text);
-        gflib/sprite.o(.text);
-        gflib/string_util.o(.text);
+        src/malloc.o(.text);
+        src/dma3_manager.o(.text);
+        src/gpu_regs.o(.text);
+        src/bg.o(.text);
+        src/blit.o(.text);
+        src/window.o(.text);
+        src/text.o(.text);
+        src/sprite.o(.text);
+        src/string_util.o(.text);
         src/link.o(.text);
         src/AgbRfu_LinkManager.o(.text);
         src/link_rfu_3.o(.text);
@@ -341,7 +340,7 @@ SECTIONS {
         src/gym_leader_rematch.o(.text);
         src/battle_transition_frontier.o(.text);
         src/international_string_util.o(.text);
-        src/dns.o(.text);
+        src/quests.o(.text);
     } > ROM =0
 
     script_data :
@@ -447,12 +446,12 @@ SECTIONS {
         src/rom_header.o(.rodata);
         src/rom_header_gf.o(.rodata);
         src/main.o(.rodata);
-        gflib/bg.o(.rodata);
-        gflib/window.o(.rodata);
-        gflib/text.o(.rodata);
-        gflib/sprite.o(.rodata);
-        gflib/io_reg.o(.rodata);
-        gflib/string_util.o(.rodata);
+        src/bg.o(.rodata);
+        src/window.o(.rodata);
+        src/text.o(.rodata);
+        src/sprite.o(.rodata);
+        src/io_reg.o(.rodata);
+        src/string_util.o(.rodata);
         src/link.o(.rodata);
         src/link.o(.rodata.str1.4);
         src/AgbRfu_LinkManager.o(.rodata);
@@ -704,7 +703,7 @@ SECTIONS {
         data/mystery_gift.o(.rodata);
         src/m4a_tables.o(.rodata);
         data/sound_data.o(.rodata);
-        src/dns.o(.rodata);
+        src/quests.o(.rodata);
     } > ROM =0
 
     song_data :
@@ -1240,34 +1239,6 @@ SECTIONS {
         sound/songs/midi/ph_nurse_blend.o(.rodata);
         sound/songs/midi/ph_nurse_held.o(.rodata);
         sound/songs/midi/ph_nurse_solo.o(.rodata);
-        sound/songs/midi/mus_new_bark.o(.rodata);
-        sound/songs/midi/mus_route29.o(.rodata);
-        sound/songs/midi/mus_elms_lab.o(.rodata);
-        sound/songs/midi/mus_cherrygrove.o(.rodata);
-        sound/songs/midi/mus_route30.o(.rodata);
-        sound/songs/midi/mus_violet.o(.rodata);
-        sound/songs/midi/mus_johto_pokecenter.o(.rodata);
-        sound/songs/midi/mus_johto_pokemart.o(.rodata);
-        sound/songs/midi/mus_johto_gym.o(.rodata);
-        sound/songs/midi/mus_union_cave.o(.rodata);
-        sound/songs/midi/mus_ruins_of_alph.o(.rodata);
-        sound/songs/midi/mus_sprout_tower.o(.rodata);
-        sound/songs/midi/mus_azalea.o(.rodata);
-        sound/songs/midi/mus_dark_cave.o(.rodata);
-        sound/songs/midi/mus_route36.o(.rodata);
-        sound/songs/midi/mus_goldenrod.o(.rodata);
-        sound/songs/midi/mus_johto_gamecorner.o(.rodata);
-        sound/songs/midi/mus_national_park.o(.rodata);
-        sound/songs/midi/mus_route38.o(.rodata);
-        sound/songs/midi/mus_ecruteak.o(.rodata);
-        sound/songs/midi/mus_dance_theater.o(.rodata);
-        sound/songs/midi/mus_burned_tower.o(.rodata);
-        sound/songs/midi/mus_tin_tower.o(.rodata);
-        sound/songs/midi/mus_battle_tower.o(.rodata);
-        sound/songs/midi/mus_lake_of_rage.o(.rodata);
-        sound/songs/midi/mus_johto_rocket.o(.rodata);
-        sound/songs/midi/mus_dragons_den.o(.rodata);
-        sound/songs/midi/mus_route26.o(.rodata);
     } > ROM =0
 
     lib_rodata :
@@ -1347,9 +1318,7 @@ SECTIONS {
     ALIGN(4)
     {
         src/*.o(.text);
-        gflib/*.o(.text);
         src/*.o(.rodata);
-        gflib/*.o(.rodata);
         data/*.o(.rodata);
     } > ROM = 0
 
