@@ -140,7 +140,12 @@ def ImportWildEncounterFile():
     tabStr = "    "
 
     wFile = open("src/data/wild_encounters.json")
-    wData = json.load(wFile)
+    try:
+        wData = json.load(wFile)
+    except json.JSONDecodeError:
+        wFile.seek(0)
+        text = wFile.read()
+        wData, _ = json.JSONDecoder().raw_decode(text)
 
     encounterTotalCount = []
     encounterCount = []
