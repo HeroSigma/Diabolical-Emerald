@@ -429,6 +429,26 @@
 #define LOCALID_MOSSDEEP_MART_CLERK             1
 #define LOCALID_SOOTOPOLIS_MART_CLERK           1
 #define LOCALID_FRONTIER_MART_CLERK             1
+
+// Healer NPCs (always the first object event in their respective maps)
+#define LOCALID_PLAYERS_HOUSE_1F_MOM            1
+#define LOCALID_PETALBURG_NURSE                 1
+#define LOCALID_SLATEPORT_NURSE                 1
+#define LOCALID_MAUVILLE_NURSE                  1
+#define LOCALID_RUSTBORO_NURSE                  1
+#define LOCALID_FORTREE_NURSE                   1
+#define LOCALID_LILYCOVE_NURSE                  1
+#define LOCALID_MOSSDEEP_NURSE                  1
+#define LOCALID_SOOTOPOLIS_NURSE                1
+#define LOCALID_EVER_GRANDE_NURSE               1
+#define LOCALID_OLDALE_NURSE                    1
+#define LOCALID_DEWFORD_NURSE                   1
+#define LOCALID_LAVARIDGE_NURSE                 1
+#define LOCALID_FALLARBOR_NURSE                 1
+#define LOCALID_VERDANTURF_NURSE                1
+#define LOCALID_PACIFIDLOG_NURSE                1
+#define LOCALID_LEAGUE_NURSE                    1
+#define LOCALID_FRONTIER_NURSE                  1
 // Contest hall NPCs
 #define LOCALID_CONTESTANT_1                    6
 #define LOCALID_CONTESTANT_2                    7
