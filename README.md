@@ -53,10 +53,10 @@ If you are looking to [report a bug](CONTRIBUTING.md#Bug-Report), [open a pull r
 Our community uses the [Rom Hacking Hideout (RHH) Discord server](https://discord.gg/6CzjAG6GZk) to communicate and organize. Most of our discussions take place there, and we welcome anybody to join us!
 
 ## Integrating Pokecrossroads Data
-To import maps and trainers from the [Pokecrossroads](https://github.com/eonlynx/pokecrossroads) project, run the helper script from the repository root:
+To import maps and trainer data from the [Pokecrossroads](https://github.com/eonlynx/pokecrossroads) project, run the helper script from the repository root:
 
 ```bash
 ./dev_scripts/integrate_pokecrossroads.sh
 ```
 
-The script clones the Pokecrossroads repository, copies its map files into `data/maps/`, and saves trainer party data in `src/data/trainers.party.pokecrossroads`. Temporary files are cleaned up automatically. Review the imported files and merge them as appropriate for your project.
+The script clones the Pokecrossroads repository and copies all map-related directories (`data/maps`, `data/layouts`, `data/scripts`, and `data/tilesets`) into this project. It also saves trainer data (`trainers.h`, `trainer_parties.h`, and `trainers.party`) with `.pokecrossroads` extensions in `src/data/`. Temporary files are cleaned up automatically. Review the imported files and merge them as appropriate for your project.
