@@ -59,6 +59,7 @@
 #include "window.h"
 #include "list_menu.h"
 #include "malloc.h"
+#include "regions.h"
 #include "quests.h"
 #include "constants/quest_menu.h"
 #include "constants/quests.h"
