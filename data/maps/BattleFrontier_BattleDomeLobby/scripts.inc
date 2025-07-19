@@ -1,3 +1,6 @@
+.set LOCALID_ATTENDANT_SINGLES, 1
+.set LOCALID_ATTENDANT_DOUBLES, 6
+
 BattleFrontier_BattleDomeLobby_MapScripts::
 	map_script MAP_SCRIPT_ON_RESUME, BattleFrontier_BattleDomeLobby_OnResume
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, BattleFrontier_BattleDomeLobby_OnFrame
@@ -14,7 +17,7 @@ BattleFrontier_BattleDomeLobby_OnWarp:
 
 BattleFrontier_BattleDomeLobby_EventScript_TurnPlayerNorth::
 	setvar VAR_TEMP_1, 1
-	turnobject LOCALID_PLAYER, DIR_NORTH
+	turnobject OBJ_EVENT_ID_PLAYER, DIR_NORTH
 	end
 
 BattleFrontier_BattleDomeLobby_OnFrame:
@@ -65,7 +68,6 @@ BattleFrontier_BattleDomeLobby_EventScript_GiveBattlePoints::
 	dome_set DOME_DATA_WIN_STREAK_ACTIVE, TRUE
 	special LoadPlayerParty
 	special HealPlayerParty
-	callnative UpdateFollowingPokemon
 	goto BattleFrontier_BattleDomeLobby_EventScript_AskRecordBattle
 
 BattleFrontier_BattleDomeLobby_EventScript_LostChallenge::
@@ -80,7 +82,6 @@ BattleFrontier_BattleDomeLobby_EventScript_LostChallenge::
 	dome_set DOME_DATA_ATTEMPTED_CHALLENGE, TRUE
 	special LoadPlayerParty
 	special HealPlayerParty
-	callnative UpdateFollowingPokemon
 BattleFrontier_BattleDomeLobby_EventScript_AskRecordBattle::
 	dome_save 0
 	playse SE_SAVE
@@ -159,7 +160,6 @@ BattleFrontier_BattleDomeLobby_EventScript_TryEnterChallenge::
 	frontier_set FRONTIER_DATA_LVL_MODE, VAR_RESULT
 	msgbox BattleFrontier_BattleDomeLobby_Text_SelectThreeMons, MSGBOX_DEFAULT
 	fadescreen FADE_TO_BLACK
-	callnative RemoveFollowingPokemon
 	call BattleFrontier_EventScript_GetLvlMode
 	copyvar VAR_0x8004, VAR_RESULT
 	setvar VAR_0x8005, FRONTIER_PARTY_SIZE
@@ -222,7 +222,6 @@ BattleFrontier_BattleDomeLobby_EventScript_CancelChallengeSaveFailed::
 
 BattleFrontier_BattleDomeLobby_EventScript_LoadPartyCancelChallenge::
 	special LoadPlayerParty
-	callnative UpdateFollowingPokemon
 BattleFrontier_BattleDomeLobby_EventScript_CancelChallenge::
 	msgbox BattleFrontier_BattleDomeLobby_Text_HopeToSeeYouAgain, MSGBOX_DEFAULT
 BattleFrontier_BattleDomeLobby_EventScript_EndCancelChallenge::
@@ -232,14 +231,14 @@ BattleFrontier_BattleDomeLobby_EventScript_EndCancelChallenge::
 BattleFrontier_BattleDomeLobby_EventScript_WalkToDoor::
 	call_if_eq VAR_FRONTIER_BATTLE_MODE, FRONTIER_MODE_SINGLES, BattleFrontier_BattleDomeLobby_EventScript_SinglesAttendantWalkToDoor
 	call_if_eq VAR_FRONTIER_BATTLE_MODE, FRONTIER_MODE_DOUBLES, BattleFrontier_BattleDomeLobby_EventScript_DoublesAttendantWalkToDoor
-	applymovement LOCALID_PLAYER, BattleFrontier_BattleDomeLobby_Movement_WalkToDoor
+	applymovement OBJ_EVENT_ID_PLAYER, BattleFrontier_BattleDomeLobby_Movement_WalkToDoor
 	waitmovement 0
 	call_if_eq VAR_FRONTIER_BATTLE_MODE, FRONTIER_MODE_SINGLES, BattleFrontier_BattleDomeLobby_EventScript_OpenSinglesDoor
 	call_if_eq VAR_FRONTIER_BATTLE_MODE, FRONTIER_MODE_DOUBLES, BattleFrontier_BattleDomeLobby_EventScript_OpenDoublesDoor
 	waitdooranim
 	call_if_eq VAR_FRONTIER_BATTLE_MODE, FRONTIER_MODE_SINGLES, BattleFrontier_BattleDomeLobby_EventScript_SinglesAttendantEnterDoor
 	call_if_eq VAR_FRONTIER_BATTLE_MODE, FRONTIER_MODE_DOUBLES, BattleFrontier_BattleDomeLobby_EventScript_DoublesAttendantEnterDoor
-	applymovement LOCALID_PLAYER, BattleFrontier_BattleDomeLobby_Movement_PlayerEnterDoor
+	applymovement OBJ_EVENT_ID_PLAYER, BattleFrontier_BattleDomeLobby_Movement_PlayerEnterDoor
 	waitmovement 0
 	call_if_eq VAR_FRONTIER_BATTLE_MODE, FRONTIER_MODE_SINGLES, BattleFrontier_BattleDomeLobby_EventScript_CloseSinglesDoor
 	call_if_eq VAR_FRONTIER_BATTLE_MODE, FRONTIER_MODE_DOUBLES, BattleFrontier_BattleDomeLobby_EventScript_CloseDoublesDoor
@@ -247,19 +246,19 @@ BattleFrontier_BattleDomeLobby_EventScript_WalkToDoor::
 	return
 
 BattleFrontier_BattleDomeLobby_EventScript_SinglesAttendantWalkToDoor::
-	applymovement LOCALID_DOME_ATTENDANT_SINGLES, BattleFrontier_BattleDomeLobby_Movement_WalkToDoor
+	applymovement LOCALID_ATTENDANT_SINGLES, BattleFrontier_BattleDomeLobby_Movement_WalkToDoor
 	return
 
 BattleFrontier_BattleDomeLobby_EventScript_DoublesAttendantWalkToDoor::
-	applymovement LOCALID_DOME_ATTENDANT_DOUBLES, BattleFrontier_BattleDomeLobby_Movement_WalkToDoor
+	applymovement LOCALID_ATTENDANT_DOUBLES, BattleFrontier_BattleDomeLobby_Movement_WalkToDoor
 	return
 
 BattleFrontier_BattleDomeLobby_EventScript_SinglesAttendantEnterDoor::
-	applymovement LOCALID_DOME_ATTENDANT_SINGLES, BattleFrontier_BattleDomeLobby_Movement_AttendantEnterDoor
+	applymovement LOCALID_ATTENDANT_SINGLES, BattleFrontier_BattleDomeLobby_Movement_AttendantEnterDoor
 	return
 
 BattleFrontier_BattleDomeLobby_EventScript_DoublesAttendantEnterDoor::
-	applymovement LOCALID_DOME_ATTENDANT_DOUBLES, BattleFrontier_BattleDomeLobby_Movement_AttendantEnterDoor
+	applymovement LOCALID_ATTENDANT_DOUBLES, BattleFrontier_BattleDomeLobby_Movement_AttendantEnterDoor
 	return
 
 BattleFrontier_BattleDomeLobby_EventScript_WelcomeSingles::

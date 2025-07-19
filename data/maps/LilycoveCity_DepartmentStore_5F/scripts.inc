@@ -1,3 +1,5 @@
+.set LOCALID_WOMAN, 7
+
 LilycoveCity_DepartmentStore_5F_MapScripts::
 	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, LilycoveCity_DepartmentStore_5F_OnWarp
 	.byte 0
@@ -11,8 +13,8 @@ LilycoveCity_DepartmentStore_5F_OnWarp:
 	.2byte 0
 
 LilycoveCity_DepartmentStore_5F_EventScript_BlockRoofStairs::
-	setobjectxy LOCALID_DEPARTMENT_STORE_STAIRS_WOMAN, 16, 2
-	turnobject LOCALID_DEPARTMENT_STORE_STAIRS_WOMAN, DIR_NORTH
+	setobjectxy LOCALID_WOMAN, 16, 2
+	turnobject LOCALID_WOMAN, DIR_NORTH
 	end
 
 LilycoveCity_DepartmentStore_5F_EventScript_ClerkFarLeft::
@@ -39,7 +41,9 @@ LilycoveCity_DepartmentStore_5F_Pokemart_Dolls:
 	.2byte DECOR_SKITTY_DOLL
 	.2byte DECOR_SWABLU_DOLL
 	.2byte DECOR_GULPIN_DOLL
-	pokemartlistend
+	.2byte DECOR_NONE
+	release
+	end
 
 LilycoveCity_DepartmentStore_5F_EventScript_ClerkMidLeft::
 	lock
@@ -62,7 +66,9 @@ LilycoveCity_DepartmentStore_5F_Pokemart_Cushions:
 	.2byte DECOR_GRASS_CUSHION
 	.2byte DECOR_FIRE_CUSHION
 	.2byte DECOR_WATER_CUSHION
-	pokemartlistend
+	.2byte DECOR_NONE
+	release
+	end
 
 LilycoveCity_DepartmentStore_5F_EventScript_ClerkMidRight::
 	lock
@@ -85,7 +91,9 @@ LilycoveCity_DepartmentStore_5F_Pokemart_Posters:
 	.2byte DECOR_LONG_POSTER
 	.2byte DECOR_SEA_POSTER
 	.2byte DECOR_SKY_POSTER
-	pokemartlistend
+	.2byte DECOR_NONE
+	release
+	end
 
 LilycoveCity_DepartmentStore_5F_EventScript_ClerkFarRight::
 	lock
@@ -109,7 +117,9 @@ LilycoveCity_DepartmentStore_5F_Pokemart_Mats:
 	.2byte DECOR_GLITTER_MAT
 	.2byte DECOR_JUMP_MAT
 	.2byte DECOR_SPIN_MAT
-	pokemartlistend
+	.2byte DECOR_NONE
+	release
+	end
 
 LilycoveCity_DepartmentStore_5F_EventScript_PokefanF::
 	msgbox LilycoveCity_DepartmentStore_5F_Text_PlaceFullOfCuteDolls, MSGBOX_NPC
@@ -117,7 +127,7 @@ LilycoveCity_DepartmentStore_5F_EventScript_PokefanF::
 
 LilycoveCity_DepartmentStore_5F_EventScript_Woman::
 	lockall
-	applymovement LOCALID_DEPARTMENT_STORE_STAIRS_WOMAN, Common_Movement_FacePlayer
+	applymovement LOCALID_WOMAN, Common_Movement_FacePlayer
 	waitmovement 0
 	goto_if_eq VAR_SOOTOPOLIS_CITY_STATE, 0, LilycoveCity_DepartmentStore_5F_EventScript_WomanNormal
 	goto_if_ge VAR_SOOTOPOLIS_CITY_STATE, 4, LilycoveCity_DepartmentStore_5F_EventScript_WomanNormal
@@ -133,7 +143,7 @@ LilycoveCity_DepartmentStore_5F_EventScript_WomanNormal::
 LilycoveCity_DepartmentStore_5F_EventScript_WomanLegendaryWeather::
 	msgbox LilycoveCity_DepartmentStore_5F_Text_ClosedRooftopForWeather, MSGBOX_DEFAULT
 	closemessage
-	applymovement LOCALID_DEPARTMENT_STORE_STAIRS_WOMAN, Common_Movement_WalkInPlaceFasterUp
+	applymovement LOCALID_WOMAN, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
 	releaseall
 	end

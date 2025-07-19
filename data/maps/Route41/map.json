@@ -1,0 +1,66 @@
+{
+  "id": "MAP_ROUTE41",
+  "name": "Route41",
+  "layout": "LAYOUT_ROUTE41",
+  "music": "MUS_ROUTE36",
+  "region_map_section": "MAPSEC_ROUTE_41",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_OCEAN_ROUTE",
+  "allow_cycling": true,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": [
+    {
+      "map": "MAP_ROUTE40",
+      "offset": 40,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_CIANWOOD_CITY",
+      "offset": 0,
+      "direction": "left"
+    }
+  ],
+  "object_events": [
+
+  ],
+  "warp_events": [
+    {
+      "x": 14,
+      "y": 22,
+      "elevation": 0,
+      "dest_map": "MAP_WHIRL_ISLANDS_NORTH_WEST_ENTRANCE",
+      "dest_warp_id": "1"
+    },
+    {
+      "x": 45,
+      "y": 23,
+      "elevation": 0,
+      "dest_map": "MAP_WHIRL_ISLANDS_NORTH_EAST_ENTRANCE",
+      "dest_warp_id": "2"
+    },
+    {
+      "x": 12,
+      "y": 49,
+      "elevation": 0,
+      "dest_map": "MAP_WHIRL_ISLANDS_SOUTH_WEST_ENTRANCE",
+      "dest_warp_id": "2"
+    },
+    {
+      "x": 43,
+      "y": 55,
+      "elevation": 0,
+      "dest_map": "MAP_WHIRL_ISLANDS_SOUTH_EAST_ENTRANCE",
+      "dest_warp_id": "1"
+    }
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
+}

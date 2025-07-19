@@ -23,8 +23,8 @@
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_ULTRA_BALL",
-      "script": "Common_EventScript_FindItem",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "NewMauville_Inside_EventScript_ItemUltraBall",
       "flag": "FLAG_ITEM_NEW_MAUVILLE_ULTRA_BALL"
     },
     {
@@ -36,8 +36,8 @@
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_ESCAPE_ROPE",
-      "script": "Common_EventScript_FindItem",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "NewMauville_Inside_EventScript_ItemEscapeRope",
       "flag": "FLAG_ITEM_NEW_MAUVILLE_ESCAPE_ROPE"
     },
     {
@@ -49,8 +49,8 @@
       "movement_range_x": 1,
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_THUNDER_STONE",
-      "script": "Common_EventScript_FindItem",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "NewMauville_Inside_EventScript_ItemThunderStone",
       "flag": "FLAG_ITEM_NEW_MAUVILLE_THUNDER_STONE"
     },
     {
@@ -62,8 +62,8 @@
       "movement_range_x": 1,
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_FULL_HEAL",
-      "script": "Common_EventScript_FindItem",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "NewMauville_Inside_EventScript_ItemFullHeal",
       "flag": "FLAG_ITEM_NEW_MAUVILLE_FULL_HEAL"
     },
     {
@@ -75,8 +75,8 @@
       "movement_range_x": 1,
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_PARALYZE_HEAL",
-      "script": "Common_EventScript_FindItem",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "NewMauville_Inside_EventScript_ItemParalyzeHeal",
       "flag": "FLAG_ITEM_NEW_MAUVILLE_PARALYZE_HEAL"
     },
     {
@@ -117,48 +117,6 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "NewMauville_Inside_EventScript_Voltorb3",
       "flag": "FLAG_HIDE_NEW_MAUVILLE_VOLTORB_3"
-    },
-    {
-      "local_id": "LOCALID_NEW_MAUVILLE_ZAPDOS",
-      "graphics_id": "OBJ_EVENT_GFX_ZAPDOS",
-      "x": 16,
-      "y": 16,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
-      "movement_range_x": 1,
-      "movement_range_y": 1,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "NewMauville_Inside_Zapdos",
-      "flag": "FLAG_HIDE_ZAPDOS"
-    },
-    {
-      "local_id": "LOCALID_NEW_MAUVILLE_REGIDRAGO",
-      "graphics_id": "OBJ_EVENT_GFX_REGIDRAGO",
-      "x": 33,
-      "y": 24,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
-      "movement_range_x": 1,
-      "movement_range_y": 1,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "NewMauville_Inside_Regidrago",
-      "flag": "FLAG_HIDE_REGIDRAGO"
-    },
-    {
-      "local_id": "LOCALID_NEW_MAUVILLE_REGIELEKI",
-      "graphics_id": "OBJ_EVENT_GFX_REGIELEKI",
-      "x": 30,
-      "y": 5,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
-      "movement_range_x": 1,
-      "movement_range_y": 1,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "NewMauville_Inside_Regieleki",
-      "flag": "FLAG_HIDE_REGIELEKI"
     }
   ],
   "warp_events": [

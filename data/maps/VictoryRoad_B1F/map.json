@@ -244,8 +244,8 @@
       "movement_range_x": 1,
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_TM_PSYCHIC",
-      "script": "Common_EventScript_FindItem",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "VictoryRoad_B1F_EventScript_ItemTMPsychic",
       "flag": "FLAG_ITEM_VICTORY_ROAD_B1F_TM_PSYCHIC"
     },
     {
@@ -257,8 +257,8 @@
       "movement_range_x": 1,
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_FULL_RESTORE",
-      "script": "Common_EventScript_FindItem",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "VictoryRoad_B1F_EventScript_ItemFullRestore",
       "flag": "FLAG_ITEM_VICTORY_ROAD_B1F_FULL_RESTORE"
     },
     {
@@ -286,20 +286,6 @@
       "trainer_sight_or_berry_tree_id": "3",
       "script": "VictoryRoad_B1F_EventScript_Halle",
       "flag": "0"
-    },
-    {
-      "local_id": "LOCALID_VICTORY_ROAD_TERRAKION",
-      "graphics_id": "OBJ_EVENT_GFX_TERRAKION",
-      "x": 43,
-      "y": 15,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
-      "movement_range_x": 1,
-      "movement_range_y": 1,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "VictoryRoad_B1F_Terrakion",
-      "flag": "FLAG_HIDE_TERRAKION"
     }
   ],
   "warp_events": [

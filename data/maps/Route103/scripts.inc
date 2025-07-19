@@ -1,3 +1,5 @@
+.set LOCALID_RIVAL, 2
+
 Route103_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, Route103_OnTransition
 	map_script MAP_SCRIPT_ON_LOAD, Route103_OnLoad
@@ -28,63 +30,37 @@ Route103_EventScript_RivalMay::
 	msgbox Route103_Text_MayRoute103Pokemon, MSGBOX_DEFAULT
 	closemessage
 	playbgm MUS_ENCOUNTER_MAY, TRUE
-	applymovement LOCALID_ROUTE103_RIVAL, Common_Movement_FacePlayer
+	applymovement LOCALID_RIVAL, Common_Movement_FacePlayer
 	waitmovement 0
-	applymovement LOCALID_ROUTE103_RIVAL, Common_Movement_ExclamationMark
+	applymovement LOCALID_RIVAL, Common_Movement_ExclamationMark
 	waitmovement 0
-	applymovement LOCALID_ROUTE103_RIVAL, Common_Movement_Delay48
+	applymovement LOCALID_RIVAL, Common_Movement_Delay48
 	waitmovement 0
 	msgbox Route103_Text_MayLetsBattle, MSGBOX_DEFAULT
-	switch VAR_STARTER_MON
-	case 0, Route103_EventScript_StartMayBattleTreecko
-	case 1, Route103_EventScript_StartMayBattleTorchic
-	case 2, Route103_EventScript_StartMayBattleMudkip
+	goto Route103_EventScript_StartMayBattle
 	end
 
 Route103_EventScript_RivalBrendan::
 	msgbox Route103_Text_BrendanRoute103Pokemon, MSGBOX_DEFAULT
 	closemessage
 	playbgm MUS_ENCOUNTER_BRENDAN, TRUE
-	applymovement LOCALID_ROUTE103_RIVAL, Common_Movement_FacePlayer
+	applymovement LOCALID_RIVAL, Common_Movement_FacePlayer
 	waitmovement 0
-	applymovement LOCALID_ROUTE103_RIVAL, Common_Movement_ExclamationMark
+	applymovement LOCALID_RIVAL, Common_Movement_ExclamationMark
 	waitmovement 0
-	applymovement LOCALID_ROUTE103_RIVAL, Common_Movement_Delay48
+	applymovement LOCALID_RIVAL, Common_Movement_Delay48
 	waitmovement 0
 	msgbox Route103_Text_BrendanLetsBattle, MSGBOX_DEFAULT
-	switch VAR_STARTER_MON
-	case 0, Route103_EventScript_StartBrendanBattleTreecko
-	case 1, Route103_EventScript_StartBrendanBattleTorchic
-	case 2, Route103_EventScript_StartBrendanBattleMudkip
+	goto Route103_EventScript_StartBrendanBattle
 	end
 
-Route103_EventScript_StartMayBattleTreecko::
-	trainerbattle_no_intro TRAINER_MAY_ROUTE_103_TREECKO, Route103_Text_MayDefeated
+Route103_EventScript_StartMayBattle::
+	trainerbattle_no_intro TRAINER_MAY_ROUTE_103, Route103_Text_MayDefeated
 	goto Route103_EventScript_AfterMayBattle
 	end
 
-Route103_EventScript_StartMayBattleTorchic::
-	trainerbattle_no_intro TRAINER_MAY_ROUTE_103_TORCHIC, Route103_Text_MayDefeated
-	goto Route103_EventScript_AfterMayBattle
-	end
-
-Route103_EventScript_StartMayBattleMudkip::
-	trainerbattle_no_intro TRAINER_MAY_ROUTE_103_MUDKIP, Route103_Text_MayDefeated
-	goto Route103_EventScript_AfterMayBattle
-	end
-
-Route103_EventScript_StartBrendanBattleTreecko::
-	trainerbattle_no_intro TRAINER_BRENDAN_ROUTE_103_TREECKO, Route103_Text_BrendanDefeated
-	goto Route103_EventScript_AfterBrendanBattle
-	end
-
-Route103_EventScript_StartBrendanBattleTorchic::
-	trainerbattle_no_intro TRAINER_BRENDAN_ROUTE_103_TORCHIC, Route103_Text_BrendanDefeated
-	goto Route103_EventScript_AfterBrendanBattle
-	end
-
-Route103_EventScript_StartBrendanBattleMudkip::
-	trainerbattle_no_intro TRAINER_BRENDAN_ROUTE_103_MUDKIP, Route103_Text_BrendanDefeated
+Route103_EventScript_StartBrendanBattle::
+	trainerbattle_no_intro TRAINER_BRENDAN_ROUTE_103, Route103_Text_BrendanDefeated
 	goto Route103_EventScript_AfterBrendanBattle
 	end
 
@@ -108,38 +84,37 @@ Route103_EventScript_RivalExit::
 	end
 
 Route103_EventScript_RivalExitFacingNorth::
-	applymovement LOCALID_PLAYER, Route103_Movement_WatchRivalExitFacingNorth
-	applymovement LOCALID_ROUTE103_RIVAL, Route103_Movement_RivalExitFacingNorth1
+	applymovement OBJ_EVENT_ID_PLAYER, Route103_Movement_WatchRivalExitFacingNorth
+	applymovement LOCALID_RIVAL, Route103_Movement_RivalExitFacingNorth1
 	waitmovement 0
 	playse SE_LEDGE
-	applymovement LOCALID_ROUTE103_RIVAL, Route103_Movement_RivalExitFacingNorth2
+	applymovement LOCALID_RIVAL, Route103_Movement_RivalExitFacingNorth2
 	waitmovement 0
 	goto Route103_EventScript_RivalEnd
 	end
 
 Route103_EventScript_RivalExitFacingEastOrWest::
-	applymovement LOCALID_PLAYER, Route103_Movement_WatchRivalExitFacingEastOrWest
-	applymovement LOCALID_ROUTE103_RIVAL, Route103_Movement_RivalExit1
+	applymovement OBJ_EVENT_ID_PLAYER, Route103_Movement_WatchRivalExitFacingEastOrWest
+	applymovement LOCALID_RIVAL, Route103_Movement_RivalExit1
 	waitmovement 0
 	playse SE_LEDGE
-	applymovement LOCALID_ROUTE103_RIVAL, Route103_Movement_RivalExit2
+	applymovement LOCALID_RIVAL, Route103_Movement_RivalExit2
 	waitmovement 0
 	goto Route103_EventScript_RivalEnd
 	end
 
 Route103_EventScript_RivalExitFacingSouth::
-	applymovement LOCALID_ROUTE103_RIVAL, Route103_Movement_RivalExit1
+	applymovement LOCALID_RIVAL, Route103_Movement_RivalExit1
 	waitmovement 0
 	playse SE_LEDGE
-	applymovement LOCALID_ROUTE103_RIVAL, Route103_Movement_RivalExit2
+	applymovement LOCALID_RIVAL, Route103_Movement_RivalExit2
 	waitmovement 0
 	goto Route103_EventScript_RivalEnd
 	end
 
 Route103_EventScript_RivalEnd::
-	removeobject LOCALID_ROUTE103_RIVAL
+	removeobject LOCALID_RIVAL
 	setvar VAR_BIRCH_LAB_STATE, 4
-	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_RIVAL
 	setflag FLAG_DEFEATED_RIVAL_ROUTE103
 	setvar VAR_OLDALE_RIVAL_STATE, 1
 	clearflag FLAG_HIDE_OLDALE_TOWN_RIVAL
@@ -187,8 +162,44 @@ Route103_Movement_WatchRivalExitFacingEastOrWest:
 	walk_in_place_faster_down
 	step_end
 
-Route103_EventScript_Boy::
-	msgbox Route103_Text_ShouldHaveBroughtPotion, MSGBOX_NPC
+Route103_EventScript_OldRodFisherman::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_OLD_ROD, Route103_EventScript_HowsFishing
+	msgbox Route103_Text_GettingItchToFish, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, Route103_EventScript_GiveOldRod
+	goto_if_eq VAR_RESULT, NO, Route103_EventScript_NotGettingItchToFish
+	end
+
+Route103_EventScript_GiveOldRod::
+	msgbox Route103_Text_GiveYouOneOfMyRods, MSGBOX_DEFAULT
+	giveitem ITEM_OLD_ROD
+	setflag FLAG_RECEIVED_OLD_ROD
+	msgbox Route103_Text_ThrowInFishingAdvice, MSGBOX_DEFAULT
+	release
+	end
+
+Route103_EventScript_NotGettingItchToFish::
+	msgbox Route103_Text_ThatsTooBadThen, MSGBOX_DEFAULT
+	release
+	end
+
+Route103_EventScript_HowsFishing::
+	message Route103_Text_HowsYourFishing
+	waitmessage
+	multichoice 20, 8, MULTI_HOWS_FISHING, TRUE
+	goto_if_eq VAR_RESULT, 0, Route103_EventScript_FishingExcellent
+	goto_if_eq VAR_RESULT, 1, Route103_EventScript_FishingNotSoGood
+	end
+
+Route103_EventScript_FishingExcellent::
+	msgbox Route103_Text_GreatHaulInSomeBigOnes, MSGBOX_DEFAULT
+	release
+	end
+
+Route103_EventScript_FishingNotSoGood::
+	msgbox Route103_Text_FishingAdvice, MSGBOX_DEFAULT
+	release
 	end
 
 Route103_EventScript_Man::
@@ -291,38 +302,41 @@ Route103_Text_MayRoute103Pokemon:
 	.string "on ROUTE 103 include…$"
 
 Route103_Text_MayLetsBattle:
-	.string "Oh, hi, {PLAYER}{KUN}!\p"
-	.string "…Oh, I see, my dad gave you\n"
-	.string "a POKéMON as a gift.\p"
+	.string "Oh, hi, and you are..?\p"
+	.string "…Oh, I see, so you're the newcomer\n"
+	.string "to Littleroot. It's nice to meet you!\p"
 	.string "Since we're here, let's have a quick\n"
 	.string "battle!\p"
 	.string "I'll give you a taste of what being\n"
-	.string "a TRAINER is like.$"
+	.string "a trainer is like.$"
 
 Route103_Text_MayDefeated:
-	.string "Wow! That's great!\n"
-	.string "{PLAYER}{KUN}, you're pretty good!$"
+	.string "Wow! You're a natural!$"
 
 Route103_Text_MayTimeToHeadBack:
-	.string "MAY: I think I know why my dad has\n"
-	.string "an eye out for you now.\p"
-	.string "I mean, you just got that POKéMON,\n"
-	.string "but it already likes you.\p"
+	.string "MAY: That was a great battle!\n"
+	.string "You must have a natural talent for\l"
+	.string "bonding with POKéMON.\p"
+	.string "I can tell your PICHU already\n"
+	.string "trusts you a lot.\p"
 	.string "You might be able to befriend any\n"
 	.string "kind of POKéMON easily.\p"
-	.string "Well, it's time to head back to\n"
-	.string "the LAB.$"
+	.string "Well, it's time to head back.\n"
+	.string "{PLAYER}, please come visit me\l"
+	.string "at my house in Oldale!$"
 
 Route103_Text_BrendanRoute103Pokemon:
 	.string "BRENDAN: Okay, so it's this one and\n"
 	.string "that one that live on ROUTE 103…$"
 
 Route103_Text_BrendanLetsBattle:
-	.string "Hey, it's {PLAYER}!\p"
-	.string "…Oh, yeah, Dad gave you a POKéMON.\p"
+	.string "Hey, who are you?!\p"
+	.string "…Oh, yeah, I've heard there was a\n"
+	.string "newcomer moving into Littleroot.\p"
+	.string "It's nice to meet you!\p"
 	.string "Since we're here, how about a little\n"
 	.string "battle?\p"
-	.string "I'll teach you what being a TRAINER's\n"
+	.string "I'll teach you what being a trainer's\n"
 	.string "about!$"
 
 Route103_Text_BrendanDefeated:
@@ -330,17 +344,14 @@ Route103_Text_BrendanDefeated:
 
 Route103_Text_BrendanTimeToHeadBack:
 	.string "BRENDAN: I think I get it.\n"
-	.string "I think I know why my dad has his eye\l"
-	.string "out for you now.\p"
-	.string "Look, your POKéMON already likes you,\n"
+	.string "You must have a natural talent for\l"
+	.string "bonding with POKéMON.\p"
+	.string "Look, your PICHU already likes you,\n"
 	.string "even though you just got it.\p"
 	.string "{PLAYER}, I get the feeling that you\n"
 	.string "could befriend any POKéMON with ease.\p"
-	.string "We should head back to the LAB.$"
-
-Route103_Text_ShouldHaveBroughtPotion:
-	.string "My POKéMON is staggeringly tired…\n"
-	.string "I should have brought a POTION…$"
+	.string "It is time for me to head back, please\n"
+	.string "come and visit me at my house in Oldale!$"
 
 Route103_Text_ShortcutToOldale:
 	.string "If you cross the sea from here,\n"
@@ -351,3 +362,47 @@ Route103_Text_RouteSign:
 	.string "ROUTE 103\n"
 	.string "{DOWN_ARROW} OLDALE TOWN$"
 
+Route103_Text_GettingItchToFish:
+	.string "This is a renowned fishing spot.\n"
+	.string "Are you getting the itch to fish?$"
+
+Route103_Text_GiveYouOneOfMyRods:
+	.string "I hear you, and I like what\n"
+	.string "you're saying!\p"
+	.string "I'll give you one of my fishing RODS.$"
+
+Route103_Text_ThrowInFishingAdvice:
+	.string "And, as an added bonus, I'll even throw\n"
+	.string "in a little fishing advice!\p"
+	.string "First, you want to face the water,\n"
+	.string "then use the ROD.\p"
+	.string "Focus your mind…\n"
+	.string "If you get a bite, pull on the ROD.\p"
+	.string "Sometimes you can snag something\n"
+	.string "immediately, but with bigger catches,\l"
+	.string "you need to time the pulls on your ROD\l"
+	.string "to haul them in.$"
+
+Route103_Text_ThatsTooBadThen:
+	.string "Oh, is that so?\n"
+	.string "That's too bad, then.$"
+
+Route103_Text_HowsYourFishing:
+	.string "Yo!\n"
+	.string "How's your fishing?$"
+
+Route103_Text_GreatHaulInSomeBigOnes:
+	.string "Is that right! That's great!\n"
+	.string "Haul in some big ones!$"
+
+Route103_Text_FishingAdvice:
+	.string "Oh, hey, don't get down on yourself!\n"
+	.string "I'll give you a little fishing advice.\p"
+	.string "First, you want to face the water,\n"
+	.string "then use the ROD.\p"
+	.string "Focus your mind…\n"
+	.string "If you get a bite, pull the ROD.\p"
+	.string "Sometimes you can snag something\n"
+	.string "immediately, but with bigger catches,\l"
+	.string "you need to time the pulls on your ROD\l"
+	.string "to haul them in.$"

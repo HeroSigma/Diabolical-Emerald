@@ -1,62 +1,10 @@
 Route123_MapScripts::
-        map_script MAP_SCRIPT_ON_TRANSITION, Route123_OnTransition
-        map_script MAP_SCRIPT_ON_RESUME, Route123_OnResume
-        .byte 0
+	map_script MAP_SCRIPT_ON_TRANSITION, Route123_OnTransition
+	.byte 0
 
 Route123_OnTransition:
-        special SetRoute123Weather
-        call_if_set FLAG_CAUGHT_VIRIZION, Route123_HideVirizion
-        call_if_unset FLAG_CAUGHT_VIRIZION, Route123_TryShowVirizion
-        end
-
-Route123_OnResume:
-        call_if_set FLAG_SYS_CTRL_OBJ_DELETE, Route123_TryRemoveVirizion
-        end
-
-Route123_HideVirizion::
-        setflag FLAG_HIDE_VIRIZION
-        return
-
-Route123_TryShowVirizion::
-        goto_if_unset FLAG_BADGE06_GET, Common_EventScript_NopReturn
-        goto_if_unset FLAG_CAUGHT_HOOPA, Common_EventScript_NopReturn
-        clearflag FLAG_HIDE_VIRIZION
-        return
-
-Route123_TryRemoveVirizion::
-        specialvar VAR_RESULT, GetBattleOutcome
-        goto_if_ne VAR_RESULT, B_OUTCOME_CAUGHT, Common_EventScript_NopReturn
-        removeobject LOCALID_ROUTE123_VIRIZION
-        return
-
-Route123_Virizion::
-        lock
-        faceplayer
-        waitse
-        playmoncry SPECIES_VIRIZION, CRY_MODE_ENCOUNTER
-        waitmoncry
-        seteventmon SPECIES_VIRIZION, 70
-        setflag FLAG_SYS_CTRL_OBJ_DELETE
-        special BattleSetup_StartLegendaryBattle
-        waitstate
-        clearflag FLAG_SYS_CTRL_OBJ_DELETE
-        specialvar VAR_RESULT, GetBattleOutcome
-        goto_if_eq VAR_RESULT, B_OUTCOME_WON, Route123_DefeatedVirizion
-        goto_if_eq VAR_RESULT, B_OUTCOME_RAN, Route123_RanFromVirizion
-        goto_if_eq VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED, Route123_RanFromVirizion
-        setflag FLAG_CAUGHT_VIRIZION
-        release
-        end
-
-Route123_DefeatedVirizion::
-        setvar VAR_0x8004, SPECIES_VIRIZION
-        goto Common_EventScript_LegendaryFlewAway
-        end
-
-Route123_RanFromVirizion::
-        setvar VAR_0x8004, SPECIES_VIRIZION
-        goto Common_EventScript_LegendaryFlewAway
-        end
+	special SetRoute123Weather
+	end
 
 Route123_EventScript_GigaDrainGirl::
 	lock

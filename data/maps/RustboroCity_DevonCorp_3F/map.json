@@ -28,7 +28,6 @@
       "flag": "0"
     },
     {
-      "local_id": "LOCALID_DEVON_CORP_3F_EMPLOYEE",
       "graphics_id": "OBJ_EVENT_GFX_MAN_2",
       "x": 3,
       "y": 5,
@@ -53,20 +52,6 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "RustboroCity_DevonCorp_3F_EventScript_MrStone",
       "flag": "0"
-    },
-    {
-      "local_id": "LOCALID_DEVON_CORP_3F_TYPE_NULL",
-      "graphics_id": "OBJ_EVENT_GFX_TYPE_NULL",
-      "x": 9,
-      "y": 6,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
-      "movement_range_x": 1,
-      "movement_range_y": 1,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "RustboroCity_DevonCorp_3F_TypeNull",
-      "flag": "FLAG_HIDE_TYPE_NULL"
     }
   ],
   "warp_events": [

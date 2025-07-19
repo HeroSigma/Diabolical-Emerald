@@ -1,18 +1,22 @@
+.set LOCALID_ARCHIE, 1
+.set LOCALID_MAXIE, 2
+.set LOCALID_TABITHA, 3
+.set LOCALID_MAGMA_GRUNT_2, 22
+.set LOCALID_MAGMA_GRUNT_1, 29
+
+
 MtChimney_MapScripts::
 	map_script MAP_SCRIPT_ON_RESUME, MtChimney_OnResume
 	map_script MAP_SCRIPT_ON_TRANSITION, MtChimney_OnTransition
 	.byte 0
 
 MtChimney_OnTransition:
-        setvar VAR_JAGGED_PASS_ASH_WEATHER, 1
-        call_if_set FLAG_CAUGHT_MOLTRES, MtChimney_HideMoltres
-        call_if_unset FLAG_CAUGHT_MOLTRES, MtChimney_TryShowMoltres
-        end
+	setvar VAR_JAGGED_PASS_ASH_WEATHER, 1
+	end
 
 MtChimney_OnResume:
-        setstepcallback STEP_CB_ASH
-        call_if_set FLAG_SYS_CTRL_OBJ_DELETE, MtChimney_TryRemoveMoltres
-        end
+	setstepcallback STEP_CB_ASH
+	end
 
 MtChimney_EventScript_Archie::
 	lock
@@ -20,7 +24,7 @@ MtChimney_EventScript_Archie::
 	call_if_unset FLAG_EVIL_LEADER_PLEASE_STOP, MtChimney_EventScript_ArchieGoStopTeamMagma
 	call_if_set FLAG_EVIL_LEADER_PLEASE_STOP, MtChimney_EventScript_ArchieBusyFighting
 	closemessage
-	applymovement LOCALID_MT_CHIMNEY_ARCHIE, Common_Movement_FaceOriginalDirection
+	applymovement LOCALID_ARCHIE, Common_Movement_FaceOriginalDirection
 	waitmovement 0
 	setflag FLAG_EVIL_LEADER_PLEASE_STOP
 	release
@@ -38,12 +42,12 @@ MtChimney_EventScript_Maxie::
 	lockall
 	playbgm MUS_ENCOUNTER_MAGMA, FALSE
 	msgbox MtChimney_Text_MeteoriteWillActivateVolcano, MSGBOX_DEFAULT
-	applymovement LOCALID_MT_CHIMNEY_MAXIE, Common_Movement_FacePlayer
+	applymovement LOCALID_MAXIE, Common_Movement_FacePlayer
 	waitmovement 0
 	playse SE_PIN
-	applymovement LOCALID_MT_CHIMNEY_MAXIE, Common_Movement_ExclamationMark
+	applymovement LOCALID_MAXIE, Common_Movement_ExclamationMark
 	waitmovement 0
-	applymovement LOCALID_MT_CHIMNEY_MAXIE, Common_Movement_Delay48
+	applymovement LOCALID_MAXIE, Common_Movement_Delay48
 	waitmovement 0
 	msgbox MtChimney_Text_MaxieIntro, MSGBOX_DEFAULT
 	trainerbattle_no_intro TRAINER_MAXIE_MT_CHIMNEY, MtChimney_Text_MaxieDefeat
@@ -51,23 +55,23 @@ MtChimney_EventScript_Maxie::
 	closemessage
 	delay 30
 	fadescreenswapbuffers FADE_TO_BLACK
-	removeobject LOCALID_MT_CHIMNEY_MAXIE
-	removeobject LOCALID_MT_CHIMNEY_MAGMA_GRUNT_1
-	removeobject LOCALID_MT_CHIMNEY_TABITHA
-	removeobject LOCALID_MT_CHIMNEY_MAGMA_GRUNT_2
+	removeobject LOCALID_MAXIE
+	removeobject LOCALID_MAGMA_GRUNT_1
+	removeobject LOCALID_TABITHA
+	removeobject LOCALID_MAGMA_GRUNT_2
 	setflag FLAG_HIDE_MT_CHIMNEY_TEAM_MAGMA
 	fadescreenswapbuffers FADE_FROM_BLACK
-	setobjectxyperm LOCALID_MT_CHIMNEY_ARCHIE, 10, 12
-	addobject LOCALID_MT_CHIMNEY_ARCHIE
+	setobjectxyperm LOCALID_ARCHIE, 10, 12
+	addobject LOCALID_ARCHIE
 	call_if_eq VAR_FACING, DIR_EAST, MtChimney_EventScript_ArchieApproachPlayerEast
 	call_if_eq VAR_FACING, DIR_NORTH, MtChimney_EventScript_ArchieApproachPlayerNorth
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
 	msgbox MtChimney_Text_ArchieThankYou, MSGBOX_DEFAULT
 	closemessage
 	call_if_eq VAR_FACING, DIR_EAST, MtChimney_EventScript_ArchieExitEast
 	call_if_eq VAR_FACING, DIR_NORTH, MtChimney_EventScript_ArchieExitNorth
-	removeobject LOCALID_MT_CHIMNEY_ARCHIE
+	removeobject LOCALID_ARCHIE
 	setflag FLAG_HIDE_MT_CHIMNEY_TEAM_AQUA
 	setflag FLAG_DEFEATED_EVIL_TEAM_MT_CHIMNEY
 	clearflag FLAG_HIDE_FALLARBOR_HOUSE_PROF_COZMO
@@ -77,22 +81,22 @@ MtChimney_EventScript_Maxie::
 	end
 
 MtChimney_EventScript_ArchieApproachPlayerEast::
-	applymovement LOCALID_MT_CHIMNEY_ARCHIE, MtChimney_Movement_ArchieApproachPlayerEast
+	applymovement LOCALID_ARCHIE, MtChimney_Movement_ArchieApproachPlayerEast
 	waitmovement 0
 	return
 
 MtChimney_EventScript_ArchieApproachPlayerNorth::
-	applymovement LOCALID_MT_CHIMNEY_ARCHIE, MtChimney_Movement_ArchieApproachPlayerNorth
+	applymovement LOCALID_ARCHIE, MtChimney_Movement_ArchieApproachPlayerNorth
 	waitmovement 0
 	return
 
 MtChimney_EventScript_ArchieExitEast::
-	applymovement LOCALID_MT_CHIMNEY_ARCHIE, MtChimney_Movement_ArchieExitEast
+	applymovement LOCALID_ARCHIE, MtChimney_Movement_ArchieExitEast
 	waitmovement 0
 	return
 
 MtChimney_EventScript_ArchieExitNorth::
-	applymovement LOCALID_MT_CHIMNEY_ARCHIE, MtChimney_Movement_ArchieExitNorth
+	applymovement LOCALID_ARCHIE, MtChimney_Movement_ArchieExitNorth
 	waitmovement 0
 	return
 
@@ -107,7 +111,6 @@ MtChimney_EventScript_LavaCookieLady::
 	msgbox MtChimney_Text_ThankYouDear, MSGBOX_DEFAULT
 	checkitemspace ITEM_LAVA_COOKIE
 	call_if_eq VAR_RESULT, TRUE, MtChimney_EventScript_RemoveMoney
-.if OW_SHOW_ITEM_DESCRIPTIONS == OW_ITEM_DESCRIPTIONS_OFF
 	giveitem ITEM_LAVA_COOKIE
 	goto_if_eq VAR_RESULT, FALSE, MtChimney_EventScript_BagIsFull
 	hidemoneybox
@@ -119,19 +122,6 @@ MtChimney_EventScript_BagIsFull::
 	hidemoneybox
 	release
 	end
-.else
-	hidemoneybox
-	giveitem ITEM_LAVA_COOKIE
-	goto_if_eq VAR_RESULT, FALSE, MtChimney_EventScript_BagIsFull
-	release
-	end
-
-MtChimney_EventScript_BagIsFull::
-	msgbox gText_TooBadBagIsFull, MSGBOX_DEFAULT
-	release
-	end
-.endif @ OW_SHOW_ITEM_DESCRIPTIONS
-
 
 MtChimney_EventScript_RemoveMoney::
 	removemoney 200
@@ -458,7 +448,6 @@ MtChimney_EventScript_MeteoriteMachine::
 	goto_if_eq VAR_RESULT, NO, MtChimney_EventScript_LeaveMeteoriteAlone
 	msgbox MtChimney_Text_PlayerRemovedMeteorite, MSGBOX_DEFAULT
 	giveitem ITEM_METEORITE
-	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
 	setflag FLAG_RECEIVED_METEORITE
 	releaseall
 	end
@@ -540,52 +529,9 @@ MtChimney_EventScript_SawyerDefeated::
 	end
 
 MtChimney_EventScript_SawyerRematch::
-        trainerbattle_rematch TRAINER_SAWYER_1, MtChimney_Text_SawyerRematchIntro, MtChimney_Text_SawyerRematchDefeat
-        msgbox MtChimney_Text_SawyerPostRematch, MSGBOX_AUTOCLOSE
-        end
-
-MtChimney_HideMoltres::
-        setflag FLAG_HIDE_MOLTRES
-        return
-
-MtChimney_TryShowMoltres::
-        clearflag FLAG_HIDE_MOLTRES
-        return
-
-MtChimney_TryRemoveMoltres::
-        specialvar VAR_RESULT, GetBattleOutcome
-        goto_if_ne VAR_RESULT, B_OUTCOME_CAUGHT, Common_EventScript_NopReturn
-        removeobject LOCALID_MT_CHIMNEY_MOLTRES
-        return
-
-MtChimney_Moltres::
-        lock
-        faceplayer
-        waitse
-        playmoncry SPECIES_MOLTRES, CRY_MODE_ENCOUNTER
-        waitmoncry
-        seteventmon SPECIES_MOLTRES, 70
-        setflag FLAG_SYS_CTRL_OBJ_DELETE
-        special BattleSetup_StartLegendaryBattle
-        waitstate
-        clearflag FLAG_SYS_CTRL_OBJ_DELETE
-        specialvar VAR_RESULT, GetBattleOutcome
-        goto_if_eq VAR_RESULT, B_OUTCOME_WON, MtChimney_DefeatedMoltres
-        goto_if_eq VAR_RESULT, B_OUTCOME_RAN, MtChimney_RanFromMoltres
-        goto_if_eq VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED, MtChimney_RanFromMoltres
-        setflag FLAG_CAUGHT_MOLTRES
-        release
-        end
-
-MtChimney_DefeatedMoltres::
-        setvar VAR_0x8004, SPECIES_MOLTRES
-        goto Common_EventScript_LegendaryFlewAway
-        end
-
-MtChimney_RanFromMoltres::
-        setvar VAR_0x8004, SPECIES_MOLTRES
-        goto Common_EventScript_LegendaryFlewAway
-        end
+	trainerbattle_rematch TRAINER_SAWYER_1, MtChimney_Text_SawyerRematchIntro, MtChimney_Text_SawyerRematchDefeat
+	msgbox MtChimney_Text_SawyerPostRematch, MSGBOX_AUTOCLOSE
+	end
 
 MtChimney_Text_MeteoriteWillActivateVolcano:
 	.string "The power contained in the METEORITE…\p"
@@ -897,3 +843,4 @@ MtChimney_Text_SawyerRematchDefeat:
 MtChimney_Text_SawyerPostRematch:
 	.string "Actually, it really is hot here.\n"
 	.string "I'm overdressed for these parts.$"
+

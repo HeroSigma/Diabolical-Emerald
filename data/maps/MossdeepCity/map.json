@@ -104,8 +104,8 @@
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_NET_BALL",
-      "script": "Common_EventScript_FindItem",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "MossdeepCity_EventScript_ItemNetBall",
       "flag": "FLAG_ITEM_MOSSDEEP_CITY_NET_BALL"
     },
     {
@@ -148,7 +148,6 @@
       "flag": "0"
     },
     {
-      "local_id": "LOCALID_MOSSDEEP_GRUNT_1",
       "graphics_id": "OBJ_EVENT_GFX_MAGMA_MEMBER_M",
       "x": 44,
       "y": 23,
@@ -162,7 +161,6 @@
       "flag": "FLAG_HIDE_MOSSDEEP_CITY_TEAM_MAGMA"
     },
     {
-      "local_id": "LOCALID_MOSSDEEP_GRUNT_2",
       "graphics_id": "OBJ_EVENT_GFX_MAGMA_MEMBER_M",
       "x": 44,
       "y": 24,
@@ -176,7 +174,6 @@
       "flag": "FLAG_HIDE_MOSSDEEP_CITY_TEAM_MAGMA"
     },
     {
-      "local_id": "LOCALID_MOSSDEEP_GRUNT_3",
       "graphics_id": "OBJ_EVENT_GFX_MAGMA_MEMBER_M",
       "x": 44,
       "y": 25,
@@ -190,7 +187,6 @@
       "flag": "FLAG_HIDE_MOSSDEEP_CITY_TEAM_MAGMA"
     },
     {
-      "local_id": "LOCALID_MOSSDEEP_GRUNT_4",
       "graphics_id": "OBJ_EVENT_GFX_MAGMA_MEMBER_M",
       "x": 44,
       "y": 26,
@@ -204,7 +200,6 @@
       "flag": "FLAG_HIDE_MOSSDEEP_CITY_TEAM_MAGMA"
     },
     {
-      "local_id": "LOCALID_MOSSDEEP_MAXIE",
       "graphics_id": "OBJ_EVENT_GFX_MAXIE",
       "x": 45,
       "y": 25,
@@ -231,7 +226,6 @@
       "flag": "0"
     },
     {
-      "local_id": "LOCALID_MOSSDEEP_SCOTT",
       "graphics_id": "OBJ_EVENT_GFX_SCOTT",
       "x": 61,
       "y": 29,
@@ -256,20 +250,6 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "MossdeepCity_EventScript_BlackBelt",
       "flag": "0"
-    },
-    {
-      "local_id": "LOCALID_MOSSDEEP_JIRACHI",
-      "graphics_id": "OBJ_EVENT_GFX_JIRACHI",
-      "x": 69,
-      "y": 13,
-      "elevation": 7,
-      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
-      "movement_range_x": 1,
-      "movement_range_y": 1,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "MossdeepCity_Jirachi",
-      "flag": "FLAG_HIDE_JIRACHI"
     }
   ],
   "warp_events": [

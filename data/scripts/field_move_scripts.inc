@@ -1,7 +1,8 @@
 @ Interact with cuttable tree
 EventScript_CutTree::
 	lockall
-	checkfieldmove FIELD_MOVE_CUT, TRUE
+	goto_if_unset FLAG_BADGE01_GET, EventScript_CheckTreeCantCut
+	checkpartymove MOVE_CUT
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CheckTreeCantCut
 	setfieldeffectargument 0, VAR_RESULT
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
@@ -11,13 +12,10 @@ EventScript_CutTree::
 	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
 	closemessage
 EventScript_CutTreeCommon:
-	isfollowerfieldmoveuser VAR_0x8004
-	setfieldeffectargument 3, VAR_0x8004 @ skip pose if so
+	setfieldeffectargument 3, 0 @ skip pose if so
 	dofieldeffect FLDEFF_USE_CUT_ON_TREE
 	waitstate
 EventScript_CutTreeDown:: @ fallthrough
-	setflag FLAG_SAFE_FOLLOWER_MOVEMENT
-	call_if_eq VAR_0x8004, TRUE, EventScript_FollowerFieldMove
 	applymovement VAR_LAST_TALKED, Movement_CutTreeDown
 	waitmovement 0
 	removeobject VAR_LAST_TALKED
@@ -63,7 +61,8 @@ EventScript_UseRockSmash::
 @ Interact with smashable rock
 EventScript_RockSmash::
 	lockall
-	checkfieldmove FIELD_MOVE_ROCK_SMASH, TRUE
+	goto_if_unset FLAG_BADGE03_GET, EventScript_CantSmashRock
+	checkpartymove MOVE_ROCK_SMASH
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantSmashRock
 	setfieldeffectargument 0, VAR_RESULT
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
@@ -73,14 +72,10 @@ EventScript_RockSmash::
 	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
 	closemessage
 EventScript_RockSmashCommon:
-	@ check if follower should use the field move
-	isfollowerfieldmoveuser VAR_0x8004
-	setfieldeffectargument 3, VAR_0x8004 @ skip pose if so
+	setfieldeffectargument 3, 0
 	dofieldeffect FLDEFF_USE_ROCK_SMASH
 	waitstate
 EventScript_SmashRock:: @ fallthrough
-	setflag FLAG_SAFE_FOLLOWER_MOVEMENT
-	call_if_eq VAR_0x8004, TRUE, EventScript_FollowerFieldMove
 	applymovement VAR_LAST_TALKED, Movement_SmashRock
 	waitmovement 0
 	removeobject VAR_LAST_TALKED
@@ -91,77 +86,6 @@ EventScript_SmashRock:: @ fallthrough
 	waitstate
 	releaseall
 	end
-
-EventScript_FollowerFieldMove:
-	getdirectiontoface VAR_0x8005, OBJ_EVENT_ID_FOLLOWER, OBJ_EVENT_ID_PLAYER
-	specialvar VAR_0x8006, GetPlayerFacingDirection
-	goto_if_eq VAR_0x8005, DIR_NONE, EventScript_FollowerFieldMoveEnd
-	@ Swap follower and player
-	call EventScript_FollowerSwap
-	@ Face follower in direction and jump
-	switch VAR_0x8006
-	case DIR_NORTH, EventScript_FollowerJumpNorth
-	case DIR_EAST, EventScript_FollowerJumpEast
-	case DIR_SOUTH, EventScript_FollowerJumpSouth
-	case DIR_WEST, EventScript_FollowerJumpWest
-EventScript_FollowerFieldMoveEnd:
-	return
-
-EventScript_FollowerSwap:
-	switch VAR_0x8005
-	case DIR_NORTH, EventScript_FollowerMoveNorth
-	case DIR_EAST, EventScript_FollowerMoveEast
-	case DIR_SOUTH, EventScript_FollowerMoveSouth
-	case DIR_WEST, EventScript_FollowerMoveWest
-	return
-
-EventScript_FollowerMoveNorth:
-	applymovement OBJ_EVENT_ID_PLAYER, Movement_WalkDown
-	waitmovement 0
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
-	waitmovement 0
-	return
-
-EventScript_FollowerMoveEast:
-	applymovement OBJ_EVENT_ID_PLAYER, Movement_WalkLeft
-	waitmovement 0
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceRight
-	waitmovement 0
-	return
-
-EventScript_FollowerMoveSouth:
-	applymovement OBJ_EVENT_ID_PLAYER, Movement_WalkUp
-	waitmovement 0
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown
-	waitmovement 0
-	return
-
-EventScript_FollowerMoveWest:
-	applymovement OBJ_EVENT_ID_PLAYER, Movement_WalkRight
-	waitmovement 0
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceLeft
-	waitmovement 0
-	return
-
-EventScript_FollowerJumpNorth:
-	applymovement OBJ_EVENT_ID_FOLLOWER, Movement_JumpUp
-	waitmovement 0
-	return
-
-EventScript_FollowerJumpEast:
-	applymovement OBJ_EVENT_ID_FOLLOWER, Movement_JumpRight
-	waitmovement 0
-	return
-
-EventScript_FollowerJumpSouth:
-	applymovement OBJ_EVENT_ID_FOLLOWER, Movement_JumpDown
-	waitmovement 0
-	return
-
-EventScript_FollowerJumpWest:
-	applymovement OBJ_EVENT_ID_FOLLOWER, Movement_JumpLeft
-	waitmovement 0
-	return
 
 EventScript_EndSmash::
 	releaseall
@@ -223,8 +147,9 @@ Text_CantSmash:
 
 EventScript_StrengthBoulder::
 	lockall
+	goto_if_unset FLAG_BADGE04_GET, EventScript_CantStrength
 	goto_if_set FLAG_SYS_USE_STRENGTH, EventScript_CheckActivatedBoulder
-	checkfieldmove FIELD_MOVE_STRENGTH, TRUE
+	checkpartymove MOVE_STRENGTH
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantStrength
 	setfieldeffectargument 0, VAR_RESULT
 	msgbox Text_WantToStrength, MSGBOX_YESNO
@@ -283,16 +208,14 @@ Text_StrengthActivated:
 
 EventScript_UseWaterfall::
 	lockall
-	checkfieldmove FIELD_MOVE_WATERFALL
+	checkpartymove MOVE_WATERFALL
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantWaterfall
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
 	setfieldeffectargument 0, VAR_RESULT
 	msgbox Text_WantToWaterfall, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_EndWaterfall
 	msgbox Text_MonUsedWaterfall, MSGBOX_DEFAULT
-	hidefollowernpc
 	dofieldeffect FLDEFF_USE_WATERFALL
-	callnative FollowerNPC_WarpSetEnd
 	goto EventScript_EndWaterfall
 
 EventScript_CannotUseWaterfall::
@@ -318,18 +241,14 @@ Text_MonUsedWaterfall:
 
 EventScript_UseDive::
 	lockall
-	checkfieldmove FIELD_MOVE_DIVE
+	checkpartymove MOVE_DIVE
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantDive
-	copyvar 0x8004 VAR_RESULT
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
 	setfieldeffectargument 0, VAR_RESULT
 	setfieldeffectargument 1, 1
 	msgbox Text_WantToDive, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_EndDive
 	msgbox Text_MonUsedDive, MSGBOX_DEFAULT
-	hidefollowernpc
-	setfieldeffectargument 0, VAR_0x8004
-	setfieldeffectargument 1, 1
 	dofieldeffect FLDEFF_USE_DIVE
 	goto EventScript_EndDive
 	end
@@ -345,15 +264,14 @@ EventScript_EndDive::
 
 EventScript_UseDiveUnderwater::
 	lockall
-	checkfieldmove FIELD_MOVE_DIVE
+	checkpartymove MOVE_DIVE
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantSurface
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
 	setfieldeffectargument 0, VAR_RESULT
 	setfieldeffectargument 1, 1
 	msgbox Text_WantToSurface, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, EventScript_NoSurface
+	goto_if_eq VAR_RESULT, NO, EventScript_EndSurface
 	msgbox Text_MonUsedDive, MSGBOX_DEFAULT
-	hidefollowernpc
 	dofieldeffect FLDEFF_USE_DIVE
 	goto EventScript_EndSurface
 	end
@@ -365,39 +283,8 @@ EventScript_CantSurface::
 	end
 
 EventScript_EndSurface::
-	callnative SetFollowerNPCSurfSpriteAfterDive
-EventScript_NoSurface::
 	releaseall
 	end
-
-EventScript_DigCommon:
-	isfollowerfieldmoveuser VAR_0x8004
-	setfieldeffectargument 3, VAR_0x8004 @ skip pose if true
-	dofieldeffect FLDEFF_USE_DIG
-	waitstate
-EventScript_DigSealedChamber:: @ fallthrough
-	setflag FLAG_SAFE_FOLLOWER_MOVEMENT
-	call_if_eq VAR_0x8004, TRUE, EventScript_FollowerFieldMove
-	callnative DoBrailleDigEffect
-	releaseall
-	end
-
-@ Use Dig from party menu
-EventScript_UseDig::
-	lockall
-	goto EventScript_DigCommon
-
-
-EventScript_CutGrassCommon:
-	isfollowerfieldmoveuser VAR_0x8004
-	setfieldeffectargument 3, VAR_0x8004 @ skip pose if true
-	dofieldeffect FLDEFF_USE_CUT_ON_GRASS
-	waitstate
-
-@ Use Cut grass from party menu
-EventScript_UseCutGrass::
-	lockall
-	goto EventScript_CutGrassCommon
 
 Text_CantDive:
 	.string "The sea is deep here. A POKéMON\n"
@@ -424,20 +311,3 @@ EventScript_FailSweetScent::
 
 Text_FailSweetScent:
 	.string "Looks like there's nothing here…$"
-
-EventScript_UseDefog::
-	lockall
-	bufferpartymonnick STR_VAR_1, VAR_RESULT
-	buffermovename STR_VAR_2, MOVE_DEFOG
-	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
-	closemessage
-	isfollowerfieldmoveuser VAR_0x8004
-	setfieldeffectargument 3, VAR_0x8004 @ skip pose if so
-	setflag FLAG_SAFE_FOLLOWER_MOVEMENT
-	call_if_eq VAR_0x8004, TRUE, EventScript_FollowerFieldMove
-	waitmovement 0
-	setfieldeffectargument 0, VAR_RESULT
-	dofieldeffect FLDEFF_DEFOG
-	waitstate
-	releaseall
-	end

@@ -1,3 +1,5 @@
+.set LOCALID_ATTENDANT, 1
+
 BattleFrontier_BattlePikeLobby_MapScripts::
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, BattleFrontier_BattlePikeLobby_OnFrame
 	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, BattleFrontier_BattlePikeLobby_OnWarp
@@ -16,7 +18,7 @@ BattleFrontier_BattlePikeLobby_OnWarp:
 
 BattleFrontier_BattlePikeLobby_EventScript_TurnPlayerNorth::
 	setvar VAR_TEMP_1, 1
-	turnobject LOCALID_PLAYER, DIR_NORTH
+	turnobject OBJ_EVENT_ID_PLAYER, DIR_NORTH
 	end
 
 BattleFrontier_BattlePikeLobby_EventScript_GetChallengeStatus::
@@ -57,7 +59,6 @@ BattleFrontier_BattlePikeLobby_EventScript_GiveBattlePoints::
 	pike_set PIKE_DATA_TOTAL_STREAKS, VAR_RESULT
 	special LoadPlayerParty
 	special HealPlayerParty
-	callnative UpdateFollowingPokemon
 	pike_resethelditems
 	message BattleFrontier_BattlePikeLobby_Text_ShallRecordResults
 	waitmessage
@@ -79,7 +80,6 @@ BattleFrontier_BattlePikeLobby_EventScript_LostChallenge::
 	pike_set PIKE_DATA_WIN_STREAK_ACTIVE, FALSE
 	special LoadPlayerParty
 	special HealPlayerParty
-	callnative UpdateFollowingPokemon
 	pike_resethelditems
 	pike_save 0
 	playse SE_SAVE
@@ -119,7 +119,6 @@ BattleFrontier_BattlePikeLobby_EventScript_TryEnterChallenge::
 	frontier_set FRONTIER_DATA_LVL_MODE, VAR_RESULT
 	msgbox BattleFrontier_BattlePikeLobby_Text_PleaseChooseThreeMons, MSGBOX_DEFAULT
 	fadescreen FADE_TO_BLACK
-	callnative RemoveFollowingPokemon
 	call BattleFrontier_EventScript_GetLvlMode
 	copyvar VAR_0x8004, VAR_RESULT
 	setvar VAR_0x8005, FRONTIER_PARTY_SIZE
@@ -184,7 +183,6 @@ BattleFrontier_BattlePikeLobby_EventScript_CancelChallengeSaveFailed::
 
 BattleFrontier_BattlePikeLobby_EventScript_LoadPartyAndCancelChallenge::
 	special LoadPlayerParty
-	callnative UpdateFollowingPokemon
 BattleFrontier_BattlePikeLobby_EventScript_CancelChallenge::
 	msgbox BattleFrontier_BattlePikeLobby_Text_LookForwardToSeeingYou, MSGBOX_DEFAULT
 BattleFrontier_BattlePikeLobby_EventScript_EndCancelChallenge::
@@ -200,8 +198,8 @@ BattleFrontier_BattlePikeLobby_EventScript_ShowResults::
 	end
 
 BattleFrontier_BattlePikeLobby_EventScript_WalkToCorridor::
-	applymovement LOCALID_PIKE_LOBBY_ATTENDANT, BattleFrontier_BattlePikeLobby_Movement_AttendantWalkToCorridor
-	applymovement LOCALID_PLAYER, BattleFrontier_BattlePikeLobby_Movement_PlayerWalkToCorridor
+	applymovement LOCALID_ATTENDANT, BattleFrontier_BattlePikeLobby_Movement_AttendantWalkToCorridor
+	applymovement OBJ_EVENT_ID_PLAYER, BattleFrontier_BattlePikeLobby_Movement_PlayerWalkToCorridor
 	waitmovement 0
 	return
 
@@ -432,4 +430,3 @@ BattleFrontier_BattlePikeLobby_Text_ExplainMonOrderRules:
 	.string "changed.\p"
 	.string "The sequence must be set before\n"
 	.string "starting your challenge.$"
-
