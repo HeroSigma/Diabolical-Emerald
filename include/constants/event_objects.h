@@ -383,6 +383,57 @@
 #define OBJ_EVENT_ID_CAMERA LOCALID_CAMERA
 #define OBJ_EVENT_ID_PLAYER LOCALID_PLAYER
 
+// Map-specific object local ids used in source files
+#define LOCALID_FARAWAY_ISLAND_MEW              1
+#define LOCALID_BIRTH_ISLAND_EXTERIOR_ROCK      1
+#define LOCALID_ROUTE111_PLAYER_FALLING        47
+#define LOCALID_ROUTE111_TY_1                  13
+#define LOCALID_ROUTE111_GABBY_1               14
+#define LOCALID_ROUTE111_GABBY_2               21
+#define LOCALID_ROUTE111_TY_2                  22
+#define LOCALID_ROUTE111_GABBY_3               23
+#define LOCALID_ROUTE111_TY_3                  24
+#define LOCALID_ROUTE118_GABBY_1                5
+#define LOCALID_ROUTE118_TY_1                   6
+#define LOCALID_ROUTE118_GABBY_2                8
+#define LOCALID_ROUTE118_TY_2                   9
+#define LOCALID_ROUTE118_GABBY_3               10
+#define LOCALID_ROUTE118_TY_3                  11
+#define LOCALID_ROUTE120_TY_1                  17
+#define LOCALID_ROUTE120_GABBY_1               18
+#define LOCALID_ROUTE120_GABBY_2               19
+#define LOCALID_ROUTE120_TY_2                  20
+#define LOCALID_UNION_ROOM_PLAYER_1             9
+#define LOCALID_UNION_ROOM_PLAYER_2             8
+#define LOCALID_UNION_ROOM_PLAYER_3             7
+#define LOCALID_UNION_ROOM_PLAYER_4             2
+#define LOCALID_UNION_ROOM_PLAYER_5             6
+#define LOCALID_UNION_ROOM_PLAYER_6             5
+#define LOCALID_UNION_ROOM_PLAYER_7             4
+#define LOCALID_UNION_ROOM_PLAYER_8             3
+#define LOCALID_TOWER_LOBBY_REPORTER            5
+#define LOCALID_SLATEPORT_ENERGY_GURU          25
+#define LOCALID_TRUCK_BOX_TOP                   1
+#define LOCALID_TRUCK_BOX_BOTTOM_L              2
+#define LOCALID_TRUCK_BOX_BOTTOM_R              3
+// Mart clerks share the same local id across maps
+#define LOCALID_OLDALE_MART_CLERK               1
+#define LOCALID_LAVARIDGE_MART_CLERK            1
+#define LOCALID_FALLARBOR_MART_CLERK            1
+#define LOCALID_VERDANTURF_MART_CLERK           1
+#define LOCALID_PETALBURG_MART_CLERK            1
+#define LOCALID_SLATEPORT_MART_CLERK            1
+#define LOCALID_MAUVILLE_MART_CLERK             1
+#define LOCALID_RUSTBORO_MART_CLERK             1
+#define LOCALID_FORTREE_MART_CLERK              1
+#define LOCALID_MOSSDEEP_MART_CLERK             1
+#define LOCALID_SOOTOPOLIS_MART_CLERK           1
+#define LOCALID_FRONTIER_MART_CLERK             1
+// Contest hall NPCs
+#define LOCALID_CONTESTANT_1                    6
+#define LOCALID_CONTESTANT_2                    7
+#define LOCALID_CONTESTANT_3                    8
+#define LOCALID_CONTESTANT_4                    9
 // Moved from src/event_object_movement.c so that they're accesible from other files.
 #define OBJ_EVENT_PAL_TAG_BRENDAN                 0x1100
 #define OBJ_EVENT_PAL_TAG_BRENDAN_REFLECTION      0x1101
