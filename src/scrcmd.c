@@ -58,6 +58,7 @@
 #include "window.h"
 #include "list_menu.h"
 #include "malloc.h"
+#include "regions.h"
 #include "quests.h"
 #include "constants/quest_menu.h"
 #include "constants/quests.h"
@@ -2696,6 +2697,14 @@ bool8 ScrCmd_checkplayergender(struct ScriptContext *ctx)
     Script_RequestEffects(SCREFF_V1);
 
     gSpecialVar_Result = gSaveBlock2Ptr->playerGender;
+    return FALSE;
+}
+
+bool8 ScrCmd_checkplayerregion(struct ScriptContext *ctx)
+{
+    Script_RequestEffects(SCREFF_V1);
+
+    gSpecialVar_Result = GetCurrentRegion();
     return FALSE;
 }
 

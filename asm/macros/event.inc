@@ -1396,9 +1396,14 @@
 	.endm
 
 	@ Checks the player's gender. Stores the result (MALE (0) or FEMALE (1)) in VAR_RESULT.
-	.macro checkplayergender
-	.byte SCR_OP_CHECKPLAYERGENDER
-	.endm
+        .macro checkplayergender
+        .byte SCR_OP_CHECKPLAYERGENDER
+        .endm
+
+        @ Checks the player's region. Stores the result (REGION_* constant) in VAR_RESULT.
+        .macro checkplayerregion
+        .byte SCR_OP_CHECKPLAYERREGION
+        .endm
 
 	@ Plays the cry of the given species. Mode is any CRY_MODE_* constant.
 	@ You can use waitmoncry to block script execution until the cry finishes.
