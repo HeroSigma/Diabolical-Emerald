@@ -60,3 +60,12 @@ To import maps and trainer data from the [Pokecrossroads](https://github.com/eon
 ```
 
 The script clones the Pokecrossroads repository and copies all map-related directories (`data/maps`, `data/layouts`, `data/scripts`, and `data/tilesets`) into this project. It also saves trainer data (`trainers.h`, `trainer_parties.h`, and `trainers.party`) with `.pokecrossroads` extensions in `src/data/`. Temporary files are cleaned up automatically. Review the imported files and merge them as appropriate for your project.
+
+## Integrating Cross Data
+To import Kanto and Johto content from the [cross](https://github.com/HeroSigma/cross) project, run:
+
+```bash
+./dev_scripts/integrate_cross.sh
+```
+
+This script clones the cross repository and copies Kanto and Johto maps, tilesets, scripts, trainer graphics, and trainer data into this project. Review the copied files and merge them as needed.
