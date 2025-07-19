@@ -1143,10 +1143,6 @@
         .2byte \move
         .endm
 
-        @ Checks the player's region. Stores the result in VAR_RESULT.
-        .macro checkplayerregion
-        .byte SCR_OP_CHECKPLAYERREGION
-        .endm
 
 	@ Converts STR_VAR_1, STR_VAR_2, or STR_VAR_3 to its corresponding index into sScriptStringVars (0, 1, or 2).
 	@ If given anything else it will output it directly.
