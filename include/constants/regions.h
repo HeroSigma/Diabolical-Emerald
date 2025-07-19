@@ -18,4 +18,16 @@ enum Region
     REGIONS_COUNT,
 };
 
+// Convenience macros for script usage
+#define KANTO  REGION_KANTO
+#define JOHTO  REGION_JOHTO
+#define HOENN  REGION_HOENN
+#define SINNOH REGION_SINNOH
+#define UNOVA  REGION_UNOVA
+#define KALOS  REGION_KALOS
+#define ALOLA  REGION_ALOLA
+#define GALAR  REGION_GALAR
+#define HISUI  REGION_HISUI
+#define PALDEA REGION_PALDEA
+
 #endif  // GUARD_CONSTANTS_REGIONS_H
