@@ -2,7 +2,7 @@
 .set LOCALID_ATTENDANT_1, 2
 .set LOCALID_ATTENDANT_2, 3
 .set LOCALID_OPPONENT_2, 4
-.set LOCALID_PLAYER, 5
+.set LOCALID_BF_PLAYER, 5
 .set LOCALID_PARTNER, 6
 
 BattleFrontier_BattleTowerMultiBattleRoom_MapScripts::
@@ -12,7 +12,7 @@ BattleFrontier_BattleTowerMultiBattleRoom_MapScripts::
 	.byte 0
 
 	@ On this map the player (OBJ_EVENT_ID_PLAYER) is hidden
-	@ The player is represented instead by LOCALID_PLAYER, which has the gfx id VAR_OBJ_GFX_ID_F
+	@ The player is represented instead by LOCALID_BF_PLAYER, which has the gfx id VAR_OBJ_GFX_ID_F
 	@ The multi partner is represented by LOCALID_PARTNER, which has the gfx id VAR_OBJ_GFX_ID_E
 
 BattleFrontier_BattleTowerMultiBattleRoom_OnTransition:
@@ -49,7 +49,7 @@ BattleFrontier_BattleTowerMultiBattleRoom_OnFrame:
 
 BattleFrontier_BattleTowerMultiBattleRoom_EventScript_EnterRoom::
 	setvar VAR_TEMP_0, 1
-	applymovement LOCALID_PLAYER, BattleFrontier_BattleTowerMultiBattleRoom_Movement_PlayerEnterRoom
+	applymovement LOCALID_BF_PLAYER, BattleFrontier_BattleTowerMultiBattleRoom_Movement_PlayerEnterRoom
 	applymovement LOCALID_PARTNER, BattleFrontier_BattleTowerMultiBattleRoom_Movement_PartnerEnterRoom
 	waitmovement 0
 	frontier_get FRONTIER_DATA_BATTLE_NUM
@@ -57,7 +57,7 @@ BattleFrontier_BattleTowerMultiBattleRoom_EventScript_EnterRoom::
 	applymovement LOCALID_ATTENDANT_1, BattleFrontier_BattleTowerMultiBattleRoom_Movement_AttendantApproachPlayer
 	applymovement LOCALID_ATTENDANT_2, BattleFrontier_BattleTowerMultiBattleRoom_Movement_AttendantApproachPlayer
 	waitmovement 0
-	applymovement LOCALID_PLAYER, BattleFrontier_BattleTowerMultiBattleRoom_Movement_FaceAttendant
+	applymovement LOCALID_BF_PLAYER, BattleFrontier_BattleTowerMultiBattleRoom_Movement_FaceAttendant
 	applymovement LOCALID_PARTNER, BattleFrontier_BattleTowerMultiBattleRoom_Movement_FaceAttendant
 	waitmovement 0
 	frontier_set FRONTIER_DATA_RECORD_DISABLED, TRUE
@@ -122,7 +122,7 @@ BattleFrontier_BattleTowerMultiBattleRoom_EventScript_DefeatedOpponents::
 	applymovement LOCALID_ATTENDANT_1, BattleFrontier_BattleTowerMultiBattleRoom_Movement_AttendantApproachPlayer
 	applymovement LOCALID_ATTENDANT_2, BattleFrontier_BattleTowerMultiBattleRoom_Movement_AttendantApproachPlayer
 	waitmovement 0
-	applymovement LOCALID_PLAYER, BattleFrontier_BattleTowerMultiBattleRoom_Movement_FaceAttendant
+	applymovement LOCALID_BF_PLAYER, BattleFrontier_BattleTowerMultiBattleRoom_Movement_FaceAttendant
 	applymovement LOCALID_PARTNER, BattleFrontier_BattleTowerMultiBattleRoom_Movement_FaceAttendant
 	waitmovement 0
 	goto_if_eq VAR_FRONTIER_BATTLE_MODE, FRONTIER_MODE_LINK_MULTIS, BattleFrontier_BattleTowerMultiBattleRoom_EventScript_RetorePartyMsgLink
@@ -194,7 +194,7 @@ BattleFrontier_BattleTowerMultiBattleRoom_EventScript_AskRetireChallenge::
 BattleFrontier_BattleTowerMultiBattleRoom_EventScript_ContinueChallenge::
 	closemessage
 	clearflag FLAG_TEMP_2
-	applymovement LOCALID_PLAYER, BattleFrontier_BattleTowerMultiBattleRoom_Movement_FaceBattle
+	applymovement LOCALID_BF_PLAYER, BattleFrontier_BattleTowerMultiBattleRoom_Movement_FaceBattle
 	applymovement LOCALID_PARTNER, BattleFrontier_BattleTowerMultiBattleRoom_Movement_FaceBattle
 	waitmovement 0
 	applymovement LOCALID_ATTENDANT_1, BattleFrontier_BattleTowerMultiBattleRoom_Movement_AttendantReturnToPos

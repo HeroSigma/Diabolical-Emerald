@@ -4,7 +4,7 @@
 .set LOCALID_BLACK_BELT_4, 4
 .set LOCALID_ATTENDANT, 5
 .set LOCALID_OPPONENT, 7
-.set LOCALID_PLAYER, 8
+.set LOCALID_BF_PLAYER, 8
 .set LOCALID_ANNOUNCER, 9
 
 BattleFrontier_BattleArenaBattleRoom_MapScripts::
@@ -15,7 +15,7 @@ BattleFrontier_BattleArenaBattleRoom_MapScripts::
 	.byte 0
 
 	@ On this map the player (OBJ_EVENT_ID_PLAYER) is hidden
-	@ The player is represented instead by LOCALID_PLAYER, which has the gfx id VAR_OBJ_GFX_ID_1
+	@ The player is represented instead by LOCALID_BF_PLAYER, which has the gfx id VAR_OBJ_GFX_ID_1
 
 BattleFrontier_BattleArenaBattleRoom_OnResume:
 	special OffsetCameraForBattle
@@ -46,13 +46,13 @@ BattleFrontier_BattleArenaBattleRoom_OnFrame:
 
 BattleFrontier_BattleArenaBattleRoom_EventScript_EnterRoom::
 	lockall
-	showobjectat LOCALID_PLAYER, MAP_BATTLE_FRONTIER_BATTLE_ARENA_BATTLE_ROOM
-	applymovement LOCALID_PLAYER, BattleFrontier_BattleArenaBattleRoom_Movement_PlayerEnter
+	showobjectat LOCALID_BF_PLAYER, MAP_BATTLE_FRONTIER_BATTLE_ARENA_BATTLE_ROOM
+	applymovement LOCALID_BF_PLAYER, BattleFrontier_BattleArenaBattleRoom_Movement_PlayerEnter
 	waitmovement 0
 	frontier_get FRONTIER_DATA_BATTLE_NUM
 	goto_if_eq VAR_RESULT, 0, BattleFrontier_BattleArenaBattleRoom_EventScript_AnnounceTrainers
 	applymovement LOCALID_ATTENDANT, BattleFrontier_BattleArenaBattleRoom_Movement_WalkInPlaceDown
-	applymovement LOCALID_PLAYER, BattleFrontier_BattleArenaBattleRoom_Movement_WalkInPlaceLeft
+	applymovement LOCALID_BF_PLAYER, BattleFrontier_BattleArenaBattleRoom_Movement_WalkInPlaceLeft
 	setvar VAR_TEMP_2, 1
 	frontier_set FRONTIER_DATA_RECORD_DISABLED, TRUE
 	goto BattleFrontier_BattleArenaBattleRoom_EventScript_AskReadyForOpponent
@@ -68,7 +68,7 @@ BattleFrontier_BattleArenaBattleRoom_EventScript_AnnounceTrainers::
 	waitmovement 0
 	msgbox BattleFrontier_BattleArenaBattleRoom_Text_PlayerStepForward, MSGBOX_DEFAULT
 	closemessage
-	applymovement LOCALID_PLAYER, BattleFrontier_BattleArenaBattleRoom_Movement_PlayerStepForward
+	applymovement LOCALID_BF_PLAYER, BattleFrontier_BattleArenaBattleRoom_Movement_PlayerStepForward
 	waitmovement 0
 	applymovement LOCALID_ANNOUNCER, BattleFrontier_BattleArenaBattleRoom_Movement_JumpInPlaceDown
 	playse SE_M_BELLY_DRUM
@@ -85,7 +85,7 @@ BattleFrontier_BattleArenaBattleRoom_EventScript_AnnounceTrainers::
 	waitmovement 0
 	msgbox BattleFrontier_BattleArenaBattleRoom_Text_SetKOTourneyBegin, MSGBOX_DEFAULT
 	closemessage
-	applymovement LOCALID_PLAYER, BattleFrontier_BattleArenaBattleRoom_Movement_PlayerStepForward
+	applymovement LOCALID_BF_PLAYER, BattleFrontier_BattleArenaBattleRoom_Movement_PlayerStepForward
 	applymovement LOCALID_OPPONENT, BattleFrontier_BattleArenaBattleRoom_Movement_OpponentStepForward
 	waitmovement 0
 	palace_getopponentintro
@@ -117,12 +117,12 @@ BattleFrontier_BattleArenaBattleRoom_EventScript_DefeatedOpponent::
 	frontier_set FRONTIER_DATA_BATTLE_NUM, VAR_RESULT
 	switch VAR_RESULT
 	case 7, BattleFrontier_BattleArenaBattleRoom_EventScript_ReturnToLobbyWon
-	applymovement LOCALID_PLAYER, BattleFrontier_BattleArenaBattleRoom_Movement_PlayerWalkBackToLine
+	applymovement LOCALID_BF_PLAYER, BattleFrontier_BattleArenaBattleRoom_Movement_PlayerWalkBackToLine
 	applymovement LOCALID_OPPONENT, BattleFrontier_BattleArenaBattleRoom_Movement_OpponentExit
 	waitmovement 0
 	removeobject LOCALID_OPPONENT
 	applymovement LOCALID_ATTENDANT, BattleFrontier_BattleArenaBattleRoom_Movement_WalkInPlaceDown
-	applymovement LOCALID_PLAYER, BattleFrontier_BattleArenaBattleRoom_Movement_WalkInPlaceLeft
+	applymovement LOCALID_BF_PLAYER, BattleFrontier_BattleArenaBattleRoom_Movement_WalkInPlaceLeft
 	waitmovement 0
 	msgbox BattleFrontier_BattleArenaBattleRoom_Text_MonsWillBeRestored, MSGBOX_DEFAULT
 	special LoadPlayerParty
@@ -191,7 +191,7 @@ BattleFrontier_BattleArenaBattleRoom_EventScript_AskRetireChallenge::
 
 BattleFrontier_BattleArenaBattleRoom_EventScript_ContinueChallenge::
 	closemessage
-	applymovement LOCALID_PLAYER, BattleFrontier_BattleArenaBattleRoom_Movement_WalkInPlaceRight
+	applymovement LOCALID_BF_PLAYER, BattleFrontier_BattleArenaBattleRoom_Movement_WalkInPlaceRight
 	applymovement LOCALID_ATTENDANT, BattleFrontier_BattleArenaBattleRoom_Movement_WalkInPlaceRight
 	waitmovement 0
 	goto BattleFrontier_BattleArenaBattleRoom_EventScript_AnnounceTrainers
@@ -269,7 +269,7 @@ BattleFrontier_BattleArenaBattleRoom_EventScript_AskReadyForTycoonNoRecord::
 
 BattleFrontier_BattleArenaBattleRoom_EventScript_BattleGreta::
 	call BattleFrontier_EventScript_SetBrainObjectGfx
-	applymovement LOCALID_PLAYER, BattleFrontier_BattleArenaBattleRoom_Movement_WalkInPlaceRight
+	applymovement LOCALID_BF_PLAYER, BattleFrontier_BattleArenaBattleRoom_Movement_WalkInPlaceRight
 	applymovement LOCALID_ATTENDANT, BattleFrontier_BattleArenaBattleRoom_Movement_WalkInPlaceRight
 	waitmovement 0
 	applymovement LOCALID_ANNOUNCER, BattleFrontier_BattleArenaBattleRoom_Movement_JumpInPlaceDown
@@ -278,7 +278,7 @@ BattleFrontier_BattleArenaBattleRoom_EventScript_BattleGreta::
 	waitmovement 0
 	msgbox BattleFrontier_BattleArenaBattleRoom_Text_PlayerStepForward, MSGBOX_DEFAULT
 	closemessage
-	applymovement LOCALID_PLAYER, BattleFrontier_BattleArenaBattleRoom_Movement_PlayerStepForwardLong
+	applymovement LOCALID_BF_PLAYER, BattleFrontier_BattleArenaBattleRoom_Movement_PlayerStepForwardLong
 	waitmovement 0
 	applymovement LOCALID_ANNOUNCER, BattleFrontier_BattleArenaBattleRoom_Movement_JumpInPlaceDown
 	playse SE_M_BELLY_DRUM
@@ -469,7 +469,7 @@ BattleFrontier_BattleArenaBattleRoom_OnWarp:
 	.2byte 0
 
 BattleFrontier_BattleArenaBattleRoom_EventScript_SetUpRoomObjects::
-	hideobjectat LOCALID_PLAYER, MAP_BATTLE_FRONTIER_BATTLE_ARENA_BATTLE_ROOM
+	hideobjectat LOCALID_BF_PLAYER, MAP_BATTLE_FRONTIER_BATTLE_ARENA_BATTLE_ROOM
 	removeobject LOCALID_OPPONENT
 	call BattleFrontier_BattleDomeBattleRoom_EventScript_SetPlayerGfx
 	applymovement OBJ_EVENT_ID_PLAYER, BattleFrontier_BattleDomeBattleRoom_Movement_SetInvisible
