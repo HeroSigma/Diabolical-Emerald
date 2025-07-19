@@ -1,4 +1,4 @@
-.set LOCALID_PLAYER, 1
+.set LOCALID_BF_PLAYER, 1
 .set LOCALID_OPPONENT, 2
 .set LOCALID_ATTENDANT, 3
 .set LOCALID_DUSCLOPS, 4
@@ -11,7 +11,7 @@ BattleFrontier_BattlePalaceBattleRoom_MapScripts::
 	.byte 0
 
 	@ On this map the player (OBJ_EVENT_ID_PLAYER) is hidden
-	@ The player is represented instead by LOCALID_PLAYER, which has the gfx id VAR_OBJ_GFX_ID_0
+	@ The player is represented instead by LOCALID_BF_PLAYER, which has the gfx id VAR_OBJ_GFX_ID_0
 	@ The opponent is represented by LOCALID_OPPONENT, which has the gfx id VAR_OBJ_GFX_ID_1
 
 BattleFrontier_BattlePalaceBattleRoom_OnTransition:
@@ -41,10 +41,10 @@ BattleFrontier_BattlePalaceBattleRoom_OnFrame:
 	.2byte 0
 
 BattleFrontier_BattlePalaceBattleRoom_EventScript_EnterRoom::
-	showobjectat LOCALID_PLAYER, MAP_BATTLE_FRONTIER_BATTLE_PALACE_BATTLE_ROOM
+	showobjectat LOCALID_BF_PLAYER, MAP_BATTLE_FRONTIER_BATTLE_PALACE_BATTLE_ROOM
 	frontier_get FRONTIER_DATA_BATTLE_NUM
 	goto_if_eq VAR_RESULT, 0, BattleFrontier_BattlePalaceBattleRoom_EventScript_BeginChallenge
-	applymovement LOCALID_PLAYER, BattleFrontier_BattlePalaceBattleRoom_Movement_PlayerReturnToChallenge
+	applymovement LOCALID_BF_PLAYER, BattleFrontier_BattlePalaceBattleRoom_Movement_PlayerReturnToChallenge
 	waitmovement 0
 	applymovement LOCALID_ATTENDANT, BattleFrontier_BattlePalaceBattleRoom_Movement_FaceDown
 	setvar VAR_TEMP_2, 1
@@ -52,7 +52,7 @@ BattleFrontier_BattlePalaceBattleRoom_EventScript_EnterRoom::
 	goto BattleFrontier_BattlePalaceBattleRoom_EventScript_AskReadyForOpponent
 
 BattleFrontier_BattlePalaceBattleRoom_EventScript_BeginChallenge::
-	applymovement LOCALID_PLAYER, BattleFrontier_BattlePalaceBattleRoom_Movement_PlayerEnterRoom
+	applymovement LOCALID_BF_PLAYER, BattleFrontier_BattlePalaceBattleRoom_Movement_PlayerEnterRoom
 	waitmovement 0
 BattleFrontier_BattlePalaceBattleRoom_EventScript_NextOpponentEnter::
 	tower_setopponent
@@ -79,7 +79,7 @@ BattleFrontier_BattlePalaceBattleRoom_EventScript_DefeatedOpponent::
 	applymovement LOCALID_OPPONENT, BattleFrontier_BattlePalaceBattleRoom_Movement_OpponentExit
 	waitmovement 0
 	removeobject LOCALID_OPPONENT
-	applymovement LOCALID_PLAYER, BattleFrontier_BattlePalaceBattleRoom_Movement_FaceUp
+	applymovement LOCALID_BF_PLAYER, BattleFrontier_BattlePalaceBattleRoom_Movement_FaceUp
 	applymovement LOCALID_ATTENDANT, BattleFrontier_BattlePalaceBattleRoom_Movement_FaceDown
 	waitmovement 0
 	msgbox BattleFrontier_BattlePalaceBattleRoom_Text_LetMeRestoreYourMons, MSGBOX_DEFAULT
@@ -148,7 +148,7 @@ BattleFrontier_BattlePalaceBattleRoom_EventScript_AskRetireChallenge::
 	case MULTI_B_PRESSED, BattleFrontier_BattlePalaceBattleRoom_EventScript_AskReadyForOpponent
 
 BattleFrontier_BattlePalaceBattleRoom_EventScript_ContinueChallenge::
-	applymovement LOCALID_PLAYER, BattleFrontier_BattlePalaceBattleRoom_Movement_FaceRight
+	applymovement LOCALID_BF_PLAYER, BattleFrontier_BattlePalaceBattleRoom_Movement_FaceRight
 	applymovement LOCALID_ATTENDANT, BattleFrontier_BattlePalaceBattleRoom_Movement_FaceRight
 	closemessage
 	goto BattleFrontier_BattlePalaceBattleRoom_EventScript_NextOpponentEnter
@@ -196,7 +196,7 @@ BattleFrontier_BattlePalaceBattleRoom_EventScript_BattleSpenser::
 	call BattleFrontier_EventScript_SetBrainObjectGfx
 	msgbox BattleFrontier_BattlePalaceBattleRoom_Text_AnnounceArrivalOfSpenser, MSGBOX_DEFAULT
 	closemessage
-	applymovement LOCALID_PLAYER, BattleFrontier_BattlePalaceBattleRoom_Movement_FaceRight
+	applymovement LOCALID_BF_PLAYER, BattleFrontier_BattlePalaceBattleRoom_Movement_FaceRight
 	applymovement LOCALID_ATTENDANT, BattleFrontier_BattlePalaceBattleRoom_Movement_FaceRight
 	setobjectxyperm LOCALID_OPPONENT, 15, 1
 	addobject LOCALID_OPPONENT
@@ -226,7 +226,7 @@ BattleFrontier_BattlePalaceBattleRoom_EventScript_DefeatedSpenserSilver::
 	frontier_getsymbols
 	goto_if_ne VAR_RESULT, 0, BattleFrontier_BattlePalaceBattleRoom_EventScript_WarpToLobbyWon
 	msgbox BattleFrontier_BattlePalaceBattleRoom_Text_SpenserPostSilverBattle, MSGBOX_DEFAULT
-	applymovement LOCALID_PLAYER, BattleFrontier_BattlePalaceBattleRoom_Movement_FaceUp
+	applymovement LOCALID_BF_PLAYER, BattleFrontier_BattlePalaceBattleRoom_Movement_FaceUp
 	applymovement LOCALID_ATTENDANT, BattleFrontier_BattlePalaceBattleRoom_Movement_FaceDown
 	msgbox BattleFrontier_BattlePalaceBattleRoom_Text_LetsSeeFrontierPass, MSGBOX_DEFAULT
 	playfanfare MUS_OBTAIN_SYMBOL
@@ -236,7 +236,7 @@ BattleFrontier_BattlePalaceBattleRoom_EventScript_DefeatedSpenserSilver::
 	frontier_givesymbol
 	applymovement LOCALID_OPPONENT, Common_Movement_WalkInPlaceLeft
 	waitmovement 0
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
+	applymovement LOCALID_BF_PLAYER, Common_Movement_WalkInPlaceFasterRight
 	applymovement LOCALID_ATTENDANT, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
 	msgbox BattleFrontier_BattlePalaceBattleRoom_Text_SpenserAwaitNextTime, MSGBOX_DEFAULT
@@ -258,7 +258,7 @@ BattleFrontier_BattlePalaceBattleRoom_EventScript_DefeatedSpenserGold::
 	frontier_getsymbols
 	goto_if_eq VAR_RESULT, 2, BattleFrontier_BattlePalaceBattleRoom_EventScript_WarpToLobbyWon
 	msgbox BattleFrontier_BattlePalaceBattleRoom_Text_SpenserYourTeamIsAdmirable, MSGBOX_DEFAULT
-	applymovement LOCALID_PLAYER, BattleFrontier_BattlePalaceBattleRoom_Movement_FaceUp
+	applymovement LOCALID_BF_PLAYER, BattleFrontier_BattlePalaceBattleRoom_Movement_FaceUp
 	applymovement LOCALID_ATTENDANT, BattleFrontier_BattlePalaceBattleRoom_Movement_FaceDown
 	msgbox BattleFrontier_BattlePalaceBattleRoom_Text_HurryWithFrontierPass, MSGBOX_DEFAULT
 	playfanfare MUS_OBTAIN_SYMBOL
@@ -268,7 +268,7 @@ BattleFrontier_BattlePalaceBattleRoom_EventScript_DefeatedSpenserGold::
 	frontier_givesymbol
 	applymovement LOCALID_OPPONENT, Common_Movement_WalkInPlaceLeft
 	waitmovement 0
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
+	applymovement LOCALID_BF_PLAYER, Common_Movement_WalkInPlaceFasterRight
 	applymovement LOCALID_ATTENDANT, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
 	msgbox BattleFrontier_BattlePalaceBattleRoom_Text_SpenserComeSeeMeAgain, MSGBOX_DEFAULT
@@ -293,7 +293,7 @@ BattleFrontier_BattlePalaceBattleRoom_OnWarp:
 	.2byte 0
 
 BattleFrontier_BattlePalaceBattleRoom_EventScript_SetUpRoomObjects::
-	hideobjectat LOCALID_PLAYER, MAP_BATTLE_FRONTIER_BATTLE_PALACE_BATTLE_ROOM
+	hideobjectat LOCALID_BF_PLAYER, MAP_BATTLE_FRONTIER_BATTLE_PALACE_BATTLE_ROOM
 	call BattleFrontier_BattlePalaceBattleRoom_EventScript_SetPlayerGfx
 	setvar VAR_TEMP_1, 1
 	applymovement OBJ_EVENT_ID_PLAYER, BattleFrontier_BattlePalaceBattleRoom_Movement_SetInvisible
