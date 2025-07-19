@@ -1,8 +1,3 @@
-.set LOCALID_ATTENDANT, 1
-.set LOCALID_SS_TIDAL, 2
-.set LOCALID_FERRY_SAILOR, 4
-.set LOCALID_BRINEY, 5
-
 LilycoveCity_Harbor_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, LilycoveCity_Harbor_OnTransition
 	.byte 0
@@ -46,15 +41,12 @@ LilycoveCity_Harbor_EventScript_FerryRegularLocationSelect::
 	special GetLilycoveSSTidalSelection
 	switch VAR_RESULT
 	case 0, LilycoveCity_Harbor_EventScript_GoToSlateport
-	case 1, LilycoveCity_Harbor_EventScript_GoToVermilion
-	case 2, LilycoveCity_Harbor_EventScript_GoToOlivine
-	case 3, LilycoveCity_Harbor_EventScript_GoToSevii
-	case 4, LilycoveCity_Harbor_EventScript_GoToBattleFrontier
-	case 5, LilycoveCity_Harbor_EventScript_GoToSouthernIsland
-	case 6, LilycoveCity_Harbor_EventScript_GoToNavelRock
-	case 7, LilycoveCity_Harbor_EventScript_GoToBirthIsland
-	case 8, LilycoveCity_Harbor_EventScript_GoToFarawayIsland
-	case 9, LilycoveCity_Harbor_EventScript_ExitSailSelect
+	case 1, LilycoveCity_Harbor_EventScript_GoToBattleFrontier
+	case 2, LilycoveCity_Harbor_EventScript_GoToSouthernIsland
+	case 3, LilycoveCity_Harbor_EventScript_GoToNavelRock
+	case 4, LilycoveCity_Harbor_EventScript_GoToBirthIsland
+	case 5, LilycoveCity_Harbor_EventScript_GoToFarawayIsland
+	case 6, LilycoveCity_Harbor_EventScript_ExitSailSelect
 	case MULTI_B_PRESSED, LilycoveCity_Harbor_EventScript_ExitSailSelect
 	end
 
@@ -101,122 +93,6 @@ LilycoveCity_Harbor_EventScript_GoToBattleFrontier::
 	goto_if_eq VAR_RESULT, NO, LilycoveCity_Harbor_EventScript_FerryDestinationChangeMind
 	call LilycoveCity_Harbor_EventScript_BoardFerry
 	warp MAP_BATTLE_FRONTIER_OUTSIDE_WEST, 19, 67
-	waitstate
-	release
-	end
-
-LilycoveCity_Harbor_EventScript_GoToVermilion:: @ 821E149
-	msgbox LilycoveCity_Harbor_Text_VermilionItIs, MSGBOX_YESNO
-	compare VAR_RESULT, NO
-	goto_if_eq LilycoveCity_Harbor_EventScript_FerryDestinationChangeMind
-	setvar VAR_SS_TIDAL_STATE, SS_TIDAL_BOARD_LILYCOVE
-	call LilycoveCity_Harbor_EventScript_BoardFerry
-	warp MAP_SSANNE_EXTERIOR, 255, 32, 13
-	waitstate
-	release
-	end
-
-LilycoveCity_Harbor_EventScript_GoToOlivine:: @ 821E149
-	msgbox LilycoveCity_Harbor_Text_OlivineItIs, MSGBOX_YESNO
-	compare VAR_RESULT, NO
-	goto_if_eq LilycoveCity_Harbor_EventScript_FerryDestinationChangeMind
-	setvar VAR_SS_TIDAL_STATE, SS_TIDAL_BOARD_LILYCOVE
-	call LilycoveCity_Harbor_EventScript_BoardFerry
-	warp MAP_OLIVINE_CITY_HARBOR, 255, 8, 5
-	waitstate
-	release
-	end
-
-LilycoveCity_Harbor_EventScript_GoToSevii:: @ 821E149
-	setvar VAR_0x8004, 0
-	special ScriptMenu_CreateLilycoveSSTidalSeviiMultichoice
-	waitstate
-	special GetLilycoveSSTidalSeviiSelection
-	switch VAR_RESULT
-	case 0, LilycoveCity_Harbor_EventScript_GoToSevii1
-	case 1, LilycoveCity_Harbor_EventScript_GoToSevii2
-	case 2, LilycoveCity_Harbor_EventScript_GoToSevii3
-	case 3, LilycoveCity_Harbor_EventScript_GoToSevii4
-	case 4, LilycoveCity_Harbor_EventScript_GoToSevii5
-	case 5, LilycoveCity_Harbor_EventScript_GoToSevii6
-	case 6, LilycoveCity_Harbor_EventScript_GoToSevii7
-	case 7, LilycoveCity_Harbor_EventScript_ExitSailSelect
-	case MULTI_B_PRESSED, LilycoveCity_Harbor_EventScript_ExitSailSelect
-	end
-
-LilycoveCity_Harbor_EventScript_GoToSevii1:: @ 821E149
-	msgbox LilycoveCity_Harbor_Text_Sevii1ItIs, MSGBOX_YESNO
-	compare VAR_RESULT, NO
-	goto_if_eq LilycoveCity_Harbor_EventScript_FerryDestinationChangeMind
-	setvar VAR_SS_TIDAL_STATE, SS_TIDAL_BOARD_LILYCOVE
-	call LilycoveCity_Harbor_EventScript_BoardFerry
-	warp MAP_ONE_ISLAND_HARBOR, 255, 8, 5
-	waitstate
-	release
-	end
-
-LilycoveCity_Harbor_EventScript_GoToSevii2:: @ 821E149
-	msgbox LilycoveCity_Harbor_Text_Sevii2ItIs, MSGBOX_YESNO
-	compare VAR_RESULT, NO
-	goto_if_eq LilycoveCity_Harbor_EventScript_FerryDestinationChangeMind
-	setvar VAR_SS_TIDAL_STATE, SS_TIDAL_BOARD_LILYCOVE
-	call LilycoveCity_Harbor_EventScript_BoardFerry
-	warp MAP_TWO_ISLAND_HARBOR, 255, 8, 5
-	waitstate
-	release
-	end
-
-LilycoveCity_Harbor_EventScript_GoToSevii3:: @ 821E149
-	msgbox LilycoveCity_Harbor_Text_Sevii3ItIs, MSGBOX_YESNO
-	compare VAR_RESULT, NO
-	goto_if_eq LilycoveCity_Harbor_EventScript_FerryDestinationChangeMind
-	setvar VAR_SS_TIDAL_STATE, SS_TIDAL_BOARD_LILYCOVE
-	call LilycoveCity_Harbor_EventScript_BoardFerry
-	warp MAP_THREE_ISLAND_HARBOR, 255, 8, 5
-	waitstate
-	release
-	end
-
-LilycoveCity_Harbor_EventScript_GoToSevii4:: @ 821E149
-	msgbox LilycoveCity_Harbor_Text_Sevii4ItIs, MSGBOX_YESNO
-	compare VAR_RESULT, NO
-	goto_if_eq LilycoveCity_Harbor_EventScript_FerryDestinationChangeMind
-	setvar VAR_SS_TIDAL_STATE, SS_TIDAL_BOARD_LILYCOVE
-	call LilycoveCity_Harbor_EventScript_BoardFerry
-	warp MAP_FOUR_ISLAND_HARBOR, 255, 8, 5
-	waitstate
-	release
-	end
-
-LilycoveCity_Harbor_EventScript_GoToSevii5:: @ 821E149
-	msgbox LilycoveCity_Harbor_Text_Sevii5ItIs, MSGBOX_YESNO
-	compare VAR_RESULT, NO
-	goto_if_eq LilycoveCity_Harbor_EventScript_FerryDestinationChangeMind
-	setvar VAR_SS_TIDAL_STATE, SS_TIDAL_BOARD_LILYCOVE
-	call LilycoveCity_Harbor_EventScript_BoardFerry
-	warp MAP_FIVE_ISLAND_HARBOR, 255, 8, 5
-	waitstate
-	release
-	end
-
-LilycoveCity_Harbor_EventScript_GoToSevii6:: @ 821E149
-	msgbox LilycoveCity_Harbor_Text_Sevii6ItIs, MSGBOX_YESNO
-	compare VAR_RESULT, NO
-	goto_if_eq LilycoveCity_Harbor_EventScript_FerryDestinationChangeMind
-	setvar VAR_SS_TIDAL_STATE, SS_TIDAL_BOARD_LILYCOVE
-	call LilycoveCity_Harbor_EventScript_BoardFerry
-	warp MAP_SIX_ISLAND_HARBOR, 255, 8, 5
-	waitstate
-	release
-	end
-
-LilycoveCity_Harbor_EventScript_GoToSevii7:: @ 821E149
-	msgbox LilycoveCity_Harbor_Text_Sevii7ItIs, MSGBOX_YESNO
-	compare VAR_RESULT, NO
-	goto_if_eq LilycoveCity_Harbor_EventScript_FerryDestinationChangeMind
-	setvar VAR_SS_TIDAL_STATE, SS_TIDAL_BOARD_LILYCOVE
-	call LilycoveCity_Harbor_EventScript_BoardFerry
-	warp MAP_SEVEN_ISLAND_HARBOR, 255, 8, 5
 	waitstate
 	release
 	end
@@ -350,16 +226,16 @@ LilycoveCity_Harbor_EventScript_OldSeaMapFirstTime::
 	call LilycoveCity_Harbor_EventScript_GetEventTicketSailor
 	msgbox EventTicket_Text_OldSeaMapTooFar, MSGBOX_DEFAULT
 	closemessage
-	applymovement LOCALID_FERRY_SAILOR, Common_Movement_WalkInPlaceFasterUp
+	applymovement LOCALID_LILYCOVE_HARBOR_FERRY_SAILOR, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
 	playse SE_PIN
-	applymovement LOCALID_FERRY_SAILOR, Common_Movement_ExclamationMark
+	applymovement LOCALID_LILYCOVE_HARBOR_FERRY_SAILOR, Common_Movement_ExclamationMark
 	waitmovement 0
-	applymovement LOCALID_FERRY_SAILOR, Common_Movement_Delay48
+	applymovement LOCALID_LILYCOVE_HARBOR_FERRY_SAILOR, Common_Movement_Delay48
 	waitmovement 0
 	call_if_eq VAR_FACING, DIR_NORTH, LilycoveCity_Harbor_EventScript_MoveSailorOutOfWayNorth
 	call_if_eq VAR_FACING, DIR_EAST, LilycoveCity_Harbor_EventScript_MoveSailorOutOfWayEast
-	addobject LOCALID_BRINEY
+	addobject LOCALID_LILYCOVE_HARBOR_BRINEY
 	call_if_eq VAR_FACING, DIR_NORTH, LilycoveCity_Harbor_EventScript_BrineyFaceSailorNorth
 	call_if_eq VAR_FACING, DIR_EAST, LilycoveCity_Harbor_EventScript_BrineyFaceSailorEast
 	msgbox EventTicket_Text_BrineyHoldOnASecond, MSGBOX_DEFAULT
@@ -369,7 +245,7 @@ LilycoveCity_Harbor_EventScript_OldSeaMapFirstTime::
 	closemessage
 	call_if_eq VAR_FACING, DIR_NORTH, LilycoveCity_Harbor_EventScript_BoardFerryWithBrineyAndSailorNorth
 	call_if_eq VAR_FACING, DIR_EAST, LilycoveCity_Harbor_EventScript_BoardFerryWithBrineyAndSailorEast
-	setvar VAR_0x8004, LOCALID_SS_TIDAL
+	setvar VAR_0x8004, LOCALID_LILYCOVE_HARBOR_SS_TIDAL
 	call Common_EventScript_FerryDepart
 	warp MAP_FARAWAY_ISLAND_ENTRANCE, 13, 38
 	waitstate
@@ -424,14 +300,14 @@ LilycoveCity_Harbor_EventScript_MultipleEventTicketsFirstTime::
 LilycoveCity_Harbor_EventScript_ExitFirstTimeTicketSailSelect::
 	msgbox EventTicket_Text_AsYouLike, MSGBOX_DEFAULT
 	closemessage
-	applymovement LOCALID_FERRY_SAILOR, Common_Movement_WalkInPlaceFasterUp
+	applymovement LOCALID_LILYCOVE_HARBOR_FERRY_SAILOR, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
 	delay 30
-	removeobject LOCALID_FERRY_SAILOR
+	removeobject LOCALID_LILYCOVE_HARBOR_FERRY_SAILOR
 	delay 30
-	applymovement LOCALID_ATTENDANT, Common_Movement_WalkInPlaceFasterDown
+	applymovement LOCALID_LILYCOVE_HARBOR_ATTENDANT, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
-	showobjectat LOCALID_ATTENDANT, MAP_LILYCOVE_CITY_HARBOR
+	showobjectat LOCALID_LILYCOVE_HARBOR_ATTENDANT, MAP_LILYCOVE_CITY_HARBOR
 	delay 30
 	msgbox LilycoveCity_Harbor_Text_SailAnotherTime, MSGBOX_DEFAULT
 	release
@@ -443,22 +319,22 @@ LilycoveCity_Harbor_EventScript_GetEventTicketSailor::
 	delay 30
 	hideobjectat VAR_LAST_TALKED, MAP_LILYCOVE_CITY_HARBOR
 	delay 60
-	addobject LOCALID_FERRY_SAILOR
+	addobject LOCALID_LILYCOVE_HARBOR_FERRY_SAILOR
 	delay 30
-	applymovement LOCALID_FERRY_SAILOR, Common_Movement_FacePlayer
+	applymovement LOCALID_LILYCOVE_HARBOR_FERRY_SAILOR, Common_Movement_FacePlayer
 	waitmovement 0
 	return
 
 LilycoveCity_Harbor_EventScript_BoardFerryWithSailor::
-	applymovement LOCALID_FERRY_SAILOR, Common_Movement_WalkInPlaceFasterUp
+	applymovement LOCALID_LILYCOVE_HARBOR_FERRY_SAILOR, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
 	delay 30
-	removeobject LOCALID_FERRY_SAILOR
+	removeobject LOCALID_LILYCOVE_HARBOR_FERRY_SAILOR
 	call_if_eq VAR_FACING, DIR_NORTH, LilycoveCity_Harbor_EventScript_PlayerBoardFerryNorth
 	call_if_eq VAR_FACING, DIR_EAST, LilycoveCity_Harbor_EventScript_PlayerBoardFerryEast
 	delay 30
-	hideobjectat OBJ_EVENT_ID_PLAYER, 0
-	setvar VAR_0x8004, LOCALID_SS_TIDAL
+	hideobjectat LOCALID_PLAYER, 0
+	setvar VAR_0x8004, LOCALID_LILYCOVE_HARBOR_SS_TIDAL
 	call Common_EventScript_FerryDepart
 	return
 
@@ -517,18 +393,18 @@ LilycoveCity_Harbor_EventScript_BoardFerry::
 	call_if_eq VAR_FACING, DIR_NORTH, LilycoveCity_Harbor_EventScript_PlayerBoardFerryNorth
 	call_if_eq VAR_FACING, DIR_EAST, LilycoveCity_Harbor_EventScript_PlayerBoardFerryEast
 	delay 30
-	hideobjectat OBJ_EVENT_ID_PLAYER, 0
-	setvar VAR_0x8004, LOCALID_SS_TIDAL
+	hideobjectat LOCALID_PLAYER, 0
+	setvar VAR_0x8004, LOCALID_LILYCOVE_HARBOR_SS_TIDAL
 	call Common_EventScript_FerryDepart
 	return
 
 LilycoveCity_Harbor_EventScript_PlayerBoardFerryEast::
-	applymovement OBJ_EVENT_ID_PLAYER, LilycoveCity_Harbor_Movement_PlayerBoardFerryEast
+	applymovement LOCALID_PLAYER, LilycoveCity_Harbor_Movement_PlayerBoardFerryEast
 	waitmovement 0
 	return
 
 LilycoveCity_Harbor_EventScript_PlayerBoardFerryNorth::
-	applymovement OBJ_EVENT_ID_PLAYER, LilycoveCity_Harbor_Movement_PlayerBoardFerryNorth
+	applymovement LOCALID_PLAYER, LilycoveCity_Harbor_Movement_PlayerBoardFerryNorth
 	waitmovement 0
 	return
 
@@ -564,12 +440,12 @@ LilycoveCity_Harbor_EventScript_SailorFerryAvailable::
 	end
 
 LilycoveCity_Harbor_EventScript_MoveSailorOutOfWayNorth::
-	applymovement LOCALID_FERRY_SAILOR, LilycoveCity_Harbor_Movement_SailorOutOfWayNorth
+	applymovement LOCALID_LILYCOVE_HARBOR_FERRY_SAILOR, LilycoveCity_Harbor_Movement_SailorOutOfWayNorth
 	waitmovement 0
 	return
 
 LilycoveCity_Harbor_EventScript_MoveSailorOutOfWayEast::
-	applymovement LOCALID_FERRY_SAILOR, LilycoveCity_Harbor_Movement_SailorOutOfWayEast
+	applymovement LOCALID_LILYCOVE_HARBOR_FERRY_SAILOR, LilycoveCity_Harbor_Movement_SailorOutOfWayEast
 	waitmovement 0
 	return
 
@@ -587,36 +463,36 @@ LilycoveCity_Harbor_Movement_SailorOutOfWayEast:
 	step_end
 
 LilycoveCity_Harbor_EventScript_BrineyFaceSailorNorth::
-	applymovement LOCALID_BRINEY, Common_Movement_WalkInPlaceFasterLeft
+	applymovement LOCALID_LILYCOVE_HARBOR_BRINEY, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
 	return
 
 LilycoveCity_Harbor_EventScript_BrineyFaceSailorEast::
-	applymovement LOCALID_BRINEY, Common_Movement_WalkInPlaceFasterDown
+	applymovement LOCALID_LILYCOVE_HARBOR_BRINEY, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
 	return
 
 LilycoveCity_Harbor_EventScript_BrineyFacePlayerNorth::
-	applymovement LOCALID_BRINEY, Common_Movement_WalkInPlaceFasterDown
+	applymovement LOCALID_LILYCOVE_HARBOR_BRINEY, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
 	return
 
 LilycoveCity_Harbor_EventScript_BrineyFacePlayerEast::
-	applymovement LOCALID_BRINEY, Common_Movement_WalkInPlaceFasterLeft
+	applymovement LOCALID_LILYCOVE_HARBOR_BRINEY, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
 	return
 
 LilycoveCity_Harbor_EventScript_BoardFerryWithBrineyAndSailorNorth::
-	applymovement LOCALID_BRINEY, LilycoveCity_Harbor_Movement_BrineyBoardFerry
-	applymovement OBJ_EVENT_ID_PLAYER, LilycoveCity_Harbor_Movement_PlayerBoardWithBrineyNorth
-	applymovement LOCALID_FERRY_SAILOR, LilycoveCity_Harbor_Movement_SailorBoardWithBrineyNorth
+	applymovement LOCALID_LILYCOVE_HARBOR_BRINEY, LilycoveCity_Harbor_Movement_BrineyBoardFerry
+	applymovement LOCALID_PLAYER, LilycoveCity_Harbor_Movement_PlayerBoardWithBrineyNorth
+	applymovement LOCALID_LILYCOVE_HARBOR_FERRY_SAILOR, LilycoveCity_Harbor_Movement_SailorBoardWithBrineyNorth
 	waitmovement 0
 	return
 
 LilycoveCity_Harbor_EventScript_BoardFerryWithBrineyAndSailorEast::
-	applymovement LOCALID_BRINEY, LilycoveCity_Harbor_Movement_BrineyBoardFerry
-	applymovement OBJ_EVENT_ID_PLAYER, LilycoveCity_Harbor_Movement_PlayerBoardWithBrineyEast
-	applymovement LOCALID_FERRY_SAILOR, LilycoveCity_Harbor_Movement_SailorBoardWithBrineyEast
+	applymovement LOCALID_LILYCOVE_HARBOR_BRINEY, LilycoveCity_Harbor_Movement_BrineyBoardFerry
+	applymovement LOCALID_PLAYER, LilycoveCity_Harbor_Movement_PlayerBoardWithBrineyEast
+	applymovement LOCALID_LILYCOVE_HARBOR_FERRY_SAILOR, LilycoveCity_Harbor_Movement_SailorBoardWithBrineyEast
 	waitmovement 0
 	return
 
@@ -686,33 +562,6 @@ LilycoveCity_Harbor_Text_SailAnotherTime:
 
 LilycoveCity_Harbor_Text_SlateportItIs:
 	.string "SLATEPORT CITY it is, then!$"
-
-LilycoveCity_Harbor_Text_VermilionItIs: @ 821E864
-	.string "VERMILION CITY it is, then!$"
-
-LilycoveCity_Harbor_Text_OlivineItIs: @ 821E864
-	.string "OLIVINE CITY it is, then!$"
-
-LilycoveCity_Harbor_Text_Sevii1ItIs: @ 821E864
-	.string "ONE ISLAND it is, then!$"
-
-LilycoveCity_Harbor_Text_Sevii2ItIs: @ 821E864
-	.string "TWO ISLAND it is, then!$"
-
-LilycoveCity_Harbor_Text_Sevii3ItIs: @ 821E864
-	.string "THREE ISLAND it is, then!$"
-
-LilycoveCity_Harbor_Text_Sevii4ItIs: @ 821E864
-	.string "FOUR ISLAND it is, then!$"
-
-LilycoveCity_Harbor_Text_Sevii5ItIs: @ 821E864
-	.string "FIVE ISLAND it is, then!$"
-
-LilycoveCity_Harbor_Text_Sevii6ItIs: @ 821E864
-	.string "SIX ISLAND it is, then!$"
-
-LilycoveCity_Harbor_Text_Sevii7ItIs: @ 821E864
-	.string "SEVEN ISLAND it is, then!$"
 
 LilycoveCity_Harbor_Text_BattleFrontierItIs:
 	.string "BATTLE FRONTIER it is, then!$"

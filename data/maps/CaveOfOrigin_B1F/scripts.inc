@@ -1,23 +1,81 @@
-.set LOCALID_WALLACE, 1
-
 CaveOfOrigin_B1F_MapScripts::
-	.byte 0
+        map_script MAP_SCRIPT_ON_TRANSITION, CaveOfOrigin_B1F_OnTransition
+        map_script MAP_SCRIPT_ON_RESUME, CaveOfOrigin_B1F_OnResume
+        .byte 0
+
+CaveOfOrigin_B1F_OnTransition:
+        call_if_set FLAG_CAUGHT_GIRATINA, CaveOfOrigin_B1F_HideGiratina
+        call_if_unset FLAG_CAUGHT_GIRATINA, CaveOfOrigin_B1F_TryShowGiratina
+        end
+
+CaveOfOrigin_B1F_OnResume:
+        call_if_set FLAG_SYS_CTRL_OBJ_DELETE, CaveOfOrigin_B1F_TryRemoveGiratina
+        end
+
+CaveOfOrigin_B1F_HideGiratina::
+        setflag FLAG_HIDE_GIRATINA
+        return
+
+CaveOfOrigin_B1F_TryShowGiratina::
+        goto_if_unset FLAG_BADGE06_GET, Common_EventScript_NopReturn
+        goto_if_unset FLAG_CAUGHT_HOOPA, Common_EventScript_NopReturn
+        checkspecies SPECIES_DIALGA
+        goto_if_eq VAR_RESULT, FALSE, Common_EventScript_NopReturn
+        checkspecies SPECIES_PALKIA
+        goto_if_eq VAR_RESULT, FALSE, Common_EventScript_NopReturn
+        clearflag FLAG_HIDE_GIRATINA
+        return
+
+CaveOfOrigin_B1F_TryRemoveGiratina::
+        specialvar VAR_RESULT, GetBattleOutcome
+        goto_if_ne VAR_RESULT, B_OUTCOME_CAUGHT, Common_EventScript_NopReturn
+        removeobject LOCALID_CAVE_OF_ORIGIN_GIRATINA
+        return
+
+CaveOfOrigin_B1F_Giratina::
+        lock
+        faceplayer
+        waitse
+        playmoncry SPECIES_GIRATINA, CRY_MODE_ENCOUNTER
+        waitmoncry
+        seteventmon SPECIES_GIRATINA, 70
+        setflag FLAG_SYS_CTRL_OBJ_DELETE
+        special BattleSetup_StartLegendaryBattle
+        waitstate
+        clearflag FLAG_SYS_CTRL_OBJ_DELETE
+        specialvar VAR_RESULT, GetBattleOutcome
+        goto_if_eq VAR_RESULT, B_OUTCOME_WON, CaveOfOrigin_B1F_DefeatedGiratina
+        goto_if_eq VAR_RESULT, B_OUTCOME_RAN, CaveOfOrigin_B1F_RanFromGiratina
+        goto_if_eq VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED, CaveOfOrigin_B1F_RanFromGiratina
+        setflag FLAG_CAUGHT_GIRATINA
+        release
+        end
+
+CaveOfOrigin_B1F_DefeatedGiratina::
+        setvar VAR_0x8004, SPECIES_GIRATINA
+        goto Common_EventScript_LegendaryFlewAway
+        end
+
+CaveOfOrigin_B1F_RanFromGiratina::
+        setvar VAR_0x8004, SPECIES_GIRATINA
+        goto Common_EventScript_LegendaryFlewAway
+        end
 
 CaveOfOrigin_B1F_EventScript_Wallace::
 	lock
 	faceplayer
 	msgbox CaveOfOrigin_B1F_Text_WallaceStory, MSGBOX_DEFAULT
 	closemessage
-	applymovement LOCALID_WALLACE, Common_Movement_WalkInPlaceFasterUp
+	applymovement LOCALID_CAVE_OF_ORIGIN_WALLACE, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
 	delay 60
 	playse SE_PIN
-	applymovement LOCALID_WALLACE, Common_Movement_ExclamationMark
+	applymovement LOCALID_CAVE_OF_ORIGIN_WALLACE, Common_Movement_ExclamationMark
 	waitmovement 0
-	applymovement LOCALID_WALLACE, Common_Movement_Delay48
+	applymovement LOCALID_CAVE_OF_ORIGIN_WALLACE, Common_Movement_Delay48
 	waitmovement 0
 	delay 30
-	applymovement LOCALID_WALLACE, Common_Movement_FacePlayer
+	applymovement LOCALID_CAVE_OF_ORIGIN_WALLACE, Common_Movement_FacePlayer
 	waitmovement 0
 	message CaveOfOrigin_B1F_Text_WhereIsRayquaza
 	waitmessage
@@ -55,7 +113,7 @@ CaveOfOrigin_B1F_EventScript_AtSkyPillar::
 	fadescreenspeed FADE_TO_BLACK, 4
 	setflag FLAG_WALLACE_GOES_TO_SKY_PILLAR
 	setvar VAR_SOOTOPOLIS_CITY_STATE, 3
-	removeobject LOCALID_WALLACE
+	removeobject LOCALID_CAVE_OF_ORIGIN_WALLACE
 	clearflag FLAG_HIDE_SKY_PILLAR_WALLACE
 	fadescreen FADE_FROM_BLACK
 	release

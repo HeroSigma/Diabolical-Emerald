@@ -1,5 +1,63 @@
 VictoryRoad_B2F_MapScripts::
-	.byte 0
+        map_script MAP_SCRIPT_ON_TRANSITION, VictoryRoad_B2F_OnTransition
+        map_script MAP_SCRIPT_ON_RESUME, VictoryRoad_B2F_OnResume
+        .byte 0
+
+VictoryRoad_B2F_OnTransition:
+        call_if_set FLAG_CAUGHT_COBALION, VictoryRoad_B2F_HideCobalion
+        call_if_unset FLAG_CAUGHT_COBALION, VictoryRoad_B2F_TryShowCobalion
+        end
+
+VictoryRoad_B2F_OnResume:
+        call_if_set FLAG_SYS_CTRL_OBJ_DELETE, VictoryRoad_B2F_TryRemoveCobalion
+        end
+
+VictoryRoad_B2F_HideCobalion::
+        setflag FLAG_HIDE_COBALION
+        return
+
+VictoryRoad_B2F_TryShowCobalion::
+        goto_if_unset FLAG_BADGE06_GET, Common_EventScript_NopReturn
+        goto_if_unset FLAG_CAUGHT_HOOPA, Common_EventScript_NopReturn
+        goto_if_unset FLAG_BADGE06_GET, Common_EventScript_NopReturn
+        goto_if_unset FLAG_CAUGHT_HOOPA, Common_EventScript_NopReturn
+        clearflag FLAG_HIDE_COBALION
+        return
+
+VictoryRoad_B2F_TryRemoveCobalion::
+        specialvar VAR_RESULT, GetBattleOutcome
+        goto_if_ne VAR_RESULT, B_OUTCOME_CAUGHT, Common_EventScript_NopReturn
+        removeobject LOCALID_VICTORY_ROAD_COBALION
+        return
+
+VictoryRoad_B2F_Cobalion::
+        lock
+        faceplayer
+        waitse
+        playmoncry SPECIES_COBALION, CRY_MODE_ENCOUNTER
+        waitmoncry
+        seteventmon SPECIES_COBALION, 70
+        setflag FLAG_SYS_CTRL_OBJ_DELETE
+        special BattleSetup_StartLegendaryBattle
+        waitstate
+        clearflag FLAG_SYS_CTRL_OBJ_DELETE
+        specialvar VAR_RESULT, GetBattleOutcome
+        goto_if_eq VAR_RESULT, B_OUTCOME_WON, VictoryRoad_B2F_DefeatedCobalion
+        goto_if_eq VAR_RESULT, B_OUTCOME_RAN, VictoryRoad_B2F_RanFromCobalion
+        goto_if_eq VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED, VictoryRoad_B2F_RanFromCobalion
+        setflag FLAG_CAUGHT_COBALION
+        release
+        end
+
+VictoryRoad_B2F_DefeatedCobalion::
+        setvar VAR_0x8004, SPECIES_COBALION
+        goto Common_EventScript_LegendaryFlewAway
+        end
+
+VictoryRoad_B2F_RanFromCobalion::
+        setvar VAR_0x8004, SPECIES_COBALION
+        goto Common_EventScript_LegendaryFlewAway
+        end
 
 VictoryRoad_B2F_EventScript_Vito::
 	trainerbattle_single TRAINER_VITO, VictoryRoad_B2F_Text_VitoIntro, VictoryRoad_B2F_Text_VitoDefeat

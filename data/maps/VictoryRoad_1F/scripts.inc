@@ -1,29 +1,37 @@
-.set LOCALID_WALLY_ENTRANCE, 4
-
 VictoryRoad_1F_MapScripts::
-	map_script MAP_SCRIPT_ON_TRANSITION, VictoryRoad_1F_OnTransition
-	.byte 0
+        map_script MAP_SCRIPT_ON_TRANSITION, VictoryRoad_1F_OnTransition
+        map_script MAP_SCRIPT_ON_RESUME, VictoryRoad_1F_OnResume
+        .byte 0
 
 VictoryRoad_1F_OnTransition:
-	call_if_eq VAR_VICTORY_ROAD_1F_STATE, 1, VictoryRoad_1F_EventScript_SetEntranceWallyPos1
-	call_if_eq VAR_VICTORY_ROAD_1F_STATE, 2, VictoryRoad_1F_EventScript_SetEntranceWallyPos2
-	end
+        call_if_eq VAR_VICTORY_ROAD_1F_STATE, 1, VictoryRoad_1F_EventScript_SetEntranceWallyPos1
+        call_if_eq VAR_VICTORY_ROAD_1F_STATE, 2, VictoryRoad_1F_EventScript_SetEntranceWallyPos2
+        call_if_set FLAG_CAUGHT_SOLGALEO, VictoryRoad_1F_HideSolgaleo
+        call_if_unset FLAG_CAUGHT_SOLGALEO, VictoryRoad_1F_TryShowSolgaleo
+        call_if_set FLAG_CAUGHT_LUNALA, VictoryRoad_1F_HideLunala
+        call_if_unset FLAG_CAUGHT_LUNALA, VictoryRoad_1F_TryShowLunala
+        end
+
+VictoryRoad_1F_OnResume:
+        call_if_set FLAG_SYS_CTRL_OBJ_DELETE, VictoryRoad_1F_TryRemoveSolgaleo
+        call_if_set FLAG_SYS_CTRL_OBJ_DELETE, VictoryRoad_1F_TryRemoveLunala
+        end
 
 VictoryRoad_1F_EventScript_SetEntranceWallyPos1::
-	setobjectxyperm LOCALID_WALLY_ENTRANCE, 2, 24
-	setobjectmovementtype LOCALID_WALLY_ENTRANCE, MOVEMENT_TYPE_FACE_DOWN
+	setobjectxyperm LOCALID_VICTORY_ROAD_ENTRANCE_WALLY, 2, 24
+	setobjectmovementtype LOCALID_VICTORY_ROAD_ENTRANCE_WALLY, MOVEMENT_TYPE_FACE_DOWN
 	return
 
 VictoryRoad_1F_EventScript_SetEntranceWallyPos2::
-	setobjectxyperm LOCALID_WALLY_ENTRANCE, 3, 24
-	setobjectmovementtype LOCALID_WALLY_ENTRANCE, MOVEMENT_TYPE_FACE_DOWN
+	setobjectxyperm LOCALID_VICTORY_ROAD_ENTRANCE_WALLY, 3, 24
+	setobjectmovementtype LOCALID_VICTORY_ROAD_ENTRANCE_WALLY, MOVEMENT_TYPE_FACE_DOWN
 	return
 
 VictoryRoad_1F_EventScript_WallyBattleTrigger1::
 	lockall
 	setvar VAR_0x8008, 1
-	addobject LOCALID_WALLY_ENTRANCE
-	applymovement LOCALID_WALLY_ENTRANCE, VictoryRoad_1F_Movement_WallyApproachPlayer1
+	addobject LOCALID_VICTORY_ROAD_ENTRANCE_WALLY
+	applymovement LOCALID_VICTORY_ROAD_ENTRANCE_WALLY, VictoryRoad_1F_Movement_WallyApproachPlayer1
 	waitmovement 0
 	goto VictoryRoad_1F_EventScript_WallyEntranceBattle
 	end
@@ -31,20 +39,20 @@ VictoryRoad_1F_EventScript_WallyBattleTrigger1::
 VictoryRoad_1F_EventScript_WallyBattleTrigger2::
 	lockall
 	setvar VAR_0x8008, 2
-	addobject LOCALID_WALLY_ENTRANCE
-	applymovement LOCALID_WALLY_ENTRANCE, VictoryRoad_1F_Movement_WallyApproachPlayer2
+	addobject LOCALID_VICTORY_ROAD_ENTRANCE_WALLY
+	applymovement LOCALID_VICTORY_ROAD_ENTRANCE_WALLY, VictoryRoad_1F_Movement_WallyApproachPlayer2
 	waitmovement 0
 	goto VictoryRoad_1F_EventScript_WallyEntranceBattle
 	end
 
 VictoryRoad_1F_EventScript_WallyEntranceBattle::
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
 	msgbox VictoryRoad_1F_Text_WallyNotGoingToLoseAnymore, MSGBOX_DEFAULT
 	trainerbattle_no_intro TRAINER_WALLY_VR_1, VictoryRoad_1F_Text_WallyEntranceDefeat
 	msgbox VictoryRoad_1F_Text_WallyPostEntranceBattle, MSGBOX_DEFAULT
 	clearflag FLAG_HIDE_VICTORY_ROAD_ENTRANCE_WALLY
-	copyobjectxytoperm LOCALID_WALLY_ENTRANCE
+	copyobjectxytoperm LOCALID_VICTORY_ROAD_ENTRANCE_WALLY
 	setflag FLAG_DEFEATED_WALLY_VICTORY_ROAD
 	copyvar VAR_VICTORY_ROAD_1F_STATE, VAR_0x8008
 	releaseall
@@ -216,5 +224,99 @@ VictoryRoad_1F_Text_KatelynnDefeat:
 	.string "This is a disgrace…$"
 
 VictoryRoad_1F_Text_KatelynnPostBattle:
-	.string "Humph, go right on ahead.\n"
-	.string "See if I care.$"
+        .string "Humph, go right on ahead.\n"
+        .string "See if I care.$"
+
+VictoryRoad_1F_HideSolgaleo::
+        setflag FLAG_HIDE_SOLGALEO
+        return
+
+VictoryRoad_1F_TryShowSolgaleo::
+        goto_if_unset FLAG_BADGE06_GET, Common_EventScript_NopReturn
+        goto_if_unset FLAG_CAUGHT_HOOPA, Common_EventScript_NopReturn
+        goto_if_unset FLAG_BADGE06_GET, Common_EventScript_NopReturn
+        goto_if_unset FLAG_CAUGHT_HOOPA, Common_EventScript_NopReturn
+        clearflag FLAG_HIDE_SOLGALEO
+        return
+
+VictoryRoad_1F_TryRemoveSolgaleo::
+        specialvar VAR_RESULT, GetBattleOutcome
+        goto_if_ne VAR_RESULT, B_OUTCOME_CAUGHT, Common_EventScript_NopReturn
+        removeobject LOCALID_VICTORY_ROAD_SOLGALEO
+        return
+
+VictoryRoad_1F_Solgaleo::
+        lock
+        faceplayer
+        waitse
+        playmoncry SPECIES_SOLGALEO, CRY_MODE_ENCOUNTER
+        waitmoncry
+        seteventmon SPECIES_SOLGALEO, 70
+        setflag FLAG_SYS_CTRL_OBJ_DELETE
+        special BattleSetup_StartLegendaryBattle
+        waitstate
+        clearflag FLAG_SYS_CTRL_OBJ_DELETE
+        specialvar VAR_RESULT, GetBattleOutcome
+        goto_if_eq VAR_RESULT, B_OUTCOME_WON, VictoryRoad_1F_DefeatedSolgaleo
+        goto_if_eq VAR_RESULT, B_OUTCOME_RAN, VictoryRoad_1F_RanFromSolgaleo
+        goto_if_eq VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED, VictoryRoad_1F_RanFromSolgaleo
+        setflag FLAG_CAUGHT_SOLGALEO
+        release
+        end
+
+VictoryRoad_1F_DefeatedSolgaleo::
+        setvar VAR_0x8004, SPECIES_SOLGALEO
+        goto Common_EventScript_LegendaryFlewAway
+        end
+
+VictoryRoad_1F_RanFromSolgaleo::
+        setvar VAR_0x8004, SPECIES_SOLGALEO
+        goto Common_EventScript_LegendaryFlewAway
+        end
+
+VictoryRoad_1F_HideLunala::
+        setflag FLAG_HIDE_LUNALA
+        return
+
+VictoryRoad_1F_TryShowLunala::
+        goto_if_unset FLAG_BADGE06_GET, Common_EventScript_NopReturn
+        goto_if_unset FLAG_CAUGHT_HOOPA, Common_EventScript_NopReturn
+        goto_if_unset FLAG_BADGE06_GET, Common_EventScript_NopReturn
+        goto_if_unset FLAG_CAUGHT_HOOPA, Common_EventScript_NopReturn
+        clearflag FLAG_HIDE_LUNALA
+        return
+
+VictoryRoad_1F_TryRemoveLunala::
+        specialvar VAR_RESULT, GetBattleOutcome
+        goto_if_ne VAR_RESULT, B_OUTCOME_CAUGHT, Common_EventScript_NopReturn
+        removeobject LOCALID_VICTORY_ROAD_LUNALA
+        return
+
+VictoryRoad_1F_Lunala::
+        lock
+        faceplayer
+        waitse
+        playmoncry SPECIES_LUNALA, CRY_MODE_ENCOUNTER
+        waitmoncry
+        seteventmon SPECIES_LUNALA, 70
+        setflag FLAG_SYS_CTRL_OBJ_DELETE
+        special BattleSetup_StartLegendaryBattle
+        waitstate
+        clearflag FLAG_SYS_CTRL_OBJ_DELETE
+        specialvar VAR_RESULT, GetBattleOutcome
+        goto_if_eq VAR_RESULT, B_OUTCOME_WON, VictoryRoad_1F_DefeatedLunala
+        goto_if_eq VAR_RESULT, B_OUTCOME_RAN, VictoryRoad_1F_RanFromLunala
+        goto_if_eq VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED, VictoryRoad_1F_RanFromLunala
+        setflag FLAG_CAUGHT_LUNALA
+        release
+        end
+
+VictoryRoad_1F_DefeatedLunala::
+        setvar VAR_0x8004, SPECIES_LUNALA
+        goto Common_EventScript_LegendaryFlewAway
+        end
+
+VictoryRoad_1F_RanFromLunala::
+        setvar VAR_0x8004, SPECIES_LUNALA
+        goto Common_EventScript_LegendaryFlewAway
+        end
