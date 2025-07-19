@@ -7,6 +7,16 @@ set -euo pipefail
 REPO="https://github.com/eonlynx/pokecrossroads"
 TMP_DIR="$(mktemp -d)"
 
+# Remove temporary directory on exit
+cleanup() {
+    rm -rf "$TMP_DIR"
+}
+trap cleanup EXIT
+
+# Ensure we run from the repository root regardless of where the script is called
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR/.."
+
 if ! command -v git >/dev/null; then
     echo "git is required" >&2
     exit 1
