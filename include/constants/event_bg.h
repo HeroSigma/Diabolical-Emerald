@@ -7,6 +7,9 @@
 #define BG_EVENT_PLAYER_FACING_EAST  3
 #define BG_EVENT_PLAYER_FACING_WEST  4
 
+// Custom background event types
+#define BG_EVENT_FRUIT_TREE          5
+
 #define BG_EVENT_HIDDEN_ITEM         7
 #define BG_EVENT_SECRET_BASE         8
 
