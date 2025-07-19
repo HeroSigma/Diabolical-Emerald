@@ -15,6 +15,7 @@
 #include "field_door.h"
 #include "field_effect.h"
 #include "field_move.h"
+#include "regions.h"
 #include "event_object_lock.h"
 #include "event_object_movement.h"
 #include "event_scripts.h"
@@ -2696,6 +2697,37 @@ bool8 ScrCmd_checkplayergender(struct ScriptContext *ctx)
     Script_RequestEffects(SCREFF_V1);
 
     gSpecialVar_Result = gSaveBlock2Ptr->playerGender;
+    return FALSE;
+}
+
+bool8 ScrCmd_checkplayerregion(struct ScriptContext *ctx)
+{
+    Script_RequestEffects(SCREFF_V1);
+
+    gSpecialVar_Result = GetCurrentRegion();
+    return FALSE;
+}
+
+bool8 ScrCmd_checkpartymove(struct ScriptContext *ctx)
+{
+    u16 move = ScriptReadHalfword(ctx);
+
+    Script_RequestEffects(SCREFF_V1);
+
+    gSpecialVar_Result = PARTY_SIZE;
+    for (u32 i = 0; i < PARTY_SIZE; i++)
+    {
+        u16 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL);
+        if (!species)
+            break;
+        if (!GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG) && MonKnowsMove(&gPlayerParty[i], move))
+        {
+            gSpecialVar_Result = i;
+            gSpecialVar_0x8004 = species;
+            break;
+        }
+    }
+
     return FALSE;
 }
 

@@ -60,6 +60,7 @@
 #include "constants/trainers.h"
 #include "constants/tv.h"
 #include "constants/union_room.h"
+#include "constants/regions.h"
 #include "constants/vars.h"
 #include "constants/weather.h"
 #include "constants/quests.h"
