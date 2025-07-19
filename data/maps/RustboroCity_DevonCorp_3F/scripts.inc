@@ -1,23 +1,18 @@
+.set LOCALID_DEVON_EMPLOYEE, 2
+
 RustboroCity_DevonCorp_3F_MapScripts::
-        map_script MAP_SCRIPT_ON_TRANSITION, RustboroCity_DevonCorp_3F_OnTransition
-        map_script MAP_SCRIPT_ON_RESUME, RustboroCity_DevonCorp_3F_OnResume
-        map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, RustboroCity_DevonCorp_3F_OnWarp
-        map_script MAP_SCRIPT_ON_FRAME_TABLE, RustboroCity_DevonCorp_3F_OnFrame
+	map_script MAP_SCRIPT_ON_TRANSITION, RustboroCity_DevonCorp_3F_OnTransition
+	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, RustboroCity_DevonCorp_3F_OnWarp
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, RustboroCity_DevonCorp_3F_OnFrame
 	.byte 0
 
 RustboroCity_DevonCorp_3F_OnTransition:
-        call_if_eq VAR_DEVON_CORP_3F_STATE, 0, RustboroCity_DevonCorp_3F_EventScript_SetEmployeePos
-        call_if_set FLAG_CAUGHT_TYPE_NULL, RustboroCity_DevonCorp_3F_HideTypeNull
-        call_if_unset FLAG_CAUGHT_TYPE_NULL, RustboroCity_DevonCorp_3F_TryShowTypeNull
-        end
-
-RustboroCity_DevonCorp_3F_OnResume:
-        call_if_set FLAG_SYS_CTRL_OBJ_DELETE, RustboroCity_DevonCorp_3F_TryRemoveTypeNull
-        end
+	call_if_eq VAR_DEVON_CORP_3F_STATE, 0, RustboroCity_DevonCorp_3F_EventScript_SetEmployeePos
+	end
 
 RustboroCity_DevonCorp_3F_EventScript_SetEmployeePos::
-	setobjectxyperm LOCALID_DEVON_CORP_3F_EMPLOYEE, 3, 2
-	setobjectmovementtype LOCALID_DEVON_CORP_3F_EMPLOYEE, MOVEMENT_TYPE_FACE_LEFT
+	setobjectxyperm LOCALID_DEVON_EMPLOYEE, 3, 2
+	setobjectmovementtype LOCALID_DEVON_EMPLOYEE, MOVEMENT_TYPE_FACE_LEFT
 	return
 
 RustboroCity_DevonCorp_3F_OnWarp:
@@ -25,7 +20,7 @@ RustboroCity_DevonCorp_3F_OnWarp:
 	.2byte 0
 
 RustboroCity_DevonCorp_3F_EventScript_PlayerFaceEast::
-	turnobject LOCALID_PLAYER, DIR_EAST
+	turnobject OBJ_EVENT_ID_PLAYER, DIR_EAST
 	end
 
 RustboroCity_DevonCorp_3F_OnFrame:
@@ -36,22 +31,22 @@ RustboroCity_DevonCorp_3F_EventScript_MeetPresident::
 	lockall
 	msgbox RustboroCity_DevonCorp_3F_Text_ThisIs3rdFloorWaitHere, MSGBOX_DEFAULT
 	closemessage
-	applymovement LOCALID_DEVON_CORP_3F_EMPLOYEE, RustboroCity_DevonCorp_3F_Movement_EmployeeWalkOffscreen
+	applymovement LOCALID_DEVON_EMPLOYEE, RustboroCity_DevonCorp_3F_Movement_EmployeeWalkOffscreen
 	waitmovement 0
 	delay 80
-	applymovement LOCALID_DEVON_CORP_3F_EMPLOYEE, RustboroCity_DevonCorp_3F_Movement_EmployeeReturnToPlayer
+	applymovement LOCALID_DEVON_EMPLOYEE, RustboroCity_DevonCorp_3F_Movement_EmployeeReturnToPlayer
 	waitmovement 0
 	msgbox RustboroCity_DevonCorp_3F_Text_WordWithPresidentComeWithMe, MSGBOX_DEFAULT
 	closemessage
 	playbgm MUS_FOLLOW_ME, FALSE
-	applymovement LOCALID_DEVON_CORP_3F_EMPLOYEE, RustboroCity_DevonCorp_3F_Movement_LeadPlayerToPresident
-	applymovement LOCALID_PLAYER, RustboroCity_DevonCorp_3F_Movement_PlayerFollowToPresident
+	applymovement LOCALID_DEVON_EMPLOYEE, RustboroCity_DevonCorp_3F_Movement_LeadPlayerToPresident
+	applymovement OBJ_EVENT_ID_PLAYER, RustboroCity_DevonCorp_3F_Movement_PlayerFollowToPresident
 	waitmovement 0
 	msgbox RustboroCity_DevonCorp_3F_Text_PleaseGoAhead, MSGBOX_DEFAULT
 	closemessage
 	fadedefaultbgm
-	applymovement LOCALID_DEVON_CORP_3F_EMPLOYEE, RustboroCity_DevonCorp_3F_Movement_EmployeeFaceDesk
-	applymovement LOCALID_PLAYER, RustboroCity_DevonCorp_3F_Movement_PlayerApproachDesk
+	applymovement LOCALID_DEVON_EMPLOYEE, RustboroCity_DevonCorp_3F_Movement_EmployeeFaceDesk
+	applymovement OBJ_EVENT_ID_PLAYER, RustboroCity_DevonCorp_3F_Movement_PlayerApproachDesk
 	waitmovement 0
 	msgbox RustboroCity_DevonCorp_3F_Text_MrStoneIHaveFavor, MSGBOX_DEFAULT
 	giveitem ITEM_LETTER
@@ -308,51 +303,6 @@ RustboroCity_DevonCorp_3F_Text_RepeatAndTimerHugelyPopular:
 	.string "popular among TRAINERS.$"
 
 RustboroCity_DevonCorp_3F_Text_RareRocksDisplay:
-        .string "It's a collection of rare rocks and\n"
-        .string "stones assembled by the PRESIDENT.$"
-
-RustboroCity_DevonCorp_3F_HideTypeNull::
-        setflag FLAG_HIDE_TYPE_NULL
-        return
-
-RustboroCity_DevonCorp_3F_TryShowTypeNull::
-        goto_if_unset FLAG_BADGE06_GET, Common_EventScript_NopReturn
-        goto_if_unset FLAG_CAUGHT_HOOPA, Common_EventScript_NopReturn
-        clearflag FLAG_HIDE_TYPE_NULL
-        return
-
-RustboroCity_DevonCorp_3F_TryRemoveTypeNull::
-        specialvar VAR_RESULT, GetBattleOutcome
-        goto_if_ne VAR_RESULT, B_OUTCOME_CAUGHT, Common_EventScript_NopReturn
-        removeobject LOCALID_DEVON_CORP_3F_TYPE_NULL
-        return
-
-RustboroCity_DevonCorp_3F_TypeNull::
-        lock
-        faceplayer
-        waitse
-        playmoncry SPECIES_TYPE_NULL, CRY_MODE_ENCOUNTER
-        waitmoncry
-        seteventmon SPECIES_TYPE_NULL, 20
-        setflag FLAG_SYS_CTRL_OBJ_DELETE
-        special BattleSetup_StartLegendaryBattle
-        waitstate
-        clearflag FLAG_SYS_CTRL_OBJ_DELETE
-        specialvar VAR_RESULT, GetBattleOutcome
-        goto_if_eq VAR_RESULT, B_OUTCOME_WON, RustboroCity_DevonCorp_3F_DefeatedTypeNull
-        goto_if_eq VAR_RESULT, B_OUTCOME_RAN, RustboroCity_DevonCorp_3F_RanFromTypeNull
-        goto_if_eq VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED, RustboroCity_DevonCorp_3F_RanFromTypeNull
-        setflag FLAG_CAUGHT_TYPE_NULL
-        release
-        end
-
-RustboroCity_DevonCorp_3F_DefeatedTypeNull::
-        setvar VAR_0x8004, SPECIES_TYPE_NULL
-        goto Common_EventScript_LegendaryFlewAway
-        end
-
-RustboroCity_DevonCorp_3F_RanFromTypeNull::
-        setvar VAR_0x8004, SPECIES_TYPE_NULL
-        goto Common_EventScript_LegendaryFlewAway
-        end
+	.string "It's a collection of rare rocks and\n"
+	.string "stones assembled by the PRESIDENT.$"
 

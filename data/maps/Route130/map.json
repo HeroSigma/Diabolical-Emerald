@@ -65,48 +65,6 @@
       "flag": "FLAG_TEMP_HIDE_MIRAGE_ISLAND_BERRY_TREE"
     },
     {
-      "local_id": "LOCALID_ROUTE130_CALYREX",
-      "graphics_id": "OBJ_EVENT_GFX_CALYREX",
-      "x": 56,
-      "y": 9,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
-      "movement_range_x": 1,
-      "movement_range_y": 1,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "Route130_Calyrex",
-      "flag": "FLAG_HIDE_CALYREX"
-    },
-    {
-      "local_id": "LOCALID_ROUTE130_GLASTRIER",
-      "graphics_id": "OBJ_EVENT_GFX_GLASTRIER",
-      "x": 54,
-      "y": 7,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
-      "movement_range_x": 1,
-      "movement_range_y": 1,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "Route130_Glastrier",
-      "flag": "FLAG_HIDE_GLASTRIER"
-    },
-    {
-      "local_id": "LOCALID_ROUTE130_SPECTRIER",
-      "graphics_id": "OBJ_EVENT_GFX_SPECTRIER",
-      "x": 52,
-      "y": 7,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
-      "movement_range_x": 1,
-      "movement_range_y": 1,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "Route130_Spectrier",
-      "flag": "FLAG_HIDE_SPECTRIER"
-    },
-    {
       "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M",
       "x": 7,
       "y": 30,

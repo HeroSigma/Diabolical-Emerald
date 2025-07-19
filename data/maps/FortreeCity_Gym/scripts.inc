@@ -45,12 +45,9 @@ FortreeCity_Gym_EventScript_WinonaDefeated::
 	delay 30
 	setflag FLAG_ENABLE_WINONA_MATCH_CALL
 	setvar VAR_SCOTT_FORTREE_CALL_STEP_COUNTER, 0
-        setflag FLAG_SCOTT_CALL_FORTREE_GYM
-        setvar VAR_0x8004, SPECIES_HOOPA
-        setvar VAR_0x8005, 50
-        special AddRoamerByVar
-        release
-        end
+	setflag FLAG_SCOTT_CALL_FORTREE_GYM
+	release
+	end
 
 FortreeCity_Gym_EventScript_GiveAerialAce2::
 	giveitem ITEM_TM_AERIAL_ACE

@@ -1,3 +1,7 @@
+.set LOCALID_MART_EMPLOYEE, 2
+.set LOCALID_FOOTPRINTS_MAN, 3
+.set LOCALID_RIVAL, 4
+
 OldaleTown_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, OldaleTown_OnTransition
 	.byte 0
@@ -21,8 +25,8 @@ OldaleTown_EventScript_BlockWestEntrance::
 	return
 
 OldaleTown_EventScript_MoveMartEmployee::
-	setobjectxyperm LOCALID_OLDALE_MART_EMPLOYEE, 13, 14
-	setobjectmovementtype LOCALID_OLDALE_MART_EMPLOYEE, MOVEMENT_TYPE_FACE_DOWN
+	setobjectxyperm LOCALID_MART_EMPLOYEE, 13, 14
+	setobjectmovementtype LOCALID_MART_EMPLOYEE, MOVEMENT_TYPE_FACE_DOWN
 	return
 
 OldaleTown_EventScript_TownSign::
@@ -49,22 +53,22 @@ OldaleTown_EventScript_MartEmployee::
 	end
 
 OldaleTown_EventScript_GoToMartSouth::
-	applymovement LOCALID_OLDALE_MART_EMPLOYEE, OldaleTown_Movement_EmployeeSouth
-	applymovement LOCALID_PLAYER, OldaleTown_Movement_PlayerSouth
+	applymovement LOCALID_MART_EMPLOYEE, OldaleTown_Movement_EmployeeSouth
+	applymovement OBJ_EVENT_ID_PLAYER, OldaleTown_Movement_PlayerSouth
 	waitmovement 0
 	goto OldaleTown_EventScript_ExplainPokemonMart
 	end
 
 OldaleTown_EventScript_GoToMartNorth::
-	applymovement LOCALID_OLDALE_MART_EMPLOYEE, OldaleTown_Movement_EmployeeNorth
-	applymovement LOCALID_PLAYER, OldaleTown_Movement_PlayerNorth
+	applymovement LOCALID_MART_EMPLOYEE, OldaleTown_Movement_EmployeeNorth
+	applymovement OBJ_EVENT_ID_PLAYER, OldaleTown_Movement_PlayerNorth
 	waitmovement 0
 	goto OldaleTown_EventScript_ExplainPokemonMart
 	end
 
 OldaleTown_EventScript_GoToMartEast::
-	applymovement LOCALID_PLAYER, OldaleTown_Movement_PlayerEast
-	applymovement LOCALID_OLDALE_MART_EMPLOYEE, OldaleTown_Movement_EmployeeEast
+	applymovement OBJ_EVENT_ID_PLAYER, OldaleTown_Movement_PlayerEast
+	applymovement LOCALID_MART_EMPLOYEE, OldaleTown_Movement_EmployeeEast
 	waitmovement 0
 	goto OldaleTown_EventScript_ExplainPokemonMart
 	end
@@ -200,7 +204,7 @@ OldaleTown_EventScript_FootprintsMan::
 
 OldaleTown_EventScript_BlockedPath::
 	lockall
-	applymovement LOCALID_PLAYER, OldaleTown_Movement_PlayerStepBack
+	applymovement OBJ_EVENT_ID_PLAYER, OldaleTown_Movement_PlayerStepBack
 	applymovement LOCALID_FOOTPRINTS_MAN, OldaleTown_Movement_BackUp
 	waitmovement 0
 	msgbox OldaleTown_Text_WaitDontComeInHere, MSGBOX_DEFAULT
@@ -217,7 +221,7 @@ OldaleTown_EventScript_NotBlockingPath::
 
 OldaleTown_EventScript_Rival::
 	lockall
-	applymovement LOCALID_OLDALE_RIVAL, Common_Movement_FacePlayer
+	applymovement LOCALID_RIVAL, Common_Movement_FacePlayer
 	waitmovement 0
 	setvar VAR_0x8009, 0
 	goto OldaleTown_EventScript_ShowRivalMessage
@@ -225,9 +229,9 @@ OldaleTown_EventScript_Rival::
 
 OldaleTown_EventScript_RivalTrigger1::
 	lockall
-	applymovement LOCALID_OLDALE_RIVAL, OldaleTown_Movement_RivalApproachPlayer1
+	applymovement LOCALID_RIVAL, OldaleTown_Movement_RivalApproachPlayer1
 	waitmovement 0
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
 	setvar VAR_0x8009, 1
 	goto OldaleTown_EventScript_ShowRivalMessage
@@ -235,9 +239,9 @@ OldaleTown_EventScript_RivalTrigger1::
 
 OldaleTown_EventScript_RivalTrigger2::
 	lockall
-	applymovement LOCALID_OLDALE_RIVAL, OldaleTown_Movement_RivalApproachPlayer2
+	applymovement LOCALID_RIVAL, OldaleTown_Movement_RivalApproachPlayer2
 	waitmovement 0
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
 	setvar VAR_0x8009, 1
 	goto OldaleTown_EventScript_ShowRivalMessage
@@ -245,9 +249,9 @@ OldaleTown_EventScript_RivalTrigger2::
 
 OldaleTown_EventScript_RivalTrigger3::
 	lockall
-	applymovement LOCALID_OLDALE_RIVAL, OldaleTown_Movement_RivalApproachPlayer3
+	applymovement LOCALID_RIVAL, OldaleTown_Movement_RivalApproachPlayer3
 	waitmovement 0
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
 	setvar VAR_0x8009, 1
 	goto OldaleTown_EventScript_ShowRivalMessage
@@ -273,9 +277,9 @@ OldaleTown_EventScript_RivalFinish::
 	closemessage
 	call_if_eq VAR_0x8009, 0, OldaleTown_EventScript_DoExitMovement1
 	call_if_eq VAR_0x8009, 1, OldaleTown_EventScript_DoExitMovement2
-	applymovement LOCALID_OLDALE_RIVAL, OldaleTown_Movement_RivalExit
+	applymovement LOCALID_RIVAL, OldaleTown_Movement_RivalExit
 	waitmovement 0
-	removeobject LOCALID_OLDALE_RIVAL
+	removeobject LOCALID_RIVAL
 	setvar VAR_OLDALE_RIVAL_STATE, 2
 	setflag FLAG_HIDE_OLDALE_TOWN_RIVAL
 	releaseall
@@ -283,13 +287,13 @@ OldaleTown_EventScript_RivalFinish::
 
 OldaleTown_EventScript_DoExitMovement1::
 	goto_if_ne VAR_FACING, DIR_SOUTH, OldaleTown_EventScript_DoExitMovement2
-	applymovement LOCALID_OLDALE_RIVAL, OldaleTown_Movement_RivalExit
+	applymovement LOCALID_RIVAL, OldaleTown_Movement_RivalExit
 	waitmovement 0
 	return
 
 OldaleTown_EventScript_DoExitMovement2::
-	applymovement LOCALID_PLAYER, OldaleTown_Movement_WatchRivalExit
-	applymovement LOCALID_OLDALE_RIVAL, OldaleTown_Movement_RivalExit
+	applymovement OBJ_EVENT_ID_PLAYER, OldaleTown_Movement_WatchRivalExit
+	applymovement LOCALID_RIVAL, OldaleTown_Movement_RivalExit
 	waitmovement 0
 	return
 
@@ -392,193 +396,6 @@ OldaleTown_Text_BrendanLetsGoBack:
 	.string "{PLAYER}, you should hustle back, too.$"
 
 OldaleTown_Text_TownSign:
-        .string "OLDALE TOWN\n"
-        .string "“Where things start off scarce.”$"
-
-OldaleTown_EventScript_TeraChanger::
-        lock
-        faceplayer
-        msgbox OldaleTown_Text_TeraIntro, MSGBOX_YESNO
-        goto_if_eq VAR_RESULT, NO, OldaleTown_EventScript_TeraCancel
-        msgbox OldaleTown_Text_TeraWhichMon, MSGBOX_DEFAULT
-        special ChoosePartyMon
-        waitstate
-        goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, OldaleTown_EventScript_TeraCancel
-        copyvar VAR_0x8006, VAR_0x8004
-        call OldaleTown_EventScript_TeraTypePage1
-        end
-
-OldaleTown_EventScript_TeraTypePage1::
-        setvar VAR_0x8004, SCROLL_MULTI_TERA_TYPES_PAGE1
-        special ShowScrollableMultichoice
-        waitstate
-        switch VAR_RESULT
-        case 0, OldaleTown_SetTeraTypeNormal
-        case 1, OldaleTown_SetTeraTypeFighting
-        case 2, OldaleTown_SetTeraTypeFlying
-        case 3, OldaleTown_SetTeraTypePoison
-        case 4, OldaleTown_SetTeraTypeGround
-        case 5, OldaleTown_SetTeraTypeRock
-        case 6, OldaleTown_SetTeraTypeBug
-        case 7, OldaleTown_SetTeraTypeGhost
-        case 8, OldaleTown_SetTeraTypeSteel
-        case 9, OldaleTown_EventScript_TeraTypePage2
-        case MULTI_B_PRESSED, OldaleTown_EventScript_TeraCancel
-        end
-
-OldaleTown_EventScript_TeraTypePage2::
-        setvar VAR_0x8004, SCROLL_MULTI_TERA_TYPES_PAGE2
-        special ShowScrollableMultichoice
-        waitstate
-        switch VAR_RESULT
-        case 0, OldaleTown_SetTeraTypeFire
-        case 1, OldaleTown_SetTeraTypeWater
-        case 2, OldaleTown_SetTeraTypeGrass
-        case 3, OldaleTown_SetTeraTypeElectric
-        case 4, OldaleTown_SetTeraTypePsychic
-        case 5, OldaleTown_SetTeraTypeIce
-        case 6, OldaleTown_SetTeraTypeDragon
-        case 7, OldaleTown_SetTeraTypeDark
-        case 8, OldaleTown_SetTeraTypeFairy
-        case 9, OldaleTown_SetTeraTypeStellar
-        case 10, OldaleTown_EventScript_TeraTypePage1
-        case MULTI_B_PRESSED, OldaleTown_EventScript_TeraCancel
-        end
-
-OldaleTown_SetTeraTypeNormal::
-        setvar VAR_0x800A, 1000
-        call OldaleTown_EventScript_TeraPay
-        setteratype TYPE_NORMAL, VAR_0x8006
-        goto OldaleTown_EventScript_TeraFinish
-OldaleTown_SetTeraTypeFighting::
-        setvar VAR_0x800A, 1000
-        call OldaleTown_EventScript_TeraPay
-        setteratype TYPE_FIGHTING, VAR_0x8006
-        goto OldaleTown_EventScript_TeraFinish
-OldaleTown_SetTeraTypeFlying::
-        setvar VAR_0x800A, 1000
-        call OldaleTown_EventScript_TeraPay
-        setteratype TYPE_FLYING, VAR_0x8006
-        goto OldaleTown_EventScript_TeraFinish
-OldaleTown_SetTeraTypePoison::
-        setvar VAR_0x800A, 1000
-        call OldaleTown_EventScript_TeraPay
-        setteratype TYPE_POISON, VAR_0x8006
-        goto OldaleTown_EventScript_TeraFinish
-OldaleTown_SetTeraTypeGround::
-        setvar VAR_0x800A, 1000
-        call OldaleTown_EventScript_TeraPay
-        setteratype TYPE_GROUND, VAR_0x8006
-        goto OldaleTown_EventScript_TeraFinish
-OldaleTown_SetTeraTypeRock::
-        setvar VAR_0x800A, 1000
-        call OldaleTown_EventScript_TeraPay
-        setteratype TYPE_ROCK, VAR_0x8006
-        goto OldaleTown_EventScript_TeraFinish
-OldaleTown_SetTeraTypeBug::
-        setvar VAR_0x800A, 1000
-        call OldaleTown_EventScript_TeraPay
-        setteratype TYPE_BUG, VAR_0x8006
-        goto OldaleTown_EventScript_TeraFinish
-OldaleTown_SetTeraTypeGhost::
-        setvar VAR_0x800A, 1000
-        call OldaleTown_EventScript_TeraPay
-        setteratype TYPE_GHOST, VAR_0x8006
-        goto OldaleTown_EventScript_TeraFinish
-OldaleTown_SetTeraTypeSteel::
-        setvar VAR_0x800A, 1000
-        call OldaleTown_EventScript_TeraPay
-        setteratype TYPE_STEEL, VAR_0x8006
-        goto OldaleTown_EventScript_TeraFinish
-OldaleTown_SetTeraTypeFire::
-        setvar VAR_0x800A, 1000
-        call OldaleTown_EventScript_TeraPay
-        setteratype TYPE_FIRE, VAR_0x8006
-        goto OldaleTown_EventScript_TeraFinish
-OldaleTown_SetTeraTypeWater::
-        setvar VAR_0x800A, 1000
-        call OldaleTown_EventScript_TeraPay
-        setteratype TYPE_WATER, VAR_0x8006
-        goto OldaleTown_EventScript_TeraFinish
-OldaleTown_SetTeraTypeGrass::
-        setvar VAR_0x800A, 1000
-        call OldaleTown_EventScript_TeraPay
-        setteratype TYPE_GRASS, VAR_0x8006
-        goto OldaleTown_EventScript_TeraFinish
-OldaleTown_SetTeraTypeElectric::
-        setvar VAR_0x800A, 1000
-        call OldaleTown_EventScript_TeraPay
-        setteratype TYPE_ELECTRIC, VAR_0x8006
-        goto OldaleTown_EventScript_TeraFinish
-OldaleTown_SetTeraTypePsychic::
-        setvar VAR_0x800A, 1000
-        call OldaleTown_EventScript_TeraPay
-        setteratype TYPE_PSYCHIC, VAR_0x8006
-        goto OldaleTown_EventScript_TeraFinish
-OldaleTown_SetTeraTypeIce::
-        setvar VAR_0x800A, 1000
-        call OldaleTown_EventScript_TeraPay
-        setteratype TYPE_ICE, VAR_0x8006
-        goto OldaleTown_EventScript_TeraFinish
-OldaleTown_SetTeraTypeDragon::
-        setvar VAR_0x800A, 1000
-        call OldaleTown_EventScript_TeraPay
-        setteratype TYPE_DRAGON, VAR_0x8006
-        goto OldaleTown_EventScript_TeraFinish
-OldaleTown_SetTeraTypeDark::
-        setvar VAR_0x800A, 1000
-        call OldaleTown_EventScript_TeraPay
-        setteratype TYPE_DARK, VAR_0x8006
-        goto OldaleTown_EventScript_TeraFinish
-OldaleTown_SetTeraTypeFairy::
-        setvar VAR_0x800A, 1000
-        call OldaleTown_EventScript_TeraPay
-        setteratype TYPE_FAIRY, VAR_0x8006
-        goto OldaleTown_EventScript_TeraFinish
-OldaleTown_SetTeraTypeStellar::
-        setvar VAR_0x800A, 5000
-        call OldaleTown_EventScript_TeraPay
-        setteratype TYPE_STELLAR, VAR_0x8006
-        goto OldaleTown_EventScript_TeraFinish
-
-OldaleTown_EventScript_TeraPay::
-        showmoneybox 0, 0
-        checkmoney VAR_0x800A
-        goto_if_eq VAR_RESULT, FALSE, OldaleTown_EventScript_TeraNoMoney
-        removemoney VAR_0x800A
-        updatemoneybox
-        return
-
-OldaleTown_EventScript_TeraFinish::
-        msgbox OldaleTown_Text_TeraDone, MSGBOX_DEFAULT
-        hidemoneybox
-        release
-        end
-
-OldaleTown_EventScript_TeraNoMoney::
-        msgbox OldaleTown_Text_TeraNoMoney, MSGBOX_DEFAULT
-        hidemoneybox
-        release
-        end
-
-OldaleTown_EventScript_TeraCancel::
-        msgbox OldaleTown_Text_TeraComeAgain, MSGBOX_DEFAULT
-        release
-        end
-
-OldaleTown_Text_TeraIntro:
-        .string "I can change a POKéMON's Tera Type for\n"
-        .string "¥1000. Stellar Type costs ¥5000.$"
-
-OldaleTown_Text_TeraWhichMon:
-        .string "Which POKéMON should I work on?$"
-
-OldaleTown_Text_TeraDone:
-        .string "All done! Take good care of it.$"
-
-OldaleTown_Text_TeraNoMoney:
-        .string "You don't have enough money.$"
-
-OldaleTown_Text_TeraComeAgain:
-        .string "Come again if you change your mind.$"
+	.string "OLDALE TOWN\n"
+	.string "“Where things start off scarce.”$"
 

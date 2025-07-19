@@ -1,3 +1,5 @@
+.set LOCALID_RAYQUAZA_SLEEPING, 1
+
 SkyPillar_Top_MapScripts::
 	map_script MAP_SCRIPT_ON_RESUME, SkyPillar_Top_OnResume
 	map_script MAP_SCRIPT_ON_TRANSITION, SkyPillar_Top_OnTransition
@@ -5,71 +7,19 @@ SkyPillar_Top_MapScripts::
 	.byte 0
 
 SkyPillar_Top_OnResume:
-        call_if_set FLAG_SYS_CTRL_OBJ_DELETE, SkyPillar_Top_EventScript_TryRemoveRayquaza
-        call_if_set FLAG_SYS_CTRL_OBJ_DELETE, SkyPillar_Top_TryRemoveEternatus
-        end
+	call_if_set FLAG_SYS_CTRL_OBJ_DELETE, SkyPillar_Top_EventScript_TryRemoveRayquaza
+	end
 
 SkyPillar_Top_EventScript_TryRemoveRayquaza::
-        specialvar VAR_RESULT, GetBattleOutcome
-        goto_if_ne VAR_RESULT, B_OUTCOME_CAUGHT, Common_EventScript_NopReturn
-        removeobject VAR_LAST_TALKED
-        return
-
-SkyPillar_Top_HideEternatus::
-        setflag FLAG_HIDE_ETERNATUS
-        return
-
-SkyPillar_Top_TryShowEternatus::
-        goto_if_unset FLAG_BADGE06_GET, Common_EventScript_NopReturn
-        goto_if_unset FLAG_CAUGHT_HOOPA, Common_EventScript_NopReturn
-        checkflag FLAG_CAUGHT_ZACIAN
-        goto_if_eq VAR_RESULT, FALSE, Common_EventScript_NopReturn
-        checkflag FLAG_CAUGHT_ZAMAZENTA
-        goto_if_eq VAR_RESULT, FALSE, Common_EventScript_NopReturn
-        clearflag FLAG_HIDE_ETERNATUS
-        return
-
-SkyPillar_Top_TryRemoveEternatus::
-        specialvar VAR_RESULT, GetBattleOutcome
-        goto_if_ne VAR_RESULT, B_OUTCOME_CAUGHT, Common_EventScript_NopReturn
-        removeobject LOCALID_SKY_PILLAR_ETERNATUS
-        return
-
-SkyPillar_Top_Eternatus::
-        lock
-        faceplayer
-        waitse
-        playmoncry SPECIES_ETERNATUS, CRY_MODE_ENCOUNTER
-        waitmoncry
-        seteventmon SPECIES_ETERNATUS, 70
-        setflag FLAG_SYS_CTRL_OBJ_DELETE
-        special BattleSetup_StartLegendaryBattle
-        waitstate
-        clearflag FLAG_SYS_CTRL_OBJ_DELETE
-        specialvar VAR_RESULT, GetBattleOutcome
-        goto_if_eq VAR_RESULT, B_OUTCOME_WON, SkyPillar_Top_DefeatedEternatus
-        goto_if_eq VAR_RESULT, B_OUTCOME_RAN, SkyPillar_Top_RanFromEternatus
-        goto_if_eq VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED, SkyPillar_Top_RanFromEternatus
-        setflag FLAG_CAUGHT_ETERNATUS
-        release
-        end
-
-SkyPillar_Top_DefeatedEternatus::
-        setvar VAR_0x8004, SPECIES_ETERNATUS
-        goto Common_EventScript_LegendaryFlewAway
-        end
-
-SkyPillar_Top_RanFromEternatus::
-        setvar VAR_0x8004, SPECIES_ETERNATUS
-        goto Common_EventScript_LegendaryFlewAway
-        end
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_ne VAR_RESULT, B_OUTCOME_CAUGHT, Common_EventScript_NopReturn
+	removeobject VAR_LAST_TALKED
+	return
 
 SkyPillar_Top_OnTransition:
-        call_if_lt VAR_SKY_PILLAR_STATE, 2, SkyPillar_Top_EventScript_SetCleanLayout
-        call_if_ge VAR_SKY_PILLAR_STATE, 2, SkyPillar_Top_EventScript_TryShowRayquaza
-        call_if_set FLAG_CAUGHT_ETERNATUS, SkyPillar_Top_HideEternatus
-        call_if_unset FLAG_CAUGHT_ETERNATUS, SkyPillar_Top_TryShowEternatus
-        end
+	call_if_lt VAR_SKY_PILLAR_STATE, 2, SkyPillar_Top_EventScript_SetCleanLayout
+	call_if_ge VAR_SKY_PILLAR_STATE, 2, SkyPillar_Top_EventScript_TryShowRayquaza
+	end
 
 SkyPillar_Top_EventScript_SetCleanLayout::
 	setmaplayoutindex LAYOUT_SKY_PILLAR_TOP_CLEAN
@@ -140,10 +90,10 @@ SkyPillar_Top_EventScript_RanFromRayquaza2::
 SkyPillar_Top_EventScript_AwakenRayquaza::
 	lockall
 	fadeoutbgm 1
-	applymovement LOCALID_PLAYER, Common_Movement_FaceUp
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
 	waitmovement 0
 	special SpawnCameraObject
-	applymovement LOCALID_CAMERA, SkyPillar_Top_Movement_CameraPanUp
+	applymovement OBJ_EVENT_ID_CAMERA, SkyPillar_Top_Movement_CameraPanUp
 	waitmovement 0
 	special RemoveCameraObject
 	applymovement LOCALID_RAYQUAZA_SLEEPING, SkyPillar_Top_Movement_RayquazaStir
@@ -173,7 +123,7 @@ SkyPillar_Top_EventScript_AwakenRayquaza::
 	delay 20
 	fadeinbgm 1
 	special SpawnCameraObject
-	applymovement LOCALID_CAMERA, SkyPillar_Top_Movement_CameraPanDown
+	applymovement OBJ_EVENT_ID_CAMERA, SkyPillar_Top_Movement_CameraPanDown
 	waitmovement 0
 	special RemoveCameraObject
 	setvar VAR_SOOTOPOLIS_CITY_STATE, 5
