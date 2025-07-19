@@ -1,4 +1,4 @@
-.set LOCALID_PLAYER, 1
+.set LOCALID_PLAYER_OBJ, 1
 .set LOCALID_OPPONENT, 2
 .set LOCALID_ATTENDANT, 3
 
@@ -37,8 +37,8 @@ VerdanturfTown_BattleTentBattleRoom_OnFrame:
 	.2byte 0
 
 VerdanturfTown_BattleTentBattleRoom_EventScript_EnterRoom::
-	showobjectat LOCALID_PLAYER, MAP_VERDANTURF_TOWN_BATTLE_TENT_BATTLE_ROOM
-	applymovement LOCALID_PLAYER, VerdanturfTown_BattleTentBattleRoom_Movement_PlayerEnter
+	showobjectat LOCALID_PLAYER_OBJ, MAP_VERDANTURF_TOWN_BATTLE_TENT_BATTLE_ROOM
+	applymovement LOCALID_PLAYER_OBJ, VerdanturfTown_BattleTentBattleRoom_Movement_PlayerEnter
 	waitmovement 0
 	frontier_get FRONTIER_DATA_BATTLE_NUM
 	goto_if_ne VAR_RESULT, 0, VerdanturfTown_BattleTentBattleRoom_EventScript_AskContinueChallenge
@@ -69,7 +69,7 @@ VerdanturfTown_BattleTentBattleRoom_EventScript_DefeatedOpponent::
 	waitmovement 0
 	removeobject LOCALID_OPPONENT
 	applymovement LOCALID_ATTENDANT, Common_Movement_WalkInPlaceFasterDown
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	applymovement LOCALID_PLAYER_OBJ, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
 	msgbox BattleFrontier_BattlePalaceBattleRoom_Text_LetMeRestoreYourMons, MSGBOX_DEFAULT
 	special LoadPlayerParty
@@ -107,7 +107,7 @@ VerdanturfTown_BattleTentBattleRoom_EventScript_AskRetireChallenge::
 
 VerdanturfTown_BattleTentBattleRoom_EventScript_ContinueChallenge::
 	applymovement LOCALID_ATTENDANT, Common_Movement_WalkInPlaceFasterRight
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
+	applymovement LOCALID_PLAYER_OBJ, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
 	closemessage
 	goto VerdanturfTown_BattleTentBattleRoom_EventScript_NextOpponentEnter
@@ -133,7 +133,7 @@ VerdanturfTown_BattleTentBattleRoom_OnWarp:
 	.2byte 0
 
 VerdanturfTown_BattleTentBattleRoom_EventScript_SetUpObjects::
-	hideobjectat LOCALID_PLAYER, MAP_VERDANTURF_TOWN_BATTLE_TENT_BATTLE_ROOM
+	hideobjectat LOCALID_PLAYER_OBJ, MAP_VERDANTURF_TOWN_BATTLE_TENT_BATTLE_ROOM
 	call VerdanturfTown_BattleTentBattleRoom_EventScript_SetPlayerGfx
 	setvar VAR_TEMP_1, 1
 	applymovement OBJ_EVENT_ID_PLAYER, VerdanturfTown_BattleTentBattleRoom_Movement_SetInvisible

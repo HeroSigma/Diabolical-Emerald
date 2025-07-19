@@ -1,8 +1,8 @@
 .set LOCALID_MC, 1
 .set LOCALID_JUDGE, 2
-.set LOCALID_CONTESTANT_1, 3
-.set LOCALID_CONTESTANT_2, 4
-.set LOCALID_CONTESTANT_3, 5
+.set CH_LOCALID_CONTESTANT_1, 3
+.set CH_LOCALID_CONTESTANT_2, 4
+.set CH_LOCALID_CONTESTANT_3, 5
 .set LOCALID_AUDIENCE_1, 6
 .set LOCALID_AUDIENCE_3, 7
 .set LOCALID_AUDIENCE_4, 8
@@ -11,7 +11,7 @@
 .set LOCALID_AUDIENCE_7, 11
 .set LOCALID_AUDIENCE_2, 12
 .set LOCALID_POKEBALL, 13
-.set LOCALID_CONTESTANT_4, 14
+.set CH_LOCALID_CONTESTANT_4, 14
 .set LOCALID_ARTIST, 15
 
 @ Either ends or returns to EventScript_ContestReceptionist after submitting a contest entry
@@ -202,7 +202,7 @@ ContestHall_EventScript_DoContest::
 	special LinkContestTryShowWirelessIndicator
 	setvar VAR_0x8006, 0
 	lockall
-	applymovement LOCALID_CONTESTANT_4, ContestHall_Movement_Player4FaceUp
+	applymovement CH_LOCALID_CONTESTANT_4, ContestHall_Movement_Player4FaceUp
 	waitmovement 0
 	applymovement LOCALID_MC, ContestHall_Movement_MCWalkDown
 	waitmovement 0
@@ -342,37 +342,37 @@ ContestHall_EventScript_ContestantWalkToCenter::
 ContestHall_EventScript_Player1WalkToCenter::
 	call ContestHall_EventScript_TryWaitForLink
 	lockall
-	applymovement LOCALID_CONTESTANT_1, ContestHall_Movement_Player1WalkToCenter
+	applymovement CH_LOCALID_CONTESTANT_1, ContestHall_Movement_Player1WalkToCenter
 	waitmovement 0
 	releaseall
-	setvar VAR_0x800B, LOCALID_CONTESTANT_1
+	setvar VAR_0x800B, CH_LOCALID_CONTESTANT_1
 	return
 
 ContestHall_EventScript_Player2WalkToCenter::
 	call ContestHall_EventScript_TryWaitForLink
 	lockall
-	applymovement LOCALID_CONTESTANT_2, ContestHall_Movement_Player2WalkToCenter
+	applymovement CH_LOCALID_CONTESTANT_2, ContestHall_Movement_Player2WalkToCenter
 	waitmovement 0
 	releaseall
-	setvar VAR_0x800B, LOCALID_CONTESTANT_2
+	setvar VAR_0x800B, CH_LOCALID_CONTESTANT_2
 	return
 
 ContestHall_EventScript_Player3WalkToCenter::
 	call ContestHall_EventScript_TryWaitForLink
 	lockall
-	applymovement LOCALID_CONTESTANT_3, ContestHall_Movement_Player3WalkToCenter
+	applymovement CH_LOCALID_CONTESTANT_3, ContestHall_Movement_Player3WalkToCenter
 	waitmovement 0
 	releaseall
-	setvar VAR_0x800B, LOCALID_CONTESTANT_3
+	setvar VAR_0x800B, CH_LOCALID_CONTESTANT_3
 	return
 
 ContestHall_EventScript_Player4WalkToCenter::
 	call ContestHall_EventScript_TryWaitForLink
 	lockall
-	applymovement LOCALID_CONTESTANT_4, ContestHall_Movement_Player4WalkToCenter
+	applymovement CH_LOCALID_CONTESTANT_4, ContestHall_Movement_Player4WalkToCenter
 	waitmovement 0
 	releaseall
-	setvar VAR_0x800B, LOCALID_CONTESTANT_4
+	setvar VAR_0x800B, CH_LOCALID_CONTESTANT_4
 	return
 
 ContestHall_EventScript_ShowContestMonPic::
@@ -893,19 +893,19 @@ ContestHall_EventScript_GetWinnerObjEventId::
 	return
 
 ContestHall_EventScript_GetPlayer1ObjEventId::
-	setvar VAR_TEMP_3, LOCALID_CONTESTANT_1
+	setvar VAR_TEMP_3, CH_LOCALID_CONTESTANT_1
 	return
 
 ContestHall_EventScript_GetPlayer2ObjEventId::
-	setvar VAR_TEMP_3, LOCALID_CONTESTANT_2
+	setvar VAR_TEMP_3, CH_LOCALID_CONTESTANT_2
 	return
 
 ContestHall_EventScript_GetPlayer3ObjEventId::
-	setvar VAR_TEMP_3, LOCALID_CONTESTANT_3
+	setvar VAR_TEMP_3, CH_LOCALID_CONTESTANT_3
 	return
 
 ContestHall_EventScript_GetPlayer4ObjEventId::
-	setvar VAR_TEMP_3, LOCALID_CONTESTANT_4
+	setvar VAR_TEMP_3, CH_LOCALID_CONTESTANT_4
 	return
 
 ContestHall_EventScript_CongratulateWinner::

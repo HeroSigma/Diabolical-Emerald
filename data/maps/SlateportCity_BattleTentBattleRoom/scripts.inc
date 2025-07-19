@@ -1,5 +1,5 @@
 .set LOCALID_OPPONENT, 2
-.set LOCALID_PLAYER, 3
+.set LOCALID_PLAYER_OBJ, 3
 
 SlateportCity_BattleTentBattleRoom_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, SlateportCity_BattleTentBattleRoom_OnTransition
@@ -8,7 +8,7 @@ SlateportCity_BattleTentBattleRoom_MapScripts::
 	.byte 0
 
 	@ On this map the player (OBJ_EVENT_ID_PLAYER) is hidden
-	@ The player is represented instead by LOCALID_PLAYER, which has the gfx id VAR_OBJ_GFX_ID_1
+	@ The player is represented instead by LOCALID_PLAYER_OBJ, which has the gfx id VAR_OBJ_GFX_ID_1
 
 SlateportCity_BattleTentBattleRoom_OnTransition:
 	call SlateportCity_BattleTentBattleRoom_EventScript_SetPlayerGfx
@@ -43,7 +43,7 @@ SlateportCity_BattleTentBattleRoom_OnFrame:
 	.2byte 0
 
 SlateportCity_BattleTentBattleRoom_EventScript_EnterRoom::
-	applymovement LOCALID_PLAYER, SlateportCity_BattleTentBattleRoom_Movement_PlayerEnter
+	applymovement LOCALID_PLAYER_OBJ, SlateportCity_BattleTentBattleRoom_Movement_PlayerEnter
 	waitmovement 0
 	factory_setopponentgfx
 	setobjectxyperm LOCALID_OPPONENT, 5, 1
