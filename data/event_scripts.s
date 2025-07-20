@@ -53,6 +53,7 @@
 #include "constants/songs.h"
 #include "constants/sound.h"
 #include "constants/species.h"
+#include "constants/npc_text_colors.h"
 #include "constants/trade.h"
 #include "constants/trainer_hill.h"
 #include "constants/trainers.h"
@@ -107,7 +108,8 @@ gStdScripts::
 	.4byte Std_ObtainDecoration        @ STD_OBTAIN_DECORATION
 	.4byte Std_RegisteredInMatchCall   @ STD_REGISTER_MATCH_CALL
 	.4byte Std_MsgboxGetPoints         @ MSGBOX_GETPOINTS
-	.4byte Std_MsgboxPokenav           @ MSGBOX_POKENAV
+        .4byte Std_MsgboxPokenav           @ MSGBOX_POKENAV
+        .4byte Std_ReceivedItem            @ STD_RECEIVED_ITEM
 gStdScripts_End::
 
 	.include "data/maps/AbandonedShip_CaptainsOffice/scripts.inc"
@@ -1350,8 +1352,11 @@ Common_EventScript_ShowBagIsFull::
 	end
 
 Common_EventScript_BagIsFull::
-	msgbox gText_TooBadBagIsFull, MSGBOX_DEFAULT
-	return
+        msgbox gText_TooBadBagIsFull, MSGBOX_DEFAULT
+        return
+
+EventScript_BagIsFull::
+        goto Common_EventScript_BagIsFull
 
 Common_EventScript_ShowNoRoomForDecor::
 	msgbox gText_NoRoomLeftForAnother, MSGBOX_DEFAULT
@@ -1363,8 +1368,26 @@ Common_EventScript_NoRoomForDecor::
 	return
 
 Common_EventScript_SetAbnormalWeather::
-	setweather WEATHER_ABNORMAL
-	return
+        setweather WEATHER_ABNORMAL
+        return
+
+EventScript_RestorePrevTextColor::
+        return
+
+EventScript_ReleaseEnd::
+        release
+        end
+
+EventScript_ChangePokemonNickname::
+        special ChangePokemonNickname
+        return
+
+Std_ReceivedItem::
+        return
+
+Route29_EventScript_ItemPotion::
+        itemball ITEM_POTION
+        end
 
 Common_EventScript_PlayGymBadgeFanfare::
 	playfanfare MUS_OBTAIN_BADGE

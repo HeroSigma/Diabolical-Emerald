@@ -347,11 +347,15 @@ PalletTown_ProfessorOaksLab_Text_OakMustReallyWorkToFillPokedex::
     .string "undertaking in POKéMON history!$"
 
 PalletTown_ProfessorOaksLab_Text_RivalIllCompleteThePokedex::
-    .string "{RIVAL}: Gramps, calm down.\n"
-    .string "Don't get so excited.\p"
-    .string "I'll get the POKéDEX completed,\n"
-    .string "don't you worry about a thing.\p"
-    .string "I think I'll try looking around\n"
-    .string "ONE ISLAND first…\p"
-    .string "Anyways, I'm outta here!$"
+        .string "{RIVAL}: Gramps, calm down.\n"
+        .string "Don't get so excited.\p"
+        .string "I'll get the POKéDEX completed,\n"
+        .string "don't you worry about a thing.\p"
+        .string "I think I'll try looking around\n"
+        .string "ONE ISLAND first…\p"
+        .string "Anyways, I'm outta here!$"
+
+Text_GiveNicknameToThisMon::
+        .string "Do you want to give a nickname to\n"
+        .string "this Pokémon?$"
 

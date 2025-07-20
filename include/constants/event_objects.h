@@ -319,6 +319,13 @@
 // is 65519, but even considering follower Pokémon, this should be more than enough :)
 #define NUM_OBJ_EVENT_GFX                        311
 
+// Compatibility aliases
+#define OBJ_EVENT_GFX_CLERK      OBJ_EVENT_GFX_KANTO_CLERK
+#define OBJ_EVENT_GFX_BOY        OBJ_EVENT_GFX_LITTLE_BOY
+#define OBJ_EVENT_GFX_TOWN_MAP   OBJ_EVENT_GFX_KANTO_TOWN_MAP
+#define OBJ_EVENT_GFX_WORKER_F   OBJ_EVENT_GFX_WOMAN_1
+#define OBJ_EVENT_GFX_RIVAL      OBJ_EVENT_GFX_RIVAL_GOLD_NORMAL
+
 
 // These are dynamic object gfx ids.
 // They correspond with the values of the VAR_OBJ_GFX_ID_X vars.

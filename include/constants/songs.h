@@ -586,4 +586,10 @@
 #define PHONEME_ID(song)            ((song) - FIRST_PHONEME_SONG)
 #define PHONEME_ID_NONE             0xFF
 
+// Aliases for compatibility with FireRed/LeafGreen naming
+#define MUS_ENCOUNTER_RIVAL  MUS_RG_ENCOUNTER_RIVAL
+#define MUS_RIVAL_EXIT       MUS_RG_RIVAL_EXIT
+#define MUS_OBTAIN_KEY_ITEM  MUS_RG_OBTAIN_KEY_ITEM
+#define MUS_ROUTE1           MUS_RG_ROUTE1
+#define MUS_OAK_LAB          MUS_RG_OAK_LAB
 #endif  // GUARD_CONSTANTS_SONGS_H

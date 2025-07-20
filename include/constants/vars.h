@@ -285,6 +285,11 @@
 #define VARS_END                                         0x4102
 #define VARS_COUNT                                       (VARS_END - VARS_START + 1)
 
+// Johto variable aliases using unused Hoenn vars
+#define VAR_NEW_BARK_TOWN_STATE  VAR_DEWFORD_TOWN_STATE
+#define VAR_ROUTE29_STATE        VAR_PACIFIDLOG_TOWN_STATE
+#define VAR_ELM_LAB_STATE        VAR_VERDANTURF_TOWN_STATE
+
 #define SPECIAL_VARS_START            0x8000
 // special vars
 // They are commonly used as parameters to commands, or return values from commands.
