@@ -490,8 +490,9 @@ gSpecials::
 	def_special OpenPokenavForTutorial
 	def_special ScriptMenu_CreateStartMenuForPokenavTutorial
 	def_special CountPlayerTrainerStars
-	def_special BufferBattleFrontierTutorMoveName
-	def_special CloseBattleFrontierTutorWindow
+        def_special BufferBattleFrontierTutorMoveName
+        def_special GetBattleFrontierTutorMoveIndex
+        def_special CloseBattleFrontierTutorWindow
 	def_special ScrollableMultichoice_RedrawPersistentMenu
 	def_special ChooseMonForMoveTutor
 	def_special ScrollableMultichoice_ClosePersistentMenu
@@ -515,11 +516,15 @@ gSpecials::
 	def_special IsTrainerRegistered
 	def_special ShouldDoBrailleRegicePuzzle
 	def_special EnableNationalPokedex
-	def_special ScriptMenu_CreateLilycoveSSTidalMultichoice
-	def_special GetLilycoveSSTidalSelection
-	def_special TurnOnTVScreen
-	def_special SetMewAboveGrass
-	def_special ShouldDistributeEonTicket
+        def_special ScriptMenu_CreateLilycoveSSTidalMultichoice
+        def_special GetLilycoveSSTidalSelection
+        def_special ScriptMenu_CreateSlateportSSTidalMultichoice
+        def_special GetSlateportSSTidalSelection
+        def_special ScriptMenu_CreateLilycoveSSTidalSeviiMultichoice
+        def_special GetLilycoveSSTidalSeviiSelection
+        def_special TurnOnTVScreen
+        def_special SetMewAboveGrass
+        def_special ShouldDistributeEonTicket
 	def_special LinkRetireStatusWithBattleTowerPartner
 	def_special BattleTowerReconnectLink
 	def_special CallTrainerHillFunction

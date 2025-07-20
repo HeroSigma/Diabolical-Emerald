@@ -418,6 +418,8 @@
 #define LOCALID_UNION_ROOM_PLAYER_7             4
 #define LOCALID_UNION_ROOM_PLAYER_8             3
 #define LOCALID_TOWER_LOBBY_REPORTER            5
+#define LOCALID_RUSTURF_TUNNEL_WANDAS_BF        6
+#define LOCALID_RUSTURF_TUNNEL_WANDA            7
 #define LOCALID_SLATEPORT_ENERGY_GURU          25
 #define LOCALID_TRUCK_BOX_TOP                   1
 #define LOCALID_TRUCK_BOX_BOTTOM_L              2
