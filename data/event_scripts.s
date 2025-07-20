@@ -1798,6 +1798,11 @@ EventScript_VsSeekerChargingDone::
 	.include "data/text/kanto_pokedex_rating.inc"
 	.include "data/text/sign_lady.inc"
 	.include "data/scripts/kanto_pokedex_rating.inc"
+    .include "data/maps/PalletTown/text.inc"
+    .include "data/maps/PalletTown_PlayersHouse_1F/text.inc"
+    .include "data/maps/PalletTown_PlayersHouse_2F/text.inc"
+    .include "data/maps/PalletTown_RivalsHouse/text.inc"
+    .include "data/maps/Route1/text.inc"
     .include "data/maps/PalletTown_ProfessorOaksLab/text.inc"
 
 EventScript_Return::
