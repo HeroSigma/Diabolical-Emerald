@@ -94,6 +94,28 @@ static void InitPlayerTrainerId(void)
     SetTrainerId(trainerId, gSaveBlock2Ptr->playerTrainerId);
 }
 
+#if RANDOMIZE_STARTERS
+static void InitRandomStarters(void)
+{
+    int i, j;
+    u16 species;
+
+    for (i = 0; i < 3; i++)
+    {
+        do {
+            species = (Random() % (NUM_SPECIES - 1)) + 1;
+            for (j = 0; j < i; j++)
+            {
+                if (gSaveBlock2Ptr->starterSpecies[j] == species)
+                    break;
+            }
+        } while (j != i);
+
+        gSaveBlock2Ptr->starterSpecies[i] = species;
+    }
+}
+#endif
+
 // L=A isnt set here for some reason.
 static void SetDefaultOptions(void)
 {
@@ -170,6 +192,9 @@ void NewGameInitData(void)
     gSaveBlock2Ptr->specialSaveWarpFlags = 0;
     gSaveBlock2Ptr->gcnLinkFlags = 0;
     InitPlayerTrainerId();
+#if RANDOMIZE_STARTERS
+    InitRandomStarters();
+#endif
     PlayTimeCounter_Reset();
     ClearPokedexFlags();
     InitEventData();
