@@ -55,6 +55,9 @@ copy_dir "$TMP_DIR/data/layouts" "data/layouts"
 copy_dir "$TMP_DIR/data/scripts" "data/scripts"
 copy_dir "$TMP_DIR/data/tilesets" "data/tilesets"
 
+# Copy tileset include files used by the build system
+copy_dir "$TMP_DIR/src/data/tilesets" "src/data/tilesets"
+
 # Copy trainer graphics and data
 copy_dir "$TMP_DIR/graphics/trainers" "graphics/trainers"
 copy_file "$TMP_DIR/src/data/trainers.h" "src/data/trainers.h.cross"
