@@ -280,6 +280,8 @@ MID_SRCS := $(wildcard $(MID_SUBDIR)/*.mid)
 MID_OBJS := $(patsubst $(MID_SUBDIR)/%.mid,$(MID_BUILDDIR)/%.o,$(MID_SRCS))
 
 OBJS     := $(C_OBJS) $(C_ASM_OBJS) $(ASM_OBJS) $(DATA_ASM_OBJS) $(SONG_OBJS) $(MID_OBJS)
+# Exclude any integration objects (e.g. *.cross.o) from the final link step
+OBJS     := $(filter-out $(DATA_ASM_BUILDDIR)/*.cross.o,$(OBJS))
 OBJS_REL := $(patsubst $(OBJ_DIR)/%,%,$(OBJS))
 
 SUBDIRS  := $(sort $(dir $(OBJS) $(dir $(TEST_OBJS))))
