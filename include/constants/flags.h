@@ -734,8 +734,8 @@
 #define FLAG_HIDE_PLAYERS_HOUSE_MOM            0x2B0
 #define FLAG_HIDE_PLAYERS_HOUSE_VIGOROTH_1     0x2B1
 #define FLAG_HIDE_PLAYERS_HOUSE_VIGOROTH_2     0x2B2
-#define FLAG_HIDE_ELMS_LAB_PROF_ELM            0x2B3
-#define FLAG_HIDE_ELMS_LAB_RIVAL               0x2B4
+#define FLAG_UNUSED_0x2B3  0x2B3 // Unused Flag
+#define FLAG_UNUSED_0x2B4  0x2B4 // Unused Flag
 #define FLAG_HIDE_ROUTE_29_ELM                 0x2B5
 #define FLAG_HIDE_ROUTE_29_RIVAL               0x2B6
 #define FLAG_UNUSED_0x2B7  0x2B7 // Unused Flag
