@@ -1,5 +1,5 @@
-.set LOCALID_OPPONENT, 2
-.set LOCALID_PLAYER, 3
+.equ LOCALID_OPPONENT, 2
+.equ LOCALID_PLAYER, 3
 
 SlateportCity_BattleTentBattleRoom_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, SlateportCity_BattleTentBattleRoom_OnTransition
