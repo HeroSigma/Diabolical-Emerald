@@ -108,9 +108,14 @@
 	.endm
 
 	@ Defines a background hidden item event for map data
-	.macro bg_hidden_item_event x:req, y:req, elevation:req, item:req, flag:req
-	bg_event \x, \y, \elevation, BG_EVENT_HIDDEN_ITEM, \item, ((\flag) - FLAG_HIDDEN_ITEMS_START)
-	.endm
+        .macro bg_hidden_item_event x:req, y:req, elevation:req, item:req, flag:req
+        bg_event \x, \y, \elevation, BG_EVENT_HIDDEN_ITEM, \item, ((\flag) - FLAG_HIDDEN_ITEMS_START)
+        .endm
+
+        @ Defines a background fruit tree event for map data
+        .macro bg_fruit_tree_event x:req, y:req, elevation:req, fruit_tree_id:req
+        bg_event \x, \y, \elevation, BG_EVENT_FRUIT_TREE, \fruit_tree_id, 0
+        .endm
 
 	@ Defines a background secret base event for map data
 	.macro bg_secret_base_event x:req, y:req, elevation:req, secret_base_id:req
