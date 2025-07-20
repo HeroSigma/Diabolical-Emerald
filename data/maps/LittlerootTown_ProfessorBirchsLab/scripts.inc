@@ -120,7 +120,7 @@ LittlerootTown_ProfessorBirchsLab_EventScript_ReceivePokedex::
 	setflag FLAG_RECEIVED_POKEDEX
 	setflag FLAG_SYS_NATIONAL_DEX
 	special EnableNationalPokedex
-	clearflag FLAG_HIDE_OLDALE_TOWN_MAYS_HOUSE_RIVAL_BEDROOM
+        clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_BEDROOM
 	setvar VAR_CABLE_CLUB_TUTORIAL_STATE, 1
 	return
 
