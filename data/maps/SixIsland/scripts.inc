@@ -3,7 +3,7 @@ SixIsland_MapScripts::
 	.byte 0
 
 SixIsland_OnTransition:
-	setflag FLAG_WORLD_MAP_SIX_ISLAND
+	setflag FLAG_VISITED_SIX_ISLAND
 	end
 
 SixIsland_EventScript_IslandSign::

@@ -3,7 +3,7 @@ ThreeIsland_MapScripts::
 	.byte 0
 
 ThreeIsland_OnTransition:
-	setflag FLAG_WORLD_MAP_THREE_ISLAND
+	setflag FLAG_VISITED_THREE_ISLAND
 	end
 
 ThreeIsland_EventScript_IslandSign::

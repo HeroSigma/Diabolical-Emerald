@@ -9,7 +9,7 @@ PalletTown_MapScripts::
 	.byte 0
 
 PalletTown_OnTransition::
-	setworldmapflag FLAG_WORLD_MAP_PALLET_TOWN
+	setflag FLAG_VISITED_PALLET_TOWN
 	call_if_set FLAG_PALLET_LADY_NOT_BLOCKING_SIGN, PalletTown_EventScript_TryReadySignLady
 	call_if_eq VAR_MAP_SCENE_PALLET_TOWN_SIGN_LADY, 0, PalletTown_EventScript_SetSignLadyPos
 	call_if_eq VAR_MAP_SCENE_PALLET_TOWN_SIGN_LADY, 1, PalletTown_EventScript_SetSignLadyDone
@@ -50,10 +50,10 @@ PalletTown_EventScript_OakRatingScene::
 	addobject LOCALID_PROF_OAK
 	applymovement LOCALID_PROF_OAK, PalletTown_Movement_OakWalkToPlayersDoor
 	waitmovement 0
-	goto_if_unset FLAG_WORLD_MAP_ONE_ISLAND, PalletTown_EventScript_NotBeenToOneIslandYet
+	goto_if_unset FLAG_VISITED_ONE_ISLAND, PalletTown_EventScript_NotBeenToOneIslandYet
 	msgbox PalletTown_Text_OakLetMeSeePokedex
 	setvar VAR_0x8004, 0
-	specialvar VAR_RESULT, GetPokedexCount
+	specialvar VAR_RESULT, ScriptGetPokedexInfo
 	copyvar VAR_0x8008, VAR_0x8005
 	copyvar VAR_0x8009, VAR_0x8006
 	buffernumberstring STR_VAR_1, VAR_0x8008
@@ -182,10 +182,10 @@ PalletTown_EventScript_OakTriggerRight::
 	end
 
 PalletTown_EventScript_OakTrigger::
-	@famechecker FAMECHECKER_OAK, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
+	famechecker FAMECHECKER_OAK, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
 	textcolor NPC_TEXT_COLOR_MALE
 	delay 30
-	playbgm MUS_OAK, 0
+        playbgm MUS_RG_OAK, 0
 	message PalletTown_Text_OakDontGoOut
 	waitmessage
 	delay 85
@@ -395,7 +395,7 @@ PalletTown_EventScript_FatMan::
 
 PalletTown_EventScript_OaksLabSign::
 	lockall
-	@famechecker FAMECHECKER_OAK, 0
+	famechecker FAMECHECKER_OAK, 0
 	msgbox PalletTown_Text_OakPokemonResearchLab
 	releaseall
 	end

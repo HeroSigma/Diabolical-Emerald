@@ -3,7 +3,7 @@ SaffronCity_MapScripts::
 	.byte 0
 
 SaffronCity_OnTransition:
-	setflag FLAG_WORLD_MAP_SAFFRON_CITY
+	setflag FLAG_VISITED_SAFFRON_CITY
 	end
 
 SaffronCity_EventScript_CitySign::

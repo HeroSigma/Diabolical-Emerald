@@ -3,7 +3,7 @@ FourIsland_MapScripts::
 	.byte 0
 
 FourIsland_OnTransition:
-	setflag FLAG_WORLD_MAP_FOUR_ISLAND
+	setflag FLAG_VISITED_FOUR_ISLAND
 	end
 
 FourIsland_EventScript_IslandSign::

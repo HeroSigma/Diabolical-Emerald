@@ -463,7 +463,7 @@ Route110_EventScript_BrendanDefeated::
 	end
 
 Route110_EventScript_GiveItemfinder::
-	giveitem ITEM_DOWSING_MACHINE
+	giveitem ITEM_ITEMFINDER
 	return
 
 Route110_EventScript_RivalExit::

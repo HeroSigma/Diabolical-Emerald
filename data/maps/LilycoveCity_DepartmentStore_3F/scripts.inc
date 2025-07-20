@@ -19,7 +19,9 @@ LilycoveCity_DepartmentStore_3F_Pokemart_Vitamins:
 	.2byte ITEM_ZINC
 	.2byte ITEM_CARBOS
 	.2byte ITEM_HP_UP
-	pokemartlistend
+	.2byte ITEM_NONE
+	release
+	end
 
 LilycoveCity_DepartmentStore_3F_EventScript_ClerkRight::
 	lock
@@ -34,13 +36,15 @@ LilycoveCity_DepartmentStore_3F_EventScript_ClerkRight::
 	.align 2
 LilycoveCity_DepartmentStore_3F_Pokemart_StatBoosters:
 	.2byte ITEM_X_SPEED
-	.2byte ITEM_X_SP_ATK
+	.2byte ITEM_X_SPECIAL
 	.2byte ITEM_X_ATTACK
-	.2byte ITEM_X_DEFENSE
+	.2byte ITEM_X_DEFEND
 	.2byte ITEM_DIRE_HIT
 	.2byte ITEM_GUARD_SPEC
 	.2byte ITEM_X_ACCURACY
-	pokemartlistend
+	.2byte ITEM_NONE
+	release
+	end
 
 LilycoveCity_DepartmentStore_3F_EventScript_TriathleteM::
 	msgbox LilycoveCity_DepartmentStore_3F_Text_ItemsBestForTougheningPokemon, MSGBOX_NPC

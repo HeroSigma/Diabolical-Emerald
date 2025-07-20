@@ -3,7 +3,7 @@ LavenderTown_MapScripts::
 	.byte 0
 
 LavenderTown_OnTransition:
-	setflag FLAG_WORLD_MAP_LAVENDER_TOWN
+	setflag FLAG_VISITED_LAVENDER_TOWN
 	end
 
 LavenderTown_EventScript_PokemonTowerSign::

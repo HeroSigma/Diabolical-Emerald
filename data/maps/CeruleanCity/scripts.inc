@@ -3,7 +3,7 @@ CeruleanCity_MapScripts::
 	.byte 0
 
 CeruleanCity_OnTransition:
-	setflag FLAG_WORLD_MAP_CERULEAN_CITY
+	setflag FLAG_VISITED_CERULEAN_CITY
 	end
 
 CeruleanCity_EventScript_GymSign::
