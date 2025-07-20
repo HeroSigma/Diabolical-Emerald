@@ -858,7 +858,7 @@ const struct Tileset gTileset_KantoGeneral =
     .palettes = gTilesetPalettes_KantoGeneral,
     .metatiles = gMetatiles_KantoGeneral,
     .metatileAttributes = gMetatileAttributes_KantoGeneral,
-    .callback = InitTilesetAnim_KantoGeneral,
+    .callback = InitTilesetAnim_General,
 };
 
 const struct Tileset gTileset_JohtoGeneral =
@@ -869,7 +869,7 @@ const struct Tileset gTileset_JohtoGeneral =
     .palettes = gTilesetPalettes_JohtoGeneral,
     .metatiles = gMetatiles_JohtoGeneral,
     .metatileAttributes = gMetatileAttributes_JohtoGeneral,
-    .callback = InitTilesetAnim_JohtoGeneral,
+    .callback = InitTilesetAnim_General,
 };
 
 const struct Tileset gTileset_KantoBuilding =
