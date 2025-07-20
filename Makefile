@@ -263,7 +263,12 @@ ASM_SRCS := $(wildcard $(ASM_SUBDIR)/*.s)
 ASM_OBJS := $(patsubst $(ASM_SUBDIR)/%.s,$(ASM_BUILDDIR)/%.o,$(ASM_SRCS))
 
 # get all the data/*.s files EXCEPT the ones with specific rules
-REGULAR_DATA_ASM_SRCS := $(filter-out $(DATA_ASM_SUBDIR)/maps.s $(DATA_ASM_SUBDIR)/map_events.s $(DATA_ASM_SUBDIR)/*.cross.s, $(wildcard $(DATA_ASM_SUBDIR)/*.s))
+# Exclude integration dumps (e.g. *.cross.s) from normal build rules
+REGULAR_DATA_ASM_SRCS := $(filter-out \
+    $(DATA_ASM_SUBDIR)/maps.s \
+    $(DATA_ASM_SUBDIR)/map_events.s \
+    $(DATA_ASM_SUBDIR)/*.cross.s, \
+    $(wildcard $(DATA_ASM_SUBDIR)/*.s))
 
 DATA_ASM_SRCS := $(filter-out $(DATA_ASM_SUBDIR)/*.cross.s,$(wildcard $(DATA_ASM_SUBDIR)/*.s))
 DATA_ASM_OBJS := $(patsubst $(DATA_ASM_SUBDIR)/%.s,$(DATA_ASM_BUILDDIR)/%.o,$(DATA_ASM_SRCS))
