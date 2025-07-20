@@ -69,3 +69,13 @@ To import Kanto and Johto content from the [cross](https://github.com/HeroSigma/
 ```
 
 This script clones the cross repository and copies Kanto and Johto maps, tilesets, scripts, trainer graphics, and trainer data into this project. Review the copied files and merge them as needed.
+
+## Building the Project
+To compile the ROM, run `make` from the repository root. The Makefile runs the
+C preprocessor on every assembly file before invoking the assembler. Skipping
+this step and calling `arm-none-eabi-as` yourself will leave macros without the
+constants they need, resulting in errors such as:
+
+```
+non-constant expression in `.if` statement
+```
