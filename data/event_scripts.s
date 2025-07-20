@@ -1161,4 +1161,7 @@ EventScript_VsSeekerChargingDone::
 	.include "data/text/save.inc"
 	.include "data/text/birch_speech.inc"
 	.include "data/scripts/dexnav.inc"
-        .include "data/event_scripts_cross.inc"
+        @ Cross expansion scripts are optional and not shipped with the repo.
+        @ Remove the include to avoid build failures when the integration dump
+        @ is absent.
+        @ .include "data/event_scripts_cross.inc"
