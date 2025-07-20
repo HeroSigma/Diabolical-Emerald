@@ -7,5 +7,8 @@
 #define NPC_TEXT_COLOR_NEUTRAL 0
 
 #define MSG_COLOR_BLUE         0
+#define MSG_COLOR_RED          0
+#define MSG_COLOR_PREV         0
+#define MSG_COLOR_SYS          0
 
 #endif // GUARD_CONSTANTS_NPC_TEXT_COLORS_H

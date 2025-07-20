@@ -1386,7 +1386,7 @@ Std_ReceivedItem::
         return
 
 Route29_EventScript_ItemPotion::
-        itemball ITEM_POTION
+        finditem ITEM_POTION
         end
 
 Common_EventScript_PlayGymBadgeFanfare::
