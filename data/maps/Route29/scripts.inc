@@ -88,8 +88,12 @@ Route29_EventScript_ManWaitingForMorning::
 	end
 
 Route29_EventScript_DirectionSign::
-	msgbox Route29_Text_DirectionSign, MSGBOX_SIGN
-	end
+        msgbox Route29_Text_DirectionSign, MSGBOX_SIGN
+        end
+
+Route29_EventScript_FruitTree::
+        msgbox Route29_Text_FruitTree, MSGBOX_SIGN
+        end
 
 Route29_EventScript_Dude::
 	lock
@@ -404,8 +408,11 @@ Route29_Text_Dude_CatchingTutRejected:
 	.string "POKéMON, you have to walk a lot.$"
 
 Route29_Text_DirectionSign:
-	.string "ROUTE 29\n"
-	.string "CHERRYGROVE CITY - NEW BARK TOWN$"
+        .string "ROUTE 29\n"
+        .string "CHERRYGROVE CITY - NEW BARK TOWN$"
+
+Route29_Text_FruitTree:
+        .string "It's a fruit tree!$"
 
 Route29_EventScript_Tuscany_Text_0:
 	.string "TUSCANY: I do believe that this\n"
