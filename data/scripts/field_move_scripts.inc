@@ -306,8 +306,29 @@ Text_WantToSurface:
 	.string "Would you like to use DIVE?$"
 
 EventScript_FailSweetScent::
-	msgbox Text_FailSweetScent, MSGBOX_SIGN
-	end
+        msgbox Text_FailSweetScent, MSGBOX_SIGN
+        end
 
 Text_FailSweetScent:
-	.string "Looks like there's nothing here…$"
+        .string "Looks like there's nothing here…$"
+
+EventScript_UseCutGrass::
+        lockall
+        dofieldeffect FLDEFF_USE_CUT_ON_GRASS
+        waitstate
+        releaseall
+        end
+
+EventScript_UseDefog::
+        lockall
+        dofieldeffect FLDEFF_DEFOG
+        waitstate
+        releaseall
+        end
+
+EventScript_UseDig::
+        lockall
+        dofieldeffect FLDEFF_USE_DIG
+        waitstate
+        releaseall
+        end
