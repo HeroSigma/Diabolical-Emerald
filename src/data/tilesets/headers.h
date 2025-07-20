@@ -830,3 +830,104 @@ const struct Tileset gTileset_UnionRoom =
     .metatileAttributes = gMetatileAttributes_UnionRoom,
     .callback = NULL,
 };
+
+// Placeholder tilesets for ports that reuse existing data
+
+const struct Tileset gTileset_JohtoBuilding =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_InsideBuilding,
+    .palettes = gTilesetPalettes_InsideBuilding,
+    .metatiles = gMetatiles_InsideBuilding,
+    .metatileAttributes = gMetatileAttributes_InsideBuilding,
+    .callback = InitTilesetAnim_Building,
+};
+
+const struct Tileset gTileset_KantoBuilding1 =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_InsideBuilding,
+    .palettes = gTilesetPalettes_InsideBuilding,
+    .metatiles = gMetatiles_InsideBuilding,
+    .metatileAttributes = gMetatileAttributes_InsideBuilding,
+    .callback = InitTilesetAnim_Building,
+};
+
+const struct Tileset gTileset_KantoBuilding2 =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_InsideBuilding,
+    .palettes = gTilesetPalettes_InsideBuilding,
+    .metatiles = gMetatiles_InsideBuilding,
+    .metatileAttributes = gMetatileAttributes_InsideBuilding,
+    .callback = InitTilesetAnim_Building,
+};
+
+const struct Tileset gTileset_JohtoGeneral =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_General,
+    .palettes = gTilesetPalettes_General,
+    .metatiles = gMetatiles_General,
+    .metatileAttributes = gMetatileAttributes_General,
+    .callback = InitTilesetAnim_General,
+};
+
+const struct Tileset gTileset_JohtoCave =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_Cave,
+    .palettes = gTilesetPalettes_Cave,
+    .metatiles = gMetatiles_Cave,
+    .metatileAttributes = gMetatileAttributes_Cave,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_SeafoamIslands =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_Cave,
+    .palettes = gTilesetPalettes_Cave,
+    .metatiles = gMetatiles_Cave,
+    .metatileAttributes = gMetatileAttributes_Cave,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_OlivineCity =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_Mauville,
+    .palettes = gTilesetPalettes_Mauville,
+    .metatiles = gMetatiles_Mauville,
+    .metatileAttributes = gMetatileAttributes_Mauville,
+    .callback = InitTilesetAnim_Mauville,
+};
+
+const struct Tileset gTileset_NewBarkTown =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_General,
+    .palettes = gTilesetPalettes_General,
+    .metatiles = gMetatiles_General,
+    .metatileAttributes = gMetatileAttributes_General,
+    .callback = InitTilesetAnim_General,
+};
+
+const struct Tileset gTileset_KantoPokeCenter =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_PokemonCenter,
+    .palettes = gTilesetPalettes_PokemonCenter,
+    .metatiles = gMetatiles_PokemonCenter,
+    .metatileAttributes = gMetatileAttributes_PokemonCenter,
+    .callback = NULL,
+};
