@@ -5,6 +5,9 @@
 .set LOCALID_SCIENTIST_4, 5
 .set LOCALID_SCIENTIST_5, 6
 .set LOCALID_SCIENTIST_6, 7
+#ifdef LOCALID_PLAYER
+#undef LOCALID_PLAYER
+#endif
 .set LOCALID_PLAYER, 8
 
 BattleFrontier_BattleFactoryBattleRoom_MapScripts::

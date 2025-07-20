@@ -1,4 +1,7 @@
 .equ LOCALID_OPPONENT, 2
+#ifdef LOCALID_PLAYER
+#undef LOCALID_PLAYER
+#endif
 .equ LOCALID_PLAYER, 3
 
 SlateportCity_BattleTentBattleRoom_MapScripts::
