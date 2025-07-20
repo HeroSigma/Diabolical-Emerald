@@ -63,10 +63,13 @@ Follow these steps to build `pokeemerald-expansion`.
     ```console
     make
     ```
-    > **Note**: Do **not** run `arm-none-eabi-as` directly on the assembly files.
-    > The build system relies on the C preprocessor to define constants used by
-    > the assembly macros. Skipping `make` will cause errors such as "non-constant
-    > expression in `.if` statement".
+    > **Note**: Always build through `make`. The Makefile preprocesses each `.s`
+    > file before assembling. Running `arm-none-eabi-as` yourself skips this step
+    > and leads to errors like:
+    >
+    > ```
+    > non-constant expression in `.if` statement
+    > ```
 5. If everything worked correctly, something very similar to this should be seen.
 
     ```console
