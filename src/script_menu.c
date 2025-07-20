@@ -1146,3 +1146,23 @@ int ScriptMenu_AdjustLeftCoordFromWidth(int left, int width)
 
     return adjustedLeft;
 }
+
+bool8 ScriptMenu_CreateSlateportSSTidalMultichoice(void)
+{
+    return ScriptMenu_CreateLilycoveSSTidalMultichoice();
+}
+
+void GetSlateportSSTidalSelection(void)
+{
+    GetLilycoveSSTidalSelection();
+}
+
+bool8 ScriptMenu_CreateLilycoveSSTidalSeviiMultichoice(void)
+{
+    return ScriptMenu_CreateLilycoveSSTidalMultichoice();
+}
+
+void GetLilycoveSSTidalSeviiSelection(void)
+{
+    GetLilycoveSSTidalSelection();
+}

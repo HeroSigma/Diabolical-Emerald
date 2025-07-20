@@ -186,6 +186,24 @@
       "y": 52,
       "respawn_map": "MAP_BATTLE_FRONTIER_POKEMON_CENTER_1F",
       "respawn_npc": "LOCALID_FRONTIER_NURSE"
+    },
+    {
+      "id": "HEAL_LOCATION_PALLET_TOWN",
+      "map": "MAP_PALLET_TOWN",
+      "x": 9,
+      "y": 6,
+      "respawn_map": "MAP_PALLET_TOWN",
+      "respawn_x": 9,
+      "respawn_y": 6
+    },
+    {
+      "id": "HEAL_LOCATION_NEW_BARK_TOWN",
+      "map": "MAP_NEW_BARK_TOWN",
+      "x": 9,
+      "y": 6,
+      "respawn_map": "MAP_NEW_BARK_TOWN",
+      "respawn_x": 9,
+      "respawn_y": 6
     }
   ]
 }

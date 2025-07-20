@@ -4409,6 +4409,11 @@ void GetCodeFeedback(void)
         gSpecialVar_Result = 0;
 }
 
+u16 GetBattleFrontierTutorMoveIndex(void)
+{
+    return 0;
+}
+
 void SetHiddenNature(void)
 {
     u32 hiddenNature = gSpecialVar_Result;
