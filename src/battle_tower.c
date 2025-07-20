@@ -1946,6 +1946,8 @@ static void HandleSpecialTrainerBattleEnd(void)
                 SavePlayerPartyMon(i, &gPlayerParty[i]);
         }
         break;
+    case SPECIAL_BATTLE_STEVEN:
+        break;
     }
 
     SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
@@ -2104,6 +2106,14 @@ void DoSpecialTrainerBattle(void)
 
         if (gSpecialVar_0x8005 & MULTI_BATTLE_CHOOSE_MONS) // Skip mons restoring(done in the script)
             gBattleScripting.specialTrainerBattleType = 0xFF;
+        break;
+    case SPECIAL_BATTLE_STEVEN:
+        gBattleTypeFlags = BATTLE_TYPE_TRAINER | BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TWO_OPPONENTS | BATTLE_TYPE_MULTI | BATTLE_TYPE_INGAME_PARTNER;
+        gPartnerTrainerId = TRAINER_PARTNER(PARTNER_STEVEN);
+        FillPartnerParty(gPartnerTrainerId);
+        CreateTask(Task_StartBattleAfterTransition, 1);
+        PlayMapChosenOrBattleBGM(0);
+        BattleTransition_StartOnField(GetTrainerBattleTransition());
         break;
     }
 }
