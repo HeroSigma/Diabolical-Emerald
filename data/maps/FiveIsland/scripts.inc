@@ -3,7 +3,7 @@ FiveIsland_MapScripts::
 	.byte 0
 
 FiveIsland_OnTransition:
-	setflag FLAG_VISITED_FIVE_ISLAND
+	setflag FLAG_WORLD_MAP_FIVE_ISLAND
 	end
 
 FiveIsland_EventScript_IslandSign::

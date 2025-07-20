@@ -3,7 +3,7 @@ ViridianCity_MapScripts::
 	.byte 0
 
 ViridianCity_OnTransition:
-	setflag FLAG_VISITED_VIRIDIAN_CITY
+	setflag FLAG_WORLD_MAP_VIRIDIAN_CITY
 	end
 
 ViridianCity_EventScript_GymSign::

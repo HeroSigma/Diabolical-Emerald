@@ -3,7 +3,7 @@ CinnabarIsland_MapScripts::
 	.byte 0
 
 CinnabarIsland_OnTransition:
-	setflag FLAG_VISITED_CINNABAR_ISLAND
+	setflag FLAG_WORLD_MAP_CINNABAR_ISLAND
 	end
 
 CinnabarIsland_EventScript_IslandSign::

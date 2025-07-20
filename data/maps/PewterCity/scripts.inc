@@ -3,7 +3,7 @@ PewterCity_MapScripts::
 	.byte 0
 
 PewterCity_OnTransition:
-	setflag FLAG_VISITED_PEWTER_CITY
+	setflag FLAG_WORLD_MAP_PEWTER_CITY
 	end
 
 PewterCity_EventScript_MuseumSign::

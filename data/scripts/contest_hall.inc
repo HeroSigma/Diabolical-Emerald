@@ -1,9 +1,5 @@
 .set LOCALID_MC, 1
 .set LOCALID_JUDGE, 2
-#undef LOCALID_CONTESTANT_1
-#undef LOCALID_CONTESTANT_2
-#undef LOCALID_CONTESTANT_3
-#undef LOCALID_CONTESTANT_4
 .set LOCALID_CONTESTANT_1, 3
 .set LOCALID_CONTESTANT_2, 4
 .set LOCALID_CONTESTANT_3, 5
@@ -35,6 +31,7 @@ LilycoveCity_ContestLobby_EventScript_ReceptionWelcome::
 LilycoveCity_ContestLobby_EventScript_GivePokeblockCase::
 	msgbox LilycoveCity_ContestLobby_Text_ReceptionDontHavePokeblockCase, MSGBOX_DEFAULT
 	giveitem ITEM_POKEBLOCK_CASE
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
 	setflag FLAG_RECEIVED_POKEBLOCK_CASE
 	msgbox LilycoveCity_ContestLobby_Text_NowThatWeveClearedThatUp, MSGBOX_DEFAULT
 	return
