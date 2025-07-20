@@ -282,7 +282,14 @@
 #define VAR_MAP_SCENE_VIRIDIAN_CITY_MART                 0x4101
 #define VAR_MAP_SCENE_VIRIDIAN_CITY_OLD_MAN              0x4102
 
-#define VARS_END                                         0x4102
+// Johto vars (custom placeholders)
+#define VAR_NEW_BARK_TOWN_STATE                          0x4103
+#define VAR_PLAYER_HOUSE_STATE                           0x4104
+#define VAR_ROUTE29_STATE                                0x4105
+#define VAR_ROUTE31_STATE                                0x4106
+#define VAR_ELM_LAB_STATE                                0x4107
+
+#define VARS_END                                         0x4107
 #define VARS_COUNT                                       (VARS_END - VARS_START + 1)
 
 // Johto variable aliases using unused Hoenn vars

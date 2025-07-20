@@ -592,4 +592,12 @@ gSpecials::
 	def_special UseBlankMessageToCancelPokemonPic
 	def_special EnterCode
 	def_special GetCodeFeedback
-	def_special GetPokedexCount
+        def_special GetPokedexCount
+        def_special CopyDayOfWeekStringToVar1
+        def_special WriteCurrentTimeStringToStrVar1
+        def_special SetInitialDSTMode
+        def_special SwitchDSTMode
+        def_special GetDSTMode
+        def_special MomBank
+        def_special SetRivalNickname
+        def_special IsPlayersMonOfSpeciesInParty

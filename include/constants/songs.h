@@ -575,6 +575,9 @@
 #define MUS_JOHTO_ROCKET            635
 #define MUS_DRAGONS_DEN             636
 #define MUS_ROUTE26                 637
+#define MUS_MOMS_THEME              638
+#define MUS_OAKS_LAB                639
+#define MUS_REGISTER_PHONE          640
 
 #define MUS_ROUTE118                0x7FFF  // Map is split into 2 music sections. controlled by GetCurrLocationDefaultMusic().
 

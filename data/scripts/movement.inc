@@ -40,8 +40,24 @@ Common_Movement_WalkInPlaceFasterRight:
 	step_end
 
 Common_Movement_WalkInPlaceFasterDown:
-	walk_in_place_faster_down
-	step_end
+        walk_in_place_faster_down
+        step_end
+
+Common_Movement_WalkInPlaceFastestLeft:
+        walk_in_place_faster_left
+        step_end
+
+Common_Movement_WalkInPlaceFastestUp:
+        walk_in_place_faster_up
+        step_end
+
+Common_Movement_WalkInPlaceFastestRight:
+        walk_in_place_faster_right
+        step_end
+
+Common_Movement_WalkInPlaceFastestDown:
+        walk_in_place_faster_down
+        step_end
 
 Common_Movement_FaceRight:
 	face_right
