@@ -1,4 +1,5 @@
 #include "global.h"
+#include "event_data.h"
 #include "script.h"
 
 void CopyDayOfWeekStringToVar1(void) {}
