@@ -190,7 +190,7 @@
       "x": 65,
       "y": 10,
       "elevation": 3,
-      "var": "VAR_ROUTE29_STATE",
+      "var": "VAR_PACIFIDLOG_TOWN_STATE",
       "var_value": "1",
       "script": "Route29_EventScript_CatchingTutorial1"
     },
@@ -199,7 +199,7 @@
       "x": 65,
       "y": 11,
       "elevation": 3,
-      "var": "VAR_ROUTE29_STATE",
+      "var": "VAR_PACIFIDLOG_TOWN_STATE",
       "var_value": "1",
       "script": "Route29_EventScript_CatchingTutorial2"
     },
@@ -208,7 +208,7 @@
       "x": 65,
       "y": 12,
       "elevation": 3,
-      "var": "VAR_ROUTE29_STATE",
+      "var": "VAR_PACIFIDLOG_TOWN_STATE",
       "var_value": "1",
       "script": "Route29_EventScript_CatchingTutorial3"
     },
@@ -217,7 +217,7 @@
       "x": 65,
       "y": 13,
       "elevation": 3,
-      "var": "VAR_ROUTE29_STATE",
+      "var": "VAR_PACIFIDLOG_TOWN_STATE",
       "var_value": "1",
       "script": "Route29_EventScript_CatchingTutorial4"
     }
@@ -244,7 +244,7 @@
       "x": 14,
       "y": 4,
       "elevation": 3,
-      "fruit_tree_id": "FRUIT_TREE_ROUTE_29"
+      "fruit_tree_id": "0"
     }
   ]
 }

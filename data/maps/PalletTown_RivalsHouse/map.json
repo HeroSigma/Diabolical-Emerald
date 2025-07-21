@@ -31,7 +31,7 @@
     },
     {
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_TOWN_MAP",
+      "graphics_id": "OBJ_EVENT_GFX_KANTO_TOWN_MAP",
       "x": 6,
       "y": 4,
       "elevation": 3,
