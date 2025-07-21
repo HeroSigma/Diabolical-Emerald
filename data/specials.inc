@@ -601,3 +601,6 @@ gSpecials::
         def_special MomBank
         def_special SetRivalNickname
         def_special IsPlayersMonOfSpeciesInParty
+        def_special GetQuestLogState
+        def_special QuestLog_CutRecording
+        def_special DaisyMassageServices
