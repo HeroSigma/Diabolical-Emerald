@@ -25,9 +25,22 @@
         .set OBJ_IMAGE_ANIM_V_FLIP, 1 << 7
 
         @ Message text colors (placeholder values)
+
+        @ Avoid conflicts with any macros of the same name
+        #undef MSG_COLOR_RED
+        #undef MSG_COLOR_BLUE
+        #undef MSG_COLOR_SYS
+        #undef MSG_COLOR_PREV
+
         .set MSG_COLOR_RED,    0
         .set MSG_COLOR_BLUE,   1
         .set MSG_COLOR_SYS,    2
         .set MSG_COLOR_PREV,   3
+
+        @ Recreate the C defines for assembly sources that expect them
+        #define MSG_COLOR_RED    0
+        #define MSG_COLOR_BLUE   1
+        #define MSG_COLOR_SYS    2
+        #define MSG_COLOR_PREV   3
 
 #endif @ GUARD_CONSTANTS_GLOBAL_INC
