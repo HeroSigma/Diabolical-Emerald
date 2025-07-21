@@ -197,6 +197,7 @@ void NewGameInitData(void)
     NewGameInitPCItems();
     ClearPokeblocks();
     ClearDecorationInventories();
+    gSaveBlock2Ptr->playerRegion = HOENN;
     InitEasyChatPhrases();
     SetMauvilleOldMan();
     InitDewfordTrend();

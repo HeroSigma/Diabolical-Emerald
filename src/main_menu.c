@@ -213,22 +213,14 @@ static void Task_NewGameBirchSpeech_BoyOrGirl(u8);
 static void LoadMainMenuWindowFrameTiles(u8, u16);
 static void DrawMainMenuWindowBorder(const struct WindowTemplate *, u16);
 static void Task_HighlightSelectedMainMenuItem(u8);
-static void Task_NewGameBirchSpeech_WhichRegionDoYouLiveIn(u8);
 static void Task_NewGameBirchSpeech_WaitToShowGenderMenu(u8);
-static void Task_NewGameBirchSpeech_WaitToShowRegionMenu(u8);
 static void Task_NewGameBirchSpeech_ChooseGender(u8);
-static void Task_NewGameBirchSpeech_ChooseRegion(u8);
 static void NewGameBirchSpeech_ShowGenderMenu(void);
-static void NewGameBirchSpeech_ShowRegionMenu(void);
 static s8 NewGameBirchSpeech_ProcessGenderMenuInput(void);
-static s8 NewGameBirchSpeech_ProcessRegionMenuInput(void);
 static void NewGameBirchSpeech_ClearGenderWindow(u8, u8);
-static void NewGameBirchSpeech_ClearRegionWindow(u8, u8);
 static void Task_NewGameBirchSpeech_WhatsYourName(u8);
 static void Task_NewGameBirchSpeech_SlideOutOldGenderSprite(u8);
 static void Task_NewGameBirchSpeech_SlideInNewGenderSprite(u8);
-static void Task_NewGameBirchSpeech_SlideOutOldRegionSprite(u8);
-static void Task_NewGameBirchSpeech_SlideInNewRegionSprite(u8);
 static void Task_NewGameBirchSpeech_WaitForWhatsYourNameToPrint(u8);
 static void Task_NewGameBirchSpeech_WaitPressBeforeNameChoice(u8);
 static void Task_NewGameBirchSpeech_StartNamingScreen(u8);
@@ -494,11 +486,6 @@ static const struct MenuAction sMenuActions_Gender[] = {
     {COMPOUND_STRING("GIRL"), {NULL}}
 };
 
-static const struct MenuAction sMenuActions_Region[] = {
-    {gText_Kanto, {NULL}},
-    {gText_Johto, {NULL}},
-    {gText_Hoenn, {NULL}}
-};
 
 static const u8 *const sMalePresetNames[] = {
     COMPOUND_STRING("STU"),
@@ -1555,14 +1542,16 @@ static void Task_NewGameBirchSpeech_ChooseGender(u8 taskId)
         case MALE:
             PlaySE(SE_SELECT);
             gSaveBlock2Ptr->playerGender = gender;
+            gSaveBlock2Ptr->playerRegion = HOENN;
             NewGameBirchSpeech_ClearGenderWindow(1, 1);
-            gTasks[taskId].func = Task_NewGameBirchSpeech_WhichRegionDoYouLiveIn;
+            gTasks[taskId].func = Task_NewGameBirchSpeech_WhatsYourName;
             break;
         case FEMALE:
             PlaySE(SE_SELECT);
             gSaveBlock2Ptr->playerGender = gender;
+            gSaveBlock2Ptr->playerRegion = HOENN;
             NewGameBirchSpeech_ClearGenderWindow(1, 1);
-            gTasks[taskId].func = Task_NewGameBirchSpeech_WhichRegionDoYouLiveIn;
+            gTasks[taskId].func = Task_NewGameBirchSpeech_WhatsYourName;
             break;
     }
     gender2 = Menu_GetCursorPos();
@@ -1618,121 +1607,6 @@ static void Task_NewGameBirchSpeech_SlideInNewGenderSprite(u8 taskId)
     }
 }
 
-static void Task_NewGameBirchSpeech_WhichRegionDoYouLiveIn(u8 taskId)
-{
-    NewGameBirchSpeech_ClearWindow(0);
-    StringExpandPlaceholders(gStringVar4, gText_Birch_WhichRegion);
-    AddTextPrinterForMessage(TRUE);
-    gTasks[taskId].tPlayerGender = KANTO;
-    gTasks[taskId].func = Task_NewGameBirchSpeech_WaitToShowRegionMenu;
-}
-
-static void Task_NewGameBirchSpeech_WaitToShowRegionMenu(u8 taskId)
-{
-    if (!RunTextPrintersAndIsPrinter0Active())
-    {
-        NewGameBirchSpeech_ShowRegionMenu();
-        gTasks[taskId].func = Task_NewGameBirchSpeech_ChooseRegion;
-    }
-}
-
-static void Task_NewGameBirchSpeech_ChooseRegion(u8 taskId)
-{
-    int region = NewGameBirchSpeech_ProcessRegionMenuInput();
-    int region2;
-
-    switch (region)
-    {
-        case KANTO:
-            PlaySE(SE_SELECT);
-            gSaveBlock2Ptr->playerRegion = region;
-            NewGameBirchSpeech_ClearRegionWindow(1, 1);
-            gTasks[taskId].func = Task_NewGameBirchSpeech_WhatsYourName;
-            break;
-        case JOHTO:
-            PlaySE(SE_SELECT);
-            gSaveBlock2Ptr->playerRegion = region;
-            NewGameBirchSpeech_ClearRegionWindow(1, 1);
-            gTasks[taskId].func = Task_NewGameBirchSpeech_WhatsYourName;
-            break;
-        case HOENN:
-            PlaySE(SE_SELECT);
-            gSaveBlock2Ptr->playerRegion = region;
-            NewGameBirchSpeech_ClearRegionWindow(1, 1);
-            gTasks[taskId].func = Task_NewGameBirchSpeech_WhatsYourName;
-            break;
-    }
-    region2 = Menu_GetCursorPos();
-    if (region2 != gTasks[taskId].tPlayerGender)
-    {
-        gTasks[taskId].tPlayerGender = region2;
-        gSprites[gTasks[taskId].tPlayerSpriteId].oam.objMode = ST_OAM_OBJ_BLEND;
-        NewGameBirchSpeech_StartFadeOutTarget1InTarget2(taskId, 0);
-        gTasks[taskId].func = Task_NewGameBirchSpeech_SlideOutOldRegionSprite;
-    }
-}
-
-static void Task_NewGameBirchSpeech_SlideOutOldRegionSprite(u8 taskId)
-{
-    u8 spriteId = gTasks[taskId].tPlayerSpriteId;
-    if (gTasks[taskId].tIsDoneFadingSprites == 0)
-    {
-        gSprites[spriteId].x += 4;
-    }
-    else
-    {
-        gSprites[spriteId].invisible = TRUE;
-        if (gSaveBlock2Ptr->playerGender == MALE) {
-            if (gTasks[taskId].tPlayerGender == KANTO) {
-                spriteId = gTasks[taskId].tRedSpriteId;
-            }
-            else if (gTasks[taskId].tPlayerGender == JOHTO) {
-                spriteId = gTasks[taskId].tGoldSpriteId;
-            }
-            else {
-                spriteId = gTasks[taskId].tBrendanSpriteId;
-            }
-        }
-        else {
-            if (gTasks[taskId].tPlayerGender == KANTO) {
-                spriteId = gTasks[taskId].tLeafSpriteId;
-            }
-            else if (gTasks[taskId].tPlayerGender == JOHTO) {
-                spriteId = gTasks[taskId].tLyraSpriteId;
-            }
-            else {
-                spriteId = gTasks[taskId].tMaySpriteId;
-            }
-        }
-
-        gSprites[spriteId].x = DISPLAY_WIDTH;
-        gSprites[spriteId].y = 60;
-        gSprites[spriteId].invisible = FALSE;
-        gTasks[taskId].tPlayerSpriteId = spriteId;
-        gSprites[spriteId].oam.objMode = ST_OAM_OBJ_BLEND;
-        NewGameBirchSpeech_StartFadeInTarget1OutTarget2(taskId, 0);
-        gTasks[taskId].func = Task_NewGameBirchSpeech_SlideInNewRegionSprite;
-    }
-}
-
-static void Task_NewGameBirchSpeech_SlideInNewRegionSprite(u8 taskId)
-{
-    u8 spriteId = gTasks[taskId].tPlayerSpriteId;
-
-    if (gSprites[spriteId].x > 180)
-    {
-        gSprites[spriteId].x -= 4;
-    }
-    else
-    {
-        gSprites[spriteId].x = 180;
-        if (gTasks[taskId].tIsDoneFadingSprites)
-        {
-            gSprites[spriteId].oam.objMode = ST_OAM_OBJ_NORMAL;
-            gTasks[taskId].func = Task_NewGameBirchSpeech_ChooseRegion;
-        }
-    }
-}
 
 static void Task_NewGameBirchSpeech_WhatsYourName(u8 taskId)
 {
@@ -2325,21 +2199,7 @@ static void NewGameBirchSpeech_ShowGenderMenu(void)
     CopyWindowToVram(1, COPYWIN_FULL);
 }
 
-static void NewGameBirchSpeech_ShowRegionMenu(void) {
-    DrawMainMenuWindowBorder(&sNewGameBirchSpeechTextWindows[3], 0xF3);
-    FillWindowPixelBuffer(3, PIXEL_FILL(1));
-    PrintMenuTable(3, ARRAY_COUNT(sMenuActions_Region), sMenuActions_Region);
-    InitMenuInUpperLeftCornerNormal(3, ARRAY_COUNT(sMenuActions_Region), 0);
-    PutWindowTilemap(3);
-    CopyWindowToVram(3, COPYWIN_FULL);
-}
-
 static s8 NewGameBirchSpeech_ProcessGenderMenuInput(void)
-{
-    return Menu_ProcessInputNoWrap();
-}
-
-static s8 NewGameBirchSpeech_ProcessRegionMenuInput(void)
 {
     return Menu_ProcessInputNoWrap();
 }
@@ -2479,19 +2339,6 @@ static void NewGameBirchSpeech_ClearGenderWindow(u8 windowId, bool8 copyToVram)
         CopyWindowToVram(windowId, COPYWIN_FULL);
 }
 
-static void NewGameBirchSpeech_ClearRegionWindowTilemap(u8 bg, u8 x, u8 y, u8 width, u8 height, u8 unused)
-{
-    FillBgTilemapBufferRect(bg, 0, x + 255, y + 255, width + 2, height + 4, 2);
-}
-
-static void NewGameBirchSpeech_ClearRegionWindow(u8 windowId, bool8 copyToVram)
-{
-    CallWindowFunction(windowId, NewGameBirchSpeech_ClearRegionWindowTilemap);
-    FillWindowPixelBuffer(windowId, PIXEL_FILL(1));
-    ClearWindowTilemap(windowId);
-    if (copyToVram == TRUE)
-        CopyWindowToVram(windowId, COPYWIN_FULL);
-}
 
 static void NewGameBirchSpeech_ClearWindow(u8 windowId)
 {
