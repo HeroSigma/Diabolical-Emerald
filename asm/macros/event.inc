@@ -56,8 +56,9 @@
 	@ callstd function names
 	STD_OBTAIN_ITEM = 0
 	STD_FIND_ITEM = 1
-	STD_OBTAIN_DECORATION = 7
-	STD_REGISTER_MATCH_CALL = 8
+        STD_OBTAIN_DECORATION = 7
+        STD_REGISTER_MATCH_CALL = 8
+        STD_RECEIVED_ITEM = 11
 
 	@ Calls the script in gStdScripts at index function.
 	.macro callstd function:req

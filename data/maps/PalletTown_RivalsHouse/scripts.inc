@@ -80,7 +80,7 @@ PalletTown_RivalsHouse_EventScript_DeclineGrooming::
 
 PalletTown_RivalsHouse_EventScript_RateMonFriendship::
 	msgbox PalletTown_RivalsHouse_Text_MayISeeFirstMon
-	specialvar VAR_RESULT, GetLeadMonFriendship
+        specialvar VAR_RESULT, GetLeadMonFriendshipScore
 	switch VAR_RESULT
 	case 0, PalletTown_RivalsHouse_EventScript_MonFriendshipLowest
 	case 1, PalletTown_RivalsHouse_EventScript_MonFriendshipLower
