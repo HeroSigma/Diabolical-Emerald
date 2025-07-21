@@ -285,6 +285,7 @@
 // Johto vars (custom placeholders)
 #define VAR_NEW_BARK_TOWN_STATE                          0x4103
 #define VAR_PLAYER_HOUSE_STATE                           0x4104
+#define VAR_PARENTS_HOUSE_STATE                          VAR_BRINEY_HOUSE_STATE
 #define VAR_ROUTE29_STATE                                0x4105
 #define VAR_ROUTE31_STATE                                0x4106
 #define VAR_ELM_LAB_STATE                                0x4107

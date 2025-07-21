@@ -26,3 +26,5 @@ Route1_Text_RouteSign::
     .string "ROUTE 1\n"
     .string "PALLET TOWN - VIRIDIAN CITY$"
 
+Text_ObtainedTheX:
+    .string "Obtained the {STR_VAR_2}!$"

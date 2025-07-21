@@ -604,3 +604,10 @@ gSpecials::
         def_special GetQuestLogState
         def_special QuestLog_CutRecording
         def_special DaisyMassageServices
+        def_special SetWalkingIntoSignVars
+        def_special DisableMsgBoxWalkaway
+        def_special Script_SetHelpContext
+        def_special AnimatePcTurnOn
+        def_special SetHelpContextForMap
+        def_special AnimatePcTurnOff
+        def_special StartDudeTutorialBattle

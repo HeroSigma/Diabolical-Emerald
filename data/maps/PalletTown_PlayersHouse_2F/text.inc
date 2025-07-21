@@ -8,3 +8,7 @@ PalletTown_PlayersHouse_2F_Text_PressLRForHelp::
     .string "If you're confused, ask for HELP!\n"
     .string "Press the L or R Button!$"
 
+Common_Text_LookCloserAtMapKanto:
+    .string "It's the TOWN MAP.$"
+Common_Text_LookCloserAtMapSevii:
+    .string "It's the TOWN MAP.$"
