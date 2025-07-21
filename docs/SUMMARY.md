@@ -17,6 +17,7 @@
     - [v1.6.x and earlier](tutorials/how_to_new_pokemon_1_6_0.md)
   - [How to use the Testing System](tutorials/how_to_testing_system.md)
   - [How to add new Trainer Slides](tutorials/how_to_new_trainer_slide.md)
+  - [Creating Custom Trainer Sprites](tutorials/how_to_character_customization.md)
   - [Day/Night System FAQ](tutorials/dns.md)
 - [Changelog](./CHANGELOG.md)
     - [1.11.x]()
