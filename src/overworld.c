@@ -1893,7 +1893,10 @@ void CB2_NewGame(void)
     ScriptContext_Init();
     FakeRtc_Init(TIME_STARTING_HOUR, TIME_STARTING_MINUTE);
     UnlockPlayerFieldControls();
-    gFieldCallback = ExecuteTruckSequence;
+    if (gSaveBlock2Ptr->playerRegion == HOENN)
+        gFieldCallback = ExecuteTruckSequence;
+    else
+        gFieldCallback = NULL;
     gFieldCallback2 = NULL;
     DoMapLoadLoop(&gMain.state);
     SetFieldVBlankCallback();
