@@ -1092,7 +1092,7 @@ struct ExpEventContext
 
 struct StatusEventContext
 {
-    u16 status1;
+    u8 status1;
     bool8 none:1;
     bool8 sleep:1;
     bool8 poison:1;
