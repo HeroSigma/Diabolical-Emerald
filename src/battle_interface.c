@@ -2067,6 +2067,11 @@ void UpdateHealthboxAttribute(u8 healthboxSpriteId, struct Pokemon *mon, u8 elem
 #define B_EXPBAR_PIXELS 64
 #define B_HEALTHBAR_PIXELS 48
 
+static inline u32 Rogue_GetBattleSpeedScale(bool8 useExpBar)
+{
+    (void)useExpBar;
+    return 1;
+}
 
 s32 MoveBattleBar(u8 battler, u8 healthboxSpriteId, u8 whichBar, u8 unused)
 {

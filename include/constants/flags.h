@@ -51,6 +51,7 @@
 #define B_FLAG_NO_WHITEOUT   0x25 // No Whiteout
 #define FLAG_UNUSED_0x026    0x26 // Unused Flag
 #define FLAG_UNUSED_0x027    0x27 // Unused Flag
+#define FLAG_INSTANT_EXP_BAR 0x28 // Instantly fill EXP bar during battles
 #define FLAG_UNUSED_0x029    0x29 // Unused Flag
 #define I_EXP_SHARE_FLAG     0x2A // EXP Share
 #define FLAG_HIDE_ZYGARDE    0x2B
