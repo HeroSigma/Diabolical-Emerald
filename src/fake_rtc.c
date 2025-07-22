@@ -138,3 +138,54 @@ void Script_ToggleFakeRtc(void)
 
     FlagToggle(OW_FLAG_PAUSE_TIME);
 }
+
+void FakeRtc_Init(s32 hour, s32 minute)
+{
+#if OW_USE_FAKE_RTC
+    FakeRtc_Reset();
+    gSaveBlock3Ptr->fakeRTC.hour = hour;
+    gSaveBlock3Ptr->fakeRTC.minute = minute;
+#endif
+}
+
+u16 FakeRtc_GetPreviousTimeRatio(void)
+{
+    return VarGet(VAR_PREVIOUS_TIME_RATIO);
+}
+
+u16 FakeRtc_GetAlteredTimeRatio(void)
+{
+    return VarGet(VAR_ALTERED_TIME_RATIO);
+}
+
+static void SetAlteredTimeRatio(u16 ratio)
+{
+    VarSet(VAR_PREVIOUS_TIME_RATIO, VarGet(VAR_ALTERED_TIME_RATIO));
+    VarSet(VAR_ALTERED_TIME_RATIO, ratio);
+}
+
+void FakeRtc_SetAlteredTimeRatio_Standard(void)
+{
+    SetAlteredTimeRatio(80); // GEN_III_STANDARD
+}
+
+void FakeRtc_SetAlteredTimeRatio_Slow(void)
+{
+    SetAlteredTimeRatio(24); // GEN_III_SLOW
+}
+
+void FakeRtc_SetAlteredTimeRatio_Realtime(void)
+{
+    SetAlteredTimeRatio(1); // TIME_DEBUG
+}
+
+void FakeRtc_SetAlteredTimeRatio_Previous(void)
+{
+    u16 prev = VarGet(VAR_PREVIOUS_TIME_RATIO);
+    SetAlteredTimeRatio(prev);
+}
+
+void FakeRtc_ReturnToPreviousTimeRatio(void)
+{
+    FakeRtc_SetAlteredTimeRatio_Previous();
+}

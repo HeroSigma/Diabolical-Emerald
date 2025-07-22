@@ -2963,3 +2963,10 @@ bool8 ObjectMovingOnRockStairs(struct ObjectEvent *objectEvent, u8 direction)
         return FALSE;
     #endif
 }
+
+void HandleBoulderFallThroughHole(struct ObjectEvent *boulder)
+{
+    // Placeholder implementation for missing feature
+    boulder->active = FALSE;
+    boulder->triggerGroundEffectsOnMove = 0;
+}
