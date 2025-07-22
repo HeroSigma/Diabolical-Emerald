@@ -216,6 +216,22 @@
 #define FLAG_MET_WAILMER_TRAINER             0xA8
 #define FLAG_EVIL_LEADER_PLEASE_STOP         0xA9
 
+#define FLAG_HIDE_CONTEST_POKE_BALL          0x920
+#define FLAG_MET_RIVAL_MOM                   0x921
+#define FLAG_BIRCH_AIDE_MET                  0x922
+#define FLAG_DECLINED_BIKE                   0x923
+#define FLAG_RECEIVED_BIKE                   0x924
+#define FLAG_COLLECTED_ALL_SILVER_SYMBOLS    0x925
+#define FLAG_GOOD_LUCK_SAFARI_ZONE           0x926
+#define FLAG_RECEIVED_WAILMER_PAIL           0x927
+#define FLAG_RECEIVED_POKEBLOCK_CASE         0x928
+#define FLAG_TV_EXPLAINED                    0x929
+#define FLAG_MAUVILLE_GYM_BARRIERS_STATE     0x92A
+#define FLAG_MOSSDEEP_GYM_SWITCH_1           0x92B
+#define FLAG_MOSSDEEP_GYM_SWITCH_2           0x92C
+#define FLAG_MOSSDEEP_GYM_SWITCH_3           0x92D
+#define FLAG_MOSSDEEP_GYM_SWITCH_4           0x92E
+
 #define FLAG_NEVER_SET_0x0DC                 0xAA // This flag is read, but never written to
 
 #define FLAG_RECEIVED_GO_GOGGLES             0xAB

@@ -26,6 +26,7 @@ EWRAM_DATA u16 gSpecialVar_MonBoxId = 0;
 EWRAM_DATA u16 gSpecialVar_MonBoxPos = 0;
 EWRAM_DATA u16 gSpecialVar_TimeOfDay = 0;
 EWRAM_DATA u16 gSpecialVar_DayOfWeek = 0;
+EWRAM_DATA u16 gSpecialVar_Unused_0x8014 = 0;
 EWRAM_DATA static u8 sSpecialFlags[SPECIAL_FLAGS_SIZE] = {0};
 
 #if TESTING
