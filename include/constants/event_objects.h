@@ -498,6 +498,11 @@
 #define OBJ_EVENT_PAL_TAG_RS_BRENDAN              0x1122
 #define OBJ_EVENT_PAL_TAG_RS_MAY                  0x1123
 #define OBJ_EVENT_PAL_TAG_DYNAMIC                 0x1124
+#define OBJ_EVENT_PAL_TAG_PROF_OAK                0x1125
+#define OBJ_EVENT_PAL_TAG_PROF_ELM                0x1126
+#define OBJ_EVENT_PAL_TAG_KANTO_PLAYER            0x1127
+#define OBJ_EVENT_PAL_TAG_GOLD                    0x1128
+#define OBJ_EVENT_PAL_TAG_LYRA                    0x1129
 
 #if OW_FOLLOWERS_POKEBALLS
 // Vanilla
