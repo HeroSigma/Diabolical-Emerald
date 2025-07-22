@@ -281,7 +281,7 @@ const u32 gTrainerFrontPic_RubySapphireMay[] = INCBIN_U32("graphics/trainers/fro
 const u16 gTrainerPalette_RubySapphireMay[] = INCBIN_U16("graphics/trainers/palettes/may_rs.gbapal");
 
 const u32 gTrainerFrontPic_KantoRivalEarly[] = INCBIN_U32("graphics/trainers/front_pics/kanto_rival_early.4bpp.lz");
-const u32 gTrainerPalette_KantoRivalEarly[] = INCBIN_U32("graphics/trainers/palettes/kanto_rival_early.gbapal.lz");
+const u16 gTrainerPalette_KantoRivalEarly[] = INCBIN_U16("graphics/trainers/palettes/kanto_rival_early.gbapal");
 
 const u8 gTrainerBackPic_Brendan[] = INCBIN_U8("graphics/trainers/back_pics/brendan.4bpp");
 const u8 gTrainerBackPic_May[] = INCBIN_U8("graphics/trainers/back_pics/may.4bpp");
@@ -297,14 +297,14 @@ const u8 gTrainerBackPic_Lyra[] = INCBIN_U8("graphics/trainers/back_pics/lyra.4b
 const u16 gTrainerBackPicPalette_Red[] = INCBIN_U16("graphics/trainers/back_pics/red.gbapal");
 const u16 gTrainerBackPicPalette_Leaf[] = INCBIN_U16("graphics/trainers/back_pics/leaf.gbapal");
 
-const u32 gTrainerBackPicPalette_Gold[] = INCBIN_U32("graphics/trainers/back_pics/gold.gbapal.lz");
-const u32 gTrainerBackPicPalette_Lyra[] = INCBIN_U32("graphics/trainers/back_pics/lyra.gbapal.lz");
+const u16 gTrainerBackPicPalette_Gold[] = INCBIN_U16("graphics/trainers/back_pics/gold.gbapal");
+const u16 gTrainerBackPicPalette_Lyra[] = INCBIN_U16("graphics/trainers/back_pics/lyra.gbapal");
 
 const u32 gTrainerFrontPic_Gold[] = INCBIN_U32("graphics/trainers/front_pics/gold.4bpp.lz");
-const u32 gTrainerPalette_Gold[] = INCBIN_U32("graphics/trainers/front_pics/gold.gbapal.lz");
+const u16 gTrainerPalette_Gold[] = INCBIN_U16("graphics/trainers/palettes/gold.gbapal");
 
 const u32 gTrainerFrontPic_Lyra[] = INCBIN_U32("graphics/trainers/front_pics/lyra.4bpp.lz");
-const u32 gTrainerPalette_Lyra[] = INCBIN_U32("graphics/trainers/front_pics/lyra.gbapal.lz");
+const u16 gTrainerPalette_Lyra[] = INCBIN_U16("graphics/trainers/palettes/lyra.gbapal");
 
 // The first two parameters invoke a front pic and palette by
 // calling a "TRAINER_PIC" constant (e.g. TRAINER_PIC_HIKER), and
@@ -474,8 +474,7 @@ static const union AnimCmd *const sBackAnims_Kanto[] =
     sAnimCmd_Point_HGSS_Red_Leaf,
 };
 
-#define TRAINER_BACK_SPRITE(trainerPic, yOffset, sprite, pal, anim)                          \
-
+#define TRAINER_BACK_SPRITE(trainerPic, yOffset, sprite, pal, anim) \
     [trainerPic] =                                                                           \
     {                                                                                        \
         .coordinates = {.size = 8, .y_offset = yOffset},                                     \
