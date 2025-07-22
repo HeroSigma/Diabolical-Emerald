@@ -17,7 +17,7 @@ struct PokenavMonListItem
 struct PokenavMatchCallEntry
 {
     bool8 isSpecialTrainer;
-    u8 mapSec;
+    u16 mapSec;
     u16 headerId;
 };
 
@@ -354,7 +354,7 @@ void PokenavList_ReshowListFromCheckPage(void);
 
 // pokenav_match_call_data.c
 bool32 MatchCall_HasCheckPage(u32 idx);
-u8 MatchCall_GetMapSec(u32 idx);
+u16 MatchCall_GetMapSec(u32 idx);
 bool32 MatchCall_HasRematchId(u32 idx);
 bool32 MatchCall_GetEnabled(u32 idx);
 u32 MatchCall_GetRematchTableIdx(u32 idx);
