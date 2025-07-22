@@ -1557,11 +1557,7 @@ static void CreateSeviiSSTidalMultichoice(void)
 {
     u8 selectionCount = 0;
     u8 count;
-    u32 pixelWidth;
-    u8 width;
-    u8 windowId;
     u8 i;
-    u32 j;
 
     for (i = 0; i < SSTIDAL_SELECTION_COUNT_S; i++)
     {
@@ -1678,12 +1674,7 @@ static void CreateSeviiSSTidalMultichoice(void)
 static void CreateLilycoveSSTidalSeviiMultichoice(void)
 {
     u8 selectionCount = 0;
-    u8 count;
-    u32 pixelWidth;
-    u8 width;
-    u8 windowId;
     u8 i;
-    u32 j;
 
     for (i = 0; i < SSTIDAL_SELECTION_SEVII_COUNT; i++)
     {
@@ -1712,7 +1703,6 @@ static void CreateLilycoveSSTidalSeviiMultichoice(void)
 
     sLilycoveSSTidalSeviiSelections[selectionCount] = SSTIDAL_SELECTION_SEVII_EXIT;
     selectionCount++;
-    count = selectionCount;
 
     gSpecialVar_0x8004 = SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION;
     ShowScrollableMultichoice();
@@ -1721,12 +1711,7 @@ static void CreateLilycoveSSTidalSeviiMultichoice(void)
 static void CreateSevii1SSTidalMultichoice(void)
 {
     u8 selectionCount = 0;
-    u8 count;
-    u32 pixelWidth;
-    u8 width;
-    u8 windowId;
     u8 i;
-    u32 j;
 
     for (i = 0; i < SSTIDAL_SELECTION_SEVII_COUNT_S; i++)
     {
@@ -1753,7 +1738,6 @@ static void CreateSevii1SSTidalMultichoice(void)
 
     sSevii1SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII_EXIT_S;
     selectionCount++;
-    count = selectionCount;
 
     gSpecialVar_0x8004 = SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION1;
     ShowScrollableMultichoice();
@@ -1762,12 +1746,7 @@ static void CreateSevii1SSTidalMultichoice(void)
 static void CreateSevii2SSTidalMultichoice(void)
 {
     u8 selectionCount = 0;
-    u8 count;
-    u32 pixelWidth;
-    u8 width;
-    u8 windowId;
     u8 i;
-    u32 j;
 
     for (i = 0; i < SSTIDAL_SELECTION_SEVII_COUNT_S; i++)
     {
@@ -1794,7 +1773,6 @@ static void CreateSevii2SSTidalMultichoice(void)
 
     sSevii2SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII_EXIT_S;
     selectionCount++;
-    count = selectionCount;
 
     gSpecialVar_0x8004 = SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION2;
     ShowScrollableMultichoice();
@@ -1803,12 +1781,7 @@ static void CreateSevii2SSTidalMultichoice(void)
 static void CreateSevii3SSTidalMultichoice(void)
 {
     u8 selectionCount = 0;
-    u8 count;
-    u32 pixelWidth;
-    u8 width;
-    u8 windowId;
     u8 i;
-    u32 j;
 
     for (i = 0; i < SSTIDAL_SELECTION_SEVII_COUNT_S; i++)
     {
@@ -1835,7 +1808,6 @@ static void CreateSevii3SSTidalMultichoice(void)
 
     sSevii3SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII_EXIT_S;
     selectionCount++;
-    count = selectionCount;
 
     gSpecialVar_0x8004 = SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION3;
     ShowScrollableMultichoice();
@@ -1844,12 +1816,7 @@ static void CreateSevii3SSTidalMultichoice(void)
 static void CreateSevii4SSTidalMultichoice(void)
 {
     u8 selectionCount = 0;
-    u8 count;
-    u32 pixelWidth;
-    u8 width;
-    u8 windowId;
     u8 i;
-    u32 j;
 
     for (i = 0; i < SSTIDAL_SELECTION_SEVII_COUNT_S; i++)
     {
@@ -1876,7 +1843,6 @@ static void CreateSevii4SSTidalMultichoice(void)
 
     sSevii4SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII_EXIT_S;
     selectionCount++;
-    count = selectionCount;
 
     gSpecialVar_0x8004 = SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION4;
     ShowScrollableMultichoice();
@@ -1885,12 +1851,7 @@ static void CreateSevii4SSTidalMultichoice(void)
 static void CreateSevii5SSTidalMultichoice(void)
 {
     u8 selectionCount = 0;
-    u8 count;
-    u32 pixelWidth;
-    u8 width;
-    u8 windowId;
     u8 i;
-    u32 j;
 
     for (i = 0; i < SSTIDAL_SELECTION_SEVII_COUNT_S; i++)
     {
@@ -1917,7 +1878,6 @@ static void CreateSevii5SSTidalMultichoice(void)
 
     sSevii5SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII_EXIT_S;
     selectionCount++;
-    count = selectionCount;
 
     gSpecialVar_0x8004 = SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION5;
     ShowScrollableMultichoice();
@@ -1926,12 +1886,7 @@ static void CreateSevii5SSTidalMultichoice(void)
 static void CreateSevii6SSTidalMultichoice(void)
 {
     u8 selectionCount = 0;
-    u8 count;
-    u32 pixelWidth;
-    u8 width;
-    u8 windowId;
     u8 i;
-    u32 j;
 
     for (i = 0; i < SSTIDAL_SELECTION_SEVII_COUNT_S; i++)
     {
@@ -1958,7 +1913,6 @@ static void CreateSevii6SSTidalMultichoice(void)
 
     sSevii6SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII_EXIT_S;
     selectionCount++;
-    count = selectionCount;
 
     gSpecialVar_0x8004 = SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION6;
     ShowScrollableMultichoice();
@@ -1967,12 +1921,7 @@ static void CreateSevii6SSTidalMultichoice(void)
 static void CreateSevii7SSTidalMultichoice(void)
 {
     u8 selectionCount = 0;
-    u8 count;
-    u32 pixelWidth;
-    u8 width;
-    u8 windowId;
     u8 i;
-    u32 j;
 
     for (i = 0; i < SSTIDAL_SELECTION_SEVII_COUNT_S; i++)
     {
@@ -1999,7 +1948,6 @@ static void CreateSevii7SSTidalMultichoice(void)
 
     sSevii7SSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SEVII_EXIT_S;
     selectionCount++;
-    count = selectionCount;
 
     gSpecialVar_0x8004 = SCROLL_MULTI_SS_TIDAL_SEVII_DESTINATION7;
     ShowScrollableMultichoice();
