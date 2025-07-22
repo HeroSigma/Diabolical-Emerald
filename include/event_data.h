@@ -48,6 +48,7 @@ extern u16 gSpecialVar_MonBoxId;
 extern u16 gSpecialVar_MonBoxPos;
 extern u16 gSpecialVar_TimeOfDay;
 extern u16 gSpecialVar_DayOfWeek;
+extern u16 gSpecialVar_Unused_0x8014;
 
 extern const u16 gBadgeFlags[NUM_BADGES];
 
