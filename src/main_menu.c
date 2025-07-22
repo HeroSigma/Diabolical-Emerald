@@ -213,7 +213,6 @@ static void Task_NewGameBirchSpeech_BoyOrGirl(u8);
 static void LoadMainMenuWindowFrameTiles(u8, u16);
 static void DrawMainMenuWindowBorder(const struct WindowTemplate *, u16);
 static void Task_HighlightSelectedMainMenuItem(u8);
-static void Task_NewGameBirchSpeech_PickAppearance(u8);
 static void Task_NewGameBirchSpeech_WaitToShowGenderMenu(u8);
 static void Task_NewGameBirchSpeech_WaitToShowAppearanceMenu(u8);
 static void Task_NewGameBirchSpeech_ChooseGender(u8);
@@ -1618,15 +1617,6 @@ static void Task_NewGameBirchSpeech_SlideInNewGenderSprite(u8 taskId)
             gTasks[taskId].func = Task_NewGameBirchSpeech_ChooseGender;
         }
     }
-}
-
-static void Task_NewGameBirchSpeech_PickAppearance(u8 taskId)
-{
-    NewGameBirchSpeech_ClearWindow(0);
-    StringExpandPlaceholders(gStringVar4, gText_Birch_ChooseLook);
-    AddTextPrinterForMessage(TRUE);
-    gTasks[taskId].tPlayerGender = KANTO;
-    gTasks[taskId].func = Task_NewGameBirchSpeech_WaitToShowAppearanceMenu;
 }
 
 static void Task_NewGameBirchSpeech_WaitToShowAppearanceMenu(u8 taskId)
