@@ -10,6 +10,7 @@
 #define HOURS_PER_DAY       24
 #define MINUTES_PER_HOUR    60
 #define SECONDS_PER_MINUTE  60
+#define DAYS_PER_WEEK       WEEKDAY_COUNT
 
 enum Weekday
 {
