@@ -23,6 +23,7 @@
 #include "pokedex_area_region_map.h"
 #include "wild_encounter.h"
 #include "window.h"
+#include "constants/map_groups.h"
 #include "constants/region_map_sections.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
