@@ -494,10 +494,10 @@ static void CursorCb_CatalogMower(u8);
 static void CursorCb_ChangeForm(u8);
 static void CursorCb_ChangeAbility(u8);
 void TryItemHoldFormChange(struct Pokemon *mon, s8 slotId);
-static bool8 SetUpFieldMove_Surf(void);
-static bool8 SetUpFieldMove_Fly(void);
-static bool8 SetUpFieldMove_Waterfall(void);
-static bool8 SetUpFieldMove_Dive(void);
+bool32 SetUpFieldMove_Surf(void);
+bool32 SetUpFieldMove_Fly(void);
+bool32 SetUpFieldMove_Waterfall(void);
+bool32 SetUpFieldMove_Dive(void);
 static bool8 CreateMapSelectionWindow(u8);
 static void ShowMoveSelectWindow(u8 slot);
 static void Task_HandleWhichMoveInput(u8 taskId);
@@ -3971,7 +3971,7 @@ static void CursorCb_FieldMove(u8 taskId)
         //     DisplayPartyMenuMessage(gText_CantUseUntilNewBadge, TRUE);
         //     gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
         // }
-        if (sFieldMoveCursorCallbacks[fieldMove].fieldMoveFunc() == TRUE)
+        if (gFieldMoveInfo[fieldMove].fieldMoveFunc() == TRUE)
         {
             switch (fieldMove)
             {
