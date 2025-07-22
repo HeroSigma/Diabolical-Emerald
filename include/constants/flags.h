@@ -333,6 +333,8 @@
 #define FLAG_WONDER_CARD_UNUSED_17           0x11A
 #define NUM_WONDER_CARD_FLAGS                (1 + FLAG_WONDER_CARD_UNUSED_17 - FLAG_RECEIVED_AURORA_TICKET)
 
+#define FLAG_MET_TEAM_AQUA_HARBOR            0x11B
+
 #define FLAG_MIRAGE_TOWER_VISIBLE            0x11C
 #define FLAG_CHOSE_ROOT_FOSSIL               0x11D
 #define FLAG_CHOSE_CLAW_FOSSIL               0x11E
@@ -2398,6 +2400,15 @@
 #define FLAG_BADGE23_GET                             (SYSTEM_FLAGS + 0x1D)
 #define FLAG_BADGE24_GET                             (SYSTEM_FLAGS + 0x1E)
 #define NUM_BADGES                                   (1 + FLAG_BADGE08_GET - FLAG_BADGE01_GET)
+
+#define FLAG_DEFEATED_RUSTBORO_GYM                   FLAG_BADGE01_GET
+#define FLAG_DEFEATED_DEWFORD_GYM                    FLAG_BADGE02_GET
+#define FLAG_DEFEATED_MAUVILLE_GYM                   FLAG_BADGE03_GET
+#define FLAG_DEFEATED_LAVARIDGE_GYM                  FLAG_BADGE04_GET
+#define FLAG_DEFEATED_PETALBURG_GYM                  FLAG_BADGE05_GET
+#define FLAG_DEFEATED_FORTREE_GYM                    FLAG_BADGE06_GET
+#define FLAG_DEFEATED_MOSSDEEP_GYM                   FLAG_BADGE07_GET
+#define FLAG_DEFEATED_SOOTOPOLIS_GYM                 FLAG_BADGE08_GET
 
 // Towns and Cities
 #define FLAG_VISITED_LITTLEROOT_TOWN                (SYSTEM_FLAGS + 0x20)
