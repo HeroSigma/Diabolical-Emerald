@@ -254,6 +254,11 @@ enum {
 
 #define MB_FALL_WARP MB_CRACKED_FLOOR_HOLE
 
+// Alias unused metatile slots for backwards compatibility
+#define MB_REGION_MAP_KANTO MB_UNUSED_A1
+#define MB_REGION_MAP_JOHTO MB_UNUSED_A2
+#define MB_REGION_MAP_SEVII MB_UNUSED_A3
+
 #define MB_INVALID   UCHAR_MAX
 
 #endif // GUARD_METATILE_BEHAVIORS_H
