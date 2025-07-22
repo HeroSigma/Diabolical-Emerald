@@ -2456,7 +2456,11 @@ extern const u8 gText_Kanto[];
 extern const u8 gText_Johto[];
 extern const u8 gText_Sevii_Menu[];
 
-// Side quest strings
+// side quest strings
+extern const u8 gText_QuestAnnounce[];
+extern const u8 gText_QuestComplete[];
+extern const u8 gText_QuestActive[];
+
 extern const u8 gText_SideQuestName_1[];
 extern const u8 gText_SideQuestName_2[];
 extern const u8 gText_SideQuestName_3[];
@@ -2581,7 +2585,6 @@ extern const u8 gText_SideQuestMap28[];
 extern const u8 gText_SideQuestMap29[];
 extern const u8 gText_SideQuestMap30[];
 
-// Subquest strings
 extern const u8 gText_SubQuest1_Name1[];
 extern const u8 gText_SubQuest1_Name2[];
 extern const u8 gText_SubQuest1_Name3[];
