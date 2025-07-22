@@ -2207,10 +2207,34 @@
 	.endm
 
 	@ Equivalent to giveitem but for a single decoration.
-	.macro givedecoration decoration:req
-	setorcopyvar VAR_0x8000, \decoration
-	callstd STD_OBTAIN_DECORATION
-	.endm
+
+        @ Equivalent to giveitem but for a single decoration.
+        .macro givedecoration decoration:req
+        setorcopyvar VAR_0x8000, \decoration
+        callstd STD_OBTAIN_DECORATION
+        .endm
+
+        @ Gives an item while displaying a custom message with fanfare.
+        @ Parameters: text pointer, item id, optional quantity, optional fanfare.
+        @ The message is shown while the fanfare plays, then the item is added.
+        .macro giveitem_msg text:req, item:req, amount=1, fanfare=MUS_OBTAIN_ITEM
+        playfanfare \fanfare
+        message \text
+        waitmessage
+        waitfanfare
+        additem \item, \amount
+        .endm
+
+        @ Starts an early rival trainer battle.  This behaves the same as
+        @ a single trainer battle without intro text.
+        .macro trainerbattle_earlyrival trainer:req, lose_text:req, win_text:req
+        trainerbattle TRAINER_BATTLE_SINGLE_NO_INTRO_TEXT, LOCALID_NONE, \trainer, NULL, \lose_text, NULL, LOCALID_NONE, TRAINER_NONE, NULL, NULL, \win_text, NULL, NULL, FALSE, TRUE, FALSE, FALSE
+        .endm
+
+        @ Temporary stub for quest log conditional jumps.
+        .macro goto_if_questlog dest:req
+        goto \dest
+        .endm
 
 	@ Registers the specified trainer in Match Call and plays a fanfare with a notification message.
 	.macro register_matchcall trainer:req
