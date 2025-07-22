@@ -217,7 +217,6 @@ static void Task_NewGameBirchSpeech_WaitToShowGenderMenu(u8);
 static void Task_NewGameBirchSpeech_ChooseGender(u8);
 static void Task_NewGameBirchSpeech_ChooseAppearance(u8);
 static void NewGameBirchSpeech_ShowGenderMenu(void);
-static void NewGameBirchSpeech_ShowAppearanceMenu(void);
 static s8 NewGameBirchSpeech_ProcessGenderMenuInput(void);
 static s8 NewGameBirchSpeech_ProcessAppearanceMenuInput(void);
 static void NewGameBirchSpeech_ClearGenderWindow(u8, u8);
@@ -2307,14 +2306,6 @@ static void NewGameBirchSpeech_ShowGenderMenu(void)
     CopyWindowToVram(1, COPYWIN_FULL);
 }
 
-static void NewGameBirchSpeech_ShowAppearanceMenu(void) {
-    DrawMainMenuWindowBorder(&sNewGameBirchSpeechTextWindows[3], 0xF3);
-    FillWindowPixelBuffer(3, PIXEL_FILL(1));
-    PrintMenuTable(3, ARRAY_COUNT(sMenuActions_Appearance), sMenuActions_Appearance);
-    InitMenuInUpperLeftCornerNormal(3, ARRAY_COUNT(sMenuActions_Appearance), 0);
-    PutWindowTilemap(3);
-    CopyWindowToVram(3, COPYWIN_FULL);
-}
 
 static s8 NewGameBirchSpeech_ProcessGenderMenuInput(void)
 {
