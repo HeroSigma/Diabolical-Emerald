@@ -1661,7 +1661,11 @@ const struct BlendSettings gTimeOfDayBlend[] =
 };
 
 #define DEFAULT_WEIGHT 256
-#define TIME_BLEND_WEIGHT(begin, end) (DEFAULT_WEIGHT - (DEFAULT_WEIGHT * ((hours - begin) * MINUTES_PER_HOUR + minutes) / ((end - begin) * MINUTES_PER_HOUR)))
+#define TIME_BLEND_WEIGHT(begin, end) \
+    (((end) == (begin)) \
+        ? DEFAULT_WEIGHT \
+        : (DEFAULT_WEIGHT - (DEFAULT_WEIGHT * ((hours - (begin)) * MINUTES_PER_HOUR + minutes) \
+           / (((end) - (begin)) * MINUTES_PER_HOUR))))
 
 #define MORNING_HOUR_MIDDLE (MORNING_HOUR_BEGIN + ((MORNING_HOUR_END - MORNING_HOUR_BEGIN) / 2))
 #define EVENING_HOUR_MIDDLE (EVENING_HOUR_BEGIN + ((EVENING_HOUR_END - EVENING_HOUR_BEGIN) / 2))
