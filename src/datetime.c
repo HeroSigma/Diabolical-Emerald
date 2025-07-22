@@ -1,14 +1,15 @@
 #include "global.h"
 #include "datetime.h"
 #include "rtc.h"
+#include "seasons.h"
 
 
 const struct DateTime gGen3Epoch = 
 {
-    .year = 2000,
-    .month = MONTH_JAN,
-    .day = 1,
-    .dayOfWeek = WEEKDAY_SAT,
+    .year = 2023,
+    .month = MONTH_APR,
+    .day = 2,
+    .dayOfWeek = WEEKDAY_THU,
     .hour = 0,
     .minute = 0,
     .second = 0,

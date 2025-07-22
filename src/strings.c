@@ -20,6 +20,10 @@ const u8 gText_ExpandedPlaceholder_Brendan[] = _("BRENDAN");
 const u8 gText_ExpandedPlaceholder_May[] = _("MAY");
 const u8 gText_EggNickname[POKEMON_NAME_LENGTH + 1] = _("EGG");
 const u8 gText_Pokemon[POKEMON_NAME_LENGTH + 1] = _("POKéMON");
+const u8 gText_ExpandedPlaceholder_Red[] = _("RED");
+const u8 gText_ExpandedPlaceholder_Leaf[] = _("LEAF");
+const u8 gText_ExpandedPlaceholder_Gold[] = _("GOLD");
+const u8 gText_ExpandedPlaceholder_Lyra[] = _("LYRA");
 const u8 gText_Player[] = _("PLAYER"); // Unused
 const u8 gText_Pokedex[] = _("POKéDEX"); // Unused
 const u8 gText_Time[] = _("TIME");
@@ -753,6 +757,16 @@ const u8 gText_BattleFactory[] = _("BATTLE FACTORY");
 const u8 gText_BattleArena[] = _("BATTLE ARENA");
 const u8 gText_BattlePike[] = _("BATTLE PIKE");
 const u8 gText_BattlePyramid[] = _("BATTLE PYRAMID");
+const u8 gText_VermilionCity[] = _("VERMILION CITY");
+const u8 gText_Sevii[] = _("SEVII ISLES");
+const u8 gText_Sevii1[] = _("ONE ISLAND");
+const u8 gText_Sevii2[] = _("TWO ISLAND");
+const u8 gText_Sevii3[] = _("THREE ISLAND");
+const u8 gText_Sevii4[] = _("FOUR ISLAND");
+const u8 gText_Sevii5[] = _("FIVE ISLAND");
+const u8 gText_Sevii6[] = _("SIX ISLAND");
+const u8 gText_Sevii7[] = _("SEVEN ISLAND");
+const u8 gText_OlivineCity[] = _("OLIVINE CITY");
 
 ALIGNED(4) const u8 gText_FacilitySingle[] = _("{STR_VAR_1} SINGLE");
 ALIGNED(4) const u8 gText_FacilityDouble[] = _("{STR_VAR_1} DOUBLE");
@@ -1065,6 +1079,9 @@ const u8 gText_XWillBeSentToY[] = _("{STR_VAR_2} will be\nsent to {STR_VAR_1}.")
 const u8 gText_ByeByeVar1[] = _("Bye-bye, {STR_VAR_2}!");
 const u8 gText_XSentOverY[] = _("{STR_VAR_1} sent over {STR_VAR_3}.");
 const u8 gText_TakeGoodCareOfX[] = _("Take good care of {STR_VAR_3}!");
+const u8 gText_Kanto[] = _("KANTO");
+const u8 gText_Johto[] = _("JOHTO");
+const u8 gText_Sevii_Menu[] = _("SEVII");
 
 // Easy chat group names
 const u8 gEasyChatGroupName_Pokemon[] = _("POKéMON");

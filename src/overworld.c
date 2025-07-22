@@ -517,13 +517,110 @@ void ApplyNewEncryptionKeyToGameStats(u32 newKey)
 
 void LoadObjEventTemplatesFromHeader(void)
 {
+    u16 event_index = 0;
+    u8 connection_index = 0;
+    u16 n = 0;
+    
     // Clear map object templates
     CpuFill32(0, gSaveBlock1Ptr->objectEventTemplates, sizeof(gSaveBlock1Ptr->objectEventTemplates));
 
-    // Copy map header events to save block
-    CpuCopy32(gMapHeader.events->objectEvents,
-              gSaveBlock1Ptr->objectEventTemplates,
-              gMapHeader.events->objectEventCount * sizeof(struct ObjectEventTemplate));
+    // Copy map header events to save block, counting how many there are
+    for (event_index = 0; event_index < gMapHeader.events->objectEventCount && n < OBJECT_EVENT_TEMPLATES_COUNT; event_index++) {
+        gSaveBlock1Ptr->objectEventTemplates[n] = gMapHeader.events->objectEvents[event_index];
+        n++;
+    }
+    
+    // Check to see if there's any map connections
+    if (gMapHeader.connections) {
+        u8 count = gMapHeader.connections->count;
+        const struct MapConnection* connection;
+        struct MapHeader const* map;
+        
+        // For every map connection
+        for (connection_index = 0; connection_index < count; connection_index++) {
+            connection = &gMapHeader.connections->connections[connection_index];
+            // If we've exceeded the size of the template array, do no more.
+            if (n >= OBJECT_EVENT_TEMPLATES_COUNT) break; 
+            // Only check connections that can be seen in the overworld (eg, not dive or emerge)
+            switch (connection->direction) {
+                case CONNECTION_NORTH:
+                case CONNECTION_SOUTH:
+                case CONNECTION_WEST:
+                case CONNECTION_EAST: break;
+                default: continue;
+            }
+            // Get the map connection
+            map = GetMapHeaderFromConnection(connection);
+            if (!map || !map->events) continue;
+            // Loop through that map's objects and add them to the template list as well
+            for (event_index = 0; event_index < map->events->objectEventCount && n < OBJECT_EVENT_TEMPLATES_COUNT; event_index++) 
+            {
+                const struct ObjectEventTemplate* from = &map->events->objectEvents[event_index];
+// #if MODERN
+//                 struct ObjectEventTemplate* to = &gSaveBlock1Ptr->objectEventTemplates[n];
+//                 #define clone to
+// #else
+                // This dance with two objects of different types is only needed because agbcc doesn't like anonymous structs
+                struct ObjectEventTemplate_Clone* clone = (struct ObjectEventTemplate_Clone*)&gSaveBlock1Ptr->objectEventTemplates[n];
+                struct ObjectEventTemplate* to = &gSaveBlock1Ptr->objectEventTemplates[n];
+// #endif
+                
+                // Skip if too far away from the edge
+                switch (connection->direction) {
+                    case CONNECTION_NORTH: // above
+                        if (from->y < (s32) map->mapLayout->height - MAP_OFFSET) continue;
+                        if (from->x < (s32) -connection->offset - MAP_OFFSET) continue;
+                        if (from->x > (s32) -connection->offset + map->mapLayout->width + MAP_OFFSET) continue;
+                        break;
+                    case CONNECTION_SOUTH: // below
+                        if (from->y > (s32) MAP_OFFSET + 2) continue;
+                        if (from->x < (s32) -connection->offset - MAP_OFFSET) continue;
+                        if (from->x > (s32) -connection->offset + map->mapLayout->width + MAP_OFFSET) continue;
+                        break;
+                    case CONNECTION_WEST: // left
+                        if (from->x < (s32) map->mapLayout->width - MAP_OFFSET - 2) continue;
+                        if (from->y < (s32) -connection->offset - MAP_OFFSET) continue;
+                        if (from->y > (s32) -connection->offset + map->mapLayout->height + MAP_OFFSET) continue;
+                        break;
+                    case CONNECTION_EAST: // right
+                        if (from->x > (s32) MAP_OFFSET + 2) continue;
+                        if (from->y < (s32) -connection->offset - MAP_OFFSET) continue;
+                        if (from->y > (s32) -connection->offset + map->mapLayout->height + MAP_OFFSET) continue;
+                        break;
+                }
+                // If we get here, we're going to add the object to our list
+                *to = *from;
+                to->kind = OBJ_KIND_CLONE;
+                to->localId = n+1;
+                clone->targetLocalId = from->localId;
+                clone->targetMapNum = connection->mapNum;
+                clone->targetMapGroup = connection->mapGroup;
+                switch (connection->direction) {
+                    case CONNECTION_NORTH: // above
+                        to->y -= map->mapLayout->height;
+                        to->x += connection->offset;
+                        break;
+                    case CONNECTION_SOUTH: // below
+                        to->y += gMapHeader.mapLayout->height;
+                        to->x += connection->offset;
+                        break;
+                    case CONNECTION_WEST: // left
+                        to->y += connection->offset;
+                        to->x -= map->mapLayout->width;
+                        break;
+                    case CONNECTION_EAST: // right
+                        to->y += connection->offset;
+                        to->x += gMapHeader.mapLayout->width;
+                        break;
+                }
+                // DebugPrintfLevel(MGBA_LOG_INFO, "Loading clone[n=%d]: lid=%d, target=%d mapid=%d:%d @ (%d, %d)", 
+                //     n, to->localId, clone->targetLocalId, clone->targetMapGroup, clone->targetMapNum, to->x, to->y);
+                n++;
+            }
+        }
+    }
+    gSaveBlock1Ptr->objectEventCount = n;
+    #undef clone
 }
 
 void LoadSaveblockObjEventScripts(void)
@@ -910,6 +1007,11 @@ static void LoadMapFromWarp(bool32 a1)
 
     isOutdoors = IsMapTypeOutdoors(gMapHeader.mapType);
     isIndoors = IsMapTypeIndoors(gMapHeader.mapType);
+
+    if (isOutdoors)
+        FakeRtc_SetAlteredTimeRatio_Standard();
+    else if (isIndoors)
+        FakeRtc_SetAlteredTimeRatio_Slow();
 
     CheckLeftFriendsSecretBase();
     TrySetMapSaveWarpStatus();
@@ -1562,6 +1664,7 @@ const struct BlendSettings gTimeOfDayBlend[] =
 #define TIME_BLEND_WEIGHT(begin, end) (DEFAULT_WEIGHT - (DEFAULT_WEIGHT * ((hours - begin) * MINUTES_PER_HOUR + minutes) / ((end - begin) * MINUTES_PER_HOUR)))
 
 #define MORNING_HOUR_MIDDLE (MORNING_HOUR_BEGIN + ((MORNING_HOUR_END - MORNING_HOUR_BEGIN) / 2))
+#define EVENING_HOUR_MIDDLE (EVENING_HOUR_BEGIN + ((EVENING_HOUR_END - EVENING_HOUR_BEGIN) / 2))
 
 void UpdateTimeOfDay(void)
 {
@@ -1586,21 +1689,21 @@ void UpdateTimeOfDay(void)
         gTimeBlend.altWeight = (DEFAULT_WEIGHT - gTimeBlend.weight) / 2 + (DEFAULT_WEIGHT / 2);
         gTimeOfDay = TIME_MORNING;
     }
-    else if (IsBetweenHours(hours, EVENING_HOUR_BEGIN, EVENING_HOUR_END)) // evening
+    else if (IsBetweenHours(hours, EVENING_HOUR_BEGIN, EVENING_HOUR_MIDDLE)) // day->evening
     {
         gTimeBlend.startBlend = gTimeOfDayBlend[TIME_DAY];
         gTimeBlend.endBlend = gTimeOfDayBlend[TIME_EVENING];
-        gTimeBlend.weight = TIME_BLEND_WEIGHT(EVENING_HOUR_BEGIN, EVENING_HOUR_END);
+        gTimeBlend.weight = TIME_BLEND_WEIGHT(EVENING_HOUR_BEGIN, EVENING_HOUR_MIDDLE);
         gTimeBlend.altWeight = gTimeBlend.weight / 2 + (DEFAULT_WEIGHT / 2);
         gTimeOfDay = TIME_EVENING;
     }
-    else if (IsBetweenHours(hours, NIGHT_HOUR_BEGIN, NIGHT_HOUR_BEGIN + 1)) // evening->night
+    else if (IsBetweenHours(hours, EVENING_HOUR_MIDDLE, EVENING_HOUR_END)) // evening->night
     {
         gTimeBlend.startBlend = gTimeOfDayBlend[TIME_EVENING];
         gTimeBlend.endBlend = gTimeOfDayBlend[TIME_NIGHT];
-        gTimeBlend.weight = TIME_BLEND_WEIGHT(NIGHT_HOUR_BEGIN, NIGHT_HOUR_BEGIN + 1);
+        gTimeBlend.weight = TIME_BLEND_WEIGHT(EVENING_HOUR_MIDDLE, EVENING_HOUR_END);
         gTimeBlend.altWeight = gTimeBlend.weight / 2;
-        gTimeOfDay = TIME_NIGHT;
+        gTimeOfDay = TIME_EVENING;
     }
     else if (IsBetweenHours(hours, NIGHT_HOUR_BEGIN, NIGHT_HOUR_END)) // night
     {
@@ -1789,8 +1892,12 @@ void CB2_NewGame(void)
     ResetInitialPlayerAvatarState();
     PlayTimeCounter_Start();
     ScriptContext_Init();
+    FakeRtc_Init(TIME_STARTING_HOUR, TIME_STARTING_MINUTE);
     UnlockPlayerFieldControls();
-    gFieldCallback = ExecuteTruckSequence;
+    if (gSaveBlock2Ptr->playerRegion == HOENN)
+        gFieldCallback = ExecuteTruckSequence;
+    else
+        gFieldCallback = NULL;
     gFieldCallback2 = NULL;
     DoMapLoadLoop(&gMain.state);
     SetFieldVBlankCallback();

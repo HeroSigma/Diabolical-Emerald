@@ -49958,7 +49958,7 @@ Tera Type: Psychic
 - Aura Sphere
 
 === TRAINER_LEAF ===
-Name: LEAF
+Name: GREEN
 Class: Rival
 Pic: Leaf
 Gender: Female
@@ -49990,5 +49990,46 @@ Music: Male
 Double Battle: No
 
 Kyogre
+Level: 5
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+
+/**
+ * Kanto Trainers
+ */
+
+=== TRAINER_RIVAL_OAKS_LAB_SQUIRTLE ===
+Name: BLUE
+Class: Rival
+Pic: Kanto Rival Early
+Gender: Male
+Music: Male
+Double Battle: No
+
+Squirtle
+Level: 5
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+=== TRAINER_RIVAL_OAKS_LAB_BULBASAUR ===
+Name: BLUE
+Class: Rival
+Pic: Kanto Rival Early
+Gender: Male
+Music: Male
+Double Battle: No
+
+Bulbasaur
+Level: 5
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+=== TRAINER_RIVAL_OAKS_LAB_CHARMANDER ===
+Name: BLUE
+Class: Rival
+Pic: Kanto Rival Early
+Gender: Male
+Music: Male
+Double Battle: No
+
+Charmander
 Level: 5
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe

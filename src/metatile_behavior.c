@@ -133,6 +133,7 @@ static const u8 sTileBitAttributes[NUM_METATILE_BEHAVIORS] =
     [MB_SIDEWAYS_STAIRS_RIGHT_SIDE_BOTTOM]  = TILE_FLAG_UNUSED,
     [MB_SIDEWAYS_STAIRS_LEFT_SIDE_BOTTOM]   = TILE_FLAG_UNUSED,
     [MB_ROCK_STAIRS]                        = TILE_FLAG_UNUSED,
+    [MB_WARP_DOOR]                          = TILE_FLAG_UNUSED
 };
 
 bool8 MetatileBehavior_IsATile(u8 metatileBehavior)
@@ -227,7 +228,8 @@ bool8 MetatileBehavior_IsIce(u8 metatileBehavior)
 
 bool8 MetatileBehavior_IsWarpDoor(u8 metatileBehavior)
 {
-    if (metatileBehavior == MB_ANIMATED_DOOR)
+    if (metatileBehavior == MB_ANIMATED_DOOR
+     || metatileBehavior == MB_WARP_DOOR)
         return TRUE;
     else
         return FALSE;
@@ -236,7 +238,8 @@ bool8 MetatileBehavior_IsWarpDoor(u8 metatileBehavior)
 bool8 MetatileBehavior_IsDoor(u8 metatileBehavior)
 {
     if (metatileBehavior == MB_PETALBURG_GYM_DOOR
-     || metatileBehavior == MB_ANIMATED_DOOR)
+     || metatileBehavior == MB_ANIMATED_DOOR
+     || metatileBehavior == MB_WARP_DOOR)
         return TRUE;
     else
         return FALSE;
@@ -246,14 +249,6 @@ bool8 MetatileBehavior_IsEscalator(u8 metatileBehavior)
 {
     if (metatileBehavior == MB_UP_ESCALATOR
      || metatileBehavior == MB_DOWN_ESCALATOR)
-        return TRUE;
-    else
-        return FALSE;
-}
-
-bool8 Unref_MetatileBehavior_IsUnused04(u8 metatileBehavior)
-{
-    if (metatileBehavior == MB_UNUSED_04)
         return TRUE;
     else
         return FALSE;
@@ -1075,6 +1070,30 @@ bool8 MetatileBehavior_IsRegionMap(u8 metatileBehavior)
         return FALSE;
 }
 
+bool8 MetatileBehavior_IsRegionMapKanto(u8 metatileBehavior)
+{
+    if (metatileBehavior == MB_REGION_MAP_KANTO)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+bool8 MetatileBehavior_IsRegionMapJohto(u8 metatileBehavior)
+{
+    if (metatileBehavior == MB_REGION_MAP_JOHTO)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+bool8 MetatileBehavior_IsRegionMapSevii(u8 metatileBehavior)
+{
+    if (metatileBehavior == MB_REGION_MAP_SEVII)
+        return TRUE;
+    else
+        return FALSE;
+}
+
 bool8 MetatileBehavior_IsClosedSootopolisDoor(u8 metatileBehavior)
 {
     if (metatileBehavior == MB_CLOSED_SOOTOPOLIS_DOOR)
@@ -1538,6 +1557,22 @@ bool8 MetatileBehavior_IsSidewaysStairsLeftSideAny(u8 metatileBehavior)
 bool8 MetatileBehavior_IsRockStairs(u8 metatileBehavior)
 {
     if (metatileBehavior == MB_ROCK_STAIRS)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+bool8 MetatileBehavior_IsHeadbuttTree(u8 metatileBehavior)
+{
+    if (metatileBehavior == MB_HEADBUTT)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+bool8 MetatileBehavior_IsFallWarp(u8 metatileBehavior)
+{
+    if (metatileBehavior == MB_FALL_WARP)
         return TRUE;
     else
         return FALSE;

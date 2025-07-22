@@ -137,6 +137,11 @@
 #define FEMALE 1
 #define GENDER_COUNT 2
 
+#define KANTO 0
+#define JOHTO 1
+#define HOENN 2
+#define REGION_COUNT 3
+
 #define NUM_BARD_SONG_WORDS    6
 #define NUM_STORYTELLER_TALES  4
 #define NUM_TRADER_ITEMS       4
@@ -156,6 +161,13 @@
 
 #define OPTIONS_BATTLE_STYLE_SHIFT 0
 #define OPTIONS_BATTLE_STYLE_SET 1
+
+#define OPTIONS_BATTLE_SCENE_1X         0
+#define OPTIONS_BATTLE_SCENE_2X         1
+#define OPTIONS_BATTLE_SCENE_3X         2
+#define OPTIONS_BATTLE_SCENE_4X         3
+#define OPTIONS_BATTLE_SCENE_DISABLED   4
+#define OPTIONS_BATTLE_SCENE_COUNT      5
 
 #define DIR_NONE        0
 #define DIR_SOUTH       1
@@ -180,6 +192,9 @@
 #define CONNECTION_EAST     4
 #define CONNECTION_DIVE     5
 #define CONNECTION_EMERGE   6
+
+#define TIME_STARTING_HOUR       10
+#define TIME_STARTING_MINUTE      0
 
 #if TESTING
 #include "config/test.h"

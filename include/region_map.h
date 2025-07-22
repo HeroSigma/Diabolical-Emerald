@@ -117,11 +117,15 @@ void BlendRegionMap(u16 color, u32 coeff);
 void SetRegionMapDataForZoom(void);
 void CreateRoamerIcons(void);
 void FreeRoamerIcons(void);
+void SetMapGraphics(u8 mapNum);
 
 //Pokenav Fly funcs
 u32 FilterFlyDestination(struct RegionMap* regionMap);
 void SetFlyDestination(struct RegionMap* regionMap);
 
 extern const struct RegionMapLocation gRegionMapEntries[];
+extern const struct RegionMapLocation gRegionMapEntries_Johto[];
+extern const struct RegionMapLocation gRegionMapEntries_Kanto[];
+extern const struct RegionMapLocation gRegionMapEntries_Sevii[];
 
 #endif //GUARD_REGION_MAP_H

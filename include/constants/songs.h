@@ -443,7 +443,7 @@
 #define MUS_RG_VS_TRAINER           509 // MUS_RG_VS_TORE
 #define MUS_RG_VS_WILD              510 // MUS_RG_VS_YASEI
 #define MUS_RG_VS_CHAMPION          511 // MUS_RG_VS_LAST
-#define MUS_RG_PALLET               512 // MUS_RG_MASARA
+#define MUS_RG_PALLET                  512 // MUS_RG_MASARA
 #define MUS_RG_OAK_LAB              513 // MUS_RG_KENKYU
 #define MUS_RG_OAK                  514 // MUS_RG_OHKIDO
 #define MUS_RG_POKE_CENTER          515 // MUS_RG_POKECEN
@@ -546,6 +546,39 @@
 #define PH_NURSE_HELD               608
 #define PH_NURSE_SOLO               609
 
+//Johto music
+#define MUS_NEW_BARK                610 // MUS_MISHIRO
+#define MUS_ROUTE29                 611 // MUS_DOORO1
+#define MUS_ELMS_LAB                612 // MUS_ODAMAKI
+#define MUS_CHERRYGROVE             613 // MUS_MACHI_S4
+#define MUS_ROUTE30                 614 // MUS_DOORO_X4
+#define MUS_VIOLET                  615
+#define MUS_JOHTO_POKECENTER        616
+#define MUS_JOHTO_POKEMART          617
+#define MUS_JOHTO_GYM               618
+#define MUS_UNION_CAVE              619
+#define MUS_RUINS_OF_ALPH           620
+#define MUS_SPROUT_TOWER            621
+#define MUS_AZALEA                  622
+#define MUS_DARK_CAVE               623
+#define MUS_ROUTE36                 624
+#define MUS_GOLDENROD               625
+#define MUS_JOHTO_GAMECORNER        626
+#define MUS_NATIONAL_PARK           627
+#define MUS_ROUTE38                 628
+#define MUS_ECRUTEAK                629
+#define MUS_DANCE_THEATER           630
+#define MUS_BURNED_TOWER            631
+#define MUS_TIN_TOWER               632
+#define MUS_BATTLE_TOWER            633
+#define MUS_LAKE_OF_RAGE            634
+#define MUS_JOHTO_ROCKET            635
+#define MUS_DRAGONS_DEN             636
+#define MUS_ROUTE26                 637
+#define MUS_MOMS_THEME              638
+#define MUS_OAKS_LAB                639
+#define MUS_REGISTER_PHONE          640
+
 #define MUS_ROUTE118                0x7FFF  // Map is split into 2 music sections. controlled by GetCurrLocationDefaultMusic().
 
 #define MUS_NONE                    0xFFFF
@@ -556,4 +589,16 @@
 #define PHONEME_ID(song)            ((song) - FIRST_PHONEME_SONG)
 #define PHONEME_ID_NONE             0xFF
 
+// Aliases for compatibility with FireRed/LeafGreen naming
+#define MUS_ENCOUNTER_RIVAL  MUS_RG_ENCOUNTER_RIVAL
+#define MUS_RIVAL_EXIT       MUS_RG_RIVAL_EXIT
+#define MUS_OBTAIN_KEY_ITEM  MUS_RG_OBTAIN_KEY_ITEM
+#define MUS_ROUTE1           MUS_RG_ROUTE1
+#define MUS_OAK              MUS_RG_OAK
+#undef MUS_OAK_LAB
+#define MUS_OAK_LAB          MUS_RG_OAK_LAB
+#undef MUS_OAKS_LAB
+#define MUS_OAKS_LAB         MUS_RG_OAK_LAB
+#undef MUS_REGISTER_PHONE
+#define MUS_REGISTER_PHONE   MUS_REGISTER_MATCH_CALL
 #endif  // GUARD_CONSTANTS_SONGS_H

@@ -908,6 +908,8 @@ bool8 ScrCmd_gettime(struct ScriptContext *ctx)
     gSpecialVar_0x8000 = gLocalTime.hours;
     gSpecialVar_0x8001 = gLocalTime.minutes;
     gSpecialVar_0x8002 = gLocalTime.seconds;
+    gSpecialVar_TimeOfDay = GetTimeOfDay();
+    gSpecialVar_DayOfWeek = gLocalTime.dayOfWeek;
     return FALSE;
 }
 
@@ -1296,7 +1298,7 @@ bool8 ScrCmd_applymovement(struct ScriptContext *ctx)
     Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
 
     // When applying script movements to follower, it may have frozen animation that must be cleared
-    if ((localId == OBJ_EVENT_ID_FOLLOWER && (objEvent = GetFollowerObject()) && objEvent->frozen) 
+    if ((localId == OBJ_EVENT_ID_FOLLOWER && (objEvent = GetFollowerObject()) && objEvent->frozen)
             || ((objEvent = &gObjectEvents[GetObjectEventIdByLocalId(localId)]) && IS_OW_MON_OBJ(objEvent)))
     {
         ClearObjectEventMovement(objEvent, &gSprites[objEvent->spriteId]);
@@ -2696,6 +2698,12 @@ bool8 ScrCmd_checkplayergender(struct ScriptContext *ctx)
     Script_RequestEffects(SCREFF_V1);
 
     gSpecialVar_Result = gSaveBlock2Ptr->playerGender;
+    return FALSE;
+}
+
+bool8 ScrCmd_checkplayerregion(struct ScriptContext *ctx)
+{
+    gSpecialVar_Result = gSaveBlock2Ptr->playerRegion;
     return FALSE;
 }
 

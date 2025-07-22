@@ -1,0 +1,16 @@
+{
+  "front": {
+    "base": "trainer front female/base/base  light.png",
+    "bottom": "trainer front female/bottoms/jeans/jeans navy.png",
+    "top": "trainer front female/tops/hoodie/hoodie red.png",
+    "hair": "trainer front female/hair/Hair 1/1 black.png",
+    "hat": "trainer front female/hats/beanie/beanie purple.png"
+  },
+  "back": {
+    "base": "trainer back female/base/base light.png",
+    "bottom": "trainer back female/clothing/jeans/jeans navy.png",
+    "top": "trainer back female/clothing/hoodie/hoodie red.png",
+    "hair": "trainer back female/hair/Hair 1/1 black.png",
+    "hat": "trainer back female/hat/beanie/beanie purple.png"
+  }
+}

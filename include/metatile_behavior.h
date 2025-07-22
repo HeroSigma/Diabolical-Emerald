@@ -108,6 +108,9 @@ bool8 MetatileBehavior_IsPacifidlogHorizontalLogRight(u8 metatileBehavior);
 bool8 MetatileBehavior_IsPacifidlogLog(u8 metatileBehavior);
 bool8 MetatileBehavior_IsTrickHousePuzzleDoor(u8 metatileBehavior);
 bool8 MetatileBehavior_IsRegionMap(u8 metatileBehavior);
+bool8 MetatileBehavior_IsRegionMapKanto(u8 metatileBehavior);
+bool8 MetatileBehavior_IsRegionMapJohto(u8 metatileBehavior);
+bool8 MetatileBehavior_IsRegionMapSevii(u8 metatileBehavior);
 bool8 MetatileBehavior_IsClosedSootopolisDoor(u8 metatileBehavior);
 bool8 MetatileBehavior_IsSkyPillarClosedDoor(u8 metatileBehavior);
 bool8 MetatileBehavior_IsRoulette(u8 metatileBehavior);
@@ -156,6 +159,7 @@ bool8 MetatileBehavior_IsSignpost(u32);
 bool8 MetatileBehavior_IsPokemonCenterSign(u32);
 bool8 MetatileBehavior_IsPokeMartSign(u32);
 bool8 MetatileBehavior_IsRockStairs(u8);
+bool8 MetatileBehavior_IsHeadbuttTree(u8);
 bool8 MetatileBehavior_IsSidewaysStairsRightSide(u8);
 bool8 MetatileBehavior_IsSidewaysStairsLeftSide(u8);
 bool8 MetatileBehavior_IsSidewaysStairsRightSideTop(u8 metatileBehavior);
@@ -164,5 +168,6 @@ bool8 MetatileBehavior_IsSidewaysStairsRightSideBottom(u8 metatileBehavior);
 bool8 MetatileBehavior_IsSidewaysStairsLeftSideBottom(u8 metatileBehavior);
 bool8 MetatileBehavior_IsSidewaysStairsRightSideAny(u8 metatileBehavior);
 bool8 MetatileBehavior_IsSidewaysStairsLeftSideAny(u8 metatileBehavior);
+bool8 MetatileBehavior_IsFallWarp(u8 metatileBehavior);
 
 #endif // GUARD_METATILE_BEHAVIOR_H

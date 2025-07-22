@@ -24,18 +24,18 @@ static const struct SiiRtcInfo sRtcDummy = {0, MONTH_JAN, 1}; // 2000 Jan 1
 
 const s32 sNumDaysInMonths[MONTH_COUNT] =
 {
-    [MONTH_JAN - 1] = 31,
-    [MONTH_FEB - 1] = 28,
-    [MONTH_MAR - 1] = 31,
-    [MONTH_APR - 1] = 30,
-    [MONTH_MAY - 1] = 31,
-    [MONTH_JUN - 1] = 30,
-    [MONTH_JUL - 1] = 31,
-    [MONTH_AUG - 1] = 31,
-    [MONTH_SEP - 1] = 30,
-    [MONTH_OCT - 1] = 31,
-    [MONTH_NOV - 1] = 30,
-    [MONTH_DEC - 1] = 31,
+    [MONTH_JAN - 1] = 4,
+    [MONTH_FEB - 1] = 2,
+    [MONTH_MAR - 1] = 4,  // Spring
+    [MONTH_APR - 1] = 3,
+    [MONTH_MAY - 1] = 4,
+    [MONTH_JUN - 1] = 3,  // Summer
+    [MONTH_JUL - 1] = 4,
+    [MONTH_AUG - 1] = 4,
+    [MONTH_SEP - 1] = 3,  // Autumn
+    [MONTH_OCT - 1] = 4,
+    [MONTH_NOV - 1] = 3,
+    [MONTH_DEC - 1] = 4,  // Winter
 };
 
 void RtcDisableInterrupts(void)
@@ -292,6 +292,7 @@ void RtcCalcTimeDifference(struct SiiRtcInfo *rtc, struct Time *result, struct T
     result->minutes = ConvertBcdToBinary(rtc->minute) - t->minutes;
     result->hours = ConvertBcdToBinary(rtc->hour) - t->hours;
     result->days = days - t->days;
+    result->dayOfWeek = ConvertBcdToBinary(rtc->dayOfWeek) - t->dayOfWeek;
 
     if (result->seconds < 0)
     {
@@ -309,6 +310,12 @@ void RtcCalcTimeDifference(struct SiiRtcInfo *rtc, struct Time *result, struct T
     {
         result->hours += HOURS_PER_DAY;
         --result->days;
+        --result->dayOfWeek;
+    }
+
+    if (result->dayOfWeek < 0)
+    {
+        result->dayOfWeek += DAYS_PER_WEEK;
     }
 }
 
@@ -339,15 +346,26 @@ enum TimeOfDay GetTimeOfDayForDex(void)
 
 void RtcInitLocalTimeOffset(s32 hour, s32 minute)
 {
-    RtcCalcLocalTimeOffset(0, hour, minute, 0);
+    // day of week will be set later
+    RtcCalcLocalTimeOffset(0, hour, minute, 0, 0);
 }
 
-void RtcCalcLocalTimeOffset(s32 days, s32 hours, s32 minutes, s32 seconds)
+void RtcCalcLocalTimeOffset(s32 days, s32 hours, s32 minutes, s32 seconds, s32 dayOfWeek)
 {
     gLocalTime.days = days;
     gLocalTime.hours = hours;
     gLocalTime.minutes = minutes;
     gLocalTime.seconds = seconds;
+    gLocalTime.dayOfWeek = dayOfWeek;
+    RtcGetInfo(&sRtc);
+    RtcCalcTimeDifference(&sRtc, &gSaveBlock2Ptr->localTimeOffset, &gLocalTime);
+}
+
+void RtcSetDayOfWeek(s8 dayOfWeek)
+{
+    // calc local time so we have an up-to-date time offset before recalculating offset
+    RtcCalcLocalTime();
+    gLocalTime.dayOfWeek = dayOfWeek;
     RtcGetInfo(&sRtc);
     RtcCalcTimeDifference(&sRtc, &gSaveBlock2Ptr->localTimeOffset, &gLocalTime);
 }
@@ -358,6 +376,7 @@ void CalcTimeDifference(struct Time *result, struct Time *t1, struct Time *t2)
     result->minutes = t2->minutes - t1->minutes;
     result->hours = t2->hours - t1->hours;
     result->days = t2->days - t1->days;
+    result->dayOfWeek = t2->dayOfWeek - t1->dayOfWeek;
 
     if (result->seconds < 0)
     {
@@ -375,6 +394,12 @@ void CalcTimeDifference(struct Time *result, struct Time *t1, struct Time *t2)
     {
         result->hours += HOURS_PER_DAY;
         --result->days;
+        --result->dayOfWeek;
+    }
+
+    if (result->dayOfWeek < 0)
+    {
+        result->dayOfWeek += DAYS_PER_WEEK;
     }
 }
 
@@ -435,6 +460,11 @@ enum Month GetMonth(void)
     ConvertTimeToDateTime(&dateTime, &gLocalTime);
 
     return dateTime.month;
+}
+
+s32 GetDaysInMonth(enum Month targetMonth)
+{
+    return sNumDaysInMonths[targetMonth - 1];
 }
 
 u8 GetDay(void)

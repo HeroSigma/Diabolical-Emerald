@@ -175,6 +175,7 @@ gSpecials::
 	def_special StartWallClock
 	def_special Special_ViewWallClock
 	def_special ChooseStarter
+	def_special StartFirstBattle
 	def_special StartWallyTutorialBattle
 	def_special ChangePokemonNickname
 	def_special ChoosePartyMon
@@ -270,6 +271,9 @@ gSpecials::
 	def_special BedroomPC
 	def_special PlayerPC
 	def_special FieldShowRegionMap
+	def_special FieldShowRegionMapKanto
+	def_special FieldShowRegionMapJohto
+	def_special FieldShowRegionMapSevii
 	def_special GetInGameTradeSpeciesInfo
 	def_special CreateInGameTradePokemon
 	def_special DoInGameTradeScene
@@ -292,6 +296,7 @@ gSpecials::
 	def_special DoSoftReset
 	def_special GameClear
 	def_special MoveElevator
+	def_special SetDayOfWeek
 	def_special ShowGlassWorkshopMenu
 	def_special SpawnCameraObject
 	def_special RemoveCameraObject
@@ -516,7 +521,31 @@ gSpecials::
 	def_special ShouldDoBrailleRegicePuzzle
 	def_special EnableNationalPokedex
 	def_special ScriptMenu_CreateLilycoveSSTidalMultichoice
+	def_special ScriptMenu_CreateLilycoveSSTidalSeviiMultichoice
 	def_special GetLilycoveSSTidalSelection
+	def_special GetLilycoveSSTidalSeviiSelection
+	def_special ScriptMenu_CreateVermilionSSTidalMultichoice
+	def_special GetVermilionSSTidalSelection
+	def_special ScriptMenu_CreateSlateportSSTidalMultichoice
+	def_special GetSlateportSSTidalSelection
+	def_special ScriptMenu_CreateOlivineSSTidalMultichoice
+	def_special GetOlivineSSTidalSelection
+	def_special ScriptMenu_CreateSeviiSSTidalMultichoice
+	def_special GetSeviiSSTidalSelection
+	def_special ScriptMenu_CreateSevii1SSTidalMultichoice
+	def_special GetSevii1SSTidalSelection
+	def_special ScriptMenu_CreateSevii2SSTidalMultichoice
+	def_special GetSevii2SSTidalSelection
+	def_special ScriptMenu_CreateSevii3SSTidalMultichoice
+	def_special GetSevii3SSTidalSelection
+	def_special ScriptMenu_CreateSevii4SSTidalMultichoice
+	def_special GetSevii4SSTidalSelection
+	def_special ScriptMenu_CreateSevii5SSTidalMultichoice
+	def_special GetSevii5SSTidalSelection
+	def_special ScriptMenu_CreateSevii6SSTidalMultichoice
+	def_special GetSevii6SSTidalSelection
+	def_special ScriptMenu_CreateSevii7SSTidalMultichoice
+	def_special GetSevii7SSTidalSelection
 	def_special TurnOnTVScreen
 	def_special SetMewAboveGrass
 	def_special ShouldDistributeEonTicket
@@ -564,5 +593,24 @@ gSpecials::
 	def_special UseBlankMessageToCancelPokemonPic
 	def_special EnterCode
 	def_special GetCodeFeedback
-        def_special SetHiddenNature
-        def_special GetTimeOfDay
+    def_special SetHiddenNature
+    def_special GetTimeOfDay
+    def_special GetPokedexCount
+    def_special CopyDayOfWeekStringToVar1
+    def_special WriteCurrentTimeStringToStrVar1
+    def_special SetInitialDSTMode
+    def_special SwitchDSTMode
+    def_special GetDSTMode
+    def_special MomBank
+    def_special SetRivalNickname
+    def_special IsPlayersMonOfSpeciesInParty
+    def_special GetQuestLogState
+    def_special QuestLog_CutRecording
+    def_special DaisyMassageServices
+    def_special SetWalkingIntoSignVars
+    def_special DisableMsgBoxWalkaway
+    def_special Script_SetHelpContext
+    def_special AnimatePcTurnOn
+    def_special SetHelpContextForMap
+    def_special AnimatePcTurnOff
+    def_special StartDudeTutorialBattle

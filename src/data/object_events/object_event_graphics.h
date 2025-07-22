@@ -349,6 +349,7 @@ const u32 gObjectEventPic_Leaf[] = INCBIN_U32("graphics/object_events/pics/peopl
 const u16 gObjectEventPal_BirthIslandStone[] = INCBIN_U16("graphics/object_events/palettes/birth_island_stone.gbapal");
 const u32 gObjectEventPic_BirthIslandStone[] = INCBIN_U32("graphics/object_events/pics/misc/birth_island_stone.4bpp");
 const u16 gObjectEventPal_Deoxys[] = INCBIN_U16("graphics/object_events/palettes/deoxys.gbapal");
+const u32 gObjectEventPic_Deoxys[] = INCBIN_U32("graphics/object_events/pics/pokemon_old/deoxys.4bpp");
 const u32 gObjectEventPic_Anabel[] = INCBIN_U32("graphics/object_events/pics/people/frontier_brains/anabel.4bpp");
 const u32 gObjectEventPic_Tucker[] = INCBIN_U32("graphics/object_events/pics/people/frontier_brains/tucker.4bpp");
 const u32 gObjectEventPic_Spenser[] = INCBIN_U32("graphics/object_events/pics/people/frontier_brains/spenser.4bpp");
@@ -379,8 +380,8 @@ const u32 gObjectEventPic_VigorothMover[] = INCBIN_U32("graphics/object_events/p
 const u32 gObjectEventPic_SudowoodoTree[] = INCBIN_U32("graphics/object_events/pics/pokemon_old/sudowoodo_tree.4bpp");
 const u32 gObjectEventPic_RayquazaCutscene[] = INCBIN_U32("graphics/object_events/pics/pokemon_old/rayquaza_cutscene.4bpp");
 
-const u16 gObjectEventPal_HoOh[] = INCBIN_U16("graphics/object_events/palettes/ho_oh.gbapal");
 const u16 gObjectEventPal_Lugia[] = INCBIN_U16("graphics/object_events/palettes/lugia.gbapal");
+const u16 gObjectEventPal_HoOh[] = INCBIN_U16("graphics/object_events/palettes/ho_oh.gbapal");
 
 const u16 gObjectEventPaletteLight[] = INCBIN_U16("graphics/object_events/palettes/light.gbapal");
 const u16 gObjectEventPaletteLight2[] = INCBIN_U16("graphics/object_events/palettes/light2.gbapal");
@@ -388,6 +389,56 @@ const u16 gObjectEventPal_Substitute[] = INCBIN_U16("graphics/object_events/pics
 
 const u16 gObjectEventPaletteEmotes[] = INCBIN_U16("graphics/misc/emotes.gbapal");
 const u16 gObjectEventPaletteNeonLight[] = INCBIN_U16("graphics/object_events/palettes/neon_light.gbapal");
+
+const u16 gObjectEventPal_ProfOak[] = INCBIN_U16("graphics/object_events/palettes/npc_white.gbapal");
+const u32 gObjectEventPic_ProfOak[] = INCBIN_U32("graphics/object_events/pics/people/prof_oak.4bpp");
+const u16 gObjectEventPal_ProfElm[] = INCBIN_U16("graphics/object_events/palettes/prof_elm.gbapal");
+const u32 gObjectEventPic_ProfElm[] = INCBIN_U32("graphics/object_events/pics/people/prof_elm.4bpp");
+const u32 gObjectEventPic_Delia[] = INCBIN_U32("graphics/object_events/pics/people/delia.4bpp");
+const u32 gObjectEventPic_Grace[] = INCBIN_U32("graphics/object_events/pics/people/grace.4bpp");
+const u16 gObjectEventPal_KantoPlayer[] = INCBIN_U16("graphics/object_events/palettes/kanto_player.gbapal");
+const u32 gObjectEventPic_RedNormal[] = INCBIN_U32("graphics/object_events/pics/people/red/walking.4bpp");
+const u32 gObjectEventPic_RedRunning[] = INCBIN_U32("graphics/object_events/pics/people/red/running.4bpp");
+const u32 gObjectEventPic_RedFieldMove[] = INCBIN_U32("graphics/object_events/pics/people/red/field_move.4bpp");
+const u32 gObjectEventPic_RedSurfing[] = INCBIN_U32("graphics/object_events/pics/people/red/surfing.4bpp");
+const u32 gObjectEventPic_RedMachBike[] = INCBIN_U32("graphics/object_events/pics/people/red/mach_bike.4bpp");
+const u32 gObjectEventPic_RedAcroBike[] = INCBIN_U32("graphics/object_events/pics/people/red/acro_bike.4bpp");
+const u32 gObjectEventPic_RedFishing[] = INCBIN_U32("graphics/object_events/pics/people/red/fishing.4bpp");
+const u32 gObjectEventPic_RedWatering[] = INCBIN_U32("graphics/object_events/pics/people/red/watering.4bpp");
+const u32 gObjectEventPic_RedDecorating[] = INCBIN_U32("graphics/object_events/pics/people/red/decorating.4bpp");
+const u32 gObjectEventPic_RedUnderwater[] = INCBIN_U32("graphics/object_events/pics/people/red/underwater.4bpp");
+const u32 gObjectEventPic_LeafNormal[] = INCBIN_U32("graphics/object_events/pics/people/leaf/walking.4bpp");
+const u32 gObjectEventPic_LeafRunning[] = INCBIN_U32("graphics/object_events/pics/people/leaf/running.4bpp");
+const u32 gObjectEventPic_LeafFieldMove[] = INCBIN_U32("graphics/object_events/pics/people/leaf/field_move.4bpp");
+const u32 gObjectEventPic_LeafSurfing[] = INCBIN_U32("graphics/object_events/pics/people/leaf/surfing.4bpp");
+const u32 gObjectEventPic_LeafMachBike[] = INCBIN_U32("graphics/object_events/pics/people/leaf/mach_bike.4bpp");
+const u32 gObjectEventPic_LeafAcroBike[] = INCBIN_U32("graphics/object_events/pics/people/leaf/acro_bike.4bpp");
+const u32 gObjectEventPic_LeafFishing[] = INCBIN_U32("graphics/object_events/pics/people/leaf/fishing.4bpp");
+const u32 gObjectEventPic_LeafWatering[] = INCBIN_U32("graphics/object_events/pics/people/leaf/watering.4bpp");
+const u32 gObjectEventPic_LeafDecorating[] = INCBIN_U32("graphics/object_events/pics/people/leaf/decorating.4bpp");
+const u32 gObjectEventPic_LeafUnderwater[] = INCBIN_U32("graphics/object_events/pics/people/leaf/underwater.4bpp");
+const u16 gObjectEventPal_Gold[] = INCBIN_U16("graphics/object_events/palettes/gold.gbapal");
+const u32 gObjectEventPic_GoldNormal[] = INCBIN_U32("graphics/object_events/pics/people/gold/walking.4bpp");
+const u32 gObjectEventPic_GoldRunning[] = INCBIN_U32("graphics/object_events/pics/people/gold/running.4bpp");
+const u32 gObjectEventPic_GoldFieldMove[] = INCBIN_U32("graphics/object_events/pics/people/gold/field_move.4bpp");
+const u32 gObjectEventPic_GoldSurfing[] = INCBIN_U32("graphics/object_events/pics/people/gold/surfing.4bpp");
+const u32 gObjectEventPic_GoldMachBike[] = INCBIN_U32("graphics/object_events/pics/people/gold/mach_bike.4bpp");
+const u32 gObjectEventPic_GoldAcroBike[] = INCBIN_U32("graphics/object_events/pics/people/gold/acro_bike.4bpp");
+const u32 gObjectEventPic_GoldFishing[] = INCBIN_U32("graphics/object_events/pics/people/gold/fishing.4bpp");
+const u32 gObjectEventPic_GoldWatering[] = INCBIN_U32("graphics/object_events/pics/people/gold/watering.4bpp");
+const u32 gObjectEventPic_GoldDecorating[] = INCBIN_U32("graphics/object_events/pics/people/gold/decorating.4bpp");
+const u32 gObjectEventPic_GoldUnderwater[] = INCBIN_U32("graphics/object_events/pics/people/gold/underwater.4bpp");
+const u16 gObjectEventPal_Lyra[] = INCBIN_U16("graphics/object_events/palettes/lyra.gbapal");
+const u32 gObjectEventPic_LyraNormal[] = INCBIN_U32("graphics/object_events/pics/people/lyra/walking.4bpp");
+const u32 gObjectEventPic_LyraRunning[] = INCBIN_U32("graphics/object_events/pics/people/lyra/running.4bpp");
+const u32 gObjectEventPic_LyraFieldMove[] = INCBIN_U32("graphics/object_events/pics/people/lyra/field_move.4bpp");
+const u32 gObjectEventPic_LyraSurfing[] = INCBIN_U32("graphics/object_events/pics/people/lyra/surfing.4bpp");
+const u32 gObjectEventPic_LyraMachBike[] = INCBIN_U32("graphics/object_events/pics/people/lyra/mach_bike.4bpp");
+const u32 gObjectEventPic_LyraAcroBike[] = INCBIN_U32("graphics/object_events/pics/people/lyra/acro_bike.4bpp");
+const u32 gObjectEventPic_LyraFishing[] = INCBIN_U32("graphics/object_events/pics/people/lyra/fishing.4bpp");
+const u32 gObjectEventPic_LyraWatering[] = INCBIN_U32("graphics/object_events/pics/people/lyra/watering.4bpp");
+const u32 gObjectEventPic_LyraDecorating[] = INCBIN_U32("graphics/object_events/pics/people/lyra/decorating.4bpp");
+const u32 gObjectEventPic_LyraUnderwater[] = INCBIN_U32("graphics/object_events/pics/people/lyra/underwater.4bpp");
 
 #if OW_FOLLOWERS_POKEBALLS
 const u32 gObjectEventPic_MasterBall[] = INCBIN_U32("graphics/object_events/pics/misc/ball_master.4bpp");
@@ -462,3 +513,17 @@ const u16 gObjectEventPal_StrangeBall[] = INCBIN_U16("graphics/object_events/pic
 
 const u32 gFieldEffectObjectPic_CaveDust[] = INCBIN_U32("graphics/field_effects/pics/cave_dust.4bpp");
 const u16 gFieldEffectObjectPalette_CaveDust[] = INCBIN_U16("graphics/field_effects/palettes/cave_dust.gbapal");
+
+// Kanto people
+const u16 gObjectEventPic_Blue[] = INCBIN_U16("graphics/object_events/pics/people/blue.4bpp");
+const u16 gObjectEventPic_Daisy[] = INCBIN_U16("graphics/object_events/pics/people/daisy.4bpp");
+const u16 gObjectEventPic_KantoClerk[] = INCBIN_U16("graphics/object_events/pics/people/kanto_clerk.4bpp");
+
+// Kanto misc
+const u16 gObjectEventPic_KantoTownMap[] = INCBIN_U16("graphics/object_events/pics/misc/kanto_town_map.4bpp");
+const u16 gObjectEventPic_Pokedex[] = INCBIN_U16("graphics/object_events/pics/misc/pokedex.4bpp");
+
+// Kanto palettes
+const u16 gObjectEventPal_NpcWhite[] = INCBIN_U16("graphics/object_events/palettes/npc_white.gbapal");
+const u16 gObjectEventPal_NpcGreen[] = INCBIN_U16("graphics/object_events/palettes/npc_green.gbapal");
+const u16 gObjectEventPal_NpcBlue[] = INCBIN_U16("graphics/object_events/palettes/npc_blue.gbapal");

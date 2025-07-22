@@ -4,6 +4,7 @@
 #include "main.h"
 #include "sound.h"
 #include "constants/songs.h"
+#include "region_map.h"
 
 struct Pokenav_Menu
 {
@@ -24,12 +25,14 @@ static u32 CB2_ReturnToConditionMenu(struct Pokenav_Menu *);
 static u32 CB2_ReturnToMainMenu(struct Pokenav_Menu *);
 static u32 HandleConditionSearchMenuInput(struct Pokenav_Menu *);
 static u32 HandleConditionMenuInput(struct Pokenav_Menu *);
+static u32 HandleRegionMapsMenuInput(struct Pokenav_Menu *);
 static u32 HandleCantOpenRibbonsInput(struct Pokenav_Menu *);
 static u32 HandleMainMenuInputEndTutorial(struct Pokenav_Menu *);
 static u32 HandleMainMenuInputTutorial(struct Pokenav_Menu *);
 static u32 HandleMainMenuInput(struct Pokenav_Menu *);
 static u32 (*GetMainMenuInputHandler(void))(struct Pokenav_Menu *);
 static void SetMenuInputHandler(struct Pokenav_Menu *);
+static bool8 isReturnFromRegionMap = FALSE;
 
 // Number of entries - 1 for that menu type
 static const u8 sLastCursorPositions[] =
@@ -38,7 +41,8 @@ static const u8 sLastCursorPositions[] =
     [POKENAV_MENU_TYPE_UNLOCK_MC]         = 3,
     [POKENAV_MENU_TYPE_UNLOCK_MC_RIBBONS] = 4,
     [POKENAV_MENU_TYPE_CONDITION]         = 2,
-    [POKENAV_MENU_TYPE_CONDITION_SEARCH]  = 5
+    [POKENAV_MENU_TYPE_CONDITION_SEARCH]  = 5,
+    [POKENAV_MENU_TYPE_REGION_MAPS]       = 4
 };
 
 static const u8 sMenuItems[][MAX_POKENAV_MENUITEMS] =
@@ -80,6 +84,14 @@ static const u8 sMenuItems[][MAX_POKENAV_MENUITEMS] =
         POKENAV_MENUITEM_CONDITION_SEARCH_TOUGH,
         POKENAV_MENUITEM_CONDITION_SEARCH_CANCEL
     },
+    [POKENAV_MENU_TYPE_REGION_MAPS] = 
+    {
+        POKENAV_MENUITEM_KANTO,
+        POKENAV_MENUITEM_JOHTO,
+        POKENAV_MENUITEM_HOENN,
+        POKENAV_MENUITEM_SEVII,
+        POKENAV_MENUITEM_CONDITION_CANCEL
+    }
 };
 
 static u8 GetPokenavMainMenuType(void)
@@ -166,6 +178,20 @@ bool32 PokenavCallback_Init_ConditionSearchMenu(void)
     return TRUE;
 }
 
+bool32 PokenavCallback_Init_RegionMapsMenu(void)
+{
+    struct Pokenav_Menu *menu = AllocSubstruct(POKENAV_SUBSTRUCT_MAIN_MENU_HANDLER, sizeof(struct Pokenav_Menu));
+    if (!menu)
+        return FALSE;
+
+    menu->menuType = POKENAV_MENU_TYPE_REGION_MAPS;
+    menu->cursorPos = 0;   //party
+    menu->currMenuItem = POKENAV_MENUITEM_KANTO;
+    menu->helpBarIndex = HELPBAR_NONE;
+    SetMenuInputHandler(menu);
+    return TRUE;
+}
+
 static void SetMenuInputHandler(struct Pokenav_Menu *menu)
 {
     switch (menu->menuType)
@@ -182,6 +208,9 @@ static void SetMenuInputHandler(struct Pokenav_Menu *menu)
         break;
     case POKENAV_MENU_TYPE_CONDITION_SEARCH:
         menu->callback = HandleConditionSearchMenuInput;
+        break;
+    case POKENAV_MENU_TYPE_REGION_MAPS:
+        menu->callback = HandleRegionMapsMenuInput;
         break;
     }
 }
@@ -221,9 +250,14 @@ static u32 HandleMainMenuInput(struct Pokenav_Menu *menu)
         switch (sMenuItems[menu->menuType][menu->cursorPos])
         {
         case POKENAV_MENUITEM_MAP:
-            menu->helpBarIndex = gSaveBlock2Ptr->regionMapZoom ? HELPBAR_MAP_ZOOMED_IN : HELPBAR_MAP_ZOOMED_OUT;
-            SetMenuIdAndCB(menu, POKENAV_REGION_MAP);
-            return POKENAV_MENU_FUNC_OPEN_FEATURE;
+            menu->menuType = POKENAV_MENU_TYPE_REGION_MAPS;
+            menu->cursorPos = 0;
+            menu->currMenuItem = sMenuItems[POKENAV_MENU_TYPE_REGION_MAPS][0];
+            menu->callback = HandleRegionMapsMenuInput;
+            return POKENAV_MENU_FUNC_OPEN_REGIONMAPS;
+            // menu->helpBarIndex = gSaveBlock2Ptr->regionMapZoom ? HELPBAR_MAP_ZOOMED_IN : HELPBAR_MAP_ZOOMED_OUT;
+            // SetMenuIdAndCB(menu, POKENAV_REGION_MAP);
+            // return POKENAV_MENU_FUNC_OPEN_FEATURE;
         case POKENAV_MENUITEM_CONDITION:
             menu->menuType = POKENAV_MENU_TYPE_CONDITION;
             menu->cursorPos = 0;
@@ -358,6 +392,7 @@ static u32 HandleConditionMenuInput(struct Pokenav_Menu *menu)
             SetMenuIdAndCB(menu, POKENAV_CONDITION_GRAPH_PARTY);
             return POKENAV_MENU_FUNC_OPEN_FEATURE;
         case POKENAV_MENUITEM_CONDITION_CANCEL:
+            isReturnFromRegionMap = FALSE;
             PlaySE(SE_SELECT);
             ReturnToMainMenu(menu);
             return POKENAV_MENU_FUNC_RETURN_TO_MAIN;
@@ -365,6 +400,63 @@ static u32 HandleConditionMenuInput(struct Pokenav_Menu *menu)
     }
     if (JOY_NEW(B_BUTTON))
     {
+        isReturnFromRegionMap = FALSE;
+        if (menu->cursorPos != sLastCursorPositions[menu->menuType])
+        {
+            menu->cursorPos = sLastCursorPositions[menu->menuType];
+            menu->callback = CB2_ReturnToMainMenu;
+            return POKENAV_MENU_FUNC_MOVE_CURSOR;
+        }
+        else
+        {
+            PlaySE(SE_SELECT);
+            ReturnToMainMenu(menu);
+            return POKENAV_MENU_FUNC_RETURN_TO_MAIN;
+        }
+    }
+
+    return POKENAV_MENU_FUNC_NONE;
+}
+
+static u32 HandleRegionMapsMenuInput(struct Pokenav_Menu *menu)
+{
+    if (UpdateMenuCursorPos(menu))
+        return POKENAV_MENU_FUNC_MOVE_CURSOR;
+
+    if (JOY_NEW(A_BUTTON))
+    {
+        switch (sMenuItems[menu->menuType][menu->cursorPos])
+        {
+        case POKENAV_MENUITEM_KANTO:
+            SetMapGraphics(0);
+            menu->helpBarIndex = gSaveBlock2Ptr->regionMapZoom ? HELPBAR_MAP_ZOOMED_IN : HELPBAR_MAP_ZOOMED_OUT;
+            SetMenuIdAndCB(menu, POKENAV_REGION_MAP);
+            return POKENAV_MENU_FUNC_OPEN_FEATURE;
+        case POKENAV_MENUITEM_JOHTO:
+            SetMapGraphics(1);
+            menu->helpBarIndex = gSaveBlock2Ptr->regionMapZoom ? HELPBAR_MAP_ZOOMED_IN : HELPBAR_MAP_ZOOMED_OUT;
+            SetMenuIdAndCB(menu, POKENAV_REGION_MAP);
+            return POKENAV_MENU_FUNC_OPEN_FEATURE;
+        case POKENAV_MENUITEM_HOENN:
+            SetMapGraphics(2);
+            menu->helpBarIndex = gSaveBlock2Ptr->regionMapZoom ? HELPBAR_MAP_ZOOMED_IN : HELPBAR_MAP_ZOOMED_OUT;
+            SetMenuIdAndCB(menu, POKENAV_REGION_MAP);
+            return POKENAV_MENU_FUNC_OPEN_FEATURE;
+        case POKENAV_MENUITEM_SEVII:
+            SetMapGraphics(3);
+            menu->helpBarIndex = gSaveBlock2Ptr->regionMapZoom ? HELPBAR_MAP_ZOOMED_IN : HELPBAR_MAP_ZOOMED_OUT;
+            SetMenuIdAndCB(menu, POKENAV_REGION_MAP);
+            return POKENAV_MENU_FUNC_OPEN_FEATURE;
+        case POKENAV_MENUITEM_CONDITION_CANCEL:
+            isReturnFromRegionMap = TRUE;
+            PlaySE(SE_SELECT);
+            ReturnToMainMenu(menu);
+            return POKENAV_MENU_FUNC_RETURN_TO_MAIN;
+        }
+    }
+    if (JOY_NEW(B_BUTTON))
+    {
+        isReturnFromRegionMap = TRUE;
         if (menu->cursorPos != sLastCursorPositions[menu->menuType])
         {
             menu->cursorPos = sLastCursorPositions[menu->menuType];
@@ -448,7 +540,10 @@ static u32 GetMenuId(struct Pokenav_Menu *menu)
 static void ReturnToMainMenu(struct Pokenav_Menu *menu)
 {
     menu->menuType = GetPokenavMainMenuType();
-    menu->cursorPos = 1;
+    if(isReturnFromRegionMap)
+        menu->cursorPos = 0;
+    else
+        menu->cursorPos = 1;
     menu->currMenuItem = sMenuItems[menu->menuType][menu->cursorPos];
     menu->callback = HandleMainMenuInput;
 }

@@ -646,7 +646,7 @@ static void LoadWallClockGraphics(void)
     DmaClear16(3, (void *)PLTT, PLTT_SIZE);
     DecompressDataWithHeaderVram(gWallClock_Gfx, (void *)VRAM);
 
-    if (gSpecialVar_0x8004 == MALE)
+    if (gSaveBlock2Ptr->playerGender == MALE)
         LoadPalette(gWallClockMale_Pal, BG_PLTT_ID(0), PLTT_SIZE_4BPP);
     else
         LoadPalette(gWallClockFemale_Pal, BG_PLTT_ID(0), PLTT_SIZE_4BPP);
@@ -681,6 +681,11 @@ static void WallClockInit(void)
     ShowBg(0);
     ShowBg(2);
     ShowBg(3);
+}
+
+bool32 IsWallClockSet(void)
+{
+    return FlagGet(FLAG_SET_WALL_CLOCK);
 }
 
 void CB2_StartWallClock(void)

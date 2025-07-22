@@ -186,6 +186,192 @@
       "y": 52,
       "respawn_map": "MAP_BATTLE_FRONTIER_POKEMON_CENTER_1F",
       "respawn_npc": "LOCALID_FRONTIER_NURSE"
+    },
+    {
+      "id": "HEAL_LOCATION_PALLET_TOWN",
+      "map": "MAP_PALLET_TOWN",
+      "x": 6,
+      "y": 8
+    },
+    {
+      "id": "HEAL_LOCATION_VIRIDIAN_CITY",
+      "map": "MAP_VIRIDIAN_CITY",
+      "x": 26,
+      "y": 27
+    },
+    {
+      "id": "HEAL_LOCATION_PEWTER_CITY",
+      "map": "MAP_PEWTER_CITY",
+      "x": 17,
+      "y": 26
+    },
+    {
+      "id": "HEAL_LOCATION_CERULEAN_CITY",
+      "map": "MAP_CERULEAN_CITY",
+      "x": 22,
+      "y": 20
+    },
+    {
+      "id": "HEAL_LOCATION_LAVENDER_TOWN",
+      "map": "MAP_LAVENDER_TOWN",
+      "x": 6,
+      "y": 6
+    },
+    {
+      "id": "HEAL_LOCATION_VERMILION_CITY",
+      "map": "MAP_VERMILION_CITY",
+      "x": 15,
+      "y": 7
+    },
+    {
+      "id": "HEAL_LOCATION_CELADON_CITY",
+      "map": "MAP_CELADON_CITY",
+      "x": 48,
+      "y": 12
+    },
+    {
+      "id": "HEAL_LOCATION_FUCHSIA_CITY",
+      "map": "MAP_FUCHSIA_CITY",
+      "x": 25,
+      "y": 32
+    },
+    {
+      "id": "HEAL_LOCATION_CINNABAR_ISLAND",
+      "map": "MAP_CINNABAR_ISLAND",
+      "x": 14,
+      "y": 12
+    },
+    {
+      "id": "HEAL_LOCATION_SAFFRON_CITY",
+      "map": "MAP_SAFFRON_CITY",
+      "x": 24,
+      "y": 39
+    },
+    {
+      "id": "HEAL_LOCATION_INDIGO_PLATEAU",
+      "map": "MAP_INDIGO_PLATEAU_EXTERIOR",
+      "x": 11,
+      "y": 7
+    },
+    {
+      "id": "HEAL_LOCATION_ROUTE4",
+      "map": "MAP_ROUTE4",
+      "x": 12,
+      "y": 6
+    },
+    {
+      "id": "HEAL_LOCATION_ROUTE10",
+      "map": "MAP_ROUTE10",
+      "x": 13,
+      "y": 21
+    },
+    {
+      "id": "HEAL_LOCATION_ONE_ISLAND",
+      "map": "MAP_ONE_ISLAND",
+      "x": 14,
+      "y": 6
+    },
+    {
+      "id": "HEAL_LOCATION_TWO_ISLAND",
+      "map": "MAP_TWO_ISLAND",
+      "x": 21,
+      "y": 8
+    },
+    {
+      "id": "HEAL_LOCATION_THREE_ISLAND",
+      "map": "MAP_THREE_ISLAND",
+      "x": 14,
+      "y": 28
+    },
+    {
+      "id": "HEAL_LOCATION_FOUR_ISLAND",
+      "map": "MAP_FOUR_ISLAND",
+      "x": 18,
+      "y": 21
+    },
+    {
+      "id": "HEAL_LOCATION_FIVE_ISLAND",
+      "map": "MAP_FIVE_ISLAND",
+      "x": 18,
+      "y": 7
+    },
+    {
+      "id": "HEAL_LOCATION_SIX_ISLAND",
+      "map": "MAP_SIX_ISLAND",
+      "x": 11,
+      "y": 12
+    },
+    {
+      "id": "HEAL_LOCATION_SEVEN_ISLAND",
+      "map": "MAP_SEVEN_ISLAND",
+      "x": 12,
+      "y": 4
+    },
+    {
+      "id": "HEAL_LOCATION_NEW_BARK_TOWN",
+      "map": "MAP_NEW_BARK_TOWN",
+      "x": 16,
+      "y": 8
+    },
+    {
+      "id": "HEAL_LOCATION_CHERRYGROVE_CITY",
+      "map": "MAP_CHERRYGROVE_CITY",
+      "x": 42,
+      "y": 6
+    },
+    {
+      "id": "HEAL_LOCATION_VIOLET_CITY",
+      "map": "MAP_VIOLET_CITY",
+      "x": 38,
+      "y": 29
+    },
+    {
+      "id": "HEAL_LOCATION_AZALEA_TOWN",
+      "map": "MAP_AZALEA_TOWN",
+      "x": 26,
+      "y": 10
+    },
+    {
+      "id": "HEAL_LOCATION_GOLDENROD_CITY",
+      "map": "MAP_GOLDENROD_CITY",
+      "x": 18,
+      "y": 31
+    },
+    {
+      "id": "HEAL_LOCATION_ECRUTEAK_CITY",
+      "map": "MAP_ECRUTEAK_CITY",
+      "x": 30,
+      "y": 38
+    },
+    {
+      "id": "HEAL_LOCATION_OLIVINE_CITY",
+      "map": "MAP_OLIVINE_CITY",
+      "x": 15,
+      "y": 30
+    },
+    {
+      "id": "HEAL_LOCATION_CIANWOOD_CITY",
+      "map": "MAP_CIANWOOD_CITY",
+      "x": 34,
+      "y": 54
+    },
+    {
+      "id": "HEAL_LOCATION_MAHOGANY_TOWN",
+      "map": "MAP_MAHOGANY_TOWN",
+      "x": 18,
+      "y": 22
+    },
+    {
+      "id": "HEAL_LOCATION_BLACKTHORN_CITY",
+      "map": "MAP_BLACKTHORN_CITY",
+      "x": 19,
+      "y": 24
+    },
+    {
+      "id": "HEAL_LOCATION_ROUTE32",
+      "map": "MAP_ROUTE32",
+      "x": 17,
+      "y": 100
     }
   ]
 }

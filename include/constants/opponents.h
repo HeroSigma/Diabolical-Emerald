@@ -859,12 +859,15 @@
 #define TRAINER_BRENDAN_PLACEHOLDER         853
 #define TRAINER_MAY_PLACEHOLDER             854
 
-// NOTE: Because each Trainer uses a flag to determine when they are defeated, there is only space for 9 additional trainers before trainer flag space overflows
-//       More space can be made by shifting flags around in constants/flags.h or changing how trainer flags are handled
-//       MAX_TRAINERS_COUNT can be increased but will take up additional saveblock space
+// Kanto trainers
+#define TRAINER_RIVAL_OAKS_LAB_SQUIRTLE          855
+#define TRAINER_RIVAL_OAKS_LAB_BULBASAUR         856
+#define TRAINER_RIVAL_OAKS_LAB_CHARMANDER        857
 
-#define TRAINERS_COUNT                      855
-#define MAX_TRAINERS_COUNT                  864
+// Note: Space for 106 trainers remains
+
+#define TRAINERS_COUNT                      858
+#define MAX_TRAINERS_COUNT                  964
 #define TRAINER_PARTNER(partner)           (MAX_TRAINERS_COUNT + partner)
 
 #endif  // GUARD_CONSTANTS_OPPONENTS_H

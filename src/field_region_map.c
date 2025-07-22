@@ -29,6 +29,8 @@
  *  For the fly map, and utility functions all of the maps use, see region_map.c
  */
 
+static u8 mapNumber = 0;
+
 enum {
     WIN_MAPSEC_NAME,
     WIN_TITLE,
@@ -105,6 +107,10 @@ void FieldInitRegionMap(MainCallback callback)
     SetMainCallback2(MCB2_InitRegionMapRegisters);
 }
 
+void SetFieldMapNumber(u8 mapNum) {
+    mapNumber = mapNum;
+}
+
 static void MCB2_InitRegionMapRegisters(void)
 {
     SetGpuReg(REG_OFFSET_DISPCNT, 0);
@@ -146,6 +152,8 @@ static void MCB2_FieldUpdateRegionMap(void)
 
 static void FieldUpdateRegionMap(void)
 {
+    u8 offset;
+
     switch (sFieldRegionMapHandler->state)
     {
         case 0:
@@ -157,8 +165,22 @@ static void FieldUpdateRegionMap(void)
             break;
         case 1:
             DrawStdFrameWithCustomTileAndPalette(WIN_TITLE, FALSE, 0x27, 0xd);
-            FillWindowPixelBuffer(WIN_TITLE, PIXEL_FILL(1));
-            PrintTitleWindowText();
+            if(mapNumber == 0) {
+                offset = GetStringCenterAlignXOffset(FONT_NORMAL, gText_Kanto, 0x38);
+                AddTextPrinterParameterized(WIN_TITLE, FONT_NORMAL, gText_Kanto, offset, 1, 0, NULL);
+            }
+            if(mapNumber == 1) {
+                offset = GetStringCenterAlignXOffset(FONT_NORMAL, gText_Johto, 0x38);
+                AddTextPrinterParameterized(WIN_TITLE, FONT_NORMAL, gText_Johto, offset, 1, 0, NULL);
+            }
+            if(mapNumber == 2) {
+                offset = GetStringCenterAlignXOffset(FONT_NORMAL, gText_Hoenn, 0x38);
+                AddTextPrinterParameterized(WIN_TITLE, FONT_NORMAL, gText_Hoenn, offset, 1, 0, NULL);
+            }
+            if(mapNumber == 3) {
+                offset = GetStringCenterAlignXOffset(FONT_NORMAL, gText_Sevii_Menu, 0x38);
+                AddTextPrinterParameterized(WIN_TITLE, FONT_NORMAL, gText_Sevii_Menu, offset, 1, 0, NULL);
+            }
             ScheduleBgCopyTilemapToVram(0);
             DrawStdFrameWithCustomTileAndPalette(WIN_MAPSEC_NAME, FALSE, 0x27, 0xd);
             PrintRegionMapSecName();
@@ -189,7 +211,7 @@ static void FieldUpdateRegionMap(void)
                     sFieldRegionMapHandler->state++;
                     break;
                 case MAP_INPUT_R_BUTTON:
-                    if (sFieldRegionMapHandler->regionMap.mapSecType == MAPSECTYPE_CITY_CANFLY 
+                    if (sFieldRegionMapHandler->regionMap.mapSecType == MAPSECTYPE_CITY_CANFLY
                         && FlagGet(OW_FLAG_POKE_RIDER) && Overworld_MapTypeAllowsTeleportAndFly(gMapHeader.mapType) == TRUE)
                     {
                         PlaySE(SE_SELECT);

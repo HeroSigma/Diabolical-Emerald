@@ -104,3 +104,9 @@ void StartWallClock(void)
     SetMainCallback2(CB2_StartWallClock);
     gMain.savedCallback = ReturnFromStartWallClock;
 }
+
+void SetDayOfWeek(void)
+{
+    RtcSetDayOfWeek(gSpecialVar_0x8004);
+    InitTimeBasedEvents();
+}

@@ -148,7 +148,7 @@
 #define VAR_ROUTE133_STATE                               0x4080 // Unused Var
 #define VAR_ROUTE134_STATE                               0x4081 // Unused Var
 #define VAR_LITTLEROOT_HOUSES_STATE_MAY                  0x4082
-#define VAR_UNUSED_0x4083                                0x4083 // Unused Var
+#define VAR_PREVIOUS_TIME_RATIO                          0x4083
 #define VAR_BIRCH_LAB_STATE                              0x4084
 #define VAR_PETALBURG_GYM_STATE                          0x4085 // 0-1: Wally tutorial, 2-6: 0-4 badges, 7: Defeated Norman, 8: Rematch Norman
 #define VAR_CONTEST_HALL_STATE                           0x4086
@@ -156,13 +156,16 @@
 #define VAR_CONTEST_TYPE                                 0x4088
 #define VAR_SECRET_BASE_INITIALIZED                      0x4089
 #define VAR_CONTEST_PRIZE_PICKUP                         0x408A
-#define VAR_UNUSED_0x408B                                0x408B // Unused Var
+#define VAR_BATTLE_SPEED                                 0x408B // Used to adjust battle speed
 #define VAR_LITTLEROOT_HOUSES_STATE_BRENDAN              0x408C
 #define VAR_LITTLEROOT_RIVAL_STATE                       0x408D
 #define VAR_BOARD_BRINEY_BOAT_STATE                      0x408E
 #define VAR_DEVON_CORP_3F_STATE                          0x408F
 #define VAR_BRINEY_HOUSE_STATE                           0x4090
-#define VAR_UNUSED_0x4091                                0x4091 // Unused Var
+#define VAR_ALTERED_TIME_RATIO                           0x4091 // In GEN_8_PLA, the time in game moves forward 60 seconds for every second in the RTC.
+                                                                // In GEN_9, it is 20 seconds.
+                                                                // In GEN_III_STANDARD, it is 80 seconds.  This is based on the standard flow of time from Majora's Mask
+                                                                // In GEN_III_SLOW, it is 24 seconds.  This is based on the Inverted Song of Time from Majora's Mask
 #define VAR_LITTLEROOT_INTRO_STATE                       0x4092
 #define VAR_MAUVILLE_GYM_STATE                           0x4093
 #define VAR_LILYCOVE_MUSEUM_2F_STATE                     0x4094
@@ -274,8 +277,38 @@
 #define VAR_UNUSED_0x40FE                                0x40FE // Unused Var
 #define VAR_UNUSED_0x40FF                                0x40FF // Unused Var
 
-#define VARS_END                                         0x40FF
+// Kanto vars
+#define VAR_MAP_SCENE_PALLET_TOWN_SIGN_LADY              0x40F7
+#define VAR_MAP_SCENE_PALLET_TOWN_OAK                    0x40F8
+#define VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB     0x40F9
+#define VAR_MAP_SCENE_PALLET_TOWN_PLAYERS_HOUSE_2F       0x40FA
+#define VAR_MAP_SCENE_PALLET_TOWN_RIVALS_HOUSE           0x40FB
+#define VAR_MASSAGE_COOLDOWN_STEP_COUNTER                0x40FC
+#define VAR_KANTO_STARTER_MON                            0x40FD // 0: Bulbasaur, 1: Squirtle, 2: Charmander
+#define VAR_MAP_SCENE_ROUTE22                            0x40FE
+#define VAR_MAP_SCENE_POKEMON_CENTER_TEALA               0x40FF
+#define VAR_MAP_SCENE_CERULEAN_CITY_RIVAL                0x4100
+#define VAR_MAP_SCENE_VIRIDIAN_CITY_MART                 0x4101
+#define VAR_MAP_SCENE_VIRIDIAN_CITY_OLD_MAN              0x4102
+
+// Johto vars (custom placeholders)
+#define VAR_NEW_BARK_TOWN_STATE                          0x4103
+#define VAR_PLAYER_HOUSE_STATE                           0x4104
+#define VAR_PARENTS_HOUSE_STATE                          VAR_BRINEY_HOUSE_STATE
+#define VAR_ROUTE29_STATE                                0x4105
+#define VAR_ROUTE31_STATE                                0x4106
+#define VAR_ELM_LAB_STATE                                0x4107
+
+#define VARS_END                                         0x4107
 #define VARS_COUNT                                       (VARS_END - VARS_START + 1)
+
+// Johto variable aliases using unused Hoenn vars
+#undef VAR_NEW_BARK_TOWN_STATE
+#define VAR_NEW_BARK_TOWN_STATE  VAR_DEWFORD_TOWN_STATE
+#undef VAR_ROUTE29_STATE
+#define VAR_ROUTE29_STATE        VAR_PACIFIDLOG_TOWN_STATE
+#undef VAR_ELM_LAB_STATE
+#define VAR_ELM_LAB_STATE        VAR_VERDANTURF_TOWN_STATE
 
 #define SPECIAL_VARS_START            0x8000
 // special vars
@@ -300,10 +333,11 @@
 #define VAR_CONTEST_CATEGORY          0x8011
 #define VAR_MON_BOX_ID                0x8012
 #define VAR_MON_BOX_POS               0x8013
-#define VAR_UNUSED_0x8014             0x8014
-#define VAR_TRAINER_BATTLE_OPPONENT_A 0x8015 // Alias of TRAINER_BATTLE_PARAM.opponentA
+#define VAR_TIME_OF_DAY               0x8014
+#define VAR_DAY_OF_WEEK               0x8015
+#define VAR_TRAINER_BATTLE_OPPONENT_A 0x8016 // Alias of TRAINER_BATTLE_PARAM.opponentA
 
-#define SPECIAL_VARS_END              0x8015
+#define SPECIAL_VARS_END              0x8016
 
 // If an overworld trigger uses this pseudo-variable as the trigger check,
 // then the script will be run using RunScriptImmediately instead of in the

@@ -155,9 +155,7 @@ void ResetMenuAndMonGlobals(void)
 
 void NewGameInitData(void)
 {
-    if (gSaveFileStatus == SAVE_STATUS_EMPTY || gSaveFileStatus == SAVE_STATUS_CORRUPT)
-        RtcReset();
-
+    RtcReset();
     gDifferentSaveFile = TRUE;
     gSaveBlock2Ptr->encryptionKey = 0;
     ZeroPlayerPartyMons();

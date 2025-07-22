@@ -203,6 +203,7 @@ struct Time
     /*0x02*/ s8 hours;
     /*0x03*/ s8 minutes;
     /*0x04*/ s8 seconds;
+    /*0x05*/ s8 dayOfWeek;
 };
 
 struct NPCFollowerPadding
@@ -561,9 +562,6 @@ struct RankingHall2P
     //u8 padding;
 };
 
-// quest menu
-#include "constants/quests.h"
-
 struct SaveBlock2
 {
     /*0x00*/ u8 playerName[PLAYER_NAME_LENGTH + 1];
@@ -606,6 +604,7 @@ struct SaveBlock2
     // so that the larger arrays do not bloat SaveBlock1.
     u8 questData[(QUEST_COUNT * 5 + 7) / 8];
     u8 subQuests[(SUB_QUEST_COUNT + 7) / 8];
+    u8 playerRegion; // KANTO, JOHTO, HOENN
 }; // sizeof=0xF2C
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;
@@ -1006,7 +1005,6 @@ struct MysteryGiftSave
     u32 trainerIds[2][5]; // Saved ids for 10 trainers, 5 each for battles and trades
 }; // 0x36C 0x3598
 
-
 // For external event data storage. The majority of these may have never been used.
 // In Emerald, the only known used fields are the PokeCoupon and BoxRS ones, but hacking the distribution discs allows Emerald to receive events and set the others
 struct ExternalEventData
@@ -1093,7 +1091,8 @@ struct SaveBlock1
     /*0x988*/ u8 filler1[0x34]; // Previously Dex Flags, feel free to remove.
 #endif //FREE_EXTRA_SEEN_FLAGS_SAVEBLOCK1
     /*0x9BC*/ u16 berryBlenderRecords[3];
-    /*0x9C2*/ u8 unused_9C2[6];
+    /*0x9C2*/ u8 unused_9C2[5];
+    /*0x9C7*/ u8 objectEventCount;
 #if FREE_MATCH_CALL == FALSE
     /*0x9C8*/ u16 trainerRematchStepCounter;
     /*0x9CA*/ u8 trainerRematches[MAX_REMATCH_ENTRIES];

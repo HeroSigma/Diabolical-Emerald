@@ -1,0 +1,41 @@
+{
+  "id": "MAP_BARRIER_STATION_SOUTH",
+  "name": "BarrierStation_South",
+  "layout": "LAYOUT_BARRIER_STATION_SOUTH",
+  "music": "MUS_ECRUTEAK",
+  "region_map_section": "MAPSEC_ECRUTEAK_CITY",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_INDOOR",
+  "allow_cycling": true,
+  "allow_escaping": true,
+  "allow_running": true,
+  "show_map_name": false,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": 0,
+  "object_events": [
+
+  ],
+  "warp_events": [
+    {
+      "x": 6,
+      "y": 4,
+      "elevation": 0,
+      "dest_map": "MAP_BARRIER_STATION_NORTH",
+      "dest_warp_id": 1
+    },
+    {
+      "x": 6,
+      "y": 18,
+      "elevation": 0,
+      "dest_map": "MAP_ECRUTEAK_CITY",
+      "dest_warp_id": 4
+    }
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
+}
