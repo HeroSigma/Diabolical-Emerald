@@ -351,6 +351,7 @@
 #define FLAG_NURSE_MENTIONS_GOLD_CARD        0x127
 #define FLAG_MET_FRONTIER_BEAUTY_MOVE_TUTOR  0x128
 #define FLAG_MET_FRONTIER_SWIMMER_MOVE_TUTOR 0x129
+#define FLAG_RECEIVED_SECRET_POWER           0x130
 
 // Flags for whether a rematchable trainer has been registered in the player's Match Call.
 // Most are used implicitly by adding their REMATCH_* id to TRAINER_REGISTERED_FLAGS_START.
