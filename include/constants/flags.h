@@ -74,11 +74,8 @@
 #define FLAG_HIDE_TAPU_KOKO  0x3D
 #define FLAG_HIDE_TAPU_LELE  0x3E
 #define FLAG_HIDE_TAPU_FINI  0x3F
-#define FLAG_HIDE_ZAPDOS     0x40
-#define FLAG_HIDE_MOLTRES    0x41
 #define FLAG_CAUGHT_HOOPA    0x42
 #define FLAG_ROAMING_LEGENDS_UNLOCKED 0x43
-#define FLAG_HIDE_MEWTWO    0x44
 #define FLAG_HIDE_ARCEUS    0x45
 #define FLAG_HIDE_CELEBI    0x46
 #define FLAG_HIDE_UXIE      0x47
@@ -850,7 +847,6 @@
 #define FLAG_HIDE_AQUA_HIDEOUT_1F_GRUNT_2_BLOCKING_ENTRANCE         0x336
 #define FLAG_HIDE_MOSSDEEP_CITY_TEAM_MAGMA                          0x337
 #define FLAG_HIDE_PETALBURG_GYM_WALLYS_DAD                          0x338
-#define FLAG_HIDE_ARTICUNO                                         0x339
 #define FLAG_HIDE_SOOTOPOLIS_CITY_ARCHIE                            0x33A
 #define FLAG_HIDE_SOOTOPOLIS_CITY_MAXIE                             0x33B
 #define FLAG_HIDE_SEAFLOOR_CAVERN_ROOM_9_ARCHIE                     0x33C
@@ -2423,12 +2419,6 @@
 #define FLAG_IS_CHAMPION                            (SYSTEM_FLAGS + 0x30) // Seems to be related to linking.
 #define FLAG_NURSE_UNION_ROOM_REMINDER              (SYSTEM_FLAGS + 0x31)
 
-#define FLAG_SYS_USE_FLASH                          (SYSTEM_FLAGS + 0x32)
-#define FLAG_SYS_USE_STRENGTH                       (SYSTEM_FLAGS + 0x33)
-#define FLAG_SYS_WEATHER_CTRL                       (SYSTEM_FLAGS + 0x34)
-#define FLAG_SYS_CYCLING_ROAD                       (SYSTEM_FLAGS + 0x35)
-#define FLAG_SYS_SAFARI_MODE                        (SYSTEM_FLAGS + 0x36)
-#define FLAG_SYS_CRUISE_MODE                        (SYSTEM_FLAGS + 0x37)
 
 #define FLAG_SYS_USE_FLASH                          (SYSTEM_FLAGS + 0x28)
 #define FLAG_SYS_USE_STRENGTH                       (SYSTEM_FLAGS + 0x29)
