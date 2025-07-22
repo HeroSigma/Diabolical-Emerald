@@ -315,7 +315,6 @@ static bool8 ShouldOpenRegionMapZoomed(void)
 
 static u32 LoopedTask_OpenRegionMap(s32 taskState)
 {
-    int menuGfxId;
     struct RegionMap *regionMap;
     struct Pokenav_RegionMapGfx *state = GetSubstructPtr(POKENAV_SUBSTRUCT_REGION_MAP_ZOOM);
     switch (taskState)
@@ -374,15 +373,10 @@ static u32 LoopedTask_OpenRegionMap(s32 taskState)
         SetVBlankCallback_(VBlankCB_RegionMap);
         return LT_INC_AND_PAUSE;
     case 6:
-        //Hide this header as it covers parts of the Johto and Kanto maps
-        // if (!ShouldOpenRegionMapZoomed())
-            // menuGfxId = POKENAV_GFX_MAP_MENU_ZOOMED_OUT;
-        // else
-            // menuGfxId = POKENAV_GFX_MAP_MENU_ZOOMED_IN;
-
+        // Hide this header as it covers parts of the Johto and Kanto maps
         // UpdateRegionMapHelpBarText();
-        // LoadLeftHeaderGfxForIndex(menuGfxId);
-        // ShowLeftHeaderGfx(menuGfxId, TRUE, TRUE);
+        // LoadLeftHeaderGfxForIndex(POKENAV_GFX_MAP_MENU_ZOOMED_OUT);
+        // ShowLeftHeaderGfx(POKENAV_GFX_MAP_MENU_ZOOMED_OUT, TRUE, TRUE);
         PokenavFadeScreen(POKENAV_FADE_FROM_BLACK);
         return LT_INC_AND_PAUSE;
     case 7:
