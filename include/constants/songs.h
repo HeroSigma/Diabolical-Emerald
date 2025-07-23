@@ -546,6 +546,46 @@
 #define PH_NURSE_HELD               608
 #define PH_NURSE_SOLO               609
 
+// Additional Johto music tracks
+#define MUS_NEW_BARK                610
+#define MUS_CHERRYGROVE             611
+#define MUS_VIOLET                  612
+#define MUS_AZALEA                  613
+#define MUS_GOLDENROD               614
+#define MUS_ECRUTEAK                615
+#define MUS_ROUTE26                 616
+#define MUS_ROUTE27                 617
+#define MUS_ROUTE29                 618
+#define MUS_ROUTE30                 619
+#define MUS_ROUTE31                 620
+#define MUS_ROUTE32                 621
+#define MUS_ROUTE33                 622
+#define MUS_ROUTE34                 623
+#define MUS_ROUTE35                 624
+#define MUS_ROUTE36                 625
+#define MUS_ROUTE37                 626
+#define MUS_ROUTE38                 627
+#define MUS_ROUTE39                 628
+#define MUS_ROUTE40                 629
+#define MUS_ROUTE41                 630
+#define MUS_LAKE_OF_RAGE            631
+#define MUS_ROUTE42                 632
+#define MUS_ROUTE43                 633
+#define MUS_ROUTE44                 634
+#define MUS_ROUTE45                 635
+#define MUS_ROUTE46                 636
+#define MUS_UNION_CAVE              637
+#define MUS_NATIONAL_PARK           638
+#define MUS_DRAGONS_DEN             639
+#define MUS_JOHTO_POKEMART          640
+#define MUS_JOHTO_POKECENTER        641
+#define MUS_JOHTO_GYM               642
+#define MUS_JOHTO_GAMECORNER        643
+#define MUS_TIN_TOWER               644
+#define MUS_BURNED_TOWER            645
+#define MUS_DANCE_THEATER           646
+#define MUS_JOHTO_ROCKET            647
+
 #define MUS_ROUTE118                0x7FFF  // Map is split into 2 music sections. controlled by GetCurrLocationDefaultMusic().
 
 #define MUS_NONE                    0xFFFF
