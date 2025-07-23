@@ -108,10 +108,17 @@ def merge_maps(remote_path, local_path, name_filters=None):
             local_layouts['layouts'].append(layout)
             local_layout_ids.add(layout_id)
             copied_layouts.append(layout_id)
-            copy_file(os.path.join(remote_path, layout['border_filepath']),
-                      os.path.join(local_path, layout['border_filepath']))
-            copy_file(os.path.join(remote_path, layout['blockdata_filepath']),
-                      os.path.join(local_path, layout['blockdata_filepath']))
+
+            # Copy all files belonging to the layout directory
+            layout_dir = os.path.dirname(layout['border_filepath'])
+            src_layout_dir = os.path.join(remote_path, layout_dir)
+            dst_layout_dir = os.path.join(local_path, layout_dir)
+            if os.path.exists(src_layout_dir):
+                ensure_dir(dst_layout_dir)
+                for fname in os.listdir(src_layout_dir):
+                    copy_file(os.path.join(src_layout_dir, fname),
+                              os.path.join(dst_layout_dir, fname))
+
             for key in ['primary_tileset', 'secondary_tileset']:
                 tileset_name = layout[key][len('gTileset_'):].lower()
                 tileset_dir = os.path.join('data', 'tilesets',
