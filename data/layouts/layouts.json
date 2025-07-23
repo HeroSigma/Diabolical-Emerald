@@ -4410,6 +4410,76 @@
       "secondary_tileset": "gTileset_MysteryEventsHouse",
       "border_filepath": "data/layouts/SootopolisCity_MysteryEventsHouse_1F_StairsUnblocked/border.bin",
       "blockdata_filepath": "data/layouts/SootopolisCity_MysteryEventsHouse_1F_StairsUnblocked/map.bin"
+    },
+    {
+      "id": "LAYOUT_PLAYERS_HOUSE_2F",
+      "name": "PlayersHouse_2F_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_KantoBuilding",
+      "secondary_tileset": "gTileset_KantoBuilding1",
+      "border_filepath": "data/layouts/PlayersHouse_2F/border.bin",
+      "blockdata_filepath": "data/layouts/PlayersHouse_2F/map.bin"
+    },
+    {
+      "id": "LAYOUT_GARYS_HOUSE",
+      "name": "GarysHouse_Layout",
+      "width": 13,
+      "height": 10,
+      "primary_tileset": "gTileset_KantoBuilding",
+      "secondary_tileset": "gTileset_KantoBuilding2",
+      "border_filepath": "data/layouts/GarysHouse/border.bin",
+      "blockdata_filepath": "data/layouts/GarysHouse/map.bin"
+    },
+    {
+      "id": "LAYOUT_PLAYERS_HOUSE_1F",
+      "name": "PlayersHouse_1F_Layout",
+      "width": 12,
+      "height": 10,
+      "primary_tileset": "gTileset_KantoBuilding",
+      "secondary_tileset": "gTileset_KantoBuilding1",
+      "border_filepath": "data/layouts/PlayersHouse_1F/border.bin",
+      "blockdata_filepath": "data/layouts/PlayersHouse_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_GOLDEN_CITY_UNDERGROUND_WAREHOUSE",
+      "name": "GoldenCity_Underground_Warehouse_Layout",
+      "width": 24,
+      "height": 16,
+      "primary_tileset": "gTileset_JohtoBuilding",
+      "secondary_tileset": "gTileset_SilphCo",
+      "border_filepath": "data/layouts/GoldenCity_Underground_Warehouse/border.bin",
+      "blockdata_filepath": "data/layouts/GoldenCity_Underground_Warehouse/map.bin"
+    },
+    {
+      "id": "LAYOUT_MT_EMBER_SUMMY_PATH_1F",
+      "name": "MtEmber_SummyPath_1F_Layout",
+      "width": 15,
+      "height": 18,
+      "primary_tileset": "gTileset_KantoGeneral",
+      "secondary_tileset": "gTileset_MtEmber",
+      "border_filepath": "data/layouts/MtEmber_SummyPath_1F/border.bin",
+      "blockdata_filepath": "data/layouts/MtEmber_SummyPath_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_NEW_MAP2",
+      "name": "NewMap2_Layout",
+      "width": 16,
+      "height": 11,
+      "primary_tileset": "gTileset_KantoGeneral",
+      "secondary_tileset": "gTileset_DottedHole",
+      "border_filepath": "data/layouts/NewMap2/border.bin",
+      "blockdata_filepath": "data/layouts/NewMap2/map.bin"
+    },
+    {
+      "id": "LAYOUT_SEAFOM_ISLANDS_1F",
+      "name": "SeafomIslands_1F_Layout",
+      "width": 38,
+      "height": 24,
+      "primary_tileset": "gTileset_KantoGeneral",
+      "secondary_tileset": "gTileset_SeafoamIslands",
+      "border_filepath": "data/layouts/SeafomIslands_1F/border.bin",
+      "blockdata_filepath": "data/layouts/SeafomIslands_1F/map.bin"
     }
   ]
 }
