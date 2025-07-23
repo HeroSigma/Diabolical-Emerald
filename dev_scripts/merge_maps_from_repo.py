@@ -6,6 +6,10 @@ import shutil
 import subprocess
 import tempfile
 
+# Default upstream repository to import maps from
+DEFAULT_REPO = "https://github.com/StrangeQuark/pokeemerald"
+DEFAULT_BRANCH = "master"
+
 
 def ensure_dir(path):
     os.makedirs(path, exist_ok=True)
@@ -33,12 +37,14 @@ def save_json(data, path):
         json.dump(data, f, indent=2)
 
 
-def clone_repo(url):
+def clone_repo(url, branch):
     tmpdir = tempfile.mkdtemp(prefix='mapmerge_')
-    subprocess.check_call(['git', 'clone', '--depth', '1', url, tmpdir])
+    subprocess.check_call([
+        'git', 'clone', '--depth', '1', '--branch', branch, url, tmpdir
+    ])
     return tmpdir
 
-def merge_maps(remote_path, local_path):
+def merge_maps(remote_path, local_path, name_filters=None):
     remote_maps = os.path.join(remote_path, 'data', 'maps')
     local_maps = os.path.join(local_path, 'data', 'maps')
 
@@ -55,6 +61,8 @@ def merge_maps(remote_path, local_path):
     copied_maps = []
 
     for map_name in os.listdir(remote_maps):
+        if name_filters and not any(sub.lower() in map_name.lower() for sub in name_filters):
+            continue
         dst_map_dir = os.path.join(local_maps, map_name)
         if os.path.exists(dst_map_dir):
             continue
@@ -98,17 +106,26 @@ def merge_maps(remote_path, local_path):
 
 def main():
     parser = argparse.ArgumentParser(description='Merge map data from another repo')
-    parser.add_argument('repo', help='Remote repo path or git URL')
+    parser.add_argument('repo', nargs='?', default=DEFAULT_REPO,
+                        help=f'Remote repo path or git URL (default: {DEFAULT_REPO})')
+    parser.add_argument('--branch', default=DEFAULT_BRANCH, help='Branch to clone from')
     parser.add_argument('--local', default='.', help='Local repository path')
+    parser.add_argument('--name-filter', action='append', help='Substring filter for map names; can be repeated')
     args = parser.parse_args()
 
     if os.path.isdir(args.repo):
         remote_path = args.repo
-    else:
-        remote_path = clone_repo(args.repo)
 
-    maps, layouts = merge_maps(remote_path, args.local)
+        cleanup = False
+    else:
+        remote_path = clone_repo(args.repo, args.branch)
+        cleanup = True
+
+    maps, layouts = merge_maps(remote_path, args.local, args.name_filter)
     print(f'Copied {len(maps)} maps and {len(layouts)} layouts')
+
+    if cleanup:
+        shutil.rmtree(remote_path)
 
 
 if __name__ == '__main__':
