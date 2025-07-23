@@ -622,6 +622,16 @@ void InitTilesetAnim_General(void)
     sPrimaryTilesetAnimCallback = TilesetAnim_General;
 }
 
+void InitTilesetAnim_KantoGeneral(void)
+{
+    InitTilesetAnim_General();
+}
+
+void InitTilesetAnim_JohtoGeneral(void)
+{
+    InitTilesetAnim_General();
+}
+
 void InitTilesetAnim_Building(void)
 {
     sPrimaryTilesetAnimCounter = 0;

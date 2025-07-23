@@ -7,6 +7,8 @@ void UpdateTilesetAnimations(void);
 void TransferTilesetAnimsBuffer(void);
 
 void InitTilesetAnim_General(void);
+void InitTilesetAnim_KantoGeneral(void);
+void InitTilesetAnim_JohtoGeneral(void);
 void InitTilesetAnim_Petalburg(void);
 void InitTilesetAnim_Rustboro(void);
 void InitTilesetAnim_Dewford(void);
