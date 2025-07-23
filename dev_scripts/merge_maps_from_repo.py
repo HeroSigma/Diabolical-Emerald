@@ -97,7 +97,14 @@ def merge_maps(remote_path, local_path, name_filters=None, group_filters=None):
     copied_maps = []
 
     for map_name in os.listdir(remote_maps):
-        if name_filters and not any(sub.lower() in map_name.lower() for sub in name_filters):
+    maps_from_groups = set()
+    if group_filters:
+        maps_from_groups = get_maps_by_group(remote_path, group_filters)
+
+    for map_name in os.listdir(remote_maps):
+        match_name = not name_filters or any(sub.lower() in map_name.lower() for sub in name_filters)
+        match_group = group_filters and map_name in maps_from_groups
+        if not (match_name or match_group):
             continue
         dst_map_dir = os.path.join(local_maps, map_name)
         if os.path.exists(dst_map_dir):
