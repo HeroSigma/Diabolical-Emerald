@@ -51,3 +51,15 @@ If you are looking to [report a bug](CONTRIBUTING.md#Bug-Report), [open a pull r
 [![](https://dcbadge.limes.pink/api/server/6CzjAG6GZk)](https://discord.gg/6CzjAG6GZk)
 
 Our community uses the [Rom Hacking Hideout (RHH) Discord server](https://discord.gg/6CzjAG6GZk) to communicate and organize. Most of our discussions take place there, and we welcome anybody to join us!
+
+## Map Import Script
+To copy additional maps from another repo, run:
+```bash
+python3 dev_scripts/merge_maps_from_repo.py <repo-path-or-url> [--branch BRANCH] [--name-filter PATTERN ...]
+```
+The script copies missing map assets and layouts while removing events. Use
+`--name-filter` to limit copied maps to names containing specific strings.
+For example, to merge Johto, Kanto, and Sevii maps from [StrangeQuark/pokeemerald](https://github.com/StrangeQuark/pokeemerald/) on the `master` branch:
+```bash
+python3 dev_scripts/merge_maps_from_repo.py https://github.com/StrangeQuark/pokeemerald --branch master --name-filter Johto --name-filter Kanto --name-filter Sevii
+```
