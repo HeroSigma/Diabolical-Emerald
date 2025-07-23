@@ -1,0 +1,61 @@
+{
+  "id": "MAP_ROUTE26",
+  "name": "Route26",
+  "layout": "LAYOUT_ROUTE26",
+  "music": "MUS_ROUTE26",
+  "region_map_section": "MAPSEC_ROUTE_26",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_ROUTE",
+  "allow_cycling": true,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": [
+    {
+      "map": "MAP_ROUTE27",
+      "offset": 122,
+      "direction": "left"
+    }
+  ],
+  "object_events": [
+
+  ],
+  "warp_events": [
+    {
+      "x": 12,
+      "y": 6,
+      "elevation": 0,
+      "dest_map": "MAP_ROUTE26_GATEHOUSE",
+      "dest_warp_id": "3"
+    },
+    {
+      "x": 13,
+      "y": 6,
+      "elevation": 0,
+      "dest_map": "MAP_ROUTE26_GATEHOUSE",
+      "dest_warp_id": "3"
+    },
+    {
+      "x": 22,
+      "y": 77,
+      "elevation": 0,
+      "dest_map": "MAP_ROUTE26_HOUSE1",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 5,
+      "y": 98,
+      "elevation": 0,
+      "dest_map": "MAP_ROUTE26_HOUSE2",
+      "dest_warp_id": "0"
+    }
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
+}

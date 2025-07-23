@@ -1,0 +1,99 @@
+{
+  "id": "MAP_VIOLET_CITY",
+  "name": "VioletCity",
+  "layout": "LAYOUT_VIOLET_CITY",
+  "music": "MUS_VIOLET",
+  "region_map_section": "MAPSEC_VIOLET_CITY",
+  "requires_flash": false,
+  "weather": "WEATHER_SUNNY",
+  "map_type": "MAP_TYPE_CITY",
+  "allow_cycling": true,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": [
+    {
+      "map": "MAP_ROUTE31",
+      "offset": 20,
+      "direction": "right"
+    },
+    {
+      "map": "MAP_ROUTE32",
+      "offset": -2,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_ROUTE36",
+      "offset": -2,
+      "direction": "left"
+    }
+  ],
+  "object_events": [
+
+  ],
+  "warp_events": [
+    {
+      "x": 30,
+      "y": 8,
+      "elevation": 0,
+      "dest_map": "MAP_SPROUT_TOWER_1F",
+      "dest_warp_id": "3"
+    },
+    {
+      "x": 4,
+      "y": 18,
+      "elevation": 0,
+      "dest_map": "MAP_VIOLET_CITY_HOUSE1",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 14,
+      "y": 19,
+      "elevation": 0,
+      "dest_map": "MAP_VIOLET_CITY_MART",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 24,
+      "y": 19,
+      "elevation": 0,
+      "dest_map": "MAP_VIOLET_CITY_GYM",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 37,
+      "y": 19,
+      "elevation": 0,
+      "dest_map": "MAP_VIOLET_CITY_EARLS_ACADEMY",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 38,
+      "y": 28,
+      "elevation": 0,
+      "dest_map": "MAP_VIOLET_CITY_POKEMON_CENTER_1F",
+      "dest_warp_id": "1"
+    },
+    {
+      "x": 26,
+      "y": 32,
+      "elevation": 0,
+      "dest_map": "MAP_VIOLET_CITY_HOUSE2",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 47,
+      "y": 27,
+      "elevation": 0,
+      "dest_map": "MAP_ROUTE31_GATEHOUSE",
+      "dest_warp_id": "0"
+    }
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "id": "MAP_DARK_CAVE_BLACKTHORN",
+  "name": "DarkCave_Blackthorn",
+  "layout": "LAYOUT_DARK_CAVE_BLACKTHORN",
+  "music": "MUS_DARK_CAVE",
+  "region_map_section": "MAPSEC_DARK_CAVE",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_UNDERGROUND",
+  "allow_cycling": true,
+  "allow_escaping": true,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": 0,
+  "object_events": [
+
+  ],
+  "warp_events": [
+    {
+      "x": 38,
+      "y": 4,
+      "elevation": 0,
+      "dest_map": "MAP_ROUTE45",
+      "dest_warp_id": 0
+    },
+    {
+      "x": 6,
+      "y": 38,
+      "elevation": 0,
+      "dest_map": "MAP_DARK_CAVE_VIOLET",
+      "dest_warp_id": 0
+    }
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
+}

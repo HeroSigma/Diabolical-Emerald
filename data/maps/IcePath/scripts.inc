@@ -1,0 +1,19 @@
+IcePath_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, IcePath_OnTransition
+	.byte 0
+
+IcePath_OnTransition::
+	call_if_unset FLAG_ICEPATH_BOULDERS_INITIALIZED, IcePath_EventScript_InitializeIcePathBoulders
+	end
+
+IcePath_EventScript_InitializeIcePathBoulders::
+	clearflag FLAG_HIDE_ICEPATH_B1F_BOULDER_1
+	clearflag FLAG_HIDE_ICEPATH_B1F_BOULDER_2
+	clearflag FLAG_HIDE_ICEPATH_B1F_BOULDER_3
+	clearflag FLAG_HIDE_ICEPATH_B1F_BOULDER_4
+	setflag FLAG_HIDE_ICEPATH_B2F_BOULDER_1
+	setflag FLAG_HIDE_ICEPATH_B2F_BOULDER_2
+	setflag FLAG_HIDE_ICEPATH_B2F_BOULDER_3
+	setflag FLAG_HIDE_ICEPATH_B2F_BOULDER_4
+	setflag FLAG_ICEPATH_BOULDERS_INITIALIZED
+	return
