@@ -1,2 +1,2 @@
 SevenIsland_TanobyRuins_RixyChamber_MapScripts::
-	.byte 0
+    .byte 0

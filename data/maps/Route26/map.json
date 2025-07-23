@@ -19,9 +19,7 @@
       "direction": "left"
     }
   ],
-  "object_events": [
-
-  ],
+  "object_events": [],
   "warp_events": [
     {
       "x": 12,
@@ -52,17 +50,6 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [
-
-  ],
-  "bg_events": [
-    {
-      "type": "sign",
-      "x": 14,
-      "y": 8,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route26_EventScript_LeagueGateSign"
-    }
-  ]
+  "coord_events": [],
+  "bg_events": []
 }

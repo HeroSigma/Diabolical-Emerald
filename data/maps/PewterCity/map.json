@@ -24,9 +24,7 @@
       "direction": "right"
     }
   ],
-  "object_events": [
-
-  ],
+  "object_events": [],
   "warp_events": [
     {
       "x": 9,
@@ -78,33 +76,6 @@
       "dest_warp_id": "1"
     }
   ],
-  "coord_events": [
-
-  ],
-  "bg_events": [
-    {
-      "type": "sign",
-      "x": 19,
-      "y": 7,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "PewterCity_EventScript_MuseumSign"
-    },
-    {
-      "type": "sign",
-      "x": 11,
-      "y": 16,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "PewterCity_EventScript_GymSign"
-    },
-    {
-      "type": "sign",
-      "x": 31,
-      "y": 25,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "PewterCity_EventScript_CitySign"
-    }
-  ]
+  "coord_events": [],
+  "bg_events": []
 }

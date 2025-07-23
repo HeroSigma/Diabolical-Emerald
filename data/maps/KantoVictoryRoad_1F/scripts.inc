@@ -1,2 +1,2 @@
 KantoVictoryRoad_1F_MapScripts::
-	.byte 0
+    .byte 0

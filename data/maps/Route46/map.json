@@ -24,9 +24,7 @@
       "direction": "right"
     }
   ],
-  "object_events": [
-
-  ],
+  "object_events": [],
   "warp_events": [
     {
       "x": 18,
@@ -50,27 +48,8 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [
-
-  ],
-  "bg_events": [
-    {
-      "type": "sign",
-      "x": 17,
-      "y": 7,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route46_EventScript_DarkCaveSign"
-    },
-    {
-      "type": "sign",
-      "x": 11,
-      "y": 31,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route46_EventScript_RouteSign"
-    }
-  ],
+  "coord_events": [],
+  "bg_events": [],
   "floor_number": "",
   "phone_service": ""
 }

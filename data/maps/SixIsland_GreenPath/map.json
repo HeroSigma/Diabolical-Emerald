@@ -24,9 +24,7 @@
       "direction": "up"
     }
   ],
-  "object_events": [
-
-  ],
+  "object_events": [],
   "warp_events": [
     {
       "x": 45,
@@ -57,25 +55,6 @@
       "dest_warp_id": "4"
     }
   ],
-  "coord_events": [
-
-  ],
-  "bg_events": [
-    {
-      "type": "sign",
-      "x": 40,
-      "y": 10,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "SixIsland_GreenPath_EventScript_LeftRouteSign"
-    },
-    {
-      "type": "sign",
-      "x": 69,
-      "y": 10,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "SixIsland_GreenPath_EventScript_RightRouteSign"
-    }
-  ]
+  "coord_events": [],
+  "bg_events": []
 }

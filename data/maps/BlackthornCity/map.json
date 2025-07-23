@@ -24,9 +24,7 @@
       "direction": "down"
     }
   ],
-  "object_events": [
-
-  ],
+  "object_events": [],
   "warp_events": [
     {
       "x": 25,
@@ -85,41 +83,6 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [
-
-  ],
-  "bg_events": [
-    {
-      "type": "sign",
-      "x": 26,
-      "y": 3,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "BlackthornCity_EventScript_DragonsDenSign"
-    },
-    {
-      "type": "sign",
-      "x": 27,
-      "y": 14,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "BlackthornCity_EventScript_GymSign"
-    },
-    {
-      "type": "sign",
-      "x": 44,
-      "y": 28,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "BlackthornCity_EventScript_CitySign"
-    },
-    {
-      "type": "sign",
-      "x": 9,
-      "y": 37,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "BlackthornCity_EventScript_MoveDeleterSign"
-    }
-  ]
+  "coord_events": [],
+  "bg_events": []
 }

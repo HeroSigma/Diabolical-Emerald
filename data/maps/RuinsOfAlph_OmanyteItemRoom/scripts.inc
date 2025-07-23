@@ -1,2 +1,2 @@
 RuinsOfAlph_OmanyteItemRoom_MapScripts::
-	.byte 0
+    .byte 0

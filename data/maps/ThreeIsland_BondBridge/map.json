@@ -19,9 +19,7 @@
       "direction": "right"
     }
   ],
-  "object_events": [
-
-  ],
+  "object_events": [],
   "warp_events": [
     {
       "x": 12,
@@ -38,25 +36,6 @@
       "dest_warp_id": "1"
     }
   ],
-  "coord_events": [
-
-  ],
-  "bg_events": [
-    {
-      "type": "sign",
-      "x": 14,
-      "y": 7,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "ThreeIsland_BondBridge_EventScript_BerryForestSign"
-    },
-    {
-      "type": "sign",
-      "x": 91,
-      "y": 9,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "ThreeIsland_BondBridge_EventScript_BondBridgeSign"
-    }
-  ]
+  "coord_events": [],
+  "bg_events": []
 }

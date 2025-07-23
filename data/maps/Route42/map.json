@@ -24,9 +24,7 @@
       "direction": "right"
     }
   ],
-  "object_events": [
-
-  ],
+  "object_events": [],
   "warp_events": [
     {
       "x": 14,
@@ -57,41 +55,6 @@
       "dest_warp_id": "7"
     }
   ],
-  "coord_events": [
-
-  ],
-  "bg_events": [
-    {
-      "type": "sign",
-      "x": 15,
-      "y": 9,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route42_EventScript_MtMortarSign"
-    },
-    {
-      "type": "sign",
-      "x": 69,
-      "y": 9,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route42_EventScript_RouteSign"
-    },
-    {
-      "type": "sign",
-      "x": 57,
-      "y": 11,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route42_EventScript_MtMortarSign"
-    },
-    {
-      "type": "sign",
-      "x": 6,
-      "y": 12,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route42_EventScript_RouteSign"
-    }
-  ]
+  "coord_events": [],
+  "bg_events": []
 }

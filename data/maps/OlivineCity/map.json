@@ -29,9 +29,7 @@
       "direction": "left"
     }
   ],
-  "object_events": [
-
-  ],
+  "object_events": [],
   "warp_events": [
     {
       "x": 12,
@@ -97,57 +95,6 @@
       "dest_warp_id": "1"
     }
   ],
-  "coord_events": [
-
-  ],
-  "bg_events": [
-    {
-      "type": "sign",
-      "x": 8,
-      "y": 14,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "OlivineCity_EventScript_GymSign"
-    },
-    {
-      "type": "sign",
-      "x": 19,
-      "y": 14,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "OlivineCity_EventScript_CitySign"
-    },
-    {
-      "type": "sign",
-      "x": 12,
-      "y": 21,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "OlivineCity_EventScript_HouseSign"
-    },
-    {
-      "type": "sign",
-      "x": 5,
-      "y": 29,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "OlivineCity_EventScript_CafeSign"
-    },
-    {
-      "type": "sign",
-      "x": 24,
-      "y": 29,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "OlivineCity_EventScript_PortSign"
-    },
-    {
-      "type": "sign",
-      "x": 39,
-      "y": 42,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "OlivineCity_EventScript_LighthouseSign"
-    }
-  ]
+  "coord_events": [],
+  "bg_events": []
 }

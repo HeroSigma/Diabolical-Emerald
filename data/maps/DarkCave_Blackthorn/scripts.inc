@@ -1,2 +1,2 @@
 DarkCave_Blackthorn_MapScripts::
-	.byte 0
+    .byte 0

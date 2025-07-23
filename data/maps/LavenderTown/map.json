@@ -29,9 +29,7 @@
       "direction": "down"
     }
   ],
-  "object_events": [
-
-  ],
+  "object_events": [],
   "warp_events": [
     {
       "x": 5,
@@ -76,33 +74,6 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [
-
-  ],
-  "bg_events": [
-    {
-      "type": "sign",
-      "x": 21,
-      "y": 7,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "LavenderTown_EventScript_PokemonTowerSign"
-    },
-    {
-      "type": "sign",
-      "x": 7,
-      "y": 11,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "LavenderTown_EventScript_VolunteerHouseSign"
-    },
-    {
-      "type": "sign",
-      "x": 15,
-      "y": 11,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "LavenderTown_EventScript_TownSign"
-    }
-  ]
+  "coord_events": [],
+  "bg_events": []
 }

@@ -34,9 +34,7 @@
       "direction": "down"
     }
   ],
-  "object_events": [
-
-  ],
+  "object_events": [],
   "warp_events": [
     {
       "x": 13,
@@ -130,57 +128,6 @@
       "dest_warp_id": "1"
     }
   ],
-  "coord_events": [
-
-  ],
-  "bg_events": [
-    {
-      "type": "sign",
-      "x": 27,
-      "y": 21,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "CeruleanCity_EventScript_GymSign"
-    },
-    {
-      "type": "sign",
-      "x": 11,
-      "y": 25,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "CeruleanCity_BikeShop_EventScript_Bicycle"
-    },
-    {
-      "type": "sign",
-      "x": 20,
-      "y": 25,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "CeruleanCity_EventScript_CitySign"
-    },
-    {
-      "type": "sign",
-      "x": 11,
-      "y": 26,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "CeruleanCity_BikeShop_EventScript_Bicycle"
-    },
-    {
-      "type": "sign",
-      "x": 11,
-      "y": 27,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "CeruleanCity_BikeShop_EventScript_Bicycle"
-    },
-    {
-      "type": "sign",
-      "x": 11,
-      "y": 28,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "CeruleanCity_EventScript_BikeShopSign"
-    }
-  ]
+  "coord_events": [],
+  "bg_events": []
 }

@@ -19,9 +19,7 @@
       "direction": "left"
     }
   ],
-  "object_events": [
-
-  ],
+  "object_events": [],
   "warp_events": [
     {
       "x": 11,
@@ -45,25 +43,6 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [
-
-  ],
-  "bg_events": [
-    {
-      "type": "sign",
-      "x": 13,
-      "y": 59,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "OneIsland_KindleRoad_EventScript_EmberSpaSign"
-    },
-    {
-      "type": "sign",
-      "x": 8,
-      "y": 115,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "OneIsland_KindleRoad_EventScript_RouteSign"
-    }
-  ]
+  "coord_events": [],
+  "bg_events": []
 }

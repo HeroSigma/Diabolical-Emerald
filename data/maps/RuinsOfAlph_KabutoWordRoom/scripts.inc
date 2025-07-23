@@ -1,2 +1,2 @@
 RuinsOfAlph_KabutoWordRoom_MapScripts::
-	.byte 0
+    .byte 0

@@ -29,9 +29,7 @@
       "direction": "left"
     }
   ],
-  "object_events": [
-
-  ],
+  "object_events": [],
   "warp_events": [
     {
       "x": 30,
@@ -90,41 +88,6 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [
-
-  ],
-  "bg_events": [
-    {
-      "type": "sign",
-      "x": 33,
-      "y": 11,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "VioletCity_EventScript_SproutTowerSign"
-    },
-    {
-      "type": "sign",
-      "x": 20,
-      "y": 19,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "VioletCity_EventScript_GymSign"
-    },
-    {
-      "type": "sign",
-      "x": 34,
-      "y": 19,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "VioletCity_EventScript_PokemonAcademySign"
-    },
-    {
-      "type": "sign",
-      "x": 31,
-      "y": 23,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "VioletCity_EventScript_CitySign"
-    }
-  ]
+  "coord_events": [],
+  "bg_events": []
 }

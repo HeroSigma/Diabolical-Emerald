@@ -24,9 +24,7 @@
       "direction": "down"
     }
   ],
-  "object_events": [
-
-  ],
+  "object_events": [],
   "warp_events": [
     {
       "x": 9,
@@ -50,33 +48,6 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [
-
-  ],
-  "bg_events": [
-    {
-      "type": "sign",
-      "x": 12,
-      "y": 3,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route32_EventScript_RuinsSign"
-    },
-    {
-      "type": "sign",
-      "x": 18,
-      "y": 8,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route32_EventScript_RouteSign"
-    },
-    {
-      "type": "sign",
-      "x": 14,
-      "y": 113,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route32_EventScript_CaveSign"
-    }
-  ]
+  "coord_events": [],
+  "bg_events": []
 }

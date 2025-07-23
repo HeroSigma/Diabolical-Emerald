@@ -19,9 +19,7 @@
       "direction": "up"
     }
   ],
-  "object_events": [
-
-  ],
+  "object_events": [],
   "warp_events": [
     {
       "x": 19,
@@ -52,33 +50,6 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [
-
-  ],
-  "bg_events": [
-    {
-      "type": "sign",
-      "x": 19,
-      "y": 8,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route34_EventScript_RouteSign"
-    },
-    {
-      "type": "sign",
-      "x": 17,
-      "y": 18,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route34_EventScript_DaycareSign"
-    },
-    {
-      "type": "sign",
-      "x": 23,
-      "y": 45,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route34_EventScript_IlexForestSign"
-    }
-  ]
+  "coord_events": [],
+  "bg_events": []
 }
