@@ -44,6 +44,29 @@ def clone_repo(url, branch):
     ])
     return tmpdir
 
+
+def merge_map_groups(remote_path, local_path, map_names):
+    remote_file = os.path.join(remote_path, 'data', 'maps', 'map_groups.json')
+    local_file = os.path.join(local_path, 'data', 'maps', 'map_groups.json')
+
+    remote_groups = load_json(remote_file)
+    local_groups = load_json(local_file)
+
+    for group in remote_groups.get('group_order', []):
+        if group not in local_groups.get('group_order', []):
+            local_groups.setdefault('group_order', []).append(group)
+
+    for group, maps in remote_groups.items():
+        if group == 'group_order':
+            continue
+        if group not in local_groups:
+            local_groups[group] = []
+        for name in maps:
+            if name in map_names and name not in local_groups[group]:
+                local_groups[group].append(name)
+
+    save_json(local_groups, local_file)
+
 def merge_maps(remote_path, local_path, name_filters=None):
     remote_maps = os.path.join(remote_path, 'data', 'maps')
     local_maps = os.path.join(local_path, 'data', 'maps')
@@ -115,7 +138,6 @@ def main():
 
     if os.path.isdir(args.repo):
         remote_path = args.repo
-
         cleanup = False
     else:
         remote_path = clone_repo(args.repo, args.branch)

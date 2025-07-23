@@ -55,10 +55,10 @@ Our community uses the [Rom Hacking Hideout (RHH) Discord server](https://discor
 ## Map Import Script
 To copy additional maps from another repo, run:
 ```bash
-
 python3 dev_scripts/merge_maps_from_repo.py <repo-path-or-url> [--branch BRANCH] [--name-filter PATTERN ...]
 ```
-The script copies missing map assets and layouts while removing events. Use
+The script copies missing map assets and layouts while removing events and
+updates `map_groups.json` so the new maps compile correctly. Use
 `--name-filter` to limit copied maps to names containing specific strings.
 For example, to merge Johto, Kanto, and Sevii maps from [StrangeQuark/pokeemerald](https://github.com/StrangeQuark/pokeemerald/) on the `master` branch:
 ```bash
