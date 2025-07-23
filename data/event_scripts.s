@@ -63,9 +63,21 @@
 #include "constants/vars.h"
 #include "constants/weather.h"
 #include "constants/quests.h"
-	.include "asm/macros.inc"
-	.include "asm/macros/event.inc"
-	.include "constants/constants.inc"
+        .include "asm/macros.inc"
+        .include "asm/macros/event.inc"
+        .include "constants/constants.inc"
+
+        @ Prevent macro substitution of variable constants
+        #undef VARS_START
+        #undef VARS_END
+        #undef SPECIAL_VARS_START
+        #undef SPECIAL_VARS_END
+
+        @ Definitions required by event script macros
+        .set VARS_START, 0x4000
+        .set VARS_END, 0x4107
+        .set SPECIAL_VARS_START, 0x8000
+        .set SPECIAL_VARS_END, 0x8016
 
 	.section script_data, "aw", %progbits
 
