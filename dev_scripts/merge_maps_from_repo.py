@@ -96,7 +96,6 @@ def merge_maps(remote_path, local_path, name_filters=None, group_filters=None):
     copied_layouts = []
     copied_maps = []
 
-    for map_name in os.listdir(remote_maps):
     maps_from_groups = set()
     if group_filters:
         maps_from_groups = get_maps_by_group(remote_path, group_filters)
@@ -161,6 +160,7 @@ def main():
     parser.add_argument('--branch', default=DEFAULT_BRANCH, help='Branch to clone from')
     parser.add_argument('--local', default='.', help='Local repository path')
     parser.add_argument('--name-filter', action='append', help='Substring filter for map names; can be repeated')
+    parser.add_argument('--group-filter', action='append', help='Substring filter for map group names; can be repeated')
     args = parser.parse_args()
 
     if os.path.isdir(args.repo):
@@ -170,7 +170,8 @@ def main():
         remote_path = clone_repo(args.repo, args.branch)
         cleanup = True
 
-    maps, layouts = merge_maps(remote_path, args.local, args.name_filter)
+    maps, layouts = merge_maps(remote_path, args.local, args.name_filter, args.group_filter)
+    merge_map_groups(remote_path, args.local, maps)
     print(f'Copied {len(maps)} maps and {len(layouts)} layouts')
 
     if cleanup:
