@@ -67,7 +67,20 @@ def merge_map_groups(remote_path, local_path, map_names):
 
     save_json(local_groups, local_file)
 
-def merge_maps(remote_path, local_path, name_filters=None):
+def get_maps_by_group(remote_path, group_filters):
+    """Return a set of map names belonging to any groups matching the filters."""
+    groups_file = os.path.join(remote_path, 'data', 'maps', 'map_groups.json')
+    groups = load_json(groups_file)
+    selected = set()
+    for key, maps in groups.items():
+        if key == 'group_order':
+            continue
+        if any(sub.lower() in key.lower() for sub in group_filters):
+            selected.update(maps)
+    return selected
+
+
+def merge_maps(remote_path, local_path, name_filters=None, group_filters=None):
     remote_maps = os.path.join(remote_path, 'data', 'maps')
     local_maps = os.path.join(local_path, 'data', 'maps')
 
