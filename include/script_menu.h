@@ -46,5 +46,19 @@ int DisplayTextAndGetWidth(const u8 *str, int prevWidth);
 int ScriptMenu_AdjustLeftCoordFromWidth(int left, int width);
 bool16 ScriptMenu_CreatePCMultichoice(void);
 void ScriptMenu_DisplayPCStartupPrompt(void);
+bool8 ScriptMenu_CreateSeviiSSTidalMultichoice(void);
+void GetSeviiSSTidalSelection(void);
+bool8 ScriptMenu_CreateSevii2SSTidalMultichoice(void);
+void GetSevii2SSTidalSelection(void);
+bool8 ScriptMenu_CreateSevii3SSTidalMultichoice(void);
+void GetSevii3SSTidalSelection(void);
+bool8 ScriptMenu_CreateSevii6SSTidalMultichoice(void);
+void GetSevii6SSTidalSelection(void);
+bool8 ScriptMenu_CreateSevii7SSTidalMultichoice(void);
+void GetSevii7SSTidalSelection(void);
+bool8 ScriptMenu_CreateLilycoveSSTidalSeviiMultichoice(void);
+void GetLilycoveSSTidalSeviiSelection(void);
+bool8 ScriptMenu_CreateVermilionSSTidalMultichoice(void);
+void GetVermilionSSTidalSelection(void);
 
 #endif //GUARD_SCRIPT_MENU_H

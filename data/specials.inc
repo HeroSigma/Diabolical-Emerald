@@ -515,11 +515,25 @@ gSpecials::
 	def_special IsTrainerRegistered
 	def_special ShouldDoBrailleRegicePuzzle
 	def_special EnableNationalPokedex
-	def_special ScriptMenu_CreateLilycoveSSTidalMultichoice
-	def_special GetLilycoveSSTidalSelection
-	def_special TurnOnTVScreen
-	def_special SetMewAboveGrass
-	def_special ShouldDistributeEonTicket
+        def_special ScriptMenu_CreateLilycoveSSTidalMultichoice
+        def_special GetLilycoveSSTidalSelection
+        def_special ScriptMenu_CreateSeviiSSTidalMultichoice
+        def_special GetSeviiSSTidalSelection
+        def_special ScriptMenu_CreateSevii2SSTidalMultichoice
+        def_special GetSevii2SSTidalSelection
+        def_special ScriptMenu_CreateSevii3SSTidalMultichoice
+        def_special GetSevii3SSTidalSelection
+        def_special ScriptMenu_CreateSevii6SSTidalMultichoice
+        def_special GetSevii6SSTidalSelection
+        def_special ScriptMenu_CreateSevii7SSTidalMultichoice
+        def_special GetSevii7SSTidalSelection
+        def_special ScriptMenu_CreateLilycoveSSTidalSeviiMultichoice
+        def_special GetLilycoveSSTidalSeviiSelection
+        def_special ScriptMenu_CreateVermilionSSTidalMultichoice
+        def_special GetVermilionSSTidalSelection
+        def_special TurnOnTVScreen
+        def_special SetMewAboveGrass
+        def_special ShouldDistributeEonTicket
 	def_special LinkRetireStatusWithBattleTowerPartner
 	def_special BattleTowerReconnectLink
 	def_special CallTrainerHillFunction
