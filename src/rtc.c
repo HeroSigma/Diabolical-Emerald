@@ -464,3 +464,14 @@ enum TimeOfDay TryDecrementTimeOfDay(enum TimeOfDay timeOfDay)
 {
     return timeOfDay == TIME_MORNING ? TIME_NIGHT : timeOfDay - 1;
 }
+
+u8 GetDaysInMonth(enum Month month)
+{
+    u16 year = GetFullYear();
+    u8 days = sNumDaysInMonths[month - 1];
+
+    if (month == MONTH_FEB && IsLeapYear(year))
+        days++;
+
+    return days;
+}

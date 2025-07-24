@@ -45,5 +45,6 @@ u8 GetDay(void);
 enum Weekday GetDayOfWeek(void);
 enum TimeOfDay TryIncrementTimeOfDay(enum TimeOfDay timeOfDay);
 enum TimeOfDay TryDecrementTimeOfDay(enum TimeOfDay timeOfDay);
+u8 GetDaysInMonth(enum Month month);
 
 #endif // GUARD_RTC_UTIL_H
