@@ -34,11 +34,17 @@
 	.endm
 
 	@ If the result of the last comparison matches condition (see Comparison operators), jumps to destination and continues script execution from there.
-	.macro goto_if condition:req, destination:req
-	.byte SCR_OP_GOTO_IF
-	.byte \condition
-	.4byte \destination
-	.endm
+.macro goto_if condition:req, destination:req
+.byte SCR_OP_GOTO_IF
+.byte \condition
+.4byte \destination
+.endm
+
+@ Compatibility macro for scripts from other projects.
+@ Simply performs an unconditional jump to the destination.
+.macro goto_if_questlog destination:req
+goto \destination
+.endm
 
 	@ If the result of the last comparison matches condition (see Comparison operators), calls destination.
 	.macro call_if condition:req, destination:req
@@ -773,9 +779,15 @@
 
 	@ Starts a double battle with the player against two trainers
 	@ Takes two trainers and defeat text for each
-	.macro trainerbattle_two_trainers trainer_a:req, lose_text_a:req, trainer_b:req, lose_text_b:req
-	trainerbattle TRAINER_BATTLE_TWO_TRAINERS_NO_INTRO, OBJ_ID_NONE, \trainer_a, NULL, \lose_text_a, NULL, OBJ_ID_NONE, \trainer_b, NULL, \lose_text_b, NULL, NULL, NULL, FALSE, TRUE, FALSE, FALSE
-	.endm
+.macro trainerbattle_two_trainers trainer_a:req, lose_text_a:req, trainer_b:req, lose_text_b:req
+trainerbattle TRAINER_BATTLE_TWO_TRAINERS_NO_INTRO, OBJ_ID_NONE, \trainer_a, NULL, \lose_text_a, NULL, OBJ_ID_NONE, \trainer_b, NULL, \lose_text_b, NULL, NULL, NULL, FALSE, TRUE, FALSE, FALSE
+.endm
+
+@ Simplified version of the early rival battle used in some maps.
+@ Behaves like a normal single trainer battle without intro text.
+.macro trainerbattle_earlyrival trainer:req, defeat_text:req, victory_text:req
+trainerbattle_no_intro \trainer, \defeat_text
+.endm
 
 	@ Starts a trainer battle using the battle information stored in RAM (usually by the scripts in trainer_battle.inc, which
 	@ are run by trainerbattle), and blocks script execution until the battle finishes.
@@ -2192,11 +2204,20 @@
 	@ If the player doesn't have space for all the items then as many are added as possible, the
 	@ message indicates there is no room, and VAR_RESULT is set to FALSE.
 	@ Otherwise VAR_RESULT is set to TRUE, and the message indicates they have received the item(s).
-	.macro giveitem item:req, amount=1
-	setorcopyvar VAR_0x8000, \item
-	setorcopyvar VAR_0x8001, \amount
-	callstd STD_OBTAIN_ITEM
-	.endm
+.macro giveitem item:req, amount=1
+setorcopyvar VAR_0x8000, \item
+setorcopyvar VAR_0x8001, \amount
+callstd STD_OBTAIN_ITEM
+.endm
+
+@ Shows a custom message before giving the item.
+.macro giveitem_msg text:req, item:req, amount=1, fanfare=MUS_OBTAIN_ITEM
+message \text
+waitmessage
+playfanfare \fanfare
+waitfanfare
+giveitem \item, \amount
+.endm
 
 	@ For picking up items in the overworld. Similar to giveitem, but with different language and
 	@ sets the flag of the last-talked to object (the item the player picked up).

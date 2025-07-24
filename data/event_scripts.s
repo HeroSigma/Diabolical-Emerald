@@ -1801,11 +1801,15 @@ EventScript_VsSeekerChargingDone::
 	.include "data/text/kanto_braille.inc"
 	.include "data/text/kanto_pokedex_rating.inc"
 	.include "data/text/sign_lady.inc"
-	.include "data/scripts/kanto_pokedex_rating.inc"
+    .include "data/scripts/kanto_pokedex_rating.inc"
     .include "data/maps/PalletTown_ProfessorOaksLab/text.inc"
 
+EventScript_ReleaseEnd::
+    release
+    end
+
 EventScript_Return::
-	return
+    return
 
 Text_PlayerBootedUpPC::
 	.string "{PLAYER} booted up the PC.$"
