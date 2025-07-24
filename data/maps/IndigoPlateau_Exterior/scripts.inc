@@ -1,0 +1,7 @@
+IndigoPlateau_Exterior_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, IndigoPlateau_Exterior_OnTransition
+	.byte 0
+
+IndigoPlateau_Exterior_OnTransition:
+	setflag FLAG_VISITED_INDIGO_PLATEAU
+	end

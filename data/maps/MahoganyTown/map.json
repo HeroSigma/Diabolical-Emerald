@@ -1,0 +1,85 @@
+{
+  "id": "MAP_MAHOGANY_TOWN",
+  "name": "MahoganyTown",
+  "layout": "LAYOUT_MAHOGANY_TOWN",
+  "music": "MUS_CHERRYGROVE",
+  "region_map_section": "MAPSEC_MAHOGANY_TOWN",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_TOWN",
+  "allow_cycling": true,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": [
+    {
+      "map": "MAP_ROUTE42",
+      "offset": 2,
+      "direction": "left"
+    },
+    {
+      "map": "MAP_ROUTE43",
+      "offset": 0,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_ROUTE44",
+      "offset": 1,
+      "direction": "right"
+    }
+  ],
+  "object_events": [
+
+  ],
+  "warp_events": [
+    {
+      "x": 10,
+      "y": 4,
+      "elevation": 0,
+      "dest_map": "MAP_MAHOGANY_TOWN_GATEHOUSE",
+      "dest_warp_id": "1"
+    },
+    {
+      "x": 11,
+      "y": 4,
+      "elevation": 0,
+      "dest_map": "MAP_MAHOGANY_TOWN_GATEHOUSE",
+      "dest_warp_id": "1"
+    },
+    {
+      "x": 14,
+      "y": 12,
+      "elevation": 0,
+      "dest_map": "MAP_MAHOGANY_TOWN_ROCKET_HIDEOUT_1F",
+      "dest_warp_id": "1"
+    },
+    {
+      "x": 22,
+      "y": 12,
+      "elevation": 0,
+      "dest_map": "MAP_MAHOGANY_TOWN_HOUSE",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 7,
+      "y": 21,
+      "elevation": 0,
+      "dest_map": "MAP_MAHOGANY_TOWN_GYM",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 18,
+      "y": 21,
+      "elevation": 0,
+      "dest_map": "MAP_MAHOGANY_TOWN_POKEMON_CENTER_1F",
+      "dest_warp_id": "1"
+    }
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
+}

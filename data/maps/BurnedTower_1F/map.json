@@ -1,0 +1,237 @@
+{
+  "id": "MAP_BURNED_TOWER_1F",
+  "name": "BurnedTower_1F",
+  "layout": "LAYOUT_BURNED_TOWER_1F",
+  "music": "MUS_BURNED_TOWER",
+  "region_map_section": "MAPSEC_BURNED_TOWER",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_INDOOR",
+  "allow_cycling": false,
+  "allow_escaping": true,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": 0,
+  "object_events": [
+
+  ],
+  "warp_events": [
+    {
+      "x": 4,
+      "y": 5,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 0
+    },
+    {
+      "x": 15,
+      "y": 5,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 1
+    },
+    {
+      "x": 16,
+      "y": 5,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 1
+    },
+    {
+      "x": 17,
+      "y": 5,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 1
+    },
+    {
+      "x": 4,
+      "y": 6,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 0
+    },
+    {
+      "x": 15,
+      "y": 6,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 1
+    },
+    {
+      "x": 16,
+      "y": 6,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 1
+    },
+    {
+      "x": 17,
+      "y": 6,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 1
+    },
+    {
+      "x": 3,
+      "y": 7,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 0
+    },
+    {
+      "x": 4,
+      "y": 7,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 0
+    },
+    {
+      "x": 3,
+      "y": 8,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 0
+    },
+    {
+      "x": 4,
+      "y": 8,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 0
+    },
+    {
+      "x": 2,
+      "y": 16,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 3
+    },
+    {
+      "x": 3,
+      "y": 16,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 3
+    },
+    {
+      "x": 4,
+      "y": 16,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 3
+    },
+    {
+      "x": 14,
+      "y": 16,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 4
+    },
+    {
+      "x": 15,
+      "y": 16,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 4
+    },
+    {
+      "x": 16,
+      "y": 16,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 4
+    },
+    {
+      "x": 2,
+      "y": 17,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 3
+    },
+    {
+      "x": 3,
+      "y": 17,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 3
+    },
+    {
+      "x": 4,
+      "y": 17,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 3
+    },
+    {
+      "x": 6,
+      "y": 17,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 5
+    },
+    {
+      "x": 9,
+      "y": 17,
+      "elevation": 0,
+      "dest_map": "MAP_ECRUTEAK_CITY",
+      "dest_warp_id": 0
+    },
+    {
+      "x": 14,
+      "y": 17,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 4
+    },
+    {
+      "x": 15,
+      "y": 17,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 4
+    },
+    {
+      "x": 16,
+      "y": 17,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 4
+    },
+    {
+      "x": 10,
+      "y": 8,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 2
+    },
+    {
+      "x": 11,
+      "y": 8,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 2
+    },
+    {
+      "x": 10,
+      "y": 9,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 2
+    },
+    {
+      "x": 11,
+      "y": 9,
+      "elevation": 0,
+      "dest_map": "MAP_BURNED_TOWER_B1F",
+      "dest_warp_id": 2
+    }
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
+}

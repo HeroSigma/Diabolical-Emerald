@@ -1,0 +1,106 @@
+{
+  "id": "MAP_OLIVINE_CITY",
+  "name": "OlivineCity",
+  "layout": "LAYOUT_OLIVINE_CITY",
+  "music": "MUS_VIOLET",
+  "region_map_section": "MAPSEC_OLIVINE_CITY",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_CITY",
+  "allow_cycling": true,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": [
+    {
+      "map": "MAP_ROUTE39",
+      "offset": 10,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_ROUTE40",
+      "offset": 24,
+      "direction": "left"
+    },
+    {
+      "map": "MAP_BATTLE_TOWER_OUTSIDE",
+      "offset": -9,
+      "direction": "left"
+    }
+  ],
+  "object_events": [
+
+  ],
+  "warp_events": [
+    {
+      "x": 12,
+      "y": 14,
+      "elevation": 0,
+      "dest_map": "MAP_OLIVINE_CITY_GYM",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 27,
+      "y": 14,
+      "elevation": 0,
+      "dest_map": "MAP_OLIVINE_CITY_HOUSE1",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 32,
+      "y": 14,
+      "elevation": 0,
+      "dest_map": "MAP_OLIVINE_CITY_HOUSE2",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 14,
+      "y": 21,
+      "elevation": 0,
+      "dest_map": "MAP_OLIVINE_CITY_HOUSE3",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 23,
+      "y": 21,
+      "elevation": 0,
+      "dest_map": "MAP_OLIVINE_CITY_MART",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 7,
+      "y": 29,
+      "elevation": 0,
+      "dest_map": "MAP_OLIVINE_CITY_CAFE",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 15,
+      "y": 29,
+      "elevation": 0,
+      "dest_map": "MAP_OLIVINE_CITY_POKEMON_CENTER_1F",
+      "dest_warp_id": "1"
+    },
+    {
+      "x": 23,
+      "y": 34,
+      "elevation": 0,
+      "dest_map": "MAP_OLIVINE_CITY_HARBOR",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 37,
+      "y": 42,
+      "elevation": 0,
+      "dest_map": "MAP_OLIVINE_CITY_LIGHTHOUSE_1F",
+      "dest_warp_id": "1"
+    }
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
+}

@@ -5519,7 +5519,7 @@ static void DoTVShowTodaysRivalTrainer(void)
     switch (state)
     {
     case 0:
-        switch (show->rivalTrainer.location)
+        switch ((u16)show->rivalTrainer.location)
         {
         default:
             sTVShowState = 7;

@@ -1,0 +1,41 @@
+{
+  "id": "MAP_MAHOGANY_TOWN_ROCKET_HIDEOUT_1F",
+  "name": "MahoganyTown_RocketHideout_1F",
+  "layout": "LAYOUT_MAHOGANY_TOWN_ROCKET_HIDEOUT_1F",
+  "music": "MUS_JOHTO_POKEMART",
+  "region_map_section": "MAPSEC_MAHOGANY_TOWN",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_INDOOR",
+  "allow_cycling": false,
+  "allow_escaping": true,
+  "allow_running": false,
+  "show_map_name": false,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": 0,
+  "object_events": [
+
+  ],
+  "warp_events": [
+    {
+      "x": 8,
+      "y": 2,
+      "elevation": 0,
+      "dest_map": "MAP_MAHOGANY_TOWN_ROCKET_HIDEOUT_B1F",
+      "dest_warp_id": 0
+    },
+    {
+      "x": 5,
+      "y": 9,
+      "elevation": 0,
+      "dest_map": "MAP_MAHOGANY_TOWN",
+      "dest_warp_id": 2
+    }
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
+}

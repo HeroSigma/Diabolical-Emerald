@@ -1,0 +1,66 @@
+{
+  "id": "MAP_ROUTE43",
+  "name": "Route43",
+  "layout": "LAYOUT_ROUTE43",
+  "music": "MUS_LAKE_OF_RAGE",
+  "region_map_section": "MAPSEC_ROUTE_43",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_ROUTE",
+  "allow_cycling": true,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": [
+    {
+      "map": "MAP_MAHOGANY_TOWN",
+      "offset": 0,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_LAKE_OF_RAGE",
+      "offset": -10,
+      "direction": "up"
+    }
+  ],
+  "object_events": [
+
+  ],
+  "warp_events": [
+    {
+      "x": 23,
+      "y": 45,
+      "elevation": 0,
+      "dest_map": "MAP_ROUTE43_GATEHOUSE",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 23,
+      "y": 50,
+      "elevation": 0,
+      "dest_map": "MAP_ROUTE43_GATEHOUSE",
+      "dest_warp_id": "1"
+    },
+    {
+      "x": 10,
+      "y": 71,
+      "elevation": 0,
+      "dest_map": "MAP_MAHOGANY_TOWN_GATEHOUSE",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 11,
+      "y": 71,
+      "elevation": 0,
+      "dest_map": "MAP_MAHOGANY_TOWN_GATEHOUSE",
+      "dest_warp_id": "0"
+    }
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
+}
