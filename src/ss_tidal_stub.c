@@ -1,6 +1,7 @@
 #include "global.h"
 #include "script.h"
 #include "script_menu.h"
+#include "event_data.h"
 
 bool8 ScriptMenu_CreateSeviiSSTidalMultichoice(void)
 {
