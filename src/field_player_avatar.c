@@ -1506,6 +1506,17 @@ u16 GetRivalAvatarGraphicsIdByStateIdAndGender(u8 state, u8 gender)
 
 u16 GetPlayerAvatarGraphicsIdByStateIdAndGender(u8 state, u8 gender)
 {
+    if (gSaveBlock2Ptr != NULL)
+    {
+        if (gSaveBlock2Ptr->wardrobe.top != WARDROBE_PIECE_DEFAULT)
+            return OBJ_EVENT_GFX_WARDROBE_TOP;
+        if (gSaveBlock2Ptr->wardrobe.bottom != WARDROBE_PIECE_DEFAULT)
+            return OBJ_EVENT_GFX_WARDROBE_BOTTOM;
+        if (gSaveBlock2Ptr->wardrobe.hair != WARDROBE_PIECE_DEFAULT)
+            return OBJ_EVENT_GFX_WARDROBE_HAIR;
+        if (gSaveBlock2Ptr->wardrobe.hat != WARDROBE_PIECE_DEFAULT)
+            return OBJ_EVENT_GFX_WARDROBE_HAT;
+    }
     return sPlayerAvatarGfxIds[state][gender];
 }
 

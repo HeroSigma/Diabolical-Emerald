@@ -561,6 +561,16 @@ struct RankingHall2P
     //u8 padding;
 };
 
+#define WARDROBE_PIECE_DEFAULT 0
+
+struct Wardrobe
+{
+    u8 top;
+    u8 bottom;
+    u8 hair;
+    u8 hat;
+};
+
 // quest menu
 #include "constants/quests.h"
 
@@ -606,6 +616,7 @@ struct SaveBlock2
     // so that the larger arrays do not bloat SaveBlock1.
     u8 questData[(QUEST_COUNT * 5 + 7) / 8];
     u8 subQuests[(SUB_QUEST_COUNT + 7) / 8];
+    struct Wardrobe wardrobe;
 }; // sizeof=0xF2C
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;
