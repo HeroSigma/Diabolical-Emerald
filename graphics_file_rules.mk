@@ -22,6 +22,7 @@ STARTERGFXDIR := graphics/starter_choose
 NAMINGGFXDIR := graphics/naming_screen
 SPINDAGFXDIR := graphics/pokemon/spinda/spots
 TITLESCREENGFXDIR := graphics/title_screen
+CHARCUSTGFXDIR := graphics/trainers/character_customization
 
 types := none normal fight flying poison ground rock bug ghost steel mystery fire water grass electric psychic ice dragon dark fairy stellar
 contest_types := cool beauty cute smart tough
@@ -677,4 +678,7 @@ $(SPINDAGFXDIR)/spot_2.1bpp: %.1bpp: %.png
 	$(GFX) $< $@ -plain -data_width 2
 
 $(SPINDAGFXDIR)/spot_3.1bpp: %.1bpp: %.png
-	$(GFX) $< $@ -plain -data_width 2
+        $(GFX) $< $@ -plain -data_width 2
+
+$(CHARCUSTGFXDIR)/%.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 4 -mheight 4
