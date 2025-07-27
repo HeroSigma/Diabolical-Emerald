@@ -3369,3 +3369,21 @@ bool8 ScrCmd_subquestmenu(struct ScriptContext *ctx)
 
     return TRUE;
 }
+
+bool8 ScrCmd_setwardrobe(struct ScriptContext *ctx)
+{
+    gSaveBlock2Ptr->wardrobe.top = VarGet(ScriptReadHalfword(ctx));
+    gSaveBlock2Ptr->wardrobe.bottom = VarGet(ScriptReadHalfword(ctx));
+    gSaveBlock2Ptr->wardrobe.hair = VarGet(ScriptReadHalfword(ctx));
+    gSaveBlock2Ptr->wardrobe.hat = VarGet(ScriptReadHalfword(ctx));
+    return FALSE;
+}
+
+bool8 ScrCmd_getwardrobe(struct ScriptContext *ctx)
+{
+    VarSet(ScriptReadHalfword(ctx), gSaveBlock2Ptr->wardrobe.top);
+    VarSet(ScriptReadHalfword(ctx), gSaveBlock2Ptr->wardrobe.bottom);
+    VarSet(ScriptReadHalfword(ctx), gSaveBlock2Ptr->wardrobe.hair);
+    VarSet(ScriptReadHalfword(ctx), gSaveBlock2Ptr->wardrobe.hat);
+    return FALSE;
+}

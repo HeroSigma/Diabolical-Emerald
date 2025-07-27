@@ -1903,6 +1903,22 @@
     .2byte \childId
     .endm
 
+    .macro setwardrobe top:req, bottom:req, hair:req, hat:req
+    .byte SCR_OP_SETWARDROBE
+    .2byte \top
+    .2byte \bottom
+    .2byte \hair
+    .2byte \hat
+    .endm
+
+    .macro getwardrobe top:req, bottom:req, hair:req, hat:req
+    .byte SCR_OP_GETWARDROBE
+    .2byte \top
+    .2byte \bottom
+    .2byte \hair
+    .2byte \hat
+    .endm
+
     @ Check the quest state and return a number associated with quest state
     .macro returnqueststate questId:req
     .byte SCR_OP_RETURNQUESTSTATE
