@@ -37,6 +37,7 @@ If you're new to git and GitHub, [Team Aqua's Asset Repo](https://github.com/Paw
 ## 📥 [Installing **`pokeemerald-expansion`**](INSTALL.md)
 ## 🏗️ [Building **`pokeemerald-expansion`**](INSTALL.md#Building-pokeemerald-expansion)
 * When adding new constants, you may need to run `make clean` before building so the changes are picked up.
+* Run `git submodule update --init tools/porytiles` once, then `make tilesets` (or `./build_tilesets.sh`) to rebuild all tilesets using the bundled [porytiles](https://github.com/grunt-lucas/porytiles).
 ## 🚚 [Migrating from **`pokeemerald`**](INSTALL.md#Migrating-from-pokeemerald)
 ## 🚀 [Updating **`pokeemerald-expansion`**](INSTALL.md#Updating-pokeemerald-expansion)
 
