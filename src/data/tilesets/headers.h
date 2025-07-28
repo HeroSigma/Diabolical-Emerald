@@ -1799,6 +1799,17 @@ const struct Tileset gTileset_CeruleanCave =
     .callback = NULL,
 };
 
+const struct Tileset gTileset_Twinleaf =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_Twinleaf,
+    .palettes = gTilesetPalettes_Twinleaf,
+    .metatiles = gMetatiles_Twinleaf,
+    .metatileAttributes = gMetatileAttributes_Twinleaf,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_Jubilife =
 {
     .isCompressed = TRUE,
