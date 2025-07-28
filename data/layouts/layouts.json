@@ -10626,8 +10626,8 @@
       "name": "TwinleafTown_Layout",
       "width": 24,
       "height": 30,
-      "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Petalburg",
+      "primary_tileset": "gTileset_SinnohGeneral",
+      "secondary_tileset": "gTileset_Twinleaf",
       "border_filepath": "data/layouts/TwinleafTown/border.bin",
       "blockdata_filepath": "data/layouts/TwinleafTown/map.bin"
     },
