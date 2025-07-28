@@ -226,6 +226,9 @@ const u16 gMetatileAttributes_SinnohGeneral[] = INCBIN_U16("data/tilesets/primar
 const u16 gMetatiles_SinnohBuilding[] = INCBIN_U16("data/tilesets/primary/sinnohbuilding/metatiles.bin");
 const u16 gMetatileAttributes_SinnohBuilding[] = INCBIN_U16("data/tilesets/primary/sinnohbuilding/metatile_attributes.bin");
 
+const u16 gMetatiles_SinnohOutdoor[] = INCBIN_U16("data/tilesets/primary/outdoor/metatiles.bin");
+const u16 gMetatileAttributes_SinnohOutdoor[] = INCBIN_U16("data/tilesets/primary/outdoor/metatile_attributes.bin");
+
 const u16 gMetatiles_CeladonCity[] = INCBIN_U16("data/tilesets/secondary/celadoncity/metatiles.bin");
 const u16 gMetatileAttributes_CeladonCity[] = INCBIN_U16("data/tilesets/secondary/celadoncity/metatile_attributes.bin");
 

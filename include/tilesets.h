@@ -12,5 +12,6 @@ extern const struct Tileset gTileset_BrendansMaysHouse;
 
 extern const struct Tileset gTileset_SinnohGeneral;
 extern const struct Tileset gTileset_SinnohBuilding;
+extern const struct Tileset gTileset_SinnohOutdoor;
 
 #endif //GUARD_tilesets_H

@@ -1748,6 +1748,25 @@ const u16 gTilesetPalettes_SinnohBuilding[][16] =
         INCBIN_U16("data/tilesets/primary/sinnohbuilding/palettes/12.gbapal"),
 };
 
+const u32 gTilesetTiles_SinnohOutdoor[] = INCBIN_U32("data/tilesets/primary/outdoor/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_SinnohOutdoor[][16] =
+{
+        INCBIN_U16("data/tilesets/primary/outdoor/palettes/00.gbapal"),
+        INCBIN_U16("data/tilesets/primary/outdoor/palettes/01.gbapal"),
+        INCBIN_U16("data/tilesets/primary/outdoor/palettes/02.gbapal"),
+        INCBIN_U16("data/tilesets/primary/outdoor/palettes/03.gbapal"),
+        INCBIN_U16("data/tilesets/primary/outdoor/palettes/04.gbapal"),
+        INCBIN_U16("data/tilesets/primary/outdoor/palettes/05.gbapal"),
+        INCBIN_U16("data/tilesets/primary/outdoor/palettes/06.gbapal"),
+        INCBIN_U16("data/tilesets/primary/outdoor/palettes/07.gbapal"),
+        INCBIN_U16("data/tilesets/primary/outdoor/palettes/08.gbapal"),
+        INCBIN_U16("data/tilesets/primary/outdoor/palettes/09.gbapal"),
+        INCBIN_U16("data/tilesets/primary/outdoor/palettes/10.gbapal"),
+        INCBIN_U16("data/tilesets/primary/outdoor/palettes/11.gbapal"),
+        INCBIN_U16("data/tilesets/primary/outdoor/palettes/12.gbapal"),
+};
+
 const u32 gTilesetTiles_CeladonCity[] = INCBIN_U32("data/tilesets/secondary/celadoncity/tiles.4bpp.lz");
 
 const u16 gTilesetPalettes_CeladonCity[][16] =
