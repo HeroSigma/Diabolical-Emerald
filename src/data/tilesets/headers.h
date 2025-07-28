@@ -897,6 +897,17 @@ const struct Tileset gTileset_SinnohBuilding =
     .callback = NULL,
 };
 
+const struct Tileset gTileset_SinnohOutdoor =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_SinnohOutdoor,
+    .palettes = gTilesetPalettes_SinnohOutdoor,
+    .metatiles = gMetatiles_SinnohOutdoor,
+    .metatileAttributes = gMetatileAttributes_SinnohOutdoor,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_CeladonCity =
 {
     .isCompressed = TRUE,
