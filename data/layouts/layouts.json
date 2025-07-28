@@ -10627,7 +10627,7 @@
       "width": 24,
       "height": 30,
       "primary_tileset": "gTileset_SinnohGeneral",
-      "secondary_tileset": "gTileset_Twinleaf",
+      "secondary_tileset": "gTileset_Petalburg",
       "border_filepath": "data/layouts/TwinleafTown/border.bin",
       "blockdata_filepath": "data/layouts/TwinleafTown/map.bin"
     },
@@ -10646,7 +10646,7 @@
       "name": "JubilifeCity_Layout",
       "width": 70,
       "height": 64,
-      "primary_tileset": "gTileset_General",
+      "primary_tileset": "gTileset_SinnohGeneral",
       "secondary_tileset": "gTileset_Rustboro",
       "border_filepath": "data/layouts/JubilifeCity/border.bin",
       "blockdata_filepath": "data/layouts/JubilifeCity/map.bin"
@@ -10666,7 +10666,7 @@
       "name": "FloaromaTown_Layout",
       "width": 34,
       "height": 36,
-      "primary_tileset": "gTileset_General",
+      "primary_tileset": "gTileset_SinnohGeneral",
       "secondary_tileset": "gTileset_Mauville",
       "border_filepath": "data/layouts/FloaromaTown/border.bin",
       "blockdata_filepath": "data/layouts/FloaromaTown/map.bin"
@@ -10726,7 +10726,7 @@
       "name": "PastoriaCity_Layout",
       "width": 68,
       "height": 60,
-      "primary_tileset": "gTileset_General",
+      "primary_tileset": "gTileset_SinnohGeneral",
       "secondary_tileset": "gTileset_Lilycove",
       "border_filepath": "data/layouts/PastoriaCity/border.bin",
       "blockdata_filepath": "data/layouts/PastoriaCity/map.bin"
@@ -10826,7 +10826,7 @@
       "name": "Route205_South_Layout",
       "width": 32,
       "height": 96,
-      "primary_tileset": "gTileset_General",
+      "primary_tileset": "gTileset_SinnohGeneral",
       "secondary_tileset": "gTileset_Mauville",
       "border_filepath": "data/layouts/Route205_South/border.bin",
       "blockdata_filepath": "data/layouts/Route205_South/map.bin"
@@ -10856,7 +10856,7 @@
       "name": "Route208_Layout",
       "width": 68,
       "height": 38,
-      "primary_tileset": "gTileset_General",
+      "primary_tileset": "gTileset_SinnohGeneral",
       "secondary_tileset": "gTileset_Mauville",
       "border_filepath": "data/layouts/Route208/border.bin",
       "blockdata_filepath": "data/layouts/Route208/map.bin"
@@ -10916,7 +10916,7 @@
       "name": "Route212_North_Layout",
       "width": 34,
       "height": 100,
-      "primary_tileset": "gTileset_General",
+      "primary_tileset": "gTileset_SinnohGeneral",
       "secondary_tileset": "gTileset_Lilycove",
       "border_filepath": "data/layouts/Route212_North/border.bin",
       "blockdata_filepath": "data/layouts/Route212_North/map.bin"
@@ -10926,7 +10926,7 @@
       "name": "Route212_South_Layout",
       "width": 130,
       "height": 34,
-      "primary_tileset": "gTileset_General",
+      "primary_tileset": "gTileset_SinnohGeneral",
       "secondary_tileset": "gTileset_Lilycove",
       "border_filepath": "data/layouts/Route212_South/border.bin",
       "blockdata_filepath": "data/layouts/Route212_South/map.bin"
@@ -10996,7 +10996,7 @@
       "name": "Route219_Layout",
       "width": 36,
       "height": 30,
-      "primary_tileset": "gTileset_General",
+      "primary_tileset": "gTileset_SinnohGeneral",
       "secondary_tileset": "gTileset_Petalburg",
       "border_filepath": "data/layouts/Route219/border.bin",
       "blockdata_filepath": "data/layouts/Route219/map.bin"
@@ -11016,7 +11016,7 @@
       "name": "Route221_Layout",
       "width": 96,
       "height": 40,
-      "primary_tileset": "gTileset_General",
+      "primary_tileset": "gTileset_SinnohGeneral",
       "secondary_tileset": "gTileset_Petalburg",
       "border_filepath": "data/layouts/Route221/border.bin",
       "blockdata_filepath": "data/layouts/Route221/map.bin"
@@ -11046,7 +11046,7 @@
       "name": "Route224_Layout",
       "width": 64,
       "height": 94,
-      "primary_tileset": "gTileset_General",
+      "primary_tileset": "gTileset_SinnohGeneral",
       "secondary_tileset": "gTileset_EverGrande",
       "border_filepath": "data/layouts/Route224/border.bin",
       "blockdata_filepath": "data/layouts/Route224/map.bin"
@@ -11066,7 +11066,7 @@
       "name": "Route226_Layout",
       "width": 100,
       "height": 32,
-      "primary_tileset": "gTileset_General",
+      "primary_tileset": "gTileset_SinnohGeneral",
       "secondary_tileset": "gTileset_Valor",
       "border_filepath": "data/layouts/Route226/border.bin",
       "blockdata_filepath": "data/layouts/Route226/map.bin"
@@ -11076,7 +11076,7 @@
       "name": "Route227_Layout",
       "width": 48,
       "height": 60,
-      "primary_tileset": "gTileset_General",
+      "primary_tileset": "gTileset_SinnohGeneral",
       "secondary_tileset": "gTileset_Lavaridge",
       "border_filepath": "data/layouts/Route227/border.bin",
       "blockdata_filepath": "data/layouts/Route227/map.bin"
@@ -11086,7 +11086,7 @@
       "name": "Route228_Layout",
       "width": 32,
       "height": 94,
-      "primary_tileset": "gTileset_General",
+      "primary_tileset": "gTileset_SinnohGeneral",
       "secondary_tileset": "gTileset_Mauville",
       "border_filepath": "data/layouts/Route228/border.bin",
       "blockdata_filepath": "data/layouts/Route228/map.bin"
@@ -11176,7 +11176,7 @@
       "name": "LakeVerity_Layout",
       "width": 48,
       "height": 46,
-      "primary_tileset": "gTileset_General",
+      "primary_tileset": "gTileset_SinnohGeneral",
       "secondary_tileset": "gTileset_Petalburg",
       "border_filepath": "data/layouts/LakeVerity/border.bin",
       "blockdata_filepath": "data/layouts/LakeVerity/map.bin"
@@ -11246,7 +11246,7 @@
       "name": "ValleyWindworks_Layout",
       "width": 32,
       "height": 99,
-      "primary_tileset": "gTileset_General",
+      "primary_tileset": "gTileset_SinnohGeneral",
       "secondary_tileset": "gTileset_Mauville",
       "border_filepath": "data/layouts/ValleyWindworks/border.bin",
       "blockdata_filepath": "data/layouts/ValleyWindworks/map.bin"
@@ -11266,7 +11266,7 @@
       "name": "MtCoronet_1F_South_Layout",
       "width": 42,
       "height": 32,
-      "primary_tileset": "gTileset_General",
+      "primary_tileset": "gTileset_SinnohGeneral",
       "secondary_tileset": "gTileset_Cave",
       "border_filepath": "data/layouts/MtCoronet_1F_South/border.bin",
       "blockdata_filepath": "data/layouts/MtCoronet_1F_South/map.bin"
@@ -11296,7 +11296,7 @@
       "name": "MtCoronet_B1F_Layout",
       "width": 32,
       "height": 65,
-      "primary_tileset": "gTileset_General",
+      "primary_tileset": "gTileset_SinnohGeneral",
       "secondary_tileset": "gTileset_Cave",
       "border_filepath": "data/layouts/MtCoronet_B1F/border.bin",
       "blockdata_filepath": "data/layouts/MtCoronet_B1F/map.bin"
@@ -11306,7 +11306,7 @@
       "name": "Route206_North_Layout",
       "width": 9,
       "height": 11,
-      "primary_tileset": "gTileset_Building",
+      "primary_tileset": "gTileset_SinnohBuilding",
       "secondary_tileset": "gTileset_Pasos",
       "border_filepath": "data/layouts/Route206_North/border.bin",
       "blockdata_filepath": "data/layouts/Route206_North/map.bin"
@@ -11316,7 +11316,7 @@
       "name": "Route206_South_Layout",
       "width": 9,
       "height": 11,
-      "primary_tileset": "gTileset_Building",
+      "primary_tileset": "gTileset_SinnohBuilding",
       "secondary_tileset": "gTileset_Pasos",
       "border_filepath": "data/layouts/Route206_South/border.bin",
       "blockdata_filepath": "data/layouts/Route206_South/map.bin"
@@ -11326,7 +11326,7 @@
       "name": "Route208_Access_Layout",
       "width": 13,
       "height": 9,
-      "primary_tileset": "gTileset_Building",
+      "primary_tileset": "gTileset_SinnohBuilding",
       "secondary_tileset": "gTileset_Pasos",
       "border_filepath": "data/layouts/Route208_Access/border.bin",
       "blockdata_filepath": "data/layouts/Route208_Access/map.bin"
@@ -11336,7 +11336,7 @@
       "name": "Route209_Access_Layout",
       "width": 13,
       "height": 9,
-      "primary_tileset": "gTileset_Building",
+      "primary_tileset": "gTileset_SinnohBuilding",
       "secondary_tileset": "gTileset_Pasos",
       "border_filepath": "data/layouts/Route209_Access/border.bin",
       "blockdata_filepath": "data/layouts/Route209_Access/map.bin"
@@ -11346,7 +11346,7 @@
       "name": "Route212_Access_Layout",
       "width": 9,
       "height": 11,
-      "primary_tileset": "gTileset_Building",
+      "primary_tileset": "gTileset_SinnohBuilding",
       "secondary_tileset": "gTileset_Pasos",
       "border_filepath": "data/layouts/Route212_Access/border.bin",
       "blockdata_filepath": "data/layouts/Route212_Access/map.bin"
@@ -11356,7 +11356,7 @@
       "name": "Route214_Access_Layout",
       "width": 9,
       "height": 11,
-      "primary_tileset": "gTileset_Building",
+      "primary_tileset": "gTileset_SinnohBuilding",
       "secondary_tileset": "gTileset_Pasos",
       "border_filepath": "data/layouts/Route214_Access/border.bin",
       "blockdata_filepath": "data/layouts/Route214_Access/map.bin"
@@ -11366,7 +11366,7 @@
       "name": "Route215_Access_Layout",
       "width": 13,
       "height": 9,
-      "primary_tileset": "gTileset_Building",
+      "primary_tileset": "gTileset_SinnohBuilding",
       "secondary_tileset": "gTileset_Pasos",
       "border_filepath": "data/layouts/Route215_Access/border.bin",
       "blockdata_filepath": "data/layouts/Route215_Access/map.bin"
@@ -11376,7 +11376,7 @@
       "name": "Route218_East_Layout",
       "width": 13,
       "height": 9,
-      "primary_tileset": "gTileset_Building",
+      "primary_tileset": "gTileset_SinnohBuilding",
       "secondary_tileset": "gTileset_Pasos",
       "border_filepath": "data/layouts/Route218_East/border.bin",
       "blockdata_filepath": "data/layouts/Route218_East/map.bin"
@@ -11386,7 +11386,7 @@
       "name": "Route218_West_Layout",
       "width": 13,
       "height": 9,
-      "primary_tileset": "gTileset_Building",
+      "primary_tileset": "gTileset_SinnohBuilding",
       "secondary_tileset": "gTileset_Pasos",
       "border_filepath": "data/layouts/Route218_West/border.bin",
       "blockdata_filepath": "data/layouts/Route218_West/map.bin"
@@ -11396,7 +11396,7 @@
       "name": "Route222_Access_Layout",
       "width": 13,
       "height": 9,
-      "primary_tileset": "gTileset_Building",
+      "primary_tileset": "gTileset_SinnohBuilding",
       "secondary_tileset": "gTileset_Pasos",
       "border_filepath": "data/layouts/Route222_Access/border.bin",
       "blockdata_filepath": "data/layouts/Route222_Access/map.bin"
@@ -11406,7 +11406,7 @@
       "name": "Route225_Access_Layout",
       "width": 9,
       "height": 11,
-      "primary_tileset": "gTileset_Building",
+      "primary_tileset": "gTileset_SinnohBuilding",
       "secondary_tileset": "gTileset_Pasos",
       "border_filepath": "data/layouts/Route225_Access/border.bin",
       "blockdata_filepath": "data/layouts/Route225_Access/map.bin"
@@ -11416,7 +11416,7 @@
       "name": "Route226_Access_Layout",
       "width": 13,
       "height": 9,
-      "primary_tileset": "gTileset_Building",
+      "primary_tileset": "gTileset_SinnohBuilding",
       "secondary_tileset": "gTileset_Pasos",
       "border_filepath": "data/layouts/Route226_Access/border.bin",
       "blockdata_filepath": "data/layouts/Route226_Access/map.bin"
@@ -11456,7 +11456,7 @@
       "name": "Route213_Access_Layout",
       "width": 13,
       "height": 9,
-      "primary_tileset": "gTileset_Building",
+      "primary_tileset": "gTileset_SinnohBuilding",
       "secondary_tileset": "gTileset_Pasos",
       "border_filepath": "data/layouts/Route213_Access/border.bin",
       "blockdata_filepath": "data/layouts/Route213_Access/map.bin"
