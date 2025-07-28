@@ -179,6 +179,27 @@ If you targeted a specific version that is not the latest version listed on the 
 # Useful additional tools
 
 * [porymap](https://github.com/huderlem/porymap) for viewing and editing maps
-* [porytiles](https://github.com/gruntlucas/porytiles) for add new metatiles for maps
+* [porytiles](https://github.com/grunt-lucas/porytiles) for adding and compiling tilesets (see below)
 * [poryscript](https://github.com/huderlem/poryscript) for scripting ([VS Code extension](https://marketplace.visualstudio.com/items?itemName=karathan.poryscript))
 * [Tilemap Studio](https://github.com/Rangi42/tilemap-studio) for viewing and editing tilemaps
+
+### Installing porytiles
+
+porytiles is now included in this repository as a git submodule under
+`tools/porytiles`.
+After cloning, initialize the submodule:
+
+```bash
+git submodule update --init tools/porytiles
+```
+
+Build porytiles with CMake (requires `cmake` and a C++20 compiler):
+
+```bash
+cd tools/porytiles
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+```
+
+The resulting `porytiles` executable will be inside the `build` directory and is
+used by the `make tilesets` rule.
