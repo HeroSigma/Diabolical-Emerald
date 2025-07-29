@@ -1897,3 +1897,80 @@ const struct Tileset gTileset_Distortion =
     .metatileAttributes = gMetatileAttributes_Distortion,
     .callback = NULL,
 };
+
+const struct Tileset gTileset_CavesAltPrimary =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_CavesAltPrimary,
+    .palettes = gTilesetPalettes_CavesAltPrimary,
+    .metatiles = gMetatiles_CavesAltPrimary,
+    .metatileAttributes = gMetatileAttributes_CavesAltPrimary,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_CavesAltSecondary =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_CavesAltSecondary,
+    .palettes = gTilesetPalettes_CavesAltSecondary,
+    .metatiles = gMetatiles_CavesAltSecondary,
+    .metatileAttributes = gMetatileAttributes_CavesAltSecondary,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_GatePlatinum =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_GatePlatinum,
+    .palettes = gTilesetPalettes_GatePlatinum,
+    .metatiles = gMetatiles_GatePlatinum,
+    .metatileAttributes = gMetatileAttributes_GatePlatinum,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_ShadyForest =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_ShadyForest,
+    .palettes = gTilesetPalettes_ShadyForest,
+    .metatiles = gMetatiles_ShadyForest,
+    .metatileAttributes = gMetatileAttributes_ShadyForest,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_SpaceMeteor =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_SpaceMeteor,
+    .palettes = gTilesetPalettes_SpaceMeteor,
+    .metatiles = gMetatiles_SpaceMeteor,
+    .metatileAttributes = gMetatileAttributes_SpaceMeteor,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_UnderwaterPrimary =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_UnderwaterPrimary,
+    .palettes = gTilesetPalettes_UnderwaterPrimary,
+    .metatiles = gMetatiles_UnderwaterPrimary,
+    .metatileAttributes = gMetatileAttributes_UnderwaterPrimary,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_UnderwaterReef =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_UnderwaterReef,
+    .palettes = gTilesetPalettes_UnderwaterReef,
+    .metatiles = gMetatiles_UnderwaterReef,
+    .metatileAttributes = gMetatileAttributes_UnderwaterReef,
+    .callback = NULL,
+};

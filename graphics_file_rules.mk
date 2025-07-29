@@ -220,6 +220,27 @@ $(TILESETGFXDIR)/secondary/battle_frontier_ranking_hall/tiles.4bpp: %.4bpp: %.pn
 $(TILESETGFXDIR)/secondary/mystery_events_house/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 509 -Wnum_tiles
 
+$(TILESETGFXDIR)/primary/Caves\ Alt\ Primary/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 480 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/Caves\ Alt\ Secondary/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 288 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/Gate\ Platinum\ Secondary/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 80 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/Shady\ Forest\ Secondary/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 512 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/Space\ Meteor\ Secondary/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 272 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/Underwater\ Primary/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 512 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/Underwater\ Reef\ Secondary/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 352 -Wnum_tiles
+
 
 
 ### Fonts ###

@@ -498,3 +498,24 @@ const u16 gMetatileAttributes_Pasos[] = INCBIN_U16("data/tilesets/secondary/paso
 
 const u16 gMetatiles_Distortion[] = INCBIN_U16("data/tilesets/secondary/distortion/metatiles.bin");
 const u16 gMetatileAttributes_Distortion[] = INCBIN_U16("data/tilesets/secondary/distortion/metatile_attributes.bin");
+
+const u16 gMetatiles_CavesAltPrimary[] = INCBIN_U16("data/tilesets/primary/Caves Alt Primary/metatiles.bin");
+const u16 gMetatileAttributes_CavesAltPrimary[] = INCBIN_U16("data/tilesets/primary/Caves Alt Primary/metatile_attributes.bin");
+
+const u16 gMetatiles_CavesAltSecondary[] = INCBIN_U16("data/tilesets/secondary/Caves Alt Secondary/metatiles.bin");
+const u16 gMetatileAttributes_CavesAltSecondary[] = INCBIN_U16("data/tilesets/secondary/Caves Alt Secondary/metatile_attributes.bin");
+
+const u16 gMetatiles_GatePlatinum[] = INCBIN_U16("data/tilesets/secondary/Gate Platinum Secondary/metatiles.bin");
+const u16 gMetatileAttributes_GatePlatinum[] = INCBIN_U16("data/tilesets/secondary/Gate Platinum Secondary/metatile_attributes.bin");
+
+const u16 gMetatiles_ShadyForest[] = INCBIN_U16("data/tilesets/secondary/Shady Forest Secondary/metatiles.bin");
+const u16 gMetatileAttributes_ShadyForest[] = INCBIN_U16("data/tilesets/secondary/Shady Forest Secondary/metatile_attributes.bin");
+
+const u16 gMetatiles_SpaceMeteor[] = INCBIN_U16("data/tilesets/secondary/Space Meteor Secondary/metatiles.bin");
+const u16 gMetatileAttributes_SpaceMeteor[] = INCBIN_U16("data/tilesets/secondary/Space Meteor Secondary/metatile_attributes.bin");
+
+const u16 gMetatiles_UnderwaterPrimary[] = INCBIN_U16("data/tilesets/secondary/Underwater Primary/metatiles.bin");
+const u16 gMetatileAttributes_UnderwaterPrimary[] = INCBIN_U16("data/tilesets/secondary/Underwater Primary/metatile_attributes.bin");
+
+const u16 gMetatiles_UnderwaterReef[] = INCBIN_U16("data/tilesets/secondary/Underwater Reef Secondary/metatiles.bin");
+const u16 gMetatileAttributes_UnderwaterReef[] = INCBIN_U16("data/tilesets/secondary/Underwater Reef Secondary/metatile_attributes.bin");
