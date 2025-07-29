@@ -1886,3 +1886,14 @@ const struct Tileset gTileset_Pasos =
     .metatileAttributes = gMetatileAttributes_Pasos,
     .callback = NULL,
 };
+
+const struct Tileset gTileset_Distortion =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_Distortion,
+    .palettes = gTilesetPalettes_Distortion,
+    .metatiles = gMetatiles_Distortion,
+    .metatileAttributes = gMetatileAttributes_Distortion,
+    .callback = NULL,
+};

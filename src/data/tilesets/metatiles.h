@@ -495,3 +495,6 @@ const u16 gMetatileAttributes_Valor[] = INCBIN_U16("data/tilesets/secondary/valo
 
 const u16 gMetatiles_Pasos[] = INCBIN_U16("data/tilesets/secondary/pasos/metatiles.bin");
 const u16 gMetatileAttributes_Pasos[] = INCBIN_U16("data/tilesets/secondary/pasos/metatile_attributes.bin");
+
+const u16 gMetatiles_Distortion[] = INCBIN_U16("data/tilesets/secondary/distortion/metatiles.bin");
+const u16 gMetatileAttributes_Distortion[] = INCBIN_U16("data/tilesets/secondary/distortion/metatile_attributes.bin");

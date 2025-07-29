@@ -3457,3 +3457,22 @@ const u16 gTilesetPalettes_Pasos[][16] =
 };
 
 const u32 gTilesetTiles_Pasos[] = INCBIN_U32("data/tilesets/secondary/pasos/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_Distortion[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/distortion/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/distortion/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/distortion/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/distortion/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/distortion/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/distortion/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/distortion/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/distortion/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/distortion/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/distortion/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/distortion/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/distortion/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/distortion/palettes/12.gbapal"),
+};
+
+const u32 gTilesetTiles_Distortion[] = INCBIN_U32("data/tilesets/secondary/distortion/tiles.4bpp.lz");
