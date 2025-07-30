@@ -1372,3 +1372,24 @@ static const struct SpriteFrameImage sPicTable_KirliaOld[] = {
 static const struct SpriteFrameImage sPicTable_RubySapphireMay[] = {
     overworld_ascending_frames(gObjectEventPic_RubySapphireMayNormal, 2, 4),
 };
+
+static const struct SpriteFrameImage sPicTable_DawnNormal[] = {
+    overworld_ascending_frames(gObjectEventPic_DawnNormalRunning, 2, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_LucasNormal[] = {
+    overworld_ascending_frames(gObjectEventPic_LucasNormalRunning, 2, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_GoldNormal[] = {
+    overworld_ascending_frames(gObjectEventPic_GoldNormalRunning, 2, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_LyraNormal[] = {
+    overworld_ascending_frames(gObjectEventPic_LyraNormalRunning, 2, 4),
+};
+
+// Platinum NPCs
+static const struct SpriteFrameImage sPicTable_DP_Cynthia[] = {
+    overworld_ascending_frames(gObjectEventPic_DP_Cynthia, 2, 4),
+};

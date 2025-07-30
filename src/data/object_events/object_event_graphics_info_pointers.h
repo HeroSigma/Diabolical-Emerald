@@ -252,6 +252,11 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_ProfOak;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_ProfElm;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Delia;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Grace;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DawnNormal;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LucasNormal;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GoldNormal;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LyraNormal;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DP_Cynthia;
 
 const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM_OBJ_EVENT_GFX] = {
     [OBJ_EVENT_GFX_BRENDAN_NORMAL] =           &gObjectEventGraphicsInfo_BrendanNormal,
@@ -497,6 +502,11 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_PROF_ELM] =                 &gObjectEventGraphicsInfo_ProfElm,
     [OBJ_EVENT_GFX_DELIA] =                    &gObjectEventGraphicsInfo_Delia,
     [OBJ_EVENT_GFX_GRACE] =                    &gObjectEventGraphicsInfo_Grace,
+    [OBJ_EVENT_GFX_DAWN] =                     &gObjectEventGraphicsInfo_DawnNormal,
+    [OBJ_EVENT_GFX_LUCAS] =                    &gObjectEventGraphicsInfo_LucasNormal,
+    [OBJ_EVENT_GFX_GOLD] =                     &gObjectEventGraphicsInfo_GoldNormal,
+    [OBJ_EVENT_GFX_LYRA] =                     &gObjectEventGraphicsInfo_LyraNormal,
+    [OBJ_EVENT_GFX_DP_CYNTHIA] =               &gObjectEventGraphicsInfo_DP_Cynthia,
     [OBJ_EVENT_GFX_POKE_BALL] =                &gObjectEventGraphicsInfo_PokeBall,
     [OBJ_EVENT_GFX_OW_MON] =                   &gObjectEventGraphicsInfo_Follower,
     [OBJ_EVENT_GFX_LIGHT_SPRITE] =             &gObjectEventGraphicsInfo_BallLight,

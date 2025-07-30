@@ -250,11 +250,85 @@
 #define OBJ_EVENT_GFX_GRACE                      243
 #define OBJ_EVENT_GFX_PROF_OAK                   244
 #define OBJ_EVENT_GFX_PROF_ELM                   245
+#define OBJ_EVENT_GFX_DAWN                       246
+#define OBJ_EVENT_GFX_LUCAS                      247
+#define OBJ_EVENT_GFX_GOLD                       248
+#define OBJ_EVENT_GFX_LYRA                       249
+#define OBJ_EVENT_GFX_DP_CYNTHIA                 250
+#define OBJ_EVENT_GFX_DP_AARON                   251
+#define OBJ_EVENT_GFX_DP_ACE_TRAINERF            252
+#define OBJ_EVENT_GFX_DP_ACE_TRAINERM            253
+#define OBJ_EVENT_GFX_DP_ACE_TRAINER_SNOWM       254
+#define OBJ_EVENT_GFX_DP_BARRY                   255
+#define OBJ_EVENT_GFX_DP_BATTLE_GIRL             256
+#define OBJ_EVENT_GFX_DP_BEAUTY                  257
+#define OBJ_EVENT_GFX_DP_BERTHA                  258
+#define OBJ_EVENT_GFX_DP_BLACK_BELT              259
+#define OBJ_EVENT_GFX_DP_BREEDERF                260
+#define OBJ_EVENT_GFX_DP_BUG_CATCHER             261
+#define OBJ_EVENT_GFX_DP_BYRON                   262
+#define OBJ_EVENT_GFX_DP_CAMPER                  263
+#define OBJ_EVENT_GFX_DP_CHARON                  264
+#define OBJ_EVENT_GFX_DP_CHERYL                  265
+#define OBJ_EVENT_GFX_DP_COWGIRL                 266
+#define OBJ_EVENT_GFX_DP_CRASHER_WAKE            267
+#define OBJ_EVENT_GFX_DP_CYRUS                   268
+#define OBJ_EVENT_GFX_DP_DRAGON_TAMER            269
+#define OBJ_EVENT_GFX_DP_FANTINA                 270
+#define OBJ_EVENT_GFX_DP_FISHERMAN               271
+#define OBJ_EVENT_GFX_DP_GALACTIC_GRUNTF         272
+#define OBJ_EVENT_GFX_DP_GALACTIC_GRUNTM         273
+#define OBJ_EVENT_GFX_DP_GENTLEMAN               274
+#define OBJ_EVENT_GFX_DP_HIKER                   275
+#define OBJ_EVENT_GFX_DP_JUPITER                 276
+#define OBJ_EVENT_GFX_DP_LADY                    277
+#define OBJ_EVENT_GFX_DP_LOOKER                  278
+#define OBJ_EVENT_GFX_DP_LUCIAN                  279
+#define OBJ_EVENT_GFX_DP_MARLEY                  280
+#define OBJ_EVENT_GFX_DP_MARS                    281
+#define OBJ_EVENT_GFX_DP_MAYLENE                 282
+#define OBJ_EVENT_GFX_DP_MIRA                    283
+#define OBJ_EVENT_GFX_DP_OFFICER                 284
+#define OBJ_EVENT_GFX_DP_PAINTER                 285
+#define OBJ_EVENT_GFX_DP_PALMER                  286
+#define OBJ_EVENT_GFX_DP_PARASOL_LADY            287
+#define OBJ_EVENT_GFX_DP_PICNICKER               288
+#define OBJ_EVENT_GFX_DP_POKE_KID                289
+#define OBJ_EVENT_GFX_DP_POKE_RANGERF            290
+#define OBJ_EVENT_GFX_DP_POKE_RANGERM            291
+#define OBJ_EVENT_GFX_DP_POKEFAN_F               292
+#define OBJ_EVENT_GFX_DP_POKEFAN_M               293
+#define OBJ_EVENT_GFX_DP_ROWAN                   294
+#define OBJ_EVENT_GFX_DP_PSYCHIC                 295
+#define OBJ_EVENT_GFX_DP_RANCHER                 296
+#define OBJ_EVENT_GFX_DP_RICH_BOY                297
+#define OBJ_EVENT_GFX_DP_RICH_LADY               298
+#define OBJ_EVENT_GFX_DP_ROCKER                  299
+#define OBJ_EVENT_GFX_DP_ROUGHNECK               300
+#define OBJ_EVENT_GFX_DP_RUIN_MANIAC             301
+#define OBJ_EVENT_GFX_DP_SAILOR                  302
+#define OBJ_EVENT_GFX_DP_SATURN                  303
+#define OBJ_EVENT_GFX_DP_SCIENTIST               304
+#define OBJ_EVENT_GFX_DP_SKIERF                  305
+#define OBJ_EVENT_GFX_DP_SKIERM                  306
+#define OBJ_EVENT_GFX_DP_SOCIALITE               307
+#define OBJ_EVENT_GFX_DP_SUPERNERD               308
+#define OBJ_EVENT_GFX_DP_SWIMMERF                309
+#define OBJ_EVENT_GFX_DP_SWIMMERF2               310
+#define OBJ_EVENT_GFX_DP_SWIMMERM                311
+#define OBJ_EVENT_GFX_DP_SWIMMERM2               312
+#define OBJ_EVENT_GFX_DP_VOLKNER                 313
+#define OBJ_EVENT_GFX_DP_WAITER                  314
+#define OBJ_EVENT_GFX_DP_WAITRESS                315
+#define OBJ_EVENT_GFX_DP_WORKER                  316
+#define OBJ_EVENT_GFX_DP_YOUNG_COUPLEF           317
+#define OBJ_EVENT_GFX_DP_YOUNG_COUPLEM           318
+#define OBJ_EVENT_GFX_DP_YOUNGSTER               319
 
 // NOTE: The maximum amount of object events has been expanded from 255 to 65535.
 // Since dynamic graphics ids still require at least 16 free values, the actual limit
 // is 65519, but even considering follower Pokémon, this should be more than enough :)
-#define NUM_OBJ_EVENT_GFX                        246
+#define NUM_OBJ_EVENT_GFX                        320
 
 
 // These are dynamic object gfx ids.
@@ -425,6 +499,10 @@
 #define OBJ_EVENT_PAL_TAG_RS_BRENDAN              0x1122
 #define OBJ_EVENT_PAL_TAG_RS_MAY                  0x1123
 #define OBJ_EVENT_PAL_TAG_DYNAMIC                 0x1124
+#define OBJ_EVENT_PAL_TAG_DAWN                    0x1125
+#define OBJ_EVENT_PAL_TAG_LUCAS                   0x1126
+#define OBJ_EVENT_PAL_TAG_GOLD                    0x1127
+#define OBJ_EVENT_PAL_TAG_LYRA                    0x1128
 
 #if OW_FOLLOWERS_POKEBALLS
 // Vanilla
@@ -461,6 +539,73 @@
 // Gen VIII
 #define OBJ_EVENT_PAL_TAG_BALL_STRANGE            0x116A
 #endif //OW_FOLLOWERS_POKEBALLS
+
+// Platinum
+#define OBJ_EVENT_PAL_DP_CYNTHIA                  0x116B
+#define OBJ_EVENT_PAL_DP_AARON                    0x116C
+#define OBJ_EVENT_PAL_DP_ACE_TRAINER              0x116D
+#define OBJ_EVENT_PAL_DP_ACE_TRAINER_SNOWM        0x116E
+#define OBJ_EVENT_PAL_DP_BARRY                    0x116F
+#define OBJ_EVENT_PAL_DP_BATTLE_GIRL              0x1170
+#define OBJ_EVENT_PAL_DP_BEAUTY                   0x1171
+#define OBJ_EVENT_PAL_DP_BERTHA                   0x1172
+#define OBJ_EVENT_PAL_DP_BLACK_BELT               0x1173
+#define OBJ_EVENT_PAL_DP_BREEDERF                 0x1174
+#define OBJ_EVENT_PAL_DP_BUG_CATCHER              0x1175
+#define OBJ_EVENT_PAL_DP_BYRON                    0x1176
+#define OBJ_EVENT_PAL_DP_CAMPER_PICNICKER         0x1177
+#define OBJ_EVENT_PAL_DP_CHARON                   0x1178
+#define OBJ_EVENT_PAL_DP_CHERYL                   0x1179
+#define OBJ_EVENT_PAL_DP_COWGIRL                  0x117A
+#define OBJ_EVENT_PAL_DP_CRASHER_WAKE             0x117B
+#define OBJ_EVENT_PAL_DP_CYRUS                    0x117C
+#define OBJ_EVENT_PAL_DP_DRAGON_TAMER             0x117D
+#define OBJ_EVENT_PAL_DP_FANTINA                  0x117E
+#define OBJ_EVENT_PAL_DP_FISHERMAN                0x117F
+#define OBJ_EVENT_PAL_DP_GALACTIC_GRUNTF          0x1180
+#define OBJ_EVENT_PAL_DP_GALACTIC_GRUNTM          0x1181
+#define OBJ_EVENT_PAL_DP_GENTLEMAN                0x1182
+#define OBJ_EVENT_PAL_DP_HIKER                    0x1183
+#define OBJ_EVENT_PAL_DP_JUPITER                  0x1184
+#define OBJ_EVENT_PAL_DP_LADY                     0x1185
+#define OBJ_EVENT_PAL_DP_LOOKER                   0x1186
+#define OBJ_EVENT_PAL_DP_LUCIAN                   0x1187
+#define OBJ_EVENT_PAL_DP_MARLEY                   0x1188
+#define OBJ_EVENT_PAL_DP_MARS                     0x1189
+#define OBJ_EVENT_PAL_DP_MAYLENE                  0x118A
+#define OBJ_EVENT_PAL_DP_MIRA                     0x118B
+#define OBJ_EVENT_PAL_DP_OFFICER                  0x118C
+#define OBJ_EVENT_PAL_DP_PAINTER                  0x118D
+#define OBJ_EVENT_PAL_DP_PALMER                   0x118E
+#define OBJ_EVENT_PAL_DP_PARASOL_LADY             0x118F
+#define OBJ_EVENT_PAL_DP_POKE_KID                 0x1190
+#define OBJ_EVENT_PAL_DP_POKE_RANGER              0x1191
+#define OBJ_EVENT_PAL_DP_ROWAN                    0x1192
+#define OBJ_EVENT_PAL_DP_PSYCHIC                  0x1193
+#define OBJ_EVENT_PAL_DP_RANCHER                  0x1194
+#define OBJ_EVENT_PAL_DP_RICH_BOY                 0x1195
+#define OBJ_EVENT_PAL_DP_RICH_LADY                0x1196
+#define OBJ_EVENT_PAL_DP_ROCKER                   0x1197
+#define OBJ_EVENT_PAL_DP_ROUGHNECK                0x1198
+#define OBJ_EVENT_PAL_DP_RUIN_MANIAC              0x1199
+#define OBJ_EVENT_PAL_DP_SAILOR                   0x119A
+#define OBJ_EVENT_PAL_DP_SATURN                   0x119B
+#define OBJ_EVENT_PAL_DP_SCIENTIST                0x119C
+#define OBJ_EVENT_PAL_DP_SKIERF                   0x119D
+#define OBJ_EVENT_PAL_DP_SKIERM                   0x119E
+#define OBJ_EVENT_PAL_DP_SOCIALITE                0x119F
+#define OBJ_EVENT_PAL_DP_SUPERNERD                0x11A0
+#define OBJ_EVENT_PAL_DP_SWIMMERF                 0x11A1
+#define OBJ_EVENT_PAL_DP_SWIMMERF2                0x11A2
+#define OBJ_EVENT_PAL_DP_SWIMMERM                 0x11A3
+#define OBJ_EVENT_PAL_DP_VOLKNER                  0x11A4
+#define OBJ_EVENT_PAL_DP_WAITER                   0x11A5
+#define OBJ_EVENT_PAL_DP_WAITRESS                 0x11A6
+#define OBJ_EVENT_PAL_DP_WORKER                   0x11A7
+#define OBJ_EVENT_PAL_DP_YOUNG_COUPLE             0x11A8
+#define OBJ_EVENT_PAL_DP_YOUNGSTER                0x11A9
+#define OBJ_EVENT_PAL_DP_POKE_FANF                0x11AA
+#define OBJ_EVENT_PAL_DP_POKE_FANM                0x11AB
 // Used as a placeholder follower graphic
 #define OBJ_EVENT_PAL_TAG_SUBSTITUTE              0x7611
 #define OBJ_EVENT_PAL_TAG_LIGHT                   0x8001
