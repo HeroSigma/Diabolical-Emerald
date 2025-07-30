@@ -220,8 +220,6 @@ static void CopyObjectGraphicsInfoToSpriteTemplate_WithMovementType(u16 graphics
 static u16 GetGraphicsIdForMon(u32 species, bool32 shiny, bool32 female);
 static u16 GetUnownSpecies(struct Pokemon *mon);
 
-extern const struct SpriteFrameImage sPicTable_PechaBerryTree[];
-
 static void StartSlowRunningAnim(struct ObjectEvent *objectEvent, struct Sprite *sprite, u8 direction);
 
 const u8 gReflectionEffectPaletteMap[16] = {
@@ -485,6 +483,7 @@ const u8 gInitialMovementTypeFacingDirections[NUM_MOVEMENT_TYPES] = {
 #include "data/object_events/object_event_anims.h"
 #include "data/object_events/base_oam.h"
 #include "data/object_events/object_event_subsprites.h"
+#include "data/object_events/berry_tree_graphics_tables.h"
 #include "data/object_events/object_event_graphics_info.h"
 #include "data/object_events/object_event_graphics_info_followers.h"
 
@@ -755,7 +754,6 @@ static const u16 *const sObjectPaletteTagSets[] = {
     sObjectPaletteTags3,
 };
 
-#include "data/object_events/berry_tree_graphics_tables.h"
 #include "data/field_effects/field_effect_objects.h"
 
 static const s16 sMovementDelaysMedium[] = {32, 64,  96, 128};
