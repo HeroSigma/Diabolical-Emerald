@@ -242,7 +242,7 @@ static void DrawMetatileAt(const struct MapLayout *mapLayout, u16 offset, int x,
     DrawMetatile(MapGridGetMetatileLayerTypeAt(x, y), metatiles + metatileId * NUM_TILES_PER_METATILE, offset);
 }
 
-
+static void DrawMetatile(s32, const u16 *, u16)
 {
     if (metatileLayerType == 0xFF)
     {
