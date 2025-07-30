@@ -156,7 +156,7 @@ static void Task_HandleShopMenuBuy(u8 taskId);
 static void Task_HandleShopMenuSell(u8 taskId);
 static void BuyMenuPrintItemDescriptionAndShowItemIcon(s32 item, bool8 onInit, struct ListMenu *list);
 static void BuyMenuPrintPriceInList(u8 windowId, u32 itemId, u8 y);
-static bool8 IsMetatileLayerEmpty(const u16 *src)
+static bool8 IsMetatileLayerEmpty(const u16 *src);
 
 static const struct YesNoFuncTable sShopPurchaseYesNoFuncs =
 {
@@ -810,6 +810,7 @@ static void BuyMenuDrawMapBg(void)
         {
             metatile = MapGridGetMetatileIdAt(x + i, y + j);
             metatileLayerType = METATILE_LAYER_TYPE_NORMAL;
+            if (BuyMenuCheckForOverlapWithMenuBg(i, j) == TRUE)
                 metatileLayerType = MapGridGetMetatileLayerTypeAt(x + i, y + j);
             else
                 metatileLayerType = METATILE_LAYER_TYPE_COVERED;
