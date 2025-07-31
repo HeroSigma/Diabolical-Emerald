@@ -1398,6 +1398,7 @@ static void NamingScreen_CreatePlayerIcon(void)
 
     gender = gSaveBlock2Ptr->playerGender;
     playerGfxId = GetPlayerAvatarGraphicsIdByStateIdAndGender(PLAYER_AVATAR_STATE_NORMAL, gender);
+    LoadPlayerObjectEventPalette(gender);
     spriteId = CreateObjectGraphicsSprite(playerGfxId, SpriteCallbackDummy, 56, 37, 0);
     gSprites[spriteId].oam.priority = 3;
     StartSpriteAnim(&gSprites[spriteId], ANIM_STD_GO_SOUTH);
