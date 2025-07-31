@@ -952,7 +952,8 @@ LittlerootTown_EventScript_GiveRunningShoes::
 
 
 LittlerootTown_Text_PlayerNostalgia:
-        .string "Wow... I really haven't been back to LITTLEROOT in eight years.$"
+        .string "Wow... I really haven't been back to\n"
+        .string "LITTLEROOT in eight years.$"
 
 LittlerootTown_Text_MayGreeting:
         .string "MAY: Hey! {PLAYER}! It's really you, isn't it?\p"
@@ -965,7 +966,7 @@ LittlerootTown_Text_BrendanGreeting:
         .string "You look so different--but in a good way!$"
 
 LittlerootTown_Text_PlayerResponse:
-        .string "{PLAYER}: Yeah, you've grown too!\p"
+        .string "{PLAYER}: Yeah, you've grown too!\n"
         .string "It's great seeing you again.$"
 
 LittlerootTown_Text_MayShowAround:
