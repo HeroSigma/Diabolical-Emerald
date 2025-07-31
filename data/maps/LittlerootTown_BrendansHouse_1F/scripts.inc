@@ -92,14 +92,27 @@ LittlerootTown_BrendansHouse_1F_EventScript_YoureNewNeighbor::
 	applymovement LOCALID_RIVALS_HOUSE_1F_MOM, Common_Movement_Delay48
 	waitmovement 0
 	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
-	applymovement LOCALID_RIVALS_HOUSE_1F_MOM, LittlerootTown_BrendansHouse_1F_Movement_RivalMomApproach
-	waitmovement 0
-	special GetRivalSonDaughterString
-	msgbox RivalsHouse_1F_Text_OhYoureTheNewNeighbor, MSGBOX_DEFAULT
-	setflag FLAG_MET_RIVAL_MOM
-	setvar VAR_LITTLEROOT_HOUSES_STATE_MAY, 2
-	releaseall
-	end
+        applymovement LOCALID_RIVALS_HOUSE_1F_MOM, LittlerootTown_BrendansHouse_1F_Movement_RivalMomApproach
+        waitmovement 0
+        msgbox RivalsHouse_1F_Text_RivalBringsPlayer, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_ParentSurprised, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_ParentCalls, MSGBOX_DEFAULT
+        playse SE_EXIT
+        addobject LOCALID_RIVALS_HOUSE_1F_RIVAL
+        delay 30
+        msgbox RivalsHouse_1F_Text_OtherRivalSurprised, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_PlayerGreeting, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_OtherRivalHappy, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_FirstRivalTaunt, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_OtherRivalProfessor, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_FirstRivalRoute103, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_OtherRivalDontKeep, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_PlayerReady, MSGBOX_DEFAULT
+        removeobject LOCALID_RIVALS_HOUSE_1F_RIVAL
+        setflag FLAG_MET_RIVAL_MOM
+        setvar VAR_LITTLEROOT_HOUSES_STATE_MAY, 2
+        releaseall
+        end
 
 LittlerootTown_BrendansHouse_1F_Movement_RivalMomApproach:
 	walk_down
