@@ -1,9 +1,11 @@
 PlayersHouse_2F_EventScript_BlockStairsUntilClockIsSet::
-        setvar VAR_LITTLEROOT_INTRO_STATE, 5
-        msgbox PlayersHouse_2F_Text_RivalWelcomeRoom, MSGBOX_DEFAULT
-        msgbox PlayersHouse_2F_Text_PlayerThanks, MSGBOX_DEFAULT
-        msgbox PlayersHouse_2F_Text_RivalLeaveClock, MSGBOX_DEFAULT
-        return
+       lockall
+       setvar VAR_LITTLEROOT_INTRO_STATE, 5
+       msgbox PlayersHouse_2F_Text_RivalWelcomeRoom, MSGBOX_DEFAULT
+       msgbox PlayersHouse_2F_Text_PlayerThanks, MSGBOX_DEFAULT
+       msgbox PlayersHouse_2F_Text_RivalLeaveClock, MSGBOX_DEFAULT
+       releaseall
+       return
 
 PlayersHouse_1F_EventScript_EnterHouseMovingIn::
 	msgbox PlayersHouse_1F_Text_IsntItNiceInHere, MSGBOX_DEFAULT
