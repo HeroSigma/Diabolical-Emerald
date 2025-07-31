@@ -496,8 +496,3 @@ const u16 gMetatileAttributes_Valor[] = INCBIN_U16("data/tilesets/secondary/valo
 const u16 gMetatiles_Pasos[] = INCBIN_U16("data/tilesets/secondary/pasos/metatiles.bin");
 const u16 gMetatileAttributes_Pasos[] = INCBIN_U16("data/tilesets/secondary/pasos/metatile_attributes.bin");
 
-const u16 gMetatiles_desert[] = INCBIN_U16("data/tilesets/primary/desert/metatiles.bin");
-const u16 gMetatileAttributes_desert[] = INCBIN_U16("data/tilesets/primary/desert/metatile_attributes.bin");
-
-const u16 gMetatiles_desertm[] = INCBIN_U16("data/tilesets/secondary/desertm/metatiles.bin");
-const u16 gMetatileAttributes_desertm[] = INCBIN_U16("data/tilesets/secondary/desertm/metatile_attributes.bin");

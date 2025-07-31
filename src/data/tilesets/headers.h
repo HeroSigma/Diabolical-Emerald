@@ -1887,24 +1887,3 @@ const struct Tileset gTileset_Pasos =
     .callback = NULL,
 };
 
-const struct Tileset gTileset_desert =
-{
-    .isCompressed = TRUE,
-    .isSecondary = FALSE,
-    .tiles = gTilesetTiles_desert,
-    .palettes = gTilesetPalettes_desert,
-    .metatiles = gMetatiles_desert,
-    .metatileAttributes = gMetatileAttributes_desert,
-    .callback = NULL,
-};
-
-const struct Tileset gTileset_desertm =
-{
-    .isCompressed = TRUE,
-    .isSecondary = TRUE,
-    .tiles = gTilesetTiles_desertm,
-    .palettes = gTilesetPalettes_desertm,
-    .metatiles = gMetatiles_desertm,
-    .metatileAttributes = gMetatileAttributes_desertm,
-    .callback = NULL,
-};
