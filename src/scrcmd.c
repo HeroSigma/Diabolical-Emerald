@@ -1458,6 +1458,17 @@ bool8 ScrCmd_copyobjectxytoperm(struct ScriptContext *ctx)
     return FALSE;
 }
 
+bool8 ScrCmd_setobjectgfxid(struct ScriptContext *ctx)
+{
+    u16 localId = VarGet(ScriptReadHalfword(ctx));
+    u16 graphicsId = VarGet(ScriptReadHalfword(ctx));
+
+    Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
+
+    ObjectEventSetGraphicsIdByLocalIdAndMap(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, graphicsId);
+    return FALSE;
+}
+
 bool8 ScrCmd_showobjectat(struct ScriptContext *ctx)
 {
     u16 localId = VarGet(ScriptReadHalfword(ctx));

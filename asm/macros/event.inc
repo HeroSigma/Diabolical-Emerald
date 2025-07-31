@@ -669,15 +669,22 @@
 		.endif
 	.endm
 
-	@ Sets the specified (localId) object's position on the current map.
-	.macro setobjectxy localId:req, x:req, y:req
-	.byte SCR_OP_SETOBJECTXY
-	.2byte \localId
-	.2byte \x
-	.2byte \y
-	.endm
+        @ Sets the specified (localId) object's position on the current map.
+        .macro setobjectxy localId:req, x:req, y:req
+        .byte SCR_OP_SETOBJECTXY
+        .2byte \localId
+        .2byte \x
+        .2byte \y
+        .endm
 
-	@ Sets the specified object's invisibility to FALSE.
+        @ Sets the specified object's graphics id.
+        .macro setobjectgfxid localId:req, graphicsId:req
+        .byte SCR_OP_SETOBJECTGFXID
+        .2byte \localId
+        .2byte \graphicsId
+        .endm
+
+        @ Sets the specified object's invisibility to FALSE.
 	.macro showobjectat localId:req, map:req
 	.byte SCR_OP_SHOWOBJECTAT
 	.2byte \localId
