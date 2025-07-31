@@ -91,14 +91,17 @@ LittlerootTown_MaysHouse_1F_EventScript_YoureNewNeighbor::
 	applymovement LOCALID_RIVALS_HOUSE_1F_MOM, Common_Movement_Delay48
 	waitmovement 0
 	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
-	applymovement LOCALID_RIVALS_HOUSE_1F_MOM, LittlerootTown_MaysHouse_1F_Movement_RivalMomApproach
-	waitmovement 0
-	special GetRivalSonDaughterString
-	msgbox RivalsHouse_1F_Text_OhYoureTheNewNeighbor, MSGBOX_DEFAULT
-	setflag FLAG_MET_RIVAL_MOM
-	setvar VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 2
-	releaseall
-	end
+        applymovement LOCALID_RIVALS_HOUSE_1F_MOM, LittlerootTown_MaysHouse_1F_Movement_RivalMomApproach
+        waitmovement 0
+        special GetRivalSonDaughterString
+        msgbox RivalsHouse_1F_Text_OhYoureTheNewNeighbor, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_PlayerFeelsDifferent, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_WellWelcomeHome, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_ComeSeeRoom, MSGBOX_DEFAULT
+        setflag FLAG_MET_RIVAL_MOM
+        setvar VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 2
+        releaseall
+        end
 
 LittlerootTown_MaysHouse_1F_Movement_RivalMomApproach:
 	walk_down
@@ -317,16 +320,25 @@ LittlerootTown_MaysHouse_1F_Movement_MayGoUpstairs2:
 	step_end
 
 RivalsHouse_1F_Text_OhYoureTheNewNeighbor:
-	.string "Oh, hello. And you are?\p"
-	.string "… … … … … … … … …\n"
-	.string "… … … … … … … … …\p"
-	.string "Oh, you're {PLAYER}{KUN}, our new next-door\n"
-	.string "neighbor! Hi!\p"
-	.string "We have a {STR_VAR_1} about the same\n"
-	.string "age as you.\p"
-	.string "Our {STR_VAR_1} was excited about making\n"
-	.string "a new friend.\p"
-	.string "Our {STR_VAR_1} is upstairs, I think.$"
+        .string "Oh my! {PLAYER}, is that really you?\p"
+        .string "It feels like just yesterday you were\n"
+        .string "running around with {RIVAL} and\l"
+        .string "{OTHER_RIVAL} in the yard. I can't\p"
+        .string "believe it's been eight years!$"
+
+RivalsHouse_1F_Text_PlayerFeelsDifferent:
+        .string "Yeah... it feels like a lifetime ago.\p"
+        .string "LITTLEROOT feels familiar, but\n"
+        .string "different somehow.$"
+
+RivalsHouse_1F_Text_WellWelcomeHome:
+        .string "Well, welcome home! We're so happy to\n"
+        .string "have you staying with us again. I'm\l"
+        .string "sure you'll settle in quickly.$"
+
+RivalsHouse_1F_Text_ComeSeeRoom:
+        .string "Come on, {PLAYER}! Let me show you\n"
+        .string "your room upstairs.$"
 
 RivalsHouse_1F_Text_LikeChildLikeFather:
 	.string "Like child, like father.\p"

@@ -307,24 +307,39 @@ PlayersHouse_1F_Text_GoSetTheClock:
 	.string "Go set the clock in your room, honey.$"
 
 PlayersHouse_1F_Text_OhComeQuickly:
-	.string "MOM: Oh! {PLAYER}, {PLAYER}!\n"
-	.string "Quick! Come quickly!$"
+        .string "{RIVAL}: {PLAYER}! Quick, come\n"
+        .string "downstairs! You have to see\l"
+        .string "this!$"
 
 PlayersHouse_1F_Text_MaybeDadWillBeOn:
-	.string "MOM: Look! It's PETALBURG GYM!\n"
-	.string "Maybe DAD will be on!$"
+        .string "TV: Breaking news! A link\n"
+        .string "between HOENN and JOHTO is\l"
+        .string "being developed!$"
 
 PlayersHouse_1F_Text_ItsOverWeMissedHim:
-	.string "MOM: Oh… It's over.\p"
-	.string "I think DAD was on, but we missed him.\n"
-	.string "Too bad.$"
+        .string "MOM: Goodness gracious!\p"
+        .string "HOENN and JOHTO... connected?\n"
+        .string "I never thought I'd see the\l"
+        .string "day!$"
 
 PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor:
-	.string "Oh, yes.\n"
-	.string "One of DAD's friends lives in town.\p"
-	.string "PROF. BIRCH is his name.\p"
-	.string "He lives right next door, so you should\n"
-	.string "go over and introduce yourself.$"
+        .string "{RIVAL}: This is incredible!\p"
+        .string "Imagine all the new POKéMON\n"
+        .string "and TRAINERS we'll meet!$"
+
+PlayersHouse_1F_Text_PlayerFeelsBigChange:
+        .string "{PLAYER}: Wow... This feels\n"
+        .string "like the start of something\l"
+        .string "big. I wonder if this has\n"
+        .string "anything to do with the\l"
+        .string "changes I felt coming\n"
+        .string "back here...$"
+
+PlayersHouse_1F_Text_RivalInvitation:
+        .string "{RIVAL}: Come on, {PLAYER}!\n"
+        .string "Let's go outside. There's\l"
+        .string "someone next door who's\n"
+        .string "eager to meet you!$"
 
 PlayersHouse_1F_Text_SeeYouHoney:
 	.string "MOM: See you, honey!$"
@@ -368,8 +383,10 @@ PlayersHouse_1F_Text_Vigoroth2:
 	.string "Huggoh, uggo uggo…$"
 
 PlayersHouse_1F_Text_ReportFromPetalburgGym:
-	.string "INTERVIEWER: …We brought you this\n"
-	.string "report from in front of PETALBURG GYM.$"
+        .string "REPORTER: Experts say this\n"
+        .string "could open travel between the\l"
+        .string "regions for the first time\n"
+        .string "in history.$"
 
 PlayersHouse_1F_Text_TheresAMovieOnTV:
 	.string "There is a movie on TV.\p"
