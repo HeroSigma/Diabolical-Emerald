@@ -5,9 +5,10 @@ LittlerootTown_MaysHouse_1F_MapScripts::
 	.byte 0
 
 LittlerootTown_MaysHouse_1F_OnLoad:
-	call_if_lt VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_MaysHouse_1F_EventScript_SetMovingBoxes
-	call_if_set FLAG_RECEIVED_RUNNING_SHOES, LittlerootTown_MaysHouse_1F_EventScript_CheckShowShoesManual
-	end
+        call_if_lt VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_MaysHouse_1F_EventScript_SetMovingBoxes
+        call_if_set FLAG_RECEIVED_RUNNING_SHOES, LittlerootTown_MaysHouse_1F_EventScript_CheckShowShoesManual
+        setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_BRENDAN_GUEST
+        end
 
 LittlerootTown_MaysHouse_1F_EventScript_SetMovingBoxes::
 	setmetatile 5, 4, METATILE_BrendansMaysHouse_MovingBox_Open, TRUE
@@ -84,33 +85,90 @@ LittlerootTown_MaysHouse_1F_EventScript_PetalburgGymReport::
 	end
 
 LittlerootTown_MaysHouse_1F_EventScript_YoureNewNeighbor::
-	lockall
-	playse SE_PIN
-	applymovement LOCALID_RIVALS_HOUSE_1F_MOM, Common_Movement_ExclamationMark
-	waitmovement 0
-	applymovement LOCALID_RIVALS_HOUSE_1F_MOM, Common_Movement_Delay48
-	waitmovement 0
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
+        lockall
+        playse SE_EXIT
+        clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_BRENDAN_GUEST
+        addobject LOCALID_RIVALS_HOUSE_1F_BRENDAN_GUEST
+        getplayerxy VAR_TEMP_0, VAR_TEMP_1
+        compare VAR_TEMP_0, 1
+        goto_if_ne LittlerootTown_MaysHouse_1F_EventScript_SpawnGuestRight
+        setvar VAR_TEMP_2, 2
+        goto LittlerootTown_MaysHouse_1F_EventScript_SpawnGuestCoordsSet
+LittlerootTown_MaysHouse_1F_EventScript_SpawnGuestRight::
+        setvar VAR_TEMP_2, 1
+LittlerootTown_MaysHouse_1F_EventScript_SpawnGuestCoordsSet::
+        copyvar VAR_TEMP_3, VAR_TEMP_1
+        addvar VAR_TEMP_3, 1
+        setobjectxy LOCALID_RIVALS_HOUSE_1F_BRENDAN_GUEST, VAR_TEMP_2, VAR_TEMP_3
+        applymovement LOCALID_RIVALS_HOUSE_1F_BRENDAN_GUEST, LittlerootTown_MaysHouse_1F_Movement_BrendanEnter
+        waitmovement 0
+        playse SE_PIN
+        applymovement LOCALID_RIVALS_HOUSE_1F_MOM, Common_Movement_ExclamationMark
+        waitmovement 0
+        applymovement LOCALID_RIVALS_HOUSE_1F_MOM, Common_Movement_Delay48
+        waitmovement 0
+        applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
         applymovement LOCALID_RIVALS_HOUSE_1F_MOM, LittlerootTown_MaysHouse_1F_Movement_RivalMomApproach
         waitmovement 0
-        special GetRivalSonDaughterString
-        msgbox RivalsHouse_1F_Text_OhYoureTheNewNeighbor, MSGBOX_DEFAULT
-        msgbox RivalsHouse_1F_Text_PlayerFeelsDifferent, MSGBOX_DEFAULT
-        msgbox RivalsHouse_1F_Text_WellWelcomeHome, MSGBOX_DEFAULT
-        msgbox RivalsHouse_1F_Text_ComeSeeRoom, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_RivalBringsPlayer, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_ParentSurprised, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_ParentCalls, MSGBOX_DEFAULT
+        clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_MAY
+        addobject LOCALID_RIVALS_HOUSE_1F_RIVAL
+        checkplayergender
+        goto_if_eq VAR_RESULT, FEMALE, LittlerootTown_MaysHouse_1F_EventScript_RivalSpriteSet
+        setobjectgfxid LOCALID_RIVALS_HOUSE_1F_RIVAL, OBJ_EVENT_GFX_LINK_RS_BRENDAN
+LittlerootTown_MaysHouse_1F_EventScript_RivalSpriteSet::
+        setobjectxy LOCALID_RIVALS_HOUSE_1F_RIVAL, 2, 2
+        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, LittlerootTown_MaysHouse_1F_Movement_MayComeDown
+        waitmovement 0
+        msgbox RivalsHouse_1F_Text_OtherRivalSurprised, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_PlayerGreeting, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_OtherRivalHappy, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_FirstRivalTaunt, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_OtherRivalProfessor, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_FirstRivalRoute103, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_OtherRivalDontKeep, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_PlayerReady, MSGBOX_DEFAULT
+        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, LittlerootTown_MaysHouse_1F_Movement_RivalExit
+        applymovement LOCALID_RIVALS_HOUSE_1F_BRENDAN_GUEST, LittlerootTown_MaysHouse_1F_Movement_GuestExit
+        waitmovement 0
+        setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_MAY
+        removeobject LOCALID_RIVALS_HOUSE_1F_RIVAL
+        setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_BRENDAN_GUEST
+        removeobject LOCALID_RIVALS_HOUSE_1F_BRENDAN_GUEST
         setflag FLAG_MET_RIVAL_MOM
         setvar VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 2
         releaseall
         end
 
 LittlerootTown_MaysHouse_1F_Movement_RivalMomApproach:
-	walk_down
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	step_end
+        walk_down
+        walk_left
+        walk_left
+        walk_left
+        walk_left
+        walk_left
+        step_end
+
+LittlerootTown_MaysHouse_1F_Movement_BrendanEnter:
+        walk_up
+        step_end
+
+LittlerootTown_MaysHouse_1F_Movement_MayComeDown:
+        walk_down
+        walk_down
+        walk_down
+        walk_down
+        step_end
+
+LittlerootTown_MaysHouse_1F_Movement_RivalExit:
+        walk_down
+        step_end
+
+LittlerootTown_MaysHouse_1F_Movement_GuestExit:
+        walk_down
+        step_end
 
 RivalsHouse_1F_EventScript_RivalMom::
 	lock
@@ -412,6 +470,55 @@ RivalsHouse_1F_Text_BrendanWhoAreYou:
 	.string "Some other time, okay?$"
 
 RivalsHouse_1F_Text_DoYouHavePokemon:
-	.string "Hi, neighbor!\p"
-	.string "Do you already have your\n"
-	.string "own POKéMON?$"
+        .string "Hi, neighbor!\p"
+        .string "Do you already have your\n"
+        .string "own POKéMON?$"
+
+RivalsHouse_1F_Text_RivalBringsPlayer:
+        .string "Hey! Look who I brought!$"
+
+RivalsHouse_1F_Text_ParentSurprised:
+        .string "{PLAYER}?! Is that really you?\p"
+        .string "My goodness, it's been eight years\n"
+        .string "since you left HOENN! You've grown\l"
+        .string "so much...!$"
+
+RivalsHouse_1F_Text_ParentCalls:
+        .string "{OTHER_RIVAL}! Come down quickly!\n"
+        .string "You won't believe who's here!$"
+
+RivalsHouse_1F_Text_OtherRivalSurprised:
+        .string "No way... {PLAYER}?! It's really\n"
+        .string "you!$"
+
+RivalsHouse_1F_Text_PlayerGreeting:
+        .string "Hey! Long time no see.\p"
+        .string "It feels so weird being back\n"
+        .string "after all this time.$"
+
+RivalsHouse_1F_Text_OtherRivalHappy:
+        .string "We all thought you'd never come\n"
+        .string "back! But... it's awesome to see\l"
+        .string "you again!$"
+
+RivalsHouse_1F_Text_FirstRivalTaunt:
+        .string "See? I told you they'd come back\n"
+        .string "one day.$"
+
+RivalsHouse_1F_Text_OtherRivalProfessor:
+        .string "Well, you came at the perfect time.\p"
+        .string "PROF. BIRCH is giving out POKéMON\n"
+        .string "to new trainers!$"
+
+RivalsHouse_1F_Text_FirstRivalRoute103:
+        .string "Exactly! After you pick your\n"
+        .string "POKéMON, we'll all meet at\l"
+        .string "ROUTE 103. I can't wait to\l"
+        .string "battle you there!$"
+
+RivalsHouse_1F_Text_OtherRivalDontKeep:
+        .string "Same here. Don't keep us waiting\n"
+        .string "too long!$"
+
+RivalsHouse_1F_Text_PlayerReady:
+        .string "Heh, don't worry--I'll be ready.$"

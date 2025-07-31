@@ -5,9 +5,10 @@ LittlerootTown_BrendansHouse_1F_MapScripts::
 	.byte 0
 
 LittlerootTown_BrendansHouse_1F_OnLoad:
-	call_if_lt VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_BrendansHouse_1F_EventScript_SetMovingBoxes
-	call_if_set FLAG_RECEIVED_RUNNING_SHOES, LittlerootTown_BrendansHouse_1F_EventScript_CheckShowShoesManual
-	end
+        call_if_lt VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_BrendansHouse_1F_EventScript_SetMovingBoxes
+        call_if_set FLAG_RECEIVED_RUNNING_SHOES, LittlerootTown_BrendansHouse_1F_EventScript_CheckShowShoesManual
+        setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_MAY_GUEST
+        end
 
 LittlerootTown_BrendansHouse_1F_EventScript_SetMovingBoxes::
 	setmetatile 5, 4, METATILE_BrendansMaysHouse_MovingBox_Open, TRUE
@@ -85,21 +86,43 @@ LittlerootTown_BrendansHouse_1F_EventScript_PetalburgGymReport::
 	end
 
 LittlerootTown_BrendansHouse_1F_EventScript_YoureNewNeighbor::
-	lockall
-	playse SE_PIN
-	applymovement LOCALID_RIVALS_HOUSE_1F_MOM, Common_Movement_ExclamationMark
-	waitmovement 0
-	applymovement LOCALID_RIVALS_HOUSE_1F_MOM, Common_Movement_Delay48
-	waitmovement 0
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
+        lockall
+        playse SE_EXIT
+        clearflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_MAY_GUEST
+        addobject LOCALID_RIVALS_HOUSE_1F_MAY_GUEST
+        getplayerxy VAR_TEMP_0, VAR_TEMP_1
+        compare VAR_TEMP_0, 8
+        goto_if_ne LittlerootTown_BrendansHouse_1F_EventScript_SpawnGuestLeft
+        setvar VAR_TEMP_2, 9
+        goto LittlerootTown_BrendansHouse_1F_EventScript_SpawnGuestCoordsSet
+LittlerootTown_BrendansHouse_1F_EventScript_SpawnGuestLeft::
+        setvar VAR_TEMP_2, 8
+LittlerootTown_BrendansHouse_1F_EventScript_SpawnGuestCoordsSet::
+        copyvar VAR_TEMP_3, VAR_TEMP_1
+        addvar VAR_TEMP_3, 1
+        setobjectxy LOCALID_RIVALS_HOUSE_1F_MAY_GUEST, VAR_TEMP_2, VAR_TEMP_3
+        applymovement LOCALID_RIVALS_HOUSE_1F_MAY_GUEST, LittlerootTown_BrendansHouse_1F_Movement_MayEnter
+        waitmovement 0
+        playse SE_PIN
+        applymovement LOCALID_RIVALS_HOUSE_1F_MOM, Common_Movement_ExclamationMark
+        waitmovement 0
+        applymovement LOCALID_RIVALS_HOUSE_1F_MOM, Common_Movement_Delay48
+        waitmovement 0
+        applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
         applymovement LOCALID_RIVALS_HOUSE_1F_MOM, LittlerootTown_BrendansHouse_1F_Movement_RivalMomApproach
         waitmovement 0
         msgbox RivalsHouse_1F_Text_RivalBringsPlayer, MSGBOX_DEFAULT
         msgbox RivalsHouse_1F_Text_ParentSurprised, MSGBOX_DEFAULT
         msgbox RivalsHouse_1F_Text_ParentCalls, MSGBOX_DEFAULT
-        playse SE_EXIT
+        clearflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_BRENDAN
         addobject LOCALID_RIVALS_HOUSE_1F_RIVAL
-        delay 30
+        checkplayergender
+        goto_if_eq VAR_RESULT, MALE, LittlerootTown_BrendansHouse_1F_EventScript_RivalSpriteSet
+        setobjectgfxid LOCALID_RIVALS_HOUSE_1F_RIVAL, OBJ_EVENT_GFX_LINK_RS_MAY
+LittlerootTown_BrendansHouse_1F_EventScript_RivalSpriteSet::
+        setobjectxy LOCALID_RIVALS_HOUSE_1F_RIVAL, 8, 2
+        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, LittlerootTown_BrendansHouse_1F_Movement_BrendanComeDown
+        waitmovement 0
         msgbox RivalsHouse_1F_Text_OtherRivalSurprised, MSGBOX_DEFAULT
         msgbox RivalsHouse_1F_Text_PlayerGreeting, MSGBOX_DEFAULT
         msgbox RivalsHouse_1F_Text_OtherRivalHappy, MSGBOX_DEFAULT
@@ -108,20 +131,45 @@ LittlerootTown_BrendansHouse_1F_EventScript_YoureNewNeighbor::
         msgbox RivalsHouse_1F_Text_FirstRivalRoute103, MSGBOX_DEFAULT
         msgbox RivalsHouse_1F_Text_OtherRivalDontKeep, MSGBOX_DEFAULT
         msgbox RivalsHouse_1F_Text_PlayerReady, MSGBOX_DEFAULT
+        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, LittlerootTown_BrendansHouse_1F_Movement_RivalExit
+        applymovement LOCALID_RIVALS_HOUSE_1F_MAY_GUEST, LittlerootTown_BrendansHouse_1F_Movement_GuestExit
+        waitmovement 0
+        setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_BRENDAN
         removeobject LOCALID_RIVALS_HOUSE_1F_RIVAL
+        setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_MAY_GUEST
+        removeobject LOCALID_RIVALS_HOUSE_1F_MAY_GUEST
         setflag FLAG_MET_RIVAL_MOM
         setvar VAR_LITTLEROOT_HOUSES_STATE_MAY, 2
         releaseall
         end
 
 LittlerootTown_BrendansHouse_1F_Movement_RivalMomApproach:
-	walk_down
-	walk_right
-	walk_right
-	walk_right
-	walk_right
-	walk_right
-	step_end
+        walk_down
+        walk_right
+        walk_right
+        walk_right
+        walk_right
+        walk_right
+        step_end
+
+LittlerootTown_BrendansHouse_1F_Movement_MayEnter:
+        walk_up
+        step_end
+
+LittlerootTown_BrendansHouse_1F_Movement_BrendanComeDown:
+        walk_down
+        walk_down
+        walk_down
+        walk_down
+        step_end
+
+LittlerootTown_BrendansHouse_1F_Movement_RivalExit:
+        walk_down
+        step_end
+
+LittlerootTown_BrendansHouse_1F_Movement_GuestExit:
+        walk_down
+        step_end
 
 LittlerootTown_BrendansHouse_1F_EventScript_GoSeeRoom::
 	lockall
