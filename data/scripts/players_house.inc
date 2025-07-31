@@ -1,6 +1,11 @@
 PlayersHouse_2F_EventScript_BlockStairsUntilClockIsSet::
-	setvar VAR_LITTLEROOT_INTRO_STATE, 5
-	return
+       lockall
+       setvar VAR_LITTLEROOT_INTRO_STATE, 5
+       msgbox PlayersHouse_2F_Text_RivalWelcomeRoom, MSGBOX_DEFAULT
+       msgbox PlayersHouse_2F_Text_PlayerThanks, MSGBOX_DEFAULT
+       msgbox PlayersHouse_2F_Text_RivalLeaveClock, MSGBOX_DEFAULT
+       releaseall
+       return
 
 PlayersHouse_1F_EventScript_EnterHouseMovingIn::
 	msgbox PlayersHouse_1F_Text_IsntItNiceInHere, MSGBOX_DEFAULT
@@ -61,13 +66,12 @@ PlayersHouse_2F_EventScript_WallClock::
 	setflag FLAG_SET_WALL_CLOCK
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_PLAYERS_HOUSE_VIGOROTH_1
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_PLAYERS_HOUSE_VIGOROTH_2
-	checkplayergender
-	call_if_eq VAR_RESULT, MALE, PlayersHouse_2F_EventScript_MomComesUpstairsMale
-	call_if_eq VAR_RESULT, FEMALE, PlayersHouse_2F_EventScript_MomComesUpstairsFemale
-	playse SE_EXIT
-	removeobject VAR_0x8008
-	releaseall
-	end
+        msgbox PlayersHouse_2F_Text_RivalCallsDownstairs, MSGBOX_DEFAULT
+        msgbox PlayersHouse_2F_Text_PlayerWonder, MSGBOX_DEFAULT
+        warp MAP_LITTLEROOT_TOWN_PLAYERS_HOUSE_1F, 8, 2
+        waitstate
+        releaseall
+        end
 
 PlayersHouse_2F_EventScript_MomComesUpstairsMale::
 	setvar VAR_0x8008, LOCALID_PLAYERS_HOUSE_2F_MOM

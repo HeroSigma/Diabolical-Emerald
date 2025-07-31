@@ -1,15 +1,19 @@
 .set LOCALID_RIVAL, 1
 
 LittlerootTown_PlayersHouse_2F_MapScripts::
-	map_script MAP_SCRIPT_ON_TRANSITION, LittlerootTown_PlayersHouse_2F_OnTransition
-	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, LittlerootTown_PlayersHouse_2F_OnWarp
-	.byte 0
+       map_script MAP_SCRIPT_ON_TRANSITION, LittlerootTown_PlayersHouse_2F_OnTransition
+       map_script MAP_SCRIPT_ON_FRAME_TABLE, LittlerootTown_PlayersHouse_2F_OnFrame
+       map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, LittlerootTown_PlayersHouse_2F_OnWarp
+       .byte 0
 
 LittlerootTown_PlayersHouse_2F_OnTransition:
-	call_if_eq VAR_INTRO_STATE, 4, PlayersHouse_2F_EventScript_BlockStairsUntilClockIsSet
-	call SecretBase_EventScript_SetDecorationFlags
-	setvar VAR_SECRET_BASE_INITIALIZED, 0
-	end
+       call SecretBase_EventScript_SetDecorationFlags
+       setvar VAR_SECRET_BASE_INITIALIZED, 0
+       end
+
+LittlerootTown_PlayersHouse_2F_OnFrame:
+       map_script_2 VAR_INTRO_STATE, 4, PlayersHouse_2F_EventScript_BlockStairsUntilClockIsSet
+       .2byte 0
 
 LittlerootTown_PlayersHouse_2F_OnWarp:
 	map_script_2 VAR_SECRET_BASE_INITIALIZED, 0, LittlerootTown_PlayersHouse_2F_EventScript_CheckInitDecor
@@ -97,3 +101,27 @@ LittlerootTown_PlayersHouse_2F_Text_HowDoYouLikeYourRoom:
         .string "in downstairs, too!\p"
         .string "POKEMON movers are so convenient!$"
         .equ PlayersHouse_2F_Text_HowDoYouLikeYourRoom, LittlerootTown_PlayersHouse_2F_Text_HowDoYouLikeYourRoom
+
+PlayersHouse_2F_Text_RivalWelcomeRoom:
+        .string "{RIVAL}: Here we are! This will be\n"
+        .string "your room while you're staying with\n"
+        .string "us. Everything's neat and ready for\n"
+        .string "you. I even made sure your bed was\n"
+        .string "comfy!$"
+
+PlayersHouse_2F_Text_PlayerThanks:
+        .string "{PLAYER}: Thanks… it feels nice to\n"
+        .string "have my own space again.$"
+
+PlayersHouse_2F_Text_RivalLeaveClock:
+        .string "{RIVAL}: Alright! Make sure\n"
+        .string "everything's organized and set up the\n"
+        .string "clock. I'll be downstairs if you\n"
+        .string "need me.$"
+
+PlayersHouse_2F_Text_RivalCallsDownstairs:
+        .string "{RIVAL}: {PLAYER}! Quick, come\n"
+        .string "downstairs! You have to see this!$"
+
+PlayersHouse_2F_Text_PlayerWonder:
+        .string "{PLAYER}: I wonder what that could be.$"
