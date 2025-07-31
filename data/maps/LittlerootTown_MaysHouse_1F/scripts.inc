@@ -412,6 +412,55 @@ RivalsHouse_1F_Text_BrendanWhoAreYou:
 	.string "Some other time, okay?$"
 
 RivalsHouse_1F_Text_DoYouHavePokemon:
-	.string "Hi, neighbor!\p"
-	.string "Do you already have your\n"
-	.string "own POKéMON?$"
+        .string "Hi, neighbor!\p"
+        .string "Do you already have your\n"
+        .string "own POKéMON?$"
+
+RivalsHouse_1F_Text_RivalBringsPlayer:
+        .string "Hey! Look who I brought!$"
+
+RivalsHouse_1F_Text_ParentSurprised:
+        .string "{PLAYER}?! Is that really you?\p"
+        .string "My goodness, it's been eight years\n"
+        .string "since you left HOENN! You've grown\l"
+        .string "so much...!$"
+
+RivalsHouse_1F_Text_ParentCalls:
+        .string "{OTHER_RIVAL}! Come down quickly!\n"
+        .string "You won't believe who's here!$"
+
+RivalsHouse_1F_Text_OtherRivalSurprised:
+        .string "No way... {PLAYER}?! It's really\n"
+        .string "you!$"
+
+RivalsHouse_1F_Text_PlayerGreeting:
+        .string "Hey! Long time no see.\p"
+        .string "It feels so weird being back\n"
+        .string "after all this time.$"
+
+RivalsHouse_1F_Text_OtherRivalHappy:
+        .string "We all thought you'd never come\n"
+        .string "back! But... it's awesome to see\l"
+        .string "you again!$"
+
+RivalsHouse_1F_Text_FirstRivalTaunt:
+        .string "See? I told you they'd come back\n"
+        .string "one day.$"
+
+RivalsHouse_1F_Text_OtherRivalProfessor:
+        .string "Well, you came at the perfect time.\p"
+        .string "PROF. BIRCH is giving out POKéMON\n"
+        .string "to new trainers!$"
+
+RivalsHouse_1F_Text_FirstRivalRoute103:
+        .string "Exactly! After you pick your\n"
+        .string "POKéMON, we'll all meet at\l"
+        .string "ROUTE 103. I can't wait to\l"
+        .string "battle you there!$"
+
+RivalsHouse_1F_Text_OtherRivalDontKeep:
+        .string "Same here. Don't keep us waiting\n"
+        .string "too long!$"
+
+RivalsHouse_1F_Text_PlayerReady:
+        .string "Heh, don't worry--I'll be ready.$"
