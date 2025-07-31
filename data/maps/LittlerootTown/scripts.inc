@@ -142,6 +142,7 @@ LittlerootTown_EventScript_GoInsideWithRival::
         opendoor VAR_0x8004, VAR_0x8005
         waitdooranim
         addobject LOCALID_LITTLEROOT_RIVAL
+        setobjectxy LOCALID_LITTLEROOT_RIVAL, VAR_0x8004, VAR_0x8005
         applymovement LOCALID_LITTLEROOT_RIVAL, LittlerootTown_Movement_MomExitHouse
         waitmovement 0
         closedoor VAR_0x8004, VAR_0x8005
