@@ -78,11 +78,21 @@ LittlerootTown_MaysHouse_1F_EventScript_EnterHouseMovingIn::
 	end
 
 LittlerootTown_MaysHouse_1F_EventScript_PetalburgGymReport::
-	lockall
-	setvar VAR_0x8004, FEMALE
-	setvar VAR_0x8005, LOCALID_PLAYERS_HOUSE_1F_MOM
-	goto PlayersHouse_1F_EventScript_PetalburgGymReportFemale
-	end
+        lockall
+        setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_MOM
+        removeobject LOCALID_PLAYERS_HOUSE_1F_MOM
+        clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_MOM
+        addobject LOCALID_RIVALS_HOUSE_1F_MOM
+        setobjectxy LOCALID_RIVALS_HOUSE_1F_MOM, 6, 5
+        setobjectmovementtype LOCALID_RIVALS_HOUSE_1F_MOM, MOVEMENT_TYPE_FACE_UP
+        clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_MAY
+        addobject LOCALID_RIVALS_HOUSE_1F_RIVAL
+        setobjectxy LOCALID_RIVALS_HOUSE_1F_RIVAL, 5, 5
+        setobjectmovementtype LOCALID_RIVALS_HOUSE_1F_RIVAL, MOVEMENT_TYPE_FACE_UP
+        setvar VAR_0x8004, FEMALE
+        setvar VAR_0x8005, LOCALID_RIVALS_HOUSE_1F_MOM
+        goto PlayersHouse_1F_EventScript_PetalburgGymReportFemale
+        end
 
 LittlerootTown_MaysHouse_1F_EventScript_YoureNewNeighbor::
         lockall

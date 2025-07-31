@@ -79,11 +79,21 @@ LittlerootTown_BrendansHouse_1F_EventScript_EnterHouseMovingIn::
 	end
 
 LittlerootTown_BrendansHouse_1F_EventScript_PetalburgGymReport::
-	lockall
-	setvar VAR_0x8004, MALE
-	setvar VAR_0x8005, LOCALID_PLAYERS_HOUSE_1F_MOM
-	goto PlayersHouse_1F_EventScript_PetalburgGymReportMale
-	end
+        lockall
+        setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_MOM
+        removeobject LOCALID_PLAYERS_HOUSE_1F_MOM
+        clearflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_RIVAL_MOM
+        addobject LOCALID_RIVALS_HOUSE_1F_MOM
+        setobjectxy LOCALID_RIVALS_HOUSE_1F_MOM, 4, 5
+        setobjectmovementtype LOCALID_RIVALS_HOUSE_1F_MOM, MOVEMENT_TYPE_FACE_UP
+        clearflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_BRENDAN
+        addobject LOCALID_RIVALS_HOUSE_1F_RIVAL
+        setobjectxy LOCALID_RIVALS_HOUSE_1F_RIVAL, 5, 5
+        setobjectmovementtype LOCALID_RIVALS_HOUSE_1F_RIVAL, MOVEMENT_TYPE_FACE_UP
+        setvar VAR_0x8004, MALE
+        setvar VAR_0x8005, LOCALID_RIVALS_HOUSE_1F_MOM
+        goto PlayersHouse_1F_EventScript_PetalburgGymReportMale
+        end
 
 LittlerootTown_BrendansHouse_1F_EventScript_YoureNewNeighbor::
         lockall
@@ -373,34 +383,40 @@ PlayersHouse_1F_Text_OhComeQuickly:
         .string "this!$"
 
 PlayersHouse_1F_Text_MaybeDadWillBeOn:
-        .string "TV: Breaking news! A link\n"
-        .string "between HOENN and JOHTO is\l"
-        .string "being developed!$"
+        .string "TV REPORTER: Breaking news!\p"
+        .string "A historic event is underway in\n"
+        .string "HOENN. Reports confirm that a\l"
+        .string "connection between HOENN and\n"
+        .string "JOHTO is being developed!$"
 
 PlayersHouse_1F_Text_ItsOverWeMissedHim:
-        .string "MOM: Goodness gracious!\p"
-        .string "HOENN and JOHTO... connected?\n"
+        .string "RIVAL'S MOM: My goodness!\p"
+        .string "HOENN and JOHTO… connected?!\n"
         .string "I never thought I'd see the\l"
         .string "day!$"
 
 PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor:
-        .string "{RIVAL}: This is incredible!\p"
+        .string "{RIVAL}: This is amazing!\p"
         .string "Imagine all the new POKéMON\n"
-        .string "and TRAINERS we'll meet!$"
+        .string "and TRAINERS we'll get to meet!$"
 
 PlayersHouse_1F_Text_PlayerFeelsBigChange:
         .string "{PLAYER}: Wow... This feels\n"
         .string "like the start of something\l"
-        .string "big. I wonder if this has\n"
-        .string "anything to do with the\l"
-        .string "changes I felt coming\n"
-        .string "back here...$"
+        .string "big. Maybe this is why the\n"
+        .string "region feels so different\l"
+        .string "now...$"
 
 PlayersHouse_1F_Text_RivalInvitation:
         .string "{RIVAL}: Come on, {PLAYER}!\n"
         .string "Let's go outside. There's\l"
         .string "someone next door who's\n"
         .string "eager to meet you!$"
+
+PlayersHouse_1F_Text_PlayerNextRival:
+        .string "{PLAYER}: I bet it's the other\n"
+        .string "rival... This is going to be\l"
+        .string "interesting.$"
 
 PlayersHouse_1F_Text_SeeYouHoney:
 	.string "MOM: See you, honey!$"
@@ -444,10 +460,10 @@ PlayersHouse_1F_Text_Vigoroth2:
 	.string "Huggoh, uggo uggo…$"
 
 PlayersHouse_1F_Text_ReportFromPetalburgGym:
-        .string "REPORTER: Experts say this\n"
-        .string "could open travel between the\l"
-        .string "regions for the first time\n"
-        .string "in history.$"
+        .string "TV REPORTER: This development\n"
+        .string "could open the possibility of\l"
+        .string "travel between the regions for\n"
+        .string "the first time in history!$"
 
 PlayersHouse_1F_Text_TheresAMovieOnTV:
 	.string "There is a movie on TV.\p"
