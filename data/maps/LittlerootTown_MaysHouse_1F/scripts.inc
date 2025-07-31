@@ -93,21 +93,11 @@ LittlerootTown_MaysHouse_1F_EventScript_YoureNewNeighbor::
 	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
         applymovement LOCALID_RIVALS_HOUSE_1F_MOM, LittlerootTown_MaysHouse_1F_Movement_RivalMomApproach
         waitmovement 0
-        msgbox RivalsHouse_1F_Text_RivalBringsPlayer, MSGBOX_DEFAULT
-        msgbox RivalsHouse_1F_Text_ParentSurprised, MSGBOX_DEFAULT
-        msgbox RivalsHouse_1F_Text_ParentCalls, MSGBOX_DEFAULT
-        playse SE_EXIT
-        addobject LOCALID_RIVALS_HOUSE_1F_RIVAL
-        delay 30
-        msgbox RivalsHouse_1F_Text_OtherRivalSurprised, MSGBOX_DEFAULT
-        msgbox RivalsHouse_1F_Text_PlayerGreeting, MSGBOX_DEFAULT
-        msgbox RivalsHouse_1F_Text_OtherRivalHappy, MSGBOX_DEFAULT
-        msgbox RivalsHouse_1F_Text_FirstRivalTaunt, MSGBOX_DEFAULT
-        msgbox RivalsHouse_1F_Text_OtherRivalProfessor, MSGBOX_DEFAULT
-        msgbox RivalsHouse_1F_Text_FirstRivalRoute103, MSGBOX_DEFAULT
-        msgbox RivalsHouse_1F_Text_OtherRivalDontKeep, MSGBOX_DEFAULT
-        msgbox RivalsHouse_1F_Text_PlayerReady, MSGBOX_DEFAULT
-        removeobject LOCALID_RIVALS_HOUSE_1F_RIVAL
+        special GetRivalSonDaughterString
+        msgbox RivalsHouse_1F_Text_OhYoureTheNewNeighbor, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_PlayerFeelsDifferent, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_WellWelcomeHome, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_ComeSeeRoom, MSGBOX_DEFAULT
         setflag FLAG_MET_RIVAL_MOM
         setvar VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 2
         releaseall
@@ -329,39 +319,26 @@ LittlerootTown_MaysHouse_1F_Movement_MayGoUpstairs2:
 	walk_up
 	step_end
 
+RivalsHouse_1F_Text_OhYoureTheNewNeighbor:
+        .string "Oh my! {PLAYER}, is that really you?\p"
+        .string "It feels like just yesterday you were\n"
+        .string "running around with {RIVAL} and\l"
+        .string "{OTHER_RIVAL} in the yard. I can't\p"
+        .string "believe it's been eight years!$"
 
-RivalsHouse_1F_Text_RivalBringsPlayer:
-        .string "Rival: Hey! Look who I brought!$"
+RivalsHouse_1F_Text_PlayerFeelsDifferent:
+        .string "Yeah... it feels like a lifetime ago.\p"
+        .string "LITTLEROOT feels familiar, but\n"
+        .string "different somehow.$"
 
-RivalsHouse_1F_Text_ParentSurprised:
-        .string "{PLAYER}?! Is that really you?\pMy goodness, it's been eight years since you left HOENN! You've grown so much…!$"
+RivalsHouse_1F_Text_WellWelcomeHome:
+        .string "Well, welcome home! We're so happy to\n"
+        .string "have you staying with us again. I'm\l"
+        .string "sure you'll settle in quickly.$"
 
-RivalsHouse_1F_Text_ParentCalls:
-        .string "{RIVAL}! Come down quickly! You won't believe who's here!$"
-
-RivalsHouse_1F_Text_OtherRivalSurprised:
-        .string "{RIVAL}: No way… {PLAYER}?! It's really you!$"
-
-RivalsHouse_1F_Text_PlayerGreeting:
-        .string "{PLAYER}: Hey! Long time no see. It feels so weird being back after all this time.$"
-
-RivalsHouse_1F_Text_OtherRivalHappy:
-        .string "{RIVAL}: We all thought you'd never come back! But… it's awesome to see you again!$"
-
-RivalsHouse_1F_Text_FirstRivalTaunt:
-        .string "Rival: See? I told you they'd come back one day.$"
-
-RivalsHouse_1F_Text_OtherRivalProfessor:
-        .string "{RIVAL}: Well, you came at the perfect time. PROFESSOR BIRCH is giving out POKéMON to new trainers!$"
-
-RivalsHouse_1F_Text_FirstRivalRoute103:
-        .string "Rival: Exactly! After you pick your POKéMON, we'll all meet at ROUTE 103. I can't wait to battle you there!$"
-
-RivalsHouse_1F_Text_OtherRivalDontKeep:
-        .string "{RIVAL}: Same here. Don't keep us waiting too long!$"
-
-RivalsHouse_1F_Text_PlayerReady:
-        .string "{PLAYER}: Heh, don't worry- I'll be ready.$"
+RivalsHouse_1F_Text_ComeSeeRoom:
+        .string "Come on, {PLAYER}! Let me show you\n"
+        .string "your room upstairs.$"
 
 RivalsHouse_1F_Text_LikeChildLikeFather:
         .string "Like child, like father.\p"

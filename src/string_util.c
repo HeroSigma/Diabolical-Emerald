@@ -486,6 +486,14 @@ static const u8 *ExpandPlaceholder_RivalName(void)
         return gText_ExpandedPlaceholder_Brendan;
 }
 
+static const u8 *ExpandPlaceholder_OtherRivalName(void)
+{
+    if (gSaveBlock2Ptr->playerGender == MALE)
+        return gText_ExpandedPlaceholder_Brendan;
+    else
+        return gText_ExpandedPlaceholder_May;
+}
+
 static const u8 *ExpandPlaceholder_Version(void)
 {
     return gText_ExpandedPlaceholder_Emerald;
@@ -541,6 +549,7 @@ const u8 *GetExpandedPlaceholder(u32 id)
         [PLACEHOLDER_ID_MAXIE]        = ExpandPlaceholder_Maxie,
         [PLACEHOLDER_ID_KYOGRE]       = ExpandPlaceholder_Kyogre,
         [PLACEHOLDER_ID_GROUDON]      = ExpandPlaceholder_Groudon,
+        [PLACEHOLDER_ID_OTHER_RIVAL]  = ExpandPlaceholder_OtherRivalName,
     };
 
     if (id >= ARRAY_COUNT(funcs))

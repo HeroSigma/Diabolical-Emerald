@@ -157,13 +157,15 @@ PlayersHouse_1F_EventScript_PetalburgGymReportMale::
 	waitmovement 0
 	applymovement LOCALID_PLAYER, PlayersHouse_1F_Movement_PlayerMoveToTVMale
 	waitmovement 0
-	call PlayersHouse_1F_EventScript_WatchGymBroadcast
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
-	waitmovement 0
-	msgbox PlayersHouse_1F_Text_ItsOverWeMissedHim, MSGBOX_DEFAULT
-	msgbox PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor, MSGBOX_DEFAULT
-	closemessage
-	setvar VAR_TEMP_1, 1
+        call PlayersHouse_1F_EventScript_WatchGymBroadcast
+        applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
+        waitmovement 0
+        msgbox PlayersHouse_1F_Text_ItsOverWeMissedHim, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_PlayerFeelsBigChange, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_RivalInvitation, MSGBOX_DEFAULT
+        closemessage
+        setvar VAR_TEMP_1, 1
 	applymovement VAR_0x8005, PlayersHouse_1F_Movement_MomReturnToSeatMale
 	waitmovement 0
 	goto PlayersHouse_1F_EventScript_SetWatchedBroadcast
@@ -182,13 +184,15 @@ PlayersHouse_1F_EventScript_PetalburgGymReportFemale::
 	waitmovement 0
 	applymovement LOCALID_PLAYER, PlayersHouse_1F_Movement_PlayerMoveToTVFemale
 	waitmovement 0
-	call PlayersHouse_1F_EventScript_WatchGymBroadcast
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
-	waitmovement 0
-	msgbox PlayersHouse_1F_Text_ItsOverWeMissedHim, MSGBOX_DEFAULT
-	msgbox PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor, MSGBOX_DEFAULT
-	closemessage
-	setvar VAR_TEMP_1, 1
+        call PlayersHouse_1F_EventScript_WatchGymBroadcast
+        applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
+        waitmovement 0
+        msgbox PlayersHouse_1F_Text_ItsOverWeMissedHim, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_PlayerFeelsBigChange, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_RivalInvitation, MSGBOX_DEFAULT
+        closemessage
+        setvar VAR_TEMP_1, 1
 	applymovement VAR_0x8005, PlayersHouse_1F_Movement_MomReturnToSeatFemale
 	waitmovement 0
 	goto PlayersHouse_1F_EventScript_SetWatchedBroadcast
