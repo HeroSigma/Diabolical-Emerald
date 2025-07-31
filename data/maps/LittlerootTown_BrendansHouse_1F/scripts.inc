@@ -90,6 +90,7 @@ LittlerootTown_BrendansHouse_1F_EventScript_YoureNewNeighbor::
         playse SE_EXIT
         clearflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_MAY_GUEST
         addobject LOCALID_RIVALS_HOUSE_1F_MAY_GUEST
+        setobjectxy LOCALID_RIVALS_HOUSE_1F_MAY_GUEST, 9, 9
         applymovement LOCALID_RIVALS_HOUSE_1F_MAY_GUEST, LittlerootTown_BrendansHouse_1F_Movement_MayEnter
         waitmovement 0
         playse SE_PIN
@@ -135,6 +136,7 @@ LittlerootTown_BrendansHouse_1F_Movement_RivalMomApproach:
         step_end
 
 LittlerootTown_BrendansHouse_1F_Movement_MayEnter:
+        walk_up
         walk_left
         step_end
 
