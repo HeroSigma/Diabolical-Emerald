@@ -5,9 +5,10 @@ LittlerootTown_MaysHouse_1F_MapScripts::
 	.byte 0
 
 LittlerootTown_MaysHouse_1F_OnLoad:
-	call_if_lt VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_MaysHouse_1F_EventScript_SetMovingBoxes
-	call_if_set FLAG_RECEIVED_RUNNING_SHOES, LittlerootTown_MaysHouse_1F_EventScript_CheckShowShoesManual
-	end
+        call_if_lt VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_MaysHouse_1F_EventScript_SetMovingBoxes
+        call_if_set FLAG_RECEIVED_RUNNING_SHOES, LittlerootTown_MaysHouse_1F_EventScript_CheckShowShoesManual
+        setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_BRENDAN_GUEST
+        end
 
 LittlerootTown_MaysHouse_1F_EventScript_SetMovingBoxes::
 	setmetatile 5, 4, METATILE_BrendansMaysHouse_MovingBox_Open, TRUE
@@ -84,33 +85,64 @@ LittlerootTown_MaysHouse_1F_EventScript_PetalburgGymReport::
 	end
 
 LittlerootTown_MaysHouse_1F_EventScript_YoureNewNeighbor::
-	lockall
-	playse SE_PIN
-	applymovement LOCALID_RIVALS_HOUSE_1F_MOM, Common_Movement_ExclamationMark
-	waitmovement 0
-	applymovement LOCALID_RIVALS_HOUSE_1F_MOM, Common_Movement_Delay48
-	waitmovement 0
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
+        lockall
+        playse SE_EXIT
+        clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_BRENDAN_GUEST
+        addobject LOCALID_RIVALS_HOUSE_1F_BRENDAN_GUEST
+        applymovement LOCALID_RIVALS_HOUSE_1F_BRENDAN_GUEST, LittlerootTown_MaysHouse_1F_Movement_BrendanEnter
+        waitmovement 0
+        playse SE_PIN
+        applymovement LOCALID_RIVALS_HOUSE_1F_MOM, Common_Movement_ExclamationMark
+        waitmovement 0
+        applymovement LOCALID_RIVALS_HOUSE_1F_MOM, Common_Movement_Delay48
+        waitmovement 0
+        applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
         applymovement LOCALID_RIVALS_HOUSE_1F_MOM, LittlerootTown_MaysHouse_1F_Movement_RivalMomApproach
         waitmovement 0
-        special GetRivalSonDaughterString
-        msgbox RivalsHouse_1F_Text_OhYoureTheNewNeighbor, MSGBOX_DEFAULT
-        msgbox RivalsHouse_1F_Text_PlayerFeelsDifferent, MSGBOX_DEFAULT
-        msgbox RivalsHouse_1F_Text_WellWelcomeHome, MSGBOX_DEFAULT
-        msgbox RivalsHouse_1F_Text_ComeSeeRoom, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_RivalBringsPlayer, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_ParentSurprised, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_ParentCalls, MSGBOX_DEFAULT
+        clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_MAY
+        addobject LOCALID_RIVALS_HOUSE_1F_RIVAL
+        setobjectxy LOCALID_RIVALS_HOUSE_1F_RIVAL, 2, 2
+        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, LittlerootTown_MaysHouse_1F_Movement_MayComeDown
+        waitmovement 0
+        msgbox RivalsHouse_1F_Text_OtherRivalSurprised, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_PlayerGreeting, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_OtherRivalHappy, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_FirstRivalTaunt, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_OtherRivalProfessor, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_FirstRivalRoute103, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_OtherRivalDontKeep, MSGBOX_DEFAULT
+        msgbox RivalsHouse_1F_Text_PlayerReady, MSGBOX_DEFAULT
+        setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_MAY
+        removeobject LOCALID_RIVALS_HOUSE_1F_RIVAL
+        setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_BRENDAN_GUEST
+        removeobject LOCALID_RIVALS_HOUSE_1F_BRENDAN_GUEST
         setflag FLAG_MET_RIVAL_MOM
         setvar VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 2
         releaseall
         end
 
 LittlerootTown_MaysHouse_1F_Movement_RivalMomApproach:
-	walk_down
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	step_end
+        walk_down
+        walk_left
+        walk_left
+        walk_left
+        walk_left
+        walk_left
+        step_end
+
+LittlerootTown_MaysHouse_1F_Movement_BrendanEnter:
+        walk_right
+        step_end
+
+LittlerootTown_MaysHouse_1F_Movement_MayComeDown:
+        walk_down
+        walk_down
+        walk_down
+        walk_down
+        step_end
 
 RivalsHouse_1F_EventScript_RivalMom::
 	lock
