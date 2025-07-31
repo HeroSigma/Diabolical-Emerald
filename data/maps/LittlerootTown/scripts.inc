@@ -106,66 +106,88 @@ LittlerootTown_EventScript_SetMomInFrontOfDoorFemale::
 	return
 
 LittlerootTown_OnFrame:
-	map_script_2 VAR_LITTLEROOT_INTRO_STATE, 1, LittlerootTown_EventScript_StepOffTruckMale
-	map_script_2 VAR_LITTLEROOT_INTRO_STATE, 2, LittlerootTown_EventScript_StepOffTruckFemale
+        map_script_2 VAR_LITTLEROOT_INTRO_STATE, 1, LittlerootTown_EventScript_StepOffTruckMale
+        map_script_2 VAR_LITTLEROOT_INTRO_STATE, 2, LittlerootTown_EventScript_StepOffTruckFemale
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_EventScript_BeginDexUpgradeScene
 	.2byte 0
 
 LittlerootTown_EventScript_StepOffTruckMale::
-	lockall
-	setvar VAR_0x8004, 5
-	setvar VAR_0x8005, 8
-	call LittlerootTown_EventScript_GoInsideWithMom
-	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
-	warpsilent MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F, 8, 8
-	waitstate
-	releaseall
-	end
+        lockall
+        setvar VAR_0x8004, 5
+        setvar VAR_0x8005, 8
+        call LittlerootTown_EventScript_GoInsideWithRival
+        setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
+        warpsilent MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F, 8, 8
+        waitstate
+        releaseall
+        end
 
 LittlerootTown_EventScript_StepOffTruckFemale::
-	lockall
-	setvar VAR_0x8004, 14
-	setvar VAR_0x8005, 8
-	call LittlerootTown_EventScript_GoInsideWithMom
-	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
-	warpsilent MAP_LITTLEROOT_TOWN_MAYS_HOUSE_1F, 2, 8
-	waitstate
-	releaseall
-	end
+        lockall
+        setvar VAR_0x8004, 14
+        setvar VAR_0x8005, 8
+        call LittlerootTown_EventScript_GoInsideWithRival
+        setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
+        warpsilent MAP_LITTLEROOT_TOWN_MAYS_HOUSE_1F, 2, 8
+        waitstate
+        releaseall
+        end
+ 
+LittlerootTown_EventScript_GoInsideWithRival::
+        delay 15
+        playse SE_LEDGE
+        applymovement LOCALID_PLAYER, LittlerootTown_Movement_PlayerStepOffTruck
+        waitmovement 0
+        msgbox LittlerootTown_Text_PlayerNostalgia, MSGBOX_DEFAULT
+        opendoor VAR_0x8004, VAR_0x8005
+        waitdooranim
+        addobject LOCALID_LITTLEROOT_RIVAL
+        applymovement LOCALID_LITTLEROOT_RIVAL, LittlerootTown_Movement_MomExitHouse
+        waitmovement 0
+        closedoor VAR_0x8004, VAR_0x8005
+        waitdooranim
+        delay 10
+        applymovement LOCALID_LITTLEROOT_RIVAL, LittlerootTown_Movement_MomApproachPlayerAtTruck
+        waitmovement 0
+        checkplayergender
+        goto_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_GreetingMay
+        goto LittlerootTown_EventScript_GreetingBrendan
 
-LittlerootTown_EventScript_GoInsideWithMom::
-	delay 15
-	playse SE_LEDGE
-	applymovement LOCALID_PLAYER, LittlerootTown_Movement_PlayerStepOffTruck
-	waitmovement 0
-	opendoor VAR_0x8004, VAR_0x8005
-	waitdooranim
-	addobject LOCALID_LITTLEROOT_MOM
-	applymovement LOCALID_LITTLEROOT_MOM, LittlerootTown_Movement_MomExitHouse
-	waitmovement 0
-	closedoor VAR_0x8004, VAR_0x8005
-	waitdooranim
-	delay 10
-	applymovement LOCALID_LITTLEROOT_MOM, LittlerootTown_Movement_MomApproachPlayerAtTruck
-	waitmovement 0
-	msgbox LittlerootTown_Text_OurNewHomeLetsGoInside, MSGBOX_DEFAULT
-	closemessage
-	applymovement LOCALID_LITTLEROOT_MOM, LittlerootTown_Movement_MomApproachDoor
-	applymovement LOCALID_PLAYER, LittlerootTown_Movement_PlayerApproachDoor
-	waitmovement 0
-	opendoor VAR_0x8004, VAR_0x8005
-	waitdooranim
-	applymovement LOCALID_LITTLEROOT_MOM, LittlerootTown_Movement_MomEnterHouse
-	applymovement LOCALID_PLAYER, LittlerootTown_Movement_PlayerEnterHouse
-	waitmovement 0
-	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
-	setvar VAR_LITTLEROOT_INTRO_STATE, 3
-	hideobjectat LOCALID_PLAYER, 0
-	closedoor VAR_0x8004, VAR_0x8005
-	waitdooranim
-	clearflag FLAG_HIDE_LITTLEROOT_TOWN_FAT_MAN
-	clearflag FLAG_HIDE_MAP_NAME_POPUP
-	return
+LittlerootTown_EventScript_GreetingMay::
+        msgbox LittlerootTown_Text_MayGreeting, MSGBOX_DEFAULT
+        goto LittlerootTown_EventScript_GreetingCommonMay
+
+LittlerootTown_EventScript_GreetingBrendan::
+        msgbox LittlerootTown_Text_BrendanGreeting, MSGBOX_DEFAULT
+        goto LittlerootTown_EventScript_GreetingCommonBrendan
+
+LittlerootTown_EventScript_GreetingCommonMay::
+        msgbox LittlerootTown_Text_PlayerResponse, MSGBOX_DEFAULT
+        msgbox LittlerootTown_Text_MayShowAround, MSGBOX_DEFAULT
+        goto LittlerootTown_EventScript_RivalEnterHouse
+
+LittlerootTown_EventScript_GreetingCommonBrendan::
+        msgbox LittlerootTown_Text_PlayerResponse, MSGBOX_DEFAULT
+        msgbox LittlerootTown_Text_BrendanShowAround, MSGBOX_DEFAULT
+        goto LittlerootTown_EventScript_RivalEnterHouse
+
+LittlerootTown_EventScript_RivalEnterHouse::
+        applymovement LOCALID_LITTLEROOT_RIVAL, LittlerootTown_Movement_MomApproachDoor
+        applymovement LOCALID_PLAYER, LittlerootTown_Movement_PlayerApproachDoor
+        waitmovement 0
+        opendoor VAR_0x8004, VAR_0x8005
+        waitdooranim
+        applymovement LOCALID_LITTLEROOT_RIVAL, LittlerootTown_Movement_MomEnterHouse
+        applymovement LOCALID_PLAYER, LittlerootTown_Movement_PlayerEnterHouse
+        waitmovement 0
+        setflag FLAG_HIDE_LITTLEROOT_TOWN_RIVAL
+        setvar VAR_LITTLEROOT_INTRO_STATE, 3
+        hideobjectat LOCALID_PLAYER, 0
+        closedoor VAR_0x8004, VAR_0x8005
+        waitdooranim
+        clearflag FLAG_HIDE_LITTLEROOT_TOWN_FAT_MAN
+        clearflag FLAG_HIDE_MAP_NAME_POPUP
+        return
 
 LittlerootTown_Movement_MomExitHouse:
 	walk_down
@@ -928,17 +950,32 @@ LittlerootTown_EventScript_GiveRunningShoes::
         delay 30
         return
 
-LittlerootTown_Text_OurNewHomeLetsGoInside:
-	.string "MOM: {PLAYER}, we're here, honey!\p"
-	.string "It must be tiring riding with our things\n"
-	.string "in the moving truck.\p"
-	.string "Well, this is LITTLEROOT TOWN.\p"
-	.string "How do you like it?\n"
-	.string "This is our new home!\p"
-	.string "It has a quaint feel, but it seems to be\n"
-	.string "an easy place to live, don't you think?\p"
-	.string "And, you get your own room, {PLAYER}!\n"
-	.string "Let's go inside.$"
+
+LittlerootTown_Text_PlayerNostalgia:
+        .string "Wow... I really haven't been back to LITTLEROOT in eight years.$"
+
+LittlerootTown_Text_MayGreeting:
+        .string "MAY: Hey! {PLAYER}! It's really you, isn't it?\p"
+        .string "I almost can't believe it's been eight years.\n"
+        .string "You look so different--but in a good way!$"
+
+LittlerootTown_Text_BrendanGreeting:
+        .string "BRENDAN: Hey! {PLAYER}! It's really you, isn't it?\p"
+        .string "I almost can't believe it's been eight years.\n"
+        .string "You look so different--but in a good way!$"
+
+LittlerootTown_Text_PlayerResponse:
+        .string "{PLAYER}: Yeah, you've grown too!\p"
+        .string "It's great seeing you again.$"
+
+LittlerootTown_Text_MayShowAround:
+        .string "MAY: Mom and Dad said you'd be staying with us while you're here.\p"
+        .string "Come on, let me show you around--it's changed a lot!$"
+
+LittlerootTown_Text_BrendanShowAround:
+        .string "BRENDAN: Mom and Dad said you'd be staying with us while you're here.\p"
+        .string "Come on, let me show you around--it's changed a lot!$"
+
 
 LittlerootTown_Text_WaitPlayer:
 	.string "MOM: Wait, {PLAYER}!$"
