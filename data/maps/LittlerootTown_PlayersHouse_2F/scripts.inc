@@ -97,3 +97,27 @@ LittlerootTown_PlayersHouse_2F_Text_HowDoYouLikeYourRoom:
         .string "in downstairs, too!\p"
         .string "POKEMON movers are so convenient!$"
         .equ PlayersHouse_2F_Text_HowDoYouLikeYourRoom, LittlerootTown_PlayersHouse_2F_Text_HowDoYouLikeYourRoom
+
+PlayersHouse_2F_Text_RivalWelcomeRoom:
+        .string "{RIVAL}: Here we are! This will be\n"
+        .string "your room while you're staying with\n"
+        .string "us. Everything's neat and ready for\n"
+        .string "you. I even made sure your bed was\n"
+        .string "comfy!$"
+
+PlayersHouse_2F_Text_PlayerThanks:
+        .string "{PLAYER}: Thanks… it feels nice to\n"
+        .string "have my own space again.$"
+
+PlayersHouse_2F_Text_RivalLeaveClock:
+        .string "{RIVAL}: Alright! Make sure\n"
+        .string "everything's organized and set up the\n"
+        .string "clock. I'll be downstairs if you\n"
+        .string "need me.$"
+
+PlayersHouse_2F_Text_RivalCallsDownstairs:
+        .string "{RIVAL}: {PLAYER}! Quick, come\n"
+        .string "downstairs! You have to see this!$"
+
+PlayersHouse_2F_Text_PlayerWonder:
+        .string "{PLAYER}: I wonder what that could be.$"
