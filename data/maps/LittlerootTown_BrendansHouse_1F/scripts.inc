@@ -91,7 +91,7 @@ LittlerootTown_BrendansHouse_1F_EventScript_PetalburgGymReport::
         setobjectxy LOCALID_RIVALS_HOUSE_1F_RIVAL, 5, 5
         setobjectmovementtype LOCALID_RIVALS_HOUSE_1F_RIVAL, MOVEMENT_TYPE_FACE_UP
         setvar VAR_0x8004, MALE
-        setvar VAR_0x8005, LOCALID_RIVALS_HOUSE_1F_MOM
+        setvar VAR_0x8005, LOCALID_RIVALS_HOUSE_1F_RIVAL
         goto PlayersHouse_1F_EventScript_PetalburgGymReportMale
         end
 
