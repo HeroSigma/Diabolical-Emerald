@@ -8,6 +8,7 @@
 // These temporary flags are are cleared every time a map is loaded. They are used
 // for things like shortening an NPCs introduction text if the player already spoke
 // to them once.
+
 #define TEMP_FLAGS_START 0x0
 #define FLAG_TEMP_1      (TEMP_FLAGS_START + 0x1)
 #define FLAG_TEMP_2      (TEMP_FLAGS_START + 0x2)
