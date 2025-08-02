@@ -26,7 +26,7 @@ LittlerootTown_BrendansHouse_1F_EventScript_ShowRunningShoesManual::
 LittlerootTown_BrendansHouse_1F_OnTransition:
         call_if_eq VAR_LITTLEROOT_INTRO_STATE, 3, LittlerootTown_BrendansHouse_1F_EventScript_MoveMomToTV
         call_if_eq VAR_LITTLEROOT_INTRO_STATE, 5, LittlerootTown_BrendansHouse_1F_EventScript_MoveMomToStairs
-        call_if_eq VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_BrendansHouse_1F_EventScript_MoveMomToTV
+        call_if_eq VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_BrendansHouse_1F_EventScript_MoveMomAndRivalToTV
         end
 
 LittlerootTown_BrendansHouse_1F_EventScript_MoveMomToStairs::
@@ -40,9 +40,16 @@ LittlerootTown_BrendansHouse_1F_EventScript_MoveMomToTV::
 	return
 
 LittlerootTown_BrendansHouse_1F_EventScript_MoveMomToDoor::
-	setobjectxyperm LOCALID_PLAYERS_HOUSE_1F_MOM, 9, 8
-	setobjectmovementtype LOCALID_PLAYERS_HOUSE_1F_MOM, MOVEMENT_TYPE_FACE_UP
-	return
+        setobjectxyperm LOCALID_PLAYERS_HOUSE_1F_MOM, 9, 8
+        setobjectmovementtype LOCALID_PLAYERS_HOUSE_1F_MOM, MOVEMENT_TYPE_FACE_UP
+        return
+
+LittlerootTown_BrendansHouse_1F_EventScript_MoveMomAndRivalToTV::
+        setobjectxyperm LOCALID_PLAYERS_HOUSE_1F_MOM, 4, 5
+        setobjectmovementtype LOCALID_PLAYERS_HOUSE_1F_MOM, MOVEMENT_TYPE_FACE_UP
+        setobjectxyperm LOCALID_RIVALS_HOUSE_1F_RIVAL, 5, 5
+        addobject LOCALID_RIVALS_HOUSE_1F_RIVAL
+        return
 
 @ Many of the below scripts have no gender check because they assume youre in the correct house
 @ The below SS Ticket script uses Mays house state by accident(?), but theyre both set identically after the intro
