@@ -224,74 +224,78 @@ PlayersHouse_1F_EventScript_SetWatchedBroadcast::
 	end
 
 PlayersHouse_1F_EventScript_PetalburgGymReportMale::
-	applymovement VAR_0x8005, Common_Movement_WalkInPlaceFasterRight
-	waitmovement 0
-	call PlayersHouse_1F_EventScript_MomNoticeGymBroadcast
-	applymovement LOCALID_PLAYER, PlayersHouse_1F_Movement_PlayerApproachTVForGymMale
-	waitmovement 0
-	playbgm MUS_ENCOUNTER_INTERVIEWER, FALSE
-	msgbox PlayersHouse_1F_Text_MaybeDadWillBeOn, MSGBOX_DEFAULT
-	closemessage
-	applymovement VAR_0x8005, PlayersHouse_1F_Movement_MomMakeRoomToSeeTVMale
-	waitmovement 0
-	applymovement LOCALID_PLAYER, PlayersHouse_1F_Movement_PlayerMoveToTVMale
-	waitmovement 0
-	call PlayersHouse_1F_EventScript_WatchGymBroadcast
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
-	waitmovement 0
-	msgbox PlayersHouse_1F_Text_ItsOverWeMissedHim, MSGBOX_DEFAULT
-	msgbox PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor, MSGBOX_DEFAULT
-	closemessage
-	setvar VAR_TEMP_1, 1
-	applymovement VAR_0x8005, PlayersHouse_1F_Movement_MomReturnToSeatMale
-	waitmovement 0
-	goto PlayersHouse_1F_EventScript_SetWatchedBroadcast
-	end
+        addobject LOCALID_RIVALS_HOUSE_1F_RIVAL
+        call_if_eq VAR_0x8004, MALE, PlayersHouse_1F_EventScript_SetRivalPosMale
+        call_if_eq VAR_0x8004, FEMALE, PlayersHouse_1F_EventScript_SetRivalPosFemale
+        applymovement VAR_0x8005, Common_Movement_WalkInPlaceFasterRight
+        waitmovement 0
+        call PlayersHouse_1F_EventScript_MomNoticeGymBroadcast
+        applymovement LOCALID_PLAYER, PlayersHouse_1F_Movement_PlayerApproachTVForGymMale
+        waitmovement 0
+        playbgm MUS_ENCOUNTER_INTERVIEWER, FALSE
+        call PlayersHouse_1F_EventScript_WatchGymBroadcast
+        applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
+        waitmovement 0
+        msgbox PlayersHouse_1F_Text_MomSurprised, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_PlayerReaction, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_RivalInviteNeighbor, MSGBOX_DEFAULT
+        closemessage
+        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalRunOutside
+        waitmovement 0
+        removeobject LOCALID_RIVALS_HOUSE_1F_RIVAL
+        msgbox PlayersHouse_1F_Text_PlayerThought, MSGBOX_DEFAULT
+        closemessage
+        setvar VAR_TEMP_1, 1
+        applymovement VAR_0x8005, PlayersHouse_1F_Movement_MomReturnToSeatMale
+        waitmovement 0
+        goto PlayersHouse_1F_EventScript_SetWatchedBroadcast
+        end
 
 PlayersHouse_1F_EventScript_PetalburgGymReportFemale::
-	applymovement VAR_0x8005, Common_Movement_WalkInPlaceFasterLeft
-	waitmovement 0
-	call PlayersHouse_1F_EventScript_MomNoticeGymBroadcast
-	applymovement LOCALID_PLAYER, PlayersHouse_1F_Movement_PlayerApproachTVForGymFemale
-	waitmovement 0
-	playbgm MUS_ENCOUNTER_INTERVIEWER, FALSE
-	msgbox PlayersHouse_1F_Text_MaybeDadWillBeOn, MSGBOX_DEFAULT
-	closemessage
-	applymovement VAR_0x8005, PlayersHouse_1F_Movement_MomMakeRoomToSeeTVFemale
-	waitmovement 0
-	applymovement LOCALID_PLAYER, PlayersHouse_1F_Movement_PlayerMoveToTVFemale
-	waitmovement 0
-	call PlayersHouse_1F_EventScript_WatchGymBroadcast
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
-	waitmovement 0
-	msgbox PlayersHouse_1F_Text_ItsOverWeMissedHim, MSGBOX_DEFAULT
-	msgbox PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor, MSGBOX_DEFAULT
-	closemessage
-	setvar VAR_TEMP_1, 1
-	applymovement VAR_0x8005, PlayersHouse_1F_Movement_MomReturnToSeatFemale
-	waitmovement 0
-	goto PlayersHouse_1F_EventScript_SetWatchedBroadcast
-	end
+        addobject LOCALID_RIVALS_HOUSE_1F_RIVAL
+        call_if_eq VAR_0x8004, MALE, PlayersHouse_1F_EventScript_SetRivalPosMale
+        call_if_eq VAR_0x8004, FEMALE, PlayersHouse_1F_EventScript_SetRivalPosFemale
+        applymovement VAR_0x8005, Common_Movement_WalkInPlaceFasterLeft
+        waitmovement 0
+        call PlayersHouse_1F_EventScript_MomNoticeGymBroadcast
+        applymovement LOCALID_PLAYER, PlayersHouse_1F_Movement_PlayerApproachTVForGymFemale
+        waitmovement 0
+        playbgm MUS_ENCOUNTER_INTERVIEWER, FALSE
+        call PlayersHouse_1F_EventScript_WatchGymBroadcast
+        applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
+        waitmovement 0
+        msgbox PlayersHouse_1F_Text_MomSurprised, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_PlayerReaction, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_RivalInviteNeighbor, MSGBOX_DEFAULT
+        closemessage
+        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalRunOutside
+        waitmovement 0
+        removeobject LOCALID_RIVALS_HOUSE_1F_RIVAL
+        msgbox PlayersHouse_1F_Text_PlayerThought, MSGBOX_DEFAULT
+        closemessage
+        setvar VAR_TEMP_1, 1
+        applymovement VAR_0x8005, PlayersHouse_1F_Movement_MomReturnToSeatFemale
+        waitmovement 0
+        goto PlayersHouse_1F_EventScript_SetWatchedBroadcast
+        end
 
 PlayersHouse_1F_EventScript_MomNoticeGymBroadcast::
-	playse SE_PIN
-	applymovement VAR_0x8005, Common_Movement_ExclamationMark
-	waitmovement 0
-	applymovement VAR_0x8005, Common_Movement_Delay48
-	waitmovement 0
-	msgbox PlayersHouse_1F_Text_OhComeQuickly, MSGBOX_DEFAULT
-	closemessage
-	return
+        playse SE_PIN
+        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, Common_Movement_ExclamationMark
+        waitmovement 0
+        msgbox PlayersHouse_1F_Text_RivalCallDownstairs, MSGBOX_DEFAULT
+        closemessage
+        return
 
 PlayersHouse_1F_EventScript_WatchGymBroadcast::
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
-	waitmovement 0
-	msgbox PlayersHouse_1F_Text_ReportFromPetalburgGym, MSGBOX_DEFAULT
-	fadedefaultbgm
-	special TurnOffTVScreen
-	setflag FLAG_SYS_TV_HOME
-	delay 35
-	return
+        applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+        waitmovement 0
+        msgbox PlayersHouse_1F_Text_SpaceTimePhenomenon, MSGBOX_DEFAULT
+        fadedefaultbgm
+        special TurnOffTVScreen
+        setflag FLAG_SYS_TV_HOME
+        delay 35
+        return
 
 PlayersHouse_1F_Movement_MomApproachDadMale:
 	walk_up
@@ -491,8 +495,13 @@ PlayersHouse_1F_Movement_PlayerMoveToTVFemale:
 	step_end
 
 PlayersHouse_1F_Movement_MovePlayerAwayFromDoor:
-	walk_up
-	step_end
+        walk_up
+        step_end
+
+PlayersHouse_1F_Movement_RivalRunOutside:
+        walk_down
+        walk_down
+        step_end
 
 PlayersHouse_1F_EventScript_GetSSTicketAndSeeLatiTV::
 	lockall
@@ -767,3 +776,27 @@ PlayersHouse_1F_Movement_MomLeave:
         walk_left
         walk_in_place_faster_down
         step_end
+
+PlayersHouse_1F_Text_RivalCallDownstairs:
+        .string "{RIVAL}: {PLAYER}! Come downstairs!\\n"
+        .string "There's something on TV you need to see!$"
+
+PlayersHouse_1F_Text_SpaceTimePhenomenon:
+        .string "INTERVIEWER: Reports of a space-time\\n"
+        .string "phenomenon linking HOENN and JOHTO are\\n"
+        .string "coming in now!$"
+
+PlayersHouse_1F_Text_MomSurprised:
+        .string "MOM: A space-time link to JOHTO?\\n"
+        .string "How surprising!$"
+
+PlayersHouse_1F_Text_PlayerReaction:
+        .string "{PLAYER}: Wow… What could that mean?$"
+
+PlayersHouse_1F_Text_RivalInviteNeighbor:
+        .string "{RIVAL}: Let's go meet the neighbor\\n"
+        .string "and see what's happening!$"
+
+PlayersHouse_1F_Text_PlayerThought:
+        .string "(I should head next door and learn\\n"
+        .string "more about this.)$"
