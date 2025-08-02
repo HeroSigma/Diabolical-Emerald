@@ -953,29 +953,38 @@ LittlerootTown_EventScript_GiveRunningShoes::
 
 
 LittlerootTown_Text_PlayerNostalgia:
-        .string "Wow... I really haven't been back to LITTLEROOT in eight years.$"
+        .string "Wow... I really haven't been back\n"
+        .string "to LITTLEROOT in eight years.$"
 
 LittlerootTown_Text_MayGreeting:
         .string "MAY: Hey! {PLAYER}! It's really you, isn't it?\p"
-        .string "I almost can't believe it's been eight years.\n"
-        .string "You look so different--but in a good way!$"
+        .string "I almost can't believe it's been\n"
+        .string "eight years.\p"
+        .string "You look so different--\n"
+        .string "but in a good way!$"
 
 LittlerootTown_Text_BrendanGreeting:
         .string "BRENDAN: Hey! {PLAYER}! It's really you, isn't it?\p"
-        .string "I almost can't believe it's been eight years.\n"
-        .string "You look so different--but in a good way!$"
+        .string "I almost can't believe it's been\n"
+        .string "eight years.\p"
+        .string "You look so different--\n"
+        .string "but in a good way!$"
 
 LittlerootTown_Text_PlayerResponse:
         .string "{PLAYER}: Yeah, you've grown too!\p"
         .string "It's great seeing you again.$"
 
 LittlerootTown_Text_MayShowAround:
-        .string "MAY: Mom and Dad said you'd be staying with us while you're here.\p"
-        .string "Come on, let me show you around--it's changed a lot!$"
+        .string "MAY: Mom and Dad said you'd be staying\n"
+        .string "with us while you're here.\p"
+        .string "Come on, let me show you around--\n"
+        .string "it's changed a lot!$"
 
 LittlerootTown_Text_BrendanShowAround:
-        .string "BRENDAN: Mom and Dad said you'd be staying with us while you're here.\p"
-        .string "Come on, let me show you around--it's changed a lot!$"
+        .string "BRENDAN: Mom and Dad said you'd be staying\n"
+        .string "with us while you're here.\p"
+        .string "Come on, let me show you around--\n"
+        .string "it's changed a lot!$"
 
 
 LittlerootTown_Text_WaitPlayer:
