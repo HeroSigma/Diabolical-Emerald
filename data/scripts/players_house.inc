@@ -5,6 +5,8 @@ PlayersHouse_2F_EventScript_BlockStairsUntilClockIsSet::
 PlayersHouse_1F_EventScript_EnterHouseMovingIn::
         addobject VAR_0x8004
         addobject LOCALID_RIVALS_HOUSE_1F_RIVAL
+        call_if_eq VAR_0x8005, MALE, PlayersHouse_1F_EventScript_SetRivalPosMale
+        call_if_eq VAR_0x8005, FEMALE, PlayersHouse_1F_EventScript_SetRivalPosFemale
         applymovement LOCALID_PLAYER, PlayersHouse_1F_Movement_PlayerWalkIn
         applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_PlayerWalkIn
         waitmovement 0
@@ -17,7 +19,7 @@ PlayersHouse_1F_EventScript_EnterHouseMovingIn::
         msgbox PlayersHouse_1F_Text_RivalPrompt, MSGBOX_DEFAULT
         closemessage
         setvar VAR_LITTLEROOT_INTRO_STATE, 4
-        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, LittlerootTown_BrendansHouse_1F_Movement_BrendanGoUpstairs0
+        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalGoUpstairs
         waitmovement 0
         releaseall
         end
@@ -30,6 +32,14 @@ PlayersHouse_1F_EventScript_MomFacePlayerMovingInMale::
 PlayersHouse_1F_EventScript_MomFacePlayerMovingInFemale::
         applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
         waitmovement 0
+        return
+
+PlayersHouse_1F_EventScript_SetRivalPosMale::
+        setobjectxy LOCALID_RIVALS_HOUSE_1F_RIVAL, 9, 8
+        return
+
+PlayersHouse_1F_EventScript_SetRivalPosFemale::
+        setobjectxy LOCALID_RIVALS_HOUSE_1F_RIVAL, 1, 8
         return
 
 PlayersHouse_1F_EventScript_MomApproachHomecomingMale::
@@ -45,24 +55,29 @@ PlayersHouse_1F_Movement_PlayerWalkIn:
         step_end
 
 PlayersHouse_1F_Movement_MomApproachHomecomingMale:
+        walk_right
+        walk_right
+        walk_right
+        walk_right
         walk_down
-        walk_right
-        walk_right
-        walk_right
-        walk_right
-        walk_right
-        walk_right
+        walk_down
         step_end
 
 PlayersHouse_1F_Movement_MomApproachHomecomingFemale:
+        walk_left
+        walk_left
+        walk_left
+        walk_left
         walk_down
-        walk_left
-        walk_left
-        walk_left
-        walk_left
-        walk_left
-        walk_left
+        walk_down
         step_end
+
+PlayersHouse_1F_Movement_RivalGoUpstairs:
+        walk_left
+        walk_in_place_faster_up
+        walk_up
+        walk_up
+        walk_up
 
 PlayersHouse_1F_EventScript_MomGoSeeRoom::
 	msgbox PlayersHouse_1F_Text_ArentYouInterestedInRoom, MSGBOX_DEFAULT
