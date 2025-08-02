@@ -3,19 +3,27 @@ PlayersHouse_2F_EventScript_BlockStairsUntilClockIsSet::
 	return
 
 PlayersHouse_1F_EventScript_EnterHouseMovingIn::
-	msgbox PlayersHouse_1F_Text_IsntItNiceInHere, MSGBOX_DEFAULT
-	applymovement VAR_0x8004, Common_Movement_FacePlayer
-	waitmovement 0
-	call_if_eq VAR_0x8005, MALE, PlayersHouse_1F_EventScript_MomFacePlayerMovingInMale
-	call_if_eq VAR_0x8005, FEMALE, PlayersHouse_1F_EventScript_MomFacePlayerMovingInFemale
-	msgbox PlayersHouse_1F_Text_MoversPokemonGoSetClock, MSGBOX_DEFAULT
-	closemessage
-	setvar VAR_LITTLEROOT_INTRO_STATE, 4
-	applymovement LOCALID_PLAYER, PlayersHouse_1F_Movement_PlayerWalkIn
-	applymovement VAR_0x8004, Common_Movement_WalkInPlaceFasterUp
-	waitmovement 0
-	releaseall
-	end
+        addobject VAR_0x8004
+        addobject LOCALID_RIVALS_HOUSE_1F_RIVAL
+        call_if_eq VAR_0x8005, MALE, PlayersHouse_1F_EventScript_SetRivalPosMale
+        call_if_eq VAR_0x8005, FEMALE, PlayersHouse_1F_EventScript_SetRivalPosFemale
+        applymovement LOCALID_PLAYER, PlayersHouse_1F_Movement_PlayerWalkIn
+        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_PlayerWalkIn
+        waitmovement 0
+        msgbox PlayersHouse_1F_Text_Entrance, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_PlayerReply, MSGBOX_DEFAULT
+        call_if_eq VAR_0x8005, MALE, PlayersHouse_1F_EventScript_MomApproachHomecomingMale
+        call_if_eq VAR_0x8005, FEMALE, PlayersHouse_1F_EventScript_MomApproachHomecomingFemale
+        waitmovement 0
+        msgbox PlayersHouse_1F_Text_MomExcited, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_RivalPrompt, MSGBOX_DEFAULT
+        closemessage
+        setvar VAR_LITTLEROOT_INTRO_STATE, 4
+        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalGoUpstairs
+        waitmovement 0
+        removeobject LOCALID_RIVALS_HOUSE_1F_RIVAL
+        releaseall
+        end
 
 PlayersHouse_1F_EventScript_MomFacePlayerMovingInMale::
 	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
@@ -23,13 +31,54 @@ PlayersHouse_1F_EventScript_MomFacePlayerMovingInMale::
 	return
 
 PlayersHouse_1F_EventScript_MomFacePlayerMovingInFemale::
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
-	waitmovement 0
-	return
+        applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
+        waitmovement 0
+        return
+
+PlayersHouse_1F_EventScript_SetRivalPosMale::
+        setobjectxy LOCALID_RIVALS_HOUSE_1F_RIVAL, 9, 8
+        return
+
+PlayersHouse_1F_EventScript_SetRivalPosFemale::
+        setobjectxy LOCALID_RIVALS_HOUSE_1F_RIVAL, 1, 8
+        return
+
+PlayersHouse_1F_EventScript_MomApproachHomecomingMale::
+        applymovement VAR_0x8004, PlayersHouse_1F_Movement_MomApproachHomecomingMale
+        return
+
+PlayersHouse_1F_EventScript_MomApproachHomecomingFemale::
+        applymovement VAR_0x8004, PlayersHouse_1F_Movement_MomApproachHomecomingFemale
+        return
 
 PlayersHouse_1F_Movement_PlayerWalkIn:
-	walk_up
-	step_end
+        walk_up
+        step_end
+
+PlayersHouse_1F_Movement_MomApproachHomecomingMale:
+        walk_left
+        walk_left
+        walk_left
+        walk_down
+        walk_down
+        step_end
+
+PlayersHouse_1F_Movement_MomApproachHomecomingFemale:
+        walk_right
+        walk_right
+        walk_right
+        walk_down
+        walk_down
+        step_end
+
+PlayersHouse_1F_Movement_RivalGoUpstairs:
+        walk_left
+        walk_in_place_faster_up
+        walk_up
+        walk_up
+        walk_up
+        walk_up
+        step_end
 
 PlayersHouse_1F_EventScript_MomGoSeeRoom::
 	msgbox PlayersHouse_1F_Text_ArentYouInterestedInRoom, MSGBOX_DEFAULT
