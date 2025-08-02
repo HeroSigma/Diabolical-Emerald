@@ -24,10 +24,10 @@ LittlerootTown_BrendansHouse_1F_EventScript_ShowRunningShoesManual::
 	return
 
 LittlerootTown_BrendansHouse_1F_OnTransition:
-	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 3, LittlerootTown_BrendansHouse_1F_EventScript_MoveMomToDoor
-	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 5, LittlerootTown_BrendansHouse_1F_EventScript_MoveMomToStairs
-	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_BrendansHouse_1F_EventScript_MoveMomToTV
-	end
+        call_if_eq VAR_LITTLEROOT_INTRO_STATE, 3, LittlerootTown_BrendansHouse_1F_EventScript_MoveMomToTV
+        call_if_eq VAR_LITTLEROOT_INTRO_STATE, 5, LittlerootTown_BrendansHouse_1F_EventScript_MoveMomToStairs
+        call_if_eq VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_BrendansHouse_1F_EventScript_MoveMomToTV
+        end
 
 LittlerootTown_BrendansHouse_1F_EventScript_MoveMomToStairs::
 	setobjectxyperm LOCALID_PLAYERS_HOUSE_1F_MOM, 8, 4
@@ -303,8 +303,26 @@ PlayersHouse_1F_Text_ArentYouInterestedInRoom:
 	.string "very own room?$"
 
 PlayersHouse_1F_Text_GoSetTheClock:
-	.string "MOM: {PLAYER}.\p"
-	.string "Go set the clock in your room, honey.$"
+        .string "MOM: {PLAYER}.\p"
+        .string "Go set the clock in your room, honey.$"
+
+PlayersHouse_1F_Text_Entrance:
+        .string "MOM: Oh! {PLAYER}! Is it really you...\n"
+        .string "after all these years!?$"
+
+PlayersHouse_1F_Text_PlayerReply:
+        .string "{PLAYER}: Yeah...\n"
+        .string "It feels so nostalgic to be back here.$"
+
+PlayersHouse_1F_Text_MomExcited:
+        .string "MOM: I can't believe how much you've grown!\n"
+        .string "{RIVAL} will be so happy to have their\n"
+        .string "friend back!$"
+
+PlayersHouse_1F_Text_RivalPrompt:
+        .string "{RIVAL}: Heh, I told you Mom would be\n"
+        .string "surprised! Come on, I'll show you your\n"
+        .string "room upstairs!$"
 
 PlayersHouse_1F_Text_OhComeQuickly:
 	.string "MOM: Oh! {PLAYER}, {PLAYER}!\n"
