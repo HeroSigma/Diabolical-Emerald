@@ -776,25 +776,25 @@ PlayersHouse_1F_Movement_MomLeave:
         step_end
 
 PlayersHouse_1F_Text_RivalCallDownstairs:
-        .string "{RIVAL}: {PLAYER}! Come downstairs!\\n"
+        .string "{RIVAL}: {PLAYER}! Come downstairs!\n"
         .string "There's something on TV you need to see!$"
 
 PlayersHouse_1F_Text_SpaceTimePhenomenon:
-        .string "INTERVIEWER: Reports of a space-time\\n"
-        .string "phenomenon linking HOENN and JOHTO are\\n"
+        .string "INTERVIEWER: Reports of a space-time\n"
+        .string "phenomenon linking HOENN and JOHTO are\n"
         .string "coming in now!$"
 
 PlayersHouse_1F_Text_MomSurprised:
-        .string "MOM: A space-time link to JOHTO?\\n"
+        .string "MOM: A space-time link to JOHTO?\n"
         .string "How surprising!$"
 
 PlayersHouse_1F_Text_PlayerReaction:
         .string "{PLAYER}: Wow… What could that mean?$"
 
 PlayersHouse_1F_Text_RivalInviteNeighbor:
-        .string "{RIVAL}: Let's go meet the neighbor\\n"
+        .string "{RIVAL}: Let's go meet the neighbor\n"
         .string "and see what's happening!$"
 
 PlayersHouse_1F_Text_PlayerThought:
-        .string "(I should head next door and learn\\n"
+        .string "(I should head next door and learn\n"
         .string "more about this.)$"
