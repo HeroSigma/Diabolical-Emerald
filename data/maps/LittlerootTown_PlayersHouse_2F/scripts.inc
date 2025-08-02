@@ -90,6 +90,10 @@ PlayersHouse_2F_Text_ItsAGameCube:
         .string "A Game Boy Advance is connected to\n"
         .string "serve as the Controller.$"
 
+PlayersHouse_2F_Text_RivalHurryDownstairs:
+        .string "{RIVAL}: {PLAYER}! Hurry!\n"
+        .string "Come downstairs, quick!$"
+
 LittlerootTown_PlayersHouse_2F_Text_HowDoYouLikeYourRoom:
         .string "MOM: How do you like your room?\p"
         .string "Everything's put away neatly.\n"
