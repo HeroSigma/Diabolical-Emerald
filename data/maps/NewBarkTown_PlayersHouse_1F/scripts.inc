@@ -85,18 +85,18 @@ NewBarkTown_PlayersHouse_1F_EventScript_VioletGymReport::
 	call PlayersHouse_1F_EventScript_MomNoticeGymBroadcast
 	applymovement OBJ_EVENT_ID_PLAYER, NewBarkTown_PlayersHouse_1F_Movement_PlayerApproachTVForGym
 	waitmovement 0
-	playbgm MUS_ENCOUNTER_INTERVIEWER, FALSE
-	msgbox NewBarkTown_PlayersHouse_1F_Text_MaybeDadWillBeOn, MSGBOX_DEFAULT
-	closemessage
-	applymovement VAR_0x8005, PlayersHouse_1F_Movement_MomMakeRoomToSeeTV
-	waitmovement 0
-	applymovement OBJ_EVENT_ID_PLAYER, PlayersHouse_1F_Movement_PlayerMoveToTV
-	waitmovement 0
-	call NewBarkTown_PlayersHouse_1F_EventScript_WatchGymBroadcast
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
-	waitmovement 0
-	msgbox PlayersHouse_1F_Text_ItsOverWeMissedHim, MSGBOX_DEFAULT
-	msgbox NewBarkTown_PlayersHouse_1F_Text_ThingsMovedOut, MSGBOX_DEFAULT
+        playbgm MUS_ENCOUNTER_INTERVIEWER, FALSE
+        applymovement VAR_0x8005, PlayersHouse_1F_Movement_MomMakeRoomToSeeTV
+        waitmovement 0
+        applymovement OBJ_EVENT_ID_PLAYER, PlayersHouse_1F_Movement_PlayerMoveToTV
+        waitmovement 0
+        call PlayersHouse_1F_EventScript_WatchGymBroadcast
+        applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
+        waitmovement 0
+        msgbox PlayersHouse_1F_Text_ItsOverWeMissedHim, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_ReportFromPetalburgGym, MSGBOX_DEFAULT
+        msgbox NewBarkTown_PlayersHouse_1F_Text_ThingsMovedOut, MSGBOX_DEFAULT
         msgbox NewBarkTown_PlayersHouse_1F_Text_StartYourAdventure, MSGBOX_DEFAULT
 	givemon SPECIES_PICHU, 3
 	setflag FLAG_SYS_POKEMON_GET
@@ -108,16 +108,6 @@ NewBarkTown_PlayersHouse_1F_EventScript_VioletGymReport::
 	msgbox gText_NicknameThisPokemon, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, NewBarkTown_PlayersHouse_1F_EventScript_NicknameMon
 	call NewBarkTown_PlayersHouse_1F_EventScript_MomLeaving
-
-NewBarkTown_PlayersHouse_1F_EventScript_WatchGymBroadcast::
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
-	waitmovement 0
-	msgbox NewBarkTown_PlayersHouse_1F_Text_ReportFromPetalburgGym, MSGBOX_DEFAULT
-	fadedefaultbgm
-	special TurnOffTVScreen
-	setflag FLAG_SYS_TV_HOME
-	delay 35
-	return
 
 NewBarkTown_PlayersHouse_1F_EventScript_NicknameMon::
 	setvar VAR_0x8004, 0
@@ -227,14 +217,6 @@ NewBarkTown_PlayersHouse_1F_Text_TakeCareOfHouse_Away:
         .string "MOM: Take care of the house while\n"
         .string "I'm away, okay?\p"
         .string "I'll be thinking of you!$"
-
-NewBarkTown_PlayersHouse_1F_Text_MaybeDadWillBeOn:
-	.string "MOM: Look! It's Violet City Gym!\n"
-	.string "Maybe Dad will be on!$"
-
-NewBarkTown_PlayersHouse_1F_Text_ReportFromPetalburgGym:
-	.string "INTERVIEWER: …We brought you this\n"
-	.string "report from in front of Violet City Gym.$"
 
 NewBarkTown_PlayersHouse_1F_Text_ThingsMovedOut:
 	.string "Well honey, all of your things have been\n"

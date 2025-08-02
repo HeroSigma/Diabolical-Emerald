@@ -325,24 +325,20 @@ PlayersHouse_1F_Text_RivalPrompt:
         .string "room upstairs!$"
 
 PlayersHouse_1F_Text_OhComeQuickly:
-	.string "MOM: Oh! {PLAYER}, {PLAYER}!\n"
-	.string "Quick! Come quickly!$"
+        .string "{RIVAL}: {PLAYER}! Come downstairs!\\n"
+        .string "There's something on TV you need to see!$"
 
 PlayersHouse_1F_Text_MaybeDadWillBeOn:
-	.string "MOM: Look! It's PETALBURG GYM!\n"
-	.string "Maybe DAD will be on!$"
+        .string "INTERVIEWER: Reports of a space-time\\n"
+        .string "phenomenon linking HOENN and JOHTO are\\n"
+        .string "coming in now!$"
 
 PlayersHouse_1F_Text_ItsOverWeMissedHim:
-	.string "MOM: Oh… It's over.\p"
-	.string "I think DAD was on, but we missed him.\n"
-	.string "Too bad.$"
+        .string "MOM: A space-time link to JOHTO?\\n"
+        .string "How surprising!$"
 
 PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor:
-	.string "Oh, yes.\n"
-	.string "One of DAD's friends lives in town.\p"
-	.string "PROF. BIRCH is his name.\p"
-	.string "He lives right next door, so you should\n"
-	.string "go over and introduce yourself.$"
+        .string "{PLAYER}: Wow… What could that mean?$"
 
 PlayersHouse_1F_Text_SeeYouHoney:
 	.string "MOM: See you, honey!$"
@@ -386,8 +382,8 @@ PlayersHouse_1F_Text_Vigoroth2:
 	.string "Huggoh, uggo uggo…$"
 
 PlayersHouse_1F_Text_ReportFromPetalburgGym:
-	.string "INTERVIEWER: …We brought you this\n"
-	.string "report from in front of PETALBURG GYM.$"
+        .string "{RIVAL}: Let's go meet the neighbor\\n"
+        .string "and see what's happening!$"
 
 PlayersHouse_1F_Text_TheresAMovieOnTV:
 	.string "There is a movie on TV.\p"
