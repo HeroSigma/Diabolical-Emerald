@@ -325,16 +325,16 @@ PlayersHouse_1F_Text_RivalPrompt:
         .string "room upstairs!$"
 
 PlayersHouse_1F_Text_OhComeQuickly:
-        .string "{RIVAL}: {PLAYER}! Come downstairs!\\n"
+        .string "{RIVAL}: {PLAYER}! Come downstairs!\n"
         .string "There's something on TV you need to see!$"
 
 PlayersHouse_1F_Text_MaybeDadWillBeOn:
-        .string "INTERVIEWER: Reports of a space-time\\n"
-        .string "phenomenon linking HOENN and JOHTO are\\n"
+        .string "INTERVIEWER: Reports of a space-time\n"
+        .string "phenomenon linking HOENN and JOHTO are\n"
         .string "coming in now!$"
 
 PlayersHouse_1F_Text_ItsOverWeMissedHim:
-        .string "MOM: A space-time link to JOHTO?\\n"
+        .string "MOM: A space-time link to JOHTO?\n"
         .string "How surprising!$"
 
 PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor:
@@ -382,7 +382,7 @@ PlayersHouse_1F_Text_Vigoroth2:
 	.string "Huggoh, uggo uggo…$"
 
 PlayersHouse_1F_Text_ReportFromPetalburgGym:
-        .string "{RIVAL}: Let's go meet the neighbor\\n"
+        .string "{RIVAL}: Let's go meet the neighbor\n"
         .string "and see what's happening!$"
 
 PlayersHouse_1F_Text_TheresAMovieOnTV:
