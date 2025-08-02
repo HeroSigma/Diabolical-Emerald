@@ -3,7 +3,6 @@ PlayersHouse_2F_EventScript_BlockStairsUntilClockIsSet::
 	return
 
 PlayersHouse_1F_EventScript_EnterHouseMovingIn::
-        addobject VAR_0x8004
         addobject LOCALID_RIVALS_HOUSE_1F_RIVAL
         call_if_eq VAR_0x8005, MALE, PlayersHouse_1F_EventScript_SetRivalPosMale
         call_if_eq VAR_0x8005, FEMALE, PlayersHouse_1F_EventScript_SetRivalPosFemale
@@ -22,6 +21,9 @@ PlayersHouse_1F_EventScript_EnterHouseMovingIn::
         applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalGoUpstairs
         waitmovement 0
         removeobject LOCALID_RIVALS_HOUSE_1F_RIVAL
+        call_if_eq VAR_0x8005, MALE, PlayersHouse_1F_EventScript_MomReturnHomecomingMale
+        call_if_eq VAR_0x8005, FEMALE, PlayersHouse_1F_EventScript_MomReturnHomecomingFemale
+        waitmovement 0
         releaseall
         end
 
@@ -51,6 +53,14 @@ PlayersHouse_1F_EventScript_MomApproachHomecomingFemale::
         applymovement VAR_0x8004, PlayersHouse_1F_Movement_MomApproachHomecomingFemale
         return
 
+PlayersHouse_1F_EventScript_MomReturnHomecomingMale::
+        applymovement VAR_0x8004, PlayersHouse_1F_Movement_MomReturnHomecomingMale
+        return
+
+PlayersHouse_1F_EventScript_MomReturnHomecomingFemale::
+        applymovement VAR_0x8004, PlayersHouse_1F_Movement_MomReturnHomecomingFemale
+        return
+
 PlayersHouse_1F_Movement_PlayerWalkIn:
         walk_up
         step_end
@@ -78,6 +88,24 @@ PlayersHouse_1F_Movement_RivalGoUpstairs:
         walk_up
         walk_up
         walk_up
+        step_end
+
+PlayersHouse_1F_Movement_MomReturnHomecomingMale:
+        walk_up
+        walk_up
+        walk_right
+        walk_right
+        walk_right
+        walk_in_place_faster_up
+        step_end
+
+PlayersHouse_1F_Movement_MomReturnHomecomingFemale:
+        walk_up
+        walk_up
+        walk_left
+        walk_left
+        walk_left
+        walk_in_place_faster_up
         step_end
 
 PlayersHouse_1F_EventScript_MomGoSeeRoom::
