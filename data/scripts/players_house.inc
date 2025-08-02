@@ -223,9 +223,10 @@ PlayersHouse_1F_EventScript_SetWatchedBroadcast::
 
 PlayersHouse_1F_EventScript_PetalburgGymReportMale::
         addobject LOCALID_RIVALS_HOUSE_1F_RIVAL
-        call_if_eq VAR_0x8004, MALE, PlayersHouse_1F_EventScript_SetRivalPosMale
-        call_if_eq VAR_0x8004, FEMALE, PlayersHouse_1F_EventScript_SetRivalPosFemale
-        applymovement VAR_0x8005, Common_Movement_WalkInPlaceFasterRight
+        setobjectxy VAR_0x8005, 4, 4
+        setobjectxy LOCALID_RIVALS_HOUSE_1F_RIVAL, 5, 4
+        applymovement VAR_0x8005, PlayersHouse_1F_Movement_MomStepAsideMale
+        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalStepAsideMale
         waitmovement 0
         call PlayersHouse_1F_EventScript_MomNoticeGymBroadcast
         applymovement LOCALID_PLAYER, PlayersHouse_1F_Movement_PlayerApproachTVForGymMale
@@ -251,9 +252,10 @@ PlayersHouse_1F_EventScript_PetalburgGymReportMale::
 
 PlayersHouse_1F_EventScript_PetalburgGymReportFemale::
         addobject LOCALID_RIVALS_HOUSE_1F_RIVAL
-        call_if_eq VAR_0x8004, MALE, PlayersHouse_1F_EventScript_SetRivalPosMale
-        call_if_eq VAR_0x8004, FEMALE, PlayersHouse_1F_EventScript_SetRivalPosFemale
-        applymovement VAR_0x8005, Common_Movement_WalkInPlaceFasterLeft
+        setobjectxy VAR_0x8005, 6, 4
+        setobjectxy LOCALID_RIVALS_HOUSE_1F_RIVAL, 5, 4
+        applymovement VAR_0x8005, PlayersHouse_1F_Movement_MomStepAsideFemale
+        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalStepAsideFemale
         waitmovement 0
         call PlayersHouse_1F_EventScript_MomNoticeGymBroadcast
         applymovement LOCALID_PLAYER, PlayersHouse_1F_Movement_PlayerApproachTVForGymFemale
@@ -374,10 +376,30 @@ PlayersHouse_1F_Movement_MomReturnToSeatMale:
 	step_end
 
 PlayersHouse_1F_Movement_MomReturnToSeatFemale:
-	walk_right
-	walk_down
-	walk_in_place_faster_left
-	step_end
+        walk_right
+        walk_down
+        walk_in_place_faster_left
+        step_end
+
+PlayersHouse_1F_Movement_MomStepAsideMale:
+        walk_right
+        walk_in_place_faster_left
+        step_end
+
+PlayersHouse_1F_Movement_RivalStepAsideMale:
+        walk_right
+        walk_in_place_faster_left
+        step_end
+
+PlayersHouse_1F_Movement_MomStepAsideFemale:
+        walk_left
+        walk_in_place_faster_right
+        step_end
+
+PlayersHouse_1F_Movement_RivalStepAsideFemale:
+        walk_left
+        walk_in_place_faster_right
+        step_end
 
 PlayersHouse_1F_EventScript_Mom::
 	lock
