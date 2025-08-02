@@ -60,7 +60,6 @@ PlayersHouse_1F_Movement_MomApproachHomecomingMale:
         walk_right
         walk_right
         walk_down
-        walk_down
         step_end
 
 PlayersHouse_1F_Movement_MomApproachHomecomingFemale:
@@ -68,7 +67,6 @@ PlayersHouse_1F_Movement_MomApproachHomecomingFemale:
         walk_left
         walk_left
         walk_left
-        walk_down
         walk_down
         step_end
 
@@ -78,6 +76,7 @@ PlayersHouse_1F_Movement_RivalGoUpstairs:
         walk_up
         walk_up
         walk_up
+        step_end
 
 PlayersHouse_1F_EventScript_MomGoSeeRoom::
 	msgbox PlayersHouse_1F_Text_ArentYouInterestedInRoom, MSGBOX_DEFAULT
