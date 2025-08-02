@@ -303,8 +303,26 @@ PlayersHouse_1F_Text_ArentYouInterestedInRoom:
 	.string "very own room?$"
 
 PlayersHouse_1F_Text_GoSetTheClock:
-	.string "MOM: {PLAYER}.\p"
-	.string "Go set the clock in your room, honey.$"
+        .string "MOM: {PLAYER}.\p"
+        .string "Go set the clock in your room, honey.$"
+
+PlayersHouse_1F_Text_Entrance:
+        .string "MOM: Oh! {PLAYER}! Is it really you...\n"
+        .string "after all these years!?$"
+
+PlayersHouse_1F_Text_PlayerReply:
+        .string "{PLAYER}: Yeah...\n"
+        .string "It feels so nostalgic to be back here.$"
+
+PlayersHouse_1F_Text_MomExcited:
+        .string "MOM: I can't believe how much you've grown!\n"
+        .string "{RIVAL} will be so happy to have their\n"
+        .string "friend back!$"
+
+PlayersHouse_1F_Text_RivalPrompt:
+        .string "{RIVAL}: Heh, I told you Mom would be\n"
+        .string "surprised! Come on, I'll show you your\n"
+        .string "room upstairs!$"
 
 PlayersHouse_1F_Text_OhComeQuickly:
 	.string "MOM: Oh! {PLAYER}, {PLAYER}!\n"
