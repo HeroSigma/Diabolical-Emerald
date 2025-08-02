@@ -354,23 +354,21 @@ PlayersHouse_1F_Movement_MomApproachPlayerAfterTVFemale:
 	step_end
 
 PlayersHouse_1F_Movement_MomMakeRoomToSeeTVMale:
-	walk_left
+	walk_right
 	walk_in_place_faster_right
 	step_end
 
 PlayersHouse_1F_Movement_MomMakeRoomToSeeTVFemale:
-	walk_right
+	walk_left
 	walk_in_place_faster_left
 	step_end
 
 PlayersHouse_1F_Movement_MomReturnToSeatMale:
-	walk_left
 	walk_down
 	walk_in_place_faster_right
 	step_end
 
 PlayersHouse_1F_Movement_MomReturnToSeatFemale:
-        walk_right
         walk_down
         walk_in_place_faster_left
         step_end
