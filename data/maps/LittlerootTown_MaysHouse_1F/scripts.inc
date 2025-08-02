@@ -77,11 +77,11 @@ LittlerootTown_MaysHouse_1F_EventScript_EnterHouseMovingIn::
 	end
 
 LittlerootTown_MaysHouse_1F_EventScript_PetalburgGymReport::
-	lockall
-	setvar VAR_0x8004, FEMALE
-	setvar VAR_0x8005, LOCALID_PLAYERS_HOUSE_1F_MOM
-	goto PlayersHouse_1F_EventScript_PetalburgGymReportFemale
-	end
+        lockall
+        setvar VAR_0x8004, LOCALID_PLAYERS_HOUSE_1F_MOM
+        setvar VAR_0x8005, FEMALE
+        goto PlayersHouse_1F_EventScript_PetalburgGymReportFemale
+        end
 
 LittlerootTown_MaysHouse_1F_EventScript_YoureNewNeighbor::
 	lockall
