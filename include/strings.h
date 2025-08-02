@@ -286,6 +286,11 @@ extern const u8 gText_Birch_BoyOrGirl[];
 extern const u8 gText_Birch_WhatsYourName[];
 extern const u8 gText_Birch_SoItsPlayer[];
 extern const u8 gText_Birch_YourePlayer[];
+extern const u8 gText_Birch_EightYears[];
+extern const u8 gText_Player_StrangeToBeBack[];
+extern const u8 gText_Birch_RegionChanged[];
+extern const u8 gText_Birch_WelcomeHome[];
+extern const u8 gText_Birch_JourneyStart[];
 extern const u8 gText_Birch_AreYouReady[];
 
 extern const u8 gText_BirchInTrouble[];

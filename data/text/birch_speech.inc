@@ -43,14 +43,25 @@ gText_Birch_SoItsPlayer::
 	.string "So it's {PLAYER}{KUN}?$"
 
 gText_Birch_YourePlayer::
-        .string "Hmm… Wait a moment. You're…\p"
-        .string "Of course! It's you, {PLAYER}{KUN}!\n"
-        .string "My goodness, it's been so many years!\p"
-        .string "You've certainly grown! Hardly\n"
-        .string "recognized you. I still remember\l"
-        .string "when you, BRENDAN, and MAY used to\l"
-        .string "chase POKéMON all around LITTLEROOT.\p"
-        .string "$"
+        .string "Ah… so it really is you, {PLAYER}!$"
+
+gText_Birch_EightYears::
+        .string "I can't believe it's been eight years\n"
+        .string "since you left.$"
+
+gText_Player_StrangeToBeBack::
+        .string "Yeah… it feels strange to be back.$"
+
+gText_Birch_RegionChanged::
+        .string "HOENN's changed a lot in that time.$"
+
+gText_Birch_WelcomeHome::
+        .string "But it's good to have you home,\n"
+        .string "{PLAYER}!$"
+
+gText_Birch_JourneyStart::
+        .string "Your journey through this changed\n"
+        .string "HOENN is just beginning!$"
 
 gText_Birch_AreYouReady::
         .string "Well, I can't keep you here\n"

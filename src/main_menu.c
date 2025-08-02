@@ -230,6 +230,13 @@ static void Task_NewGameBirchSpeech_ProcessNameYesNoMenu(u8);
 void CreateYesNoMenuParameterized(u8, u8, u16, u16, u8, u8);
 static void Task_NewGameBirchSpeech_SlidePlatformAway2(u8);
 static void Task_NewGameBirchSpeech_ReshowBirchLotad(u8);
+static void Task_NewGameBirchSpeech_CustomIntro_WaitForLine1(u8);
+static void Task_NewGameBirchSpeech_CustomIntro_WaitForLine2(u8);
+static void Task_NewGameBirchSpeech_CustomIntro_WaitForLine3(u8);
+static void Task_NewGameBirchSpeech_CustomIntro_WaitForLine4(u8);
+static void Task_NewGameBirchSpeech_CustomIntro_WaitForLine5(u8);
+static void Task_NewGameBirchSpeech_CustomIntro_WaitForGesture(u8);
+static void Task_NewGameBirchSpeech_CustomIntro_WaitForFinalLine(u8);
 static void Task_NewGameBirchSpeech_WaitForSpriteFadeInAndTextPrinter(u8);
 static void Task_NewGameBirchSpeech_AreYouReady(u8);
 static void Task_NewGameBirchSpeech_ShrinkPlayer(u8);
@@ -1697,7 +1704,86 @@ static void Task_NewGameBirchSpeech_ReshowBirchLotad(u8 taskId)
         NewGameBirchSpeech_ClearWindow(0);
         StringExpandPlaceholders(gStringVar4, gText_Birch_YourePlayer);
         AddTextPrinterForMessage(TRUE);
-        gTasks[taskId].func = Task_NewGameBirchSpeech_WaitForSpriteFadeInAndTextPrinter;
+        gTasks[taskId].func = Task_NewGameBirchSpeech_CustomIntro_WaitForLine1;
+    }
+}
+
+static void Task_NewGameBirchSpeech_CustomIntro_WaitForLine1(u8 taskId)
+{
+    if (gTasks[taskId].tIsDoneFadingSprites)
+    {
+        gSprites[gTasks[taskId].tBirchSpriteId].oam.objMode = ST_OAM_OBJ_NORMAL;
+        gSprites[gTasks[taskId].tLotadSpriteId].oam.objMode = ST_OAM_OBJ_NORMAL;
+        if (!RunTextPrintersAndIsPrinter0Active())
+        {
+            StringExpandPlaceholders(gStringVar4, gText_Birch_EightYears);
+            AddTextPrinterForMessage(TRUE);
+            gTasks[taskId].func = Task_NewGameBirchSpeech_CustomIntro_WaitForLine2;
+        }
+    }
+}
+
+static void Task_NewGameBirchSpeech_CustomIntro_WaitForLine2(u8 taskId)
+{
+    if (!RunTextPrintersAndIsPrinter0Active())
+    {
+        StringExpandPlaceholders(gStringVar4, gText_Player_StrangeToBeBack);
+        AddTextPrinterForMessage(TRUE);
+        gTasks[taskId].func = Task_NewGameBirchSpeech_CustomIntro_WaitForLine3;
+    }
+}
+
+static void Task_NewGameBirchSpeech_CustomIntro_WaitForLine3(u8 taskId)
+{
+    if (!RunTextPrintersAndIsPrinter0Active())
+    {
+        StringExpandPlaceholders(gStringVar4, gText_Birch_RegionChanged);
+        AddTextPrinterForMessage(TRUE);
+        gTasks[taskId].func = Task_NewGameBirchSpeech_CustomIntro_WaitForLine4;
+    }
+}
+
+static void Task_NewGameBirchSpeech_CustomIntro_WaitForLine4(u8 taskId)
+{
+    if (!RunTextPrintersAndIsPrinter0Active())
+    {
+        StringExpandPlaceholders(gStringVar4, gText_Birch_WelcomeHome);
+        AddTextPrinterForMessage(TRUE);
+        gTasks[taskId].func = Task_NewGameBirchSpeech_CustomIntro_WaitForLine5;
+    }
+}
+
+static void Task_NewGameBirchSpeech_CustomIntro_WaitForLine5(u8 taskId)
+{
+    if (!RunTextPrintersAndIsPrinter0Active())
+    {
+        StartSpriteAnim(&gSprites[gTasks[taskId].tBirchSpriteId], 1);
+        gTasks[taskId].func = Task_NewGameBirchSpeech_CustomIntro_WaitForGesture;
+    }
+}
+
+static void Task_NewGameBirchSpeech_CustomIntro_WaitForGesture(u8 taskId)
+{
+    u8 spriteId = gTasks[taskId].tBirchSpriteId;
+
+    if (gSprites[spriteId].animEnded)
+    {
+        StringExpandPlaceholders(gStringVar4, gText_Birch_JourneyStart);
+        AddTextPrinterForMessage(TRUE);
+        gTasks[taskId].func = Task_NewGameBirchSpeech_CustomIntro_WaitForFinalLine;
+    }
+}
+
+static void Task_NewGameBirchSpeech_CustomIntro_WaitForFinalLine(u8 taskId)
+{
+    if (!RunTextPrintersAndIsPrinter0Active())
+    {
+        gSprites[gTasks[taskId].tBirchSpriteId].oam.objMode = ST_OAM_OBJ_BLEND;
+        gSprites[gTasks[taskId].tLotadSpriteId].oam.objMode = ST_OAM_OBJ_BLEND;
+        NewGameBirchSpeech_StartFadeOutTarget1InTarget2(taskId, 2);
+        NewGameBirchSpeech_StartFadePlatformIn(taskId, 1);
+        gTasks[taskId].tTimer = 64;
+        gTasks[taskId].func = Task_NewGameBirchSpeech_AreYouReady;
     }
 }
 
