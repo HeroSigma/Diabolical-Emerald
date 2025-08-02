@@ -84,9 +84,9 @@ PlayersHouse_1F_Movement_MomApproachHomecomingFemale:
 
 PlayersHouse_1F_Movement_RivalGoUpstairs:
         walk_up
+		walk_up
 		walk_left
         walk_in_place_faster_up
-        walk_up
         walk_up
         walk_up
 		walk_up
@@ -97,6 +97,7 @@ PlayersHouse_1F_Movement_MomReturnHomecomingMale:
         walk_left
         walk_left
         walk_left
+		walk_left
         walk_in_place_faster_up
         step_end
 
@@ -105,6 +106,7 @@ PlayersHouse_1F_Movement_MomReturnHomecomingFemale:
         walk_right
         walk_right
         walk_right
+		walk_right
         walk_in_place_faster_up
         step_end
 
