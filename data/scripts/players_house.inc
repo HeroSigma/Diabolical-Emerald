@@ -223,8 +223,6 @@ PlayersHouse_1F_EventScript_SetWatchedBroadcast::
 
 PlayersHouse_1F_EventScript_PetalburgGymReportMale::
         call PlayersHouse_1F_EventScript_MomNoticeGymBroadcast
-        setobjectxy VAR_0x8004, 5, 5
-        setobjectxy LOCALID_RIVALS_HOUSE_1F_RIVAL, 6, 5
         applymovement VAR_0x8004, PlayersHouse_1F_Movement_MomStepAsideMale
         applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalStepAsideMale
         waitmovement 0
@@ -254,8 +252,6 @@ PlayersHouse_1F_EventScript_PetalburgGymReportMale::
 
 PlayersHouse_1F_EventScript_PetalburgGymReportFemale::
         call PlayersHouse_1F_EventScript_MomNoticeGymBroadcast
-        setobjectxy VAR_0x8004, 4, 5
-        setobjectxy LOCALID_RIVALS_HOUSE_1F_RIVAL, 3, 5
         applymovement VAR_0x8004, PlayersHouse_1F_Movement_MomStepAsideFemale
         applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalStepAsideFemale
         waitmovement 0
