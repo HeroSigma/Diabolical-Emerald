@@ -1,15 +1,19 @@
 PlayersHouse_2F_EventScript_BlockStairsUntilClockIsSet::
+        setvar VAR_LITTLEROOT_INTRO_STATE, 5
+        return
+
+PlayersHouse_2F_EventScript_RivalIntro::
         lockall
-        addobject LOCALID_PLAYERS_HOUSE_2F_RIVAL
-        setobjectxy LOCALID_PLAYERS_HOUSE_2F_RIVAL, 7, 1
-        applymovement LOCALID_PLAYERS_HOUSE_2F_RIVAL, PlayersHouse_2F_Movement_RivalShowRoom
+        addobject LOCALID_RIVAL
+        setobjectxy LOCALID_RIVAL, 7, 1
+        applymovement LOCALID_RIVAL, PlayersHouse_2F_Movement_RivalShowRoom
         waitmovement 0
         msgbox PlayersHouse_2F_Text_RivalShowRoom, MSGBOX_DEFAULT
         msgbox PlayersHouse_2F_Text_PlayerReplyStrange, MSGBOX_DEFAULT
         msgbox PlayersHouse_2F_Text_RivalReminderClock, MSGBOX_DEFAULT
-        applymovement LOCALID_PLAYERS_HOUSE_2F_RIVAL, PlayersHouse_2F_Movement_RivalExit
+        applymovement LOCALID_RIVAL, PlayersHouse_2F_Movement_RivalExit
         waitmovement 0
-        removeobject LOCALID_PLAYERS_HOUSE_2F_RIVAL
+        removeobject LOCALID_RIVAL
         setvar VAR_LITTLEROOT_INTRO_STATE, 5
         releaseall
         return
