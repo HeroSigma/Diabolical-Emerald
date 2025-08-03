@@ -26,7 +26,7 @@ LittlerootTown_MaysHouse_1F_EventScript_ShowRunningShoesManual::
 LittlerootTown_MaysHouse_1F_OnTransition:
         call_if_eq VAR_LITTLEROOT_INTRO_STATE, 3, LittlerootTown_MaysHouse_1F_EventScript_MoveMomToTV
         call_if_eq VAR_LITTLEROOT_INTRO_STATE, 5, LittlerootTown_MaysHouse_1F_EventScript_MoveMomToStairs
-        call_if_eq VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_MaysHouse_1F_EventScript_MoveMomAndRivalToTV
+        call_if_eq VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_MaysHouse_1F_EventScript_SetupGymReport
         end
 
 LittlerootTown_MaysHouse_1F_EventScript_MoveMomToStairs::
@@ -44,11 +44,13 @@ LittlerootTown_MaysHouse_1F_EventScript_MoveMomToDoor::
         setobjectmovementtype LOCALID_PLAYERS_HOUSE_1F_MOM, MOVEMENT_TYPE_FACE_UP
         return
 
-LittlerootTown_MaysHouse_1F_EventScript_MoveMomAndRivalToTV::
-        setobjectxyperm LOCALID_PLAYERS_HOUSE_1F_MOM, 6, 5
-        setobjectmovementtype LOCALID_PLAYERS_HOUSE_1F_MOM, MOVEMENT_TYPE_FACE_UP
-        setobjectxyperm LOCALID_RIVALS_HOUSE_1F_RIVAL, 5, 5
+LittlerootTown_MaysHouse_1F_EventScript_SetupGymReport::
+        setobjectxyperm LOCALID_PLAYERS_HOUSE_1F_MOM, 8, 6
+        setobjectmovementtype LOCALID_PLAYERS_HOUSE_1F_MOM, MOVEMENT_TYPE_FACE_LEFT
+        clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_MAY
         addobject LOCALID_RIVALS_HOUSE_1F_RIVAL
+        setobjectxyperm LOCALID_RIVALS_HOUSE_1F_RIVAL, 6, 5
+        setobjectmovementtype LOCALID_RIVALS_HOUSE_1F_RIVAL, MOVEMENT_TYPE_FACE_UP
         return
 
 @ Many of the below scripts have no gender check because they assume youre in the correct house
