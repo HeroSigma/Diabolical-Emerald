@@ -238,31 +238,8 @@ PlayersHouse_1F_EventScript_PetalburgGymReportMale::
         waitmovement 0
         msgbox PlayersHouse_1F_Text_MomSurprised, MSGBOX_DEFAULT
         msgbox PlayersHouse_1F_Text_PlayerReaction, MSGBOX_DEFAULT
-        call_if_eq VAR_0x8004, MALE, PlayersHouse_1F_EventScript_RivalInviteBrendan
-        call_if_eq VAR_0x8004, FEMALE, PlayersHouse_1F_EventScript_RivalInviteMay
-        closemessage
-        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalWalkToDoorAndExit
-        waitmovement 0
-        removeobject LOCALID_RIVALS_HOUSE_1F_RIVAL
-        msgbox PlayersHouse_1F_Text_PlayerThought, MSGBOX_DEFAULT
-        closemessage
-        setvar VAR_TEMP_1, 1
-        goto PlayersHouse_1F_EventScript_SetWatchedBroadcast
-        end
-
-PlayersHouse_1F_EventScript_PetalburgGymReportFemale::
-        call PlayersHouse_1F_EventScript_MomNoticeGymBroadcast
-        applymovement LOCALID_PLAYER, PlayersHouse_1F_Movement_PlayerApproachTVForGymFemale
-        waitmovement 0
-        playbgm MUS_ENCOUNTER_INTERVIEWER, FALSE
-        call PlayersHouse_1F_EventScript_WatchGymBroadcast
-        applymovement LOCALID_PLAYER, PlayersHouse_1F_Movement_PlayerStepBackFromTVFemale
-        waitmovement 0
-        applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
-        waitmovement 0
-        msgbox PlayersHouse_1F_Text_MomSurprised, MSGBOX_DEFAULT
-        msgbox PlayersHouse_1F_Text_PlayerReaction, MSGBOX_DEFAULT
-        msgbox PlayersHouse_1F_Text_RivalInviteNeighbor, MSGBOX_DEFAULT
+        call_if_eq VAR_0x8005, MALE, PlayersHouse_1F_EventScript_RivalInviteBrendan
+        call_if_eq VAR_0x8005, FEMALE, PlayersHouse_1F_EventScript_RivalInviteMay
         closemessage
         applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalWalkToDoorAndExit
         waitmovement 0
@@ -290,8 +267,8 @@ PlayersHouse_1F_EventScript_PetalburgGymReportFemale::
         waitmovement 0
         msgbox PlayersHouse_1F_Text_MomSurprised, MSGBOX_DEFAULT
         msgbox PlayersHouse_1F_Text_PlayerReaction, MSGBOX_DEFAULT
-        call_if_eq VAR_0x8004, MALE, PlayersHouse_1F_EventScript_RivalInviteBrendan
-        call_if_eq VAR_0x8004, FEMALE, PlayersHouse_1F_EventScript_RivalInviteMay
+        call_if_eq VAR_0x8005, MALE, PlayersHouse_1F_EventScript_RivalInviteBrendan
+        call_if_eq VAR_0x8005, FEMALE, PlayersHouse_1F_EventScript_RivalInviteMay
         closemessage
         applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalWalkToDoorAndExit
         waitmovement 0
