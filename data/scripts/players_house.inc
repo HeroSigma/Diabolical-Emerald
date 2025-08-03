@@ -3,10 +3,10 @@ PlayersHouse_2F_EventScript_BlockStairsUntilClockIsSet::
         return
 
 PlayersHouse_2F_EventScript_RivalIntro::
-       lockall
-       clearflag FLAG_HIDE_LITTLEROOT_TOWN_PLAYERS_HOUSE_RIVAL_BEDROOM
-       addobject LOCALID_RIVAL
-       setobjectxy LOCALID_RIVAL, 7, 1
+        lockall
+        clearflag FLAG_HIDE_LITTLEROOT_TOWN_PLAYERS_HOUSE_RIVAL_BEDROOM
+        addobject LOCALID_RIVAL
+        setobjectxy LOCALID_RIVAL, 7, 1
         applymovement LOCALID_RIVAL, PlayersHouse_2F_Movement_RivalShowRoom
         waitmovement 0
         msgbox PlayersHouse_2F_Text_RivalShowRoom, MSGBOX_DEFAULT
@@ -14,8 +14,9 @@ PlayersHouse_2F_EventScript_RivalIntro::
         msgbox PlayersHouse_2F_Text_RivalReminderClock, MSGBOX_DEFAULT
         applymovement LOCALID_RIVAL, PlayersHouse_2F_Movement_RivalExit
         waitmovement 0
+        setflag FLAG_HIDE_LITTLEROOT_TOWN_PLAYERS_HOUSE_RIVAL_BEDROOM
         removeobject LOCALID_RIVAL
-        setvar VAR_LITTLEROOT_INTRO_STATE, 5
+        setvar VAR_INTRO_STATE, 5
         releaseall
         return
 
