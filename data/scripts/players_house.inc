@@ -2,6 +2,16 @@ PlayersHouse_2F_EventScript_BlockStairsUntilClockIsSet::
         setvar VAR_LITTLEROOT_INTRO_STATE, 5
         return
 
+PlayersHouse_2F_EventScript_RemindSetClock::
+        lockall
+        applymovement LOCALID_PLAYER, Common_Movement_WalkDown
+        waitmovement 0
+        msgbox PlayersHouse_2F_Text_PlayerForgetClock, MSGBOX_DEFAULT
+        applymovement LOCALID_PLAYER, PlayersHouse_2F_Movement_PlayerReturnToClock
+        waitmovement 0
+        releaseall
+        end
+
 PlayersHouse_2F_EventScript_RivalIntro::
         lockall
         clearflag FLAG_HIDE_LITTLEROOT_TOWN_PLAYERS_HOUSE_RIVAL_BEDROOM
@@ -229,10 +239,16 @@ PlayersHouse_2F_Movement_MomEntersFemale:
 	step_end
 
 PlayersHouse_2F_Movement_MomExitsFemale:
-	walk_left
-	walk_up
-	delay_8
-	step_end
+        walk_left
+        walk_up
+        delay_8
+        step_end
+
+PlayersHouse_2F_Movement_PlayerReturnToClock:
+        walk_left
+        walk_left
+        walk_in_place_faster_up
+        step_end
 
 PlayersHouse_1F_EventScript_SetWatchedBroadcast::
 	setvar VAR_LITTLEROOT_INTRO_STATE, 7

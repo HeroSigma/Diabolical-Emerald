@@ -108,6 +108,9 @@ PlayersHouse_2F_Text_RivalReminderClock:
         .string "{RIVAL}: Haha, well, get settled!\n"
         .string "Oh, don't forget to set your clock!$"
 
+PlayersHouse_2F_Text_PlayerForgetClock:
+        .string "Aren't I forgetting something?$"
+
 PlayersHouse_2F_Text_RivalHurryDownstairs:
         .string "{RIVAL}: {PLAYER}! Hurry!\n"
         .string "Come downstairs, quick!$"
