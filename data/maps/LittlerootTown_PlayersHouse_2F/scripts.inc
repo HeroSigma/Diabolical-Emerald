@@ -1,4 +1,4 @@
-.set LOCALID_RIVAL, 1
+
 
 LittlerootTown_PlayersHouse_2F_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, LittlerootTown_PlayersHouse_2F_OnTransition
