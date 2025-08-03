@@ -507,10 +507,12 @@ PlayersHouse_1F_Movement_PlayerMoveToTVFemale:
 
 PlayersHouse_1F_Movement_PlayerStepBackFromTVMale:
         walk_down
+		walk_in_place_faster_up
         step_end
 
 PlayersHouse_1F_Movement_PlayerStepBackFromTVFemale:
         walk_down
+		walk_in_place_faster_up
         step_end
 
 PlayersHouse_1F_Movement_MovePlayerAwayFromDoor:
