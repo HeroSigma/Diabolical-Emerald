@@ -241,7 +241,7 @@ PlayersHouse_1F_EventScript_PetalburgGymReportMale::
         call_if_eq VAR_0x8004, MALE, PlayersHouse_1F_EventScript_RivalInviteBrendan
         call_if_eq VAR_0x8004, FEMALE, PlayersHouse_1F_EventScript_RivalInviteMay
         closemessage
-        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalRunOutside
+        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalWalkToDoorAndExit
         waitmovement 0
         removeobject LOCALID_RIVALS_HOUSE_1F_RIVAL
         msgbox PlayersHouse_1F_Text_PlayerThought, MSGBOX_DEFAULT
@@ -264,7 +264,7 @@ PlayersHouse_1F_EventScript_PetalburgGymReportFemale::
         msgbox PlayersHouse_1F_Text_PlayerReaction, MSGBOX_DEFAULT
         msgbox PlayersHouse_1F_Text_RivalInviteNeighbor, MSGBOX_DEFAULT
         closemessage
-        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalRunOutside
+        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalWalkToDoorAndExit
         waitmovement 0
         removeobject LOCALID_RIVALS_HOUSE_1F_RIVAL
         msgbox PlayersHouse_1F_Text_PlayerThought, MSGBOX_DEFAULT
@@ -293,7 +293,7 @@ PlayersHouse_1F_EventScript_PetalburgGymReportFemale::
         call_if_eq VAR_0x8004, MALE, PlayersHouse_1F_EventScript_RivalInviteBrendan
         call_if_eq VAR_0x8004, FEMALE, PlayersHouse_1F_EventScript_RivalInviteMay
         closemessage
-        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalRunOutside
+        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalWalkToDoorAndExit
         waitmovement 0
         removeobject LOCALID_RIVALS_HOUSE_1F_RIVAL
         msgbox PlayersHouse_1F_Text_PlayerThought, MSGBOX_DEFAULT
@@ -526,7 +526,8 @@ PlayersHouse_1F_Movement_MovePlayerAwayFromDoor:
         walk_up
         step_end
 
-PlayersHouse_1F_Movement_RivalRunOutside:
+PlayersHouse_1F_Movement_RivalWalkToDoorAndExit:
+        walk_left
         walk_down
         walk_down
         step_end
