@@ -223,8 +223,6 @@ PlayersHouse_1F_EventScript_SetWatchedBroadcast::
 
 PlayersHouse_1F_EventScript_PetalburgGymReportMale::
         call PlayersHouse_1F_EventScript_MomNoticeGymBroadcast
-        setobjectxy VAR_0x8004, 5, 5
-        setobjectxy LOCALID_RIVALS_HOUSE_1F_RIVAL, 6, 5
         applymovement VAR_0x8004, PlayersHouse_1F_Movement_MomStepAsideMale
         applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalStepAsideMale
         waitmovement 0
@@ -240,8 +238,9 @@ PlayersHouse_1F_EventScript_PetalburgGymReportMale::
         msgbox PlayersHouse_1F_Text_PlayerReaction, MSGBOX_DEFAULT
         call_if_eq VAR_0x8005, MALE, PlayersHouse_1F_EventScript_RivalInviteBrendan
         call_if_eq VAR_0x8005, FEMALE, PlayersHouse_1F_EventScript_RivalInviteMay
-        closemessage
-        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalWalkToDoorAndExit
+        applymovement LOCALID_PLAYER, PlayersHouse_1F_Movement_MovePlayerAwayFromDoor
+        waitmovement 0
+        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalWalkToDoorAndExitMale
         waitmovement 0
         removeobject LOCALID_RIVALS_HOUSE_1F_RIVAL
         msgbox PlayersHouse_1F_Text_PlayerThought, MSGBOX_DEFAULT
@@ -252,8 +251,6 @@ PlayersHouse_1F_EventScript_PetalburgGymReportMale::
 
 PlayersHouse_1F_EventScript_PetalburgGymReportFemale::
         call PlayersHouse_1F_EventScript_MomNoticeGymBroadcast
-        setobjectxy VAR_0x8004, 4, 5
-        setobjectxy LOCALID_RIVALS_HOUSE_1F_RIVAL, 3, 5
         applymovement VAR_0x8004, PlayersHouse_1F_Movement_MomStepAsideFemale
         applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalStepAsideFemale
         waitmovement 0
@@ -269,8 +266,9 @@ PlayersHouse_1F_EventScript_PetalburgGymReportFemale::
         msgbox PlayersHouse_1F_Text_PlayerReaction, MSGBOX_DEFAULT
         call_if_eq VAR_0x8005, MALE, PlayersHouse_1F_EventScript_RivalInviteBrendan
         call_if_eq VAR_0x8005, FEMALE, PlayersHouse_1F_EventScript_RivalInviteMay
-        closemessage
-        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalWalkToDoorAndExit
+        applymovement LOCALID_PLAYER, PlayersHouse_1F_Movement_MovePlayerAwayFromDoor
+        waitmovement 0
+        applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalWalkToDoorAndExitFemale
         waitmovement 0
         removeobject LOCALID_RIVALS_HOUSE_1F_RIVAL
         msgbox PlayersHouse_1F_Text_PlayerThought, MSGBOX_DEFAULT
@@ -523,9 +521,11 @@ PlayersHouse_1F_Movement_MovePlayerAwayFromDoor:
         walk_up
         step_end
 
-PlayersHouse_1F_Movement_RivalWalkToDoorAndExit:
-        walk_left
+PlayersHouse_1F_Movement_RivalWalkToDoorAndExitMale:
         walk_down
+        step_end
+
+PlayersHouse_1F_Movement_RivalWalkToDoorAndExitFemale:
         walk_down
         step_end
 
@@ -804,8 +804,7 @@ PlayersHouse_1F_Movement_MomLeave:
         step_end
 
 PlayersHouse_1F_Text_RivalCallDownstairs:
-        .string "{RIVAL}: {PLAYER}! Come downstairs!\n"
-        .string "There's something on TV you need to see!$"
+        .string "{RIVAL}: {PLAYER}! Quickly, you have to see this!$"
 
 PlayersHouse_1F_Text_SpaceTimePhenomenon:
         .string "INTERVIEWER: Reports of a space-time\n"
