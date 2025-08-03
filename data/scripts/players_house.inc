@@ -238,7 +238,8 @@ PlayersHouse_1F_EventScript_PetalburgGymReportMale::
         waitmovement 0
         msgbox PlayersHouse_1F_Text_MomSurprised, MSGBOX_DEFAULT
         msgbox PlayersHouse_1F_Text_PlayerReaction, MSGBOX_DEFAULT
-        msgbox PlayersHouse_1F_Text_RivalInviteNeighbor, MSGBOX_DEFAULT
+        call_if_eq VAR_0x8004, MALE, PlayersHouse_1F_EventScript_RivalInviteBrendan
+        call_if_eq VAR_0x8004, FEMALE, PlayersHouse_1F_EventScript_RivalInviteMay
         closemessage
         applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalRunOutside
         waitmovement 0
@@ -266,7 +267,8 @@ PlayersHouse_1F_EventScript_PetalburgGymReportFemale::
         waitmovement 0
         msgbox PlayersHouse_1F_Text_MomSurprised, MSGBOX_DEFAULT
         msgbox PlayersHouse_1F_Text_PlayerReaction, MSGBOX_DEFAULT
-        msgbox PlayersHouse_1F_Text_RivalInviteNeighbor, MSGBOX_DEFAULT
+        call_if_eq VAR_0x8004, MALE, PlayersHouse_1F_EventScript_RivalInviteBrendan
+        call_if_eq VAR_0x8004, FEMALE, PlayersHouse_1F_EventScript_RivalInviteMay
         closemessage
         applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalRunOutside
         waitmovement 0
@@ -276,6 +278,14 @@ PlayersHouse_1F_EventScript_PetalburgGymReportFemale::
         setvar VAR_TEMP_1, 1
         goto PlayersHouse_1F_EventScript_SetWatchedBroadcast
         end
+
+PlayersHouse_1F_EventScript_RivalInviteBrendan::
+        msgbox PlayersHouse_1F_Text_RivalInviteBrendan, MSGBOX_DEFAULT
+        return
+
+PlayersHouse_1F_EventScript_RivalInviteMay::
+        msgbox PlayersHouse_1F_Text_RivalInviteMay, MSGBOX_DEFAULT
+        return
 
 PlayersHouse_1F_EventScript_MomNoticeGymBroadcast::
         playse SE_PIN
@@ -809,6 +819,14 @@ PlayersHouse_1F_Text_PlayerReaction:
 
 PlayersHouse_1F_Text_RivalInviteNeighbor:
         .string "{RIVAL}: Let's go meet the neighbor\n"
+        .string "and see what's happening!$"
+
+PlayersHouse_1F_Text_RivalInviteBrendan:
+        .string "{RIVAL}: Let's go meet BRENDAN\n"
+        .string "and see what's happening!$"
+
+PlayersHouse_1F_Text_RivalInviteMay:
+        .string "{RIVAL}: Let's go meet MAY\n"
         .string "and see what's happening!$"
 
 PlayersHouse_1F_Text_PlayerThought:
