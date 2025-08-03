@@ -26,6 +26,7 @@ PlayersHouse_2F_EventScript_RivalIntro::
         waitmovement 0
         setflag FLAG_HIDE_LITTLEROOT_TOWN_PLAYERS_HOUSE_RIVAL_BEDROOM
         removeobject LOCALID_RIVAL
+        setvar VAR_LITTLEROOT_INTRO_STATE, 5
         setvar VAR_INTRO_STATE, 5
         releaseall
         return
@@ -47,6 +48,7 @@ PlayersHouse_1F_EventScript_EnterHouseMovingIn::
         msgbox PlayersHouse_1F_Text_RivalPrompt, MSGBOX_DEFAULT
         closemessage
         setvar VAR_LITTLEROOT_INTRO_STATE, 4
+        setvar VAR_INTRO_STATE, 4
         applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalGoUpstairs
         waitmovement 0
         removeobject LOCALID_RIVALS_HOUSE_1F_RIVAL
