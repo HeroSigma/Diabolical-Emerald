@@ -238,7 +238,6 @@ PlayersHouse_1F_EventScript_PetalburgGymReportMale::
         msgbox PlayersHouse_1F_Text_PlayerReaction, MSGBOX_DEFAULT
         call_if_eq VAR_0x8005, MALE, PlayersHouse_1F_EventScript_RivalInviteBrendan
         call_if_eq VAR_0x8005, FEMALE, PlayersHouse_1F_EventScript_RivalInviteMay
-        closemessage
         applymovement LOCALID_PLAYER, PlayersHouse_1F_Movement_MovePlayerAwayFromDoor
         waitmovement 0
         applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalWalkToDoorAndExitMale
@@ -267,7 +266,6 @@ PlayersHouse_1F_EventScript_PetalburgGymReportFemale::
         msgbox PlayersHouse_1F_Text_PlayerReaction, MSGBOX_DEFAULT
         call_if_eq VAR_0x8005, MALE, PlayersHouse_1F_EventScript_RivalInviteBrendan
         call_if_eq VAR_0x8005, FEMALE, PlayersHouse_1F_EventScript_RivalInviteMay
-        closemessage
         applymovement LOCALID_PLAYER, PlayersHouse_1F_Movement_MovePlayerAwayFromDoor
         waitmovement 0
         applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, PlayersHouse_1F_Movement_RivalWalkToDoorAndExitFemale
@@ -520,23 +518,10 @@ PlayersHouse_1F_Movement_MovePlayerAwayFromDoor:
         step_end
 
 PlayersHouse_1F_Movement_RivalWalkToDoorAndExitMale:
-        walk_right
-        walk_right
-        walk_down
-        walk_down
-        walk_down
         walk_down
         step_end
 
 PlayersHouse_1F_Movement_RivalWalkToDoorAndExitFemale:
-        walk_right
-        walk_right
-        walk_right
-        walk_right
-        walk_right
-        walk_down
-        walk_down
-        walk_down
         walk_down
         step_end
 
