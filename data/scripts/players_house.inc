@@ -514,7 +514,6 @@ PlayersHouse_1F_Movement_PlayerStepBackFromTVFemale:
         step_end
 
 PlayersHouse_1F_Movement_MovePlayerAwayFromDoor:
-        walk_up
         step_end
 
 PlayersHouse_1F_Movement_RivalWalkToDoorAndExitMale:
