@@ -1,5 +1,5 @@
 .set LOCALID_PROF_ELM, 1
-.set LOCALID_RIVAL, 2
+.set LOCALID_ROUTE29_RIVAL, 2
 
 Route29_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, Route29_OnTransition
@@ -21,39 +21,39 @@ Route29_EventScript_HideMapNamePopup::
 
 Route29_EventScript_StartElmMeeting_1::
 	lockall
-	setobjectxy LOCALID_PROF_ELM, 63, 11
-	setobjectxy LOCALID_RIVAL, 63, 10
+        setobjectxy LOCALID_PROF_ELM, 63, 11
+        setobjectxy LOCALID_ROUTE29_RIVAL, 63, 10
 	call Route29_EventScript_StartElmMeeting_ApproachPlayer
 
 Route29_EventScript_StartElmMeeting_2::
 	lockall
-	setobjectxy LOCALID_PROF_ELM, 63, 12
-	setobjectxy LOCALID_RIVAL, 63, 11
+        setobjectxy LOCALID_PROF_ELM, 63, 12
+        setobjectxy LOCALID_ROUTE29_RIVAL, 63, 11
 	call Route29_EventScript_StartElmMeeting_ApproachPlayer
 
 Route29_EventScript_StartElmMeeting_3::
 	lockall
-	setobjectxy LOCALID_PROF_ELM, 63, 11
-	setobjectxy LOCALID_RIVAL, 63, 12
+        setobjectxy LOCALID_PROF_ELM, 63, 11
+        setobjectxy LOCALID_ROUTE29_RIVAL, 63, 12
 	call Route29_EventScript_StartElmMeeting_ApproachPlayer
 
 Route29_EventScript_StartElmMeeting_4::
 	lockall
-	setobjectxy LOCALID_PROF_ELM, 63, 12
-	setobjectxy LOCALID_RIVAL, 63, 13
+        setobjectxy LOCALID_PROF_ELM, 63, 12
+        setobjectxy LOCALID_ROUTE29_RIVAL, 63, 13
 	call Route29_EventScript_StartElmMeeting_ApproachPlayer
 
 Route29_EventScript_StartElmMeeting_ApproachPlayer::
-	applymovement LOCALID_PROF_ELM, Route29_Movement_4East
-	applymovement LOCALID_RIVAL, Route29_Movement_4East
+        applymovement LOCALID_PROF_ELM, Route29_Movement_4East
+        applymovement LOCALID_ROUTE29_RIVAL, Route29_Movement_4East
 	waitmovement 0
 	playse SE_PIN
 	applymovement LOCALID_PROF_ELM, Common_Movement_ExclamationMark
 	waitmovement 0
 	applymovement LOCALID_PROF_ELM, Common_Movement_Delay48
 	waitmovement 0
-	applymovement LOCALID_PROF_ELM, Route29_Movement_3East
-	applymovement LOCALID_RIVAL, Route29_Movement_3East
+        applymovement LOCALID_PROF_ELM, Route29_Movement_3East
+        applymovement LOCALID_ROUTE29_RIVAL, Route29_Movement_3East
 	waitmovement 0
 	call Route29_EventScript_GreetElm
 
