@@ -518,11 +518,25 @@ PlayersHouse_1F_Movement_MovePlayerAwayFromDoor:
         step_end
 
 PlayersHouse_1F_Movement_RivalWalkToDoorAndExitMale:
-        walk_down
+        walk_right
+		walk_right
+		walk_right
+		walk_right
+		walk_down
+		walk_down
+		walk_down
+		walk_down
         step_end
 
 PlayersHouse_1F_Movement_RivalWalkToDoorAndExitFemale:
-        walk_down
+        walk_left
+		walk_left
+		walk_left
+		walk_left
+		walk_down
+		walk_down
+		walk_down
+		walk_down
         step_end
 
 PlayersHouse_1F_EventScript_GetSSTicketAndSeeLatiTV::
