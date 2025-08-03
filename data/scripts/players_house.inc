@@ -305,11 +305,31 @@ PlayersHouse_1F_EventScript_WatchGymBroadcast::
         delay 35
         return
 
+PlayersHouse_1F_Movement_MomStepAsideMale:
+        walk_up
+        walk_in_place_faster_up
+        step_end
+
+PlayersHouse_1F_Movement_RivalStepAsideMale:
+        walk_up
+        walk_in_place_faster_up
+        step_end
+
+PlayersHouse_1F_Movement_MomStepAsideFemale:
+        walk_up
+        walk_in_place_faster_up
+        step_end
+
+PlayersHouse_1F_Movement_RivalStepAsideFemale:
+        walk_up
+        walk_in_place_faster_up
+        step_end
+
 PlayersHouse_1F_Movement_MomApproachDadMale:
-	walk_up
-	walk_right
-	walk_right
-	walk_right
+        walk_up
+        walk_right
+        walk_right
+        walk_right
 	walk_right
 	walk_down
 	walk_in_place_faster_right
