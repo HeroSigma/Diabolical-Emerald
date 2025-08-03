@@ -18,22 +18,6 @@ PlayersHouse_2F_EventScript_RivalIntro::
         setvar VAR_LITTLEROOT_INTRO_STATE, 5
         releaseall
         return
-		
-PlayersHouse_2F_EventScript_RivalIntro::
-        lockall
-        addobject LOCALID_RIVAL
-        setobjectxy LOCALID_RIVAL, 7, 1
-        applymovement LOCALID_RIVAL, PlayersHouse_2F_Movement_RivalShowRoom
-        waitmovement 0
-        msgbox PlayersHouse_2F_Text_RivalShowRoom, MSGBOX_DEFAULT
-        msgbox PlayersHouse_2F_Text_PlayerReplyStrange, MSGBOX_DEFAULT
-        msgbox PlayersHouse_2F_Text_RivalReminderClock, MSGBOX_DEFAULT
-        applymovement LOCALID_RIVAL, PlayersHouse_2F_Movement_RivalExit
-        waitmovement 0
-        removeobject LOCALID_RIVAL
-        setvar VAR_LITTLEROOT_INTRO_STATE, 5
-        releaseall
-        return
 
 PlayersHouse_1F_EventScript_EnterHouseMovingIn::
         addobject VAR_0x8004
