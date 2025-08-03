@@ -310,22 +310,18 @@ PlayersHouse_1F_EventScript_WatchGymBroadcast::
         return
 
 PlayersHouse_1F_Movement_MomStepAsideMale:
-        walk_up
         walk_in_place_faster_up
         step_end
 
 PlayersHouse_1F_Movement_RivalStepAsideMale:
-        walk_up
         walk_in_place_faster_up
         step_end
 
 PlayersHouse_1F_Movement_MomStepAsideFemale:
-        walk_up
         walk_in_place_faster_up
         step_end
 
 PlayersHouse_1F_Movement_RivalStepAsideFemale:
-        walk_up
         walk_in_place_faster_up
         step_end
 
