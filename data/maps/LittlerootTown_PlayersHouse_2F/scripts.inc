@@ -108,13 +108,12 @@ PlayersHouse_2F_Text_RivalHurryDownstairs:
         .string "{RIVAL}: {PLAYER}! Hurry!\n"
         .string "Come downstairs, quick!$"
 
-LittlerootTown_PlayersHouse_2F_Text_HowDoYouLikeYourRoom:
+PlayersHouse_2F_Text_HowDoYouLikeYourRoom:
         .string "MOM: How do you like your room?\p"
         .string "Everything's put away neatly.\n"
         .string "They finished moving everything\n"
         .string "in downstairs, too!\p"
         .string "POKEMON movers are so convenient!$"
-        .equ PlayersHouse_2F_Text_HowDoYouLikeYourRoom, LittlerootTown_PlayersHouse_2F_Text_HowDoYouLikeYourRoom
 
 PlayersHouse_2F_Movement_RivalShowRoom:
         walk_down
