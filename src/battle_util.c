@@ -74,6 +74,17 @@ void TryHazardsOnSwitchIn(u32 battler, u32 side, enum Hazards hazardType);
  *   -3: Opportunist, Mirror Herb
  * Post-processing: Eject Button, Red Card, Eject Pack
  *
+ * Registering new triggers:
+ *   - Implement a SwitchInTrigger for the ability, item or hazard and add
+ *     it to the corresponding entry in sSwitchInTriggerGroups below.
+ *     Hazard types are defined in enum Hazards (include/constants/battle.h)
+ *     and are queued in gBattleStruct->hazardsQueue.
+ *   - To introduce a new priority batch, append another
+ *     SwitchInTriggerGroup to sSwitchInTriggerGroups with the desired
+ *     priority value and handler array.
+ *   - When processing a batch, ensure battlers are Speed-sorted and ties
+ *     are resolved randomly.
+ *
  * The actual trigger functions are grouped by priority in data structures
  * below, making this function straightforward to extend for future
  * generations.
