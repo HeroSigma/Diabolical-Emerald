@@ -33167,7 +33167,7 @@ Nature: Timid
 IVs: 31 HP / 0 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe  
 EVs: 0 HP / 0 Atk / 0 Def / 252 SpA / 4 SpD / 252 Spe  
 Dynamax Level: 10  
-Ball: Poké Ball  
+Ball: Great Ball  
 Tera Type: Flying  
 - Air Slash  
 - Sand Attack  
@@ -33181,7 +33181,7 @@ Nature: Adamant
 IVs: 31 HP / 31 Atk / 31 Def / 0 SpA / 31 SpD / 31 Spe  
 EVs: 0 HP / 252 Atk / 0 Def / 0 SpA / 4 SpD / 252 Spe  
 Dynamax Level: 10  
-Ball: Poké Ball  
+Ball: Great Ball  
 Tera Type: Flying  
 - Acrobatics  
 - Flame Charge  
@@ -33195,7 +33195,7 @@ Nature: Jolly
 IVs: 31 HP / 31 Atk / 31 Def / 0 SpA / 31 SpD / 31 Spe  
 EVs: 0 HP / 252 Atk / 0 Def / 0 SpA / 4 SpD / 252 Spe  
 Dynamax Level: 10  
-Ball: Poké Ball  
+Ball: Great Ball  
 Tera Type: Normal  
 - Double-Edge  
 - Quick Attack  
@@ -33209,7 +33209,7 @@ Nature: Impish
 IVs: 31 HP / 0 Atk / 31 Def / 0 SpA / 31 SpD / 31 Spe  
 EVs: 252 HP / 0 Atk / 252 Def / 0 SpA / 4 SpD / 0 Spe  
 Dynamax Level: 10  
-Ball: Poké Ball  
+Ball: Great Ball  
 Tera Type: Flying  
 - Pluck  
 - Iron Defense  
@@ -33223,7 +33223,7 @@ Nature: Modest
 IVs: 31 HP / 0 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe  
 EVs: 0 HP / 0 Atk / 0 Def / 252 SpA / 4 SpD / 252 Spe  
 Dynamax Level: 10  
-Ball: Poké Ball  
+Ball: Great Ball  
 Tera Type: Flying  
 - Air Cutter  
 - Water Pulse  
@@ -33233,7 +33233,7 @@ Tera Type: Flying
 === TRAINER_HUGH ===
 Name: HUGH
 Class: Bird Keeper
-Pic: Bird Keeper M
+Pic: Bird Keeper
 Gender: Male
 Music: Cool
 Double Battle: No
@@ -33326,7 +33326,7 @@ Tera Type: Flying
 === TRAINER_PHIL ===
 Name: PHIL
 Class: Bird Keeper
-Pic: Bird Keeper M
+Pic: Bird Keeper
 Gender: Male
 Music: Cool
 Double Battle: No
@@ -33419,7 +33419,7 @@ Tera Type: Dragon
 === TRAINER_JARED ===
 Name: JARED
 Class: Bird Keeper
-Pic: Bird Keeper M
+Pic: Bird Keeper
 Gender: Male
 Music: Cool
 Double Battle: No
@@ -33512,7 +33512,7 @@ Tera Type: Electric
 === TRAINER_HUMBERTO ===
 Name: HUMBERTO
 Class: Bird Keeper
-Pic: Bird Keeper M
+Pic: Bird Keeper
 Gender: Male
 Music: Cool
 Double Battle: No
@@ -33605,7 +33605,7 @@ Tera Type: Dark
 === TRAINER_PRESLEY ===
 Name: PRESLEY
 Class: Bird Keeper
-Pic: Bird Keeper M
+Pic: Bird Keeper
 Gender: Male
 Music: Cool
 Double Battle: No
@@ -33698,7 +33698,7 @@ Tera Type: Flying
 === TRAINER_EDWARDO ===
 Name: EDWARDO
 Class: Bird Keeper
-Pic: Bird Keeper M
+Pic: Bird Keeper
 Gender: Male
 Music: Cool
 Double Battle: No
@@ -33791,7 +33791,7 @@ Tera Type: Flying
 === TRAINER_COLIN ===
 Name: COLIN
 Class: Bird Keeper
-Pic: Bird Keeper M
+Pic: Bird Keeper
 Gender: Male
 Music: Cool
 Double Battle: No
@@ -33884,7 +33884,7 @@ Tera Type: Flying
 === TRAINER_ROBERT_1 ===
 Name: ROBERT
 Class: Bird Keeper
-Pic: Bird Keeper M
+Pic: Bird Keeper
 Gender: Male
 Music: Cool
 Double Battle: No
@@ -33977,7 +33977,7 @@ Tera Type: Normal
 === TRAINER_BENNY ===
 Name: BENNY
 Class: Bird Keeper
-Pic: Bird Keeper M
+Pic: Bird Keeper
 Gender: Male
 Music: Cool
 Double Battle: No
@@ -34070,7 +34070,7 @@ Tera Type: Flying
 === TRAINER_CHESTER ===
 Name: CHESTER
 Class: Bird Keeper
-Pic: Bird Keeper M
+Pic: Bird Keeper
 Gender: Male
 Music: Cool
 Double Battle: No
@@ -34163,7 +34163,7 @@ Tera Type: Dragon
 === TRAINER_ROBERT_2 ===
 Name: ROBERT
 Class: Bird Keeper
-Pic: Bird Keeper M
+Pic: Bird Keeper
 Gender: Male
 Music: Cool
 Double Battle: No
@@ -34256,7 +34256,7 @@ Tera Type: Flying
 === TRAINER_ROBERT_3 ===
 Name: ROBERT
 Class: Bird Keeper
-Pic: Bird Keeper M
+Pic: Bird Keeper
 Gender: Male
 Music: Cool
 Double Battle: No
@@ -34349,7 +34349,7 @@ Tera Type: Flying
 === TRAINER_ROBERT_4 ===
 Name: ROBERT
 Class: Bird Keeper
-Pic: Bird Keeper M
+Pic: Bird Keeper
 Gender: Male
 Music: Cool
 Double Battle: No
@@ -34442,7 +34442,7 @@ Tera Type: Flying
 === TRAINER_ROBERT_5 ===
 Name: ROBERT
 Class: Bird Keeper
-Pic: Bird Keeper M
+Pic: Bird Keeper
 Gender: Male
 Music: Cool
 Double Battle: No
@@ -34535,7 +34535,7 @@ Tera Type: Flying
 === TRAINER_ALEX ===
 Name: ALEX
 Class: Bird Keeper
-Pic: Bird Keeper M
+Pic: Bird Keeper
 Gender: Male
 Music: Cool
 Double Battle: No
@@ -34628,7 +34628,7 @@ Tera Type: Fairy
 === TRAINER_BECK ===
 Name: BECK
 Class: Bird Keeper
-Pic: Bird Keeper M
+Pic: Bird Keeper
 Gender: Male
 Music: Cool
 Double Battle: No
