@@ -7773,112 +7773,6 @@ void TryHazardsOnSwitchIn(u32 battler, u32 side, enum Hazards hazardType)
     }
 }
 
-static bool32 DoSwitchInEffectsForBattler(u32 battler)
-{
-    u32 i = 0;
-    u32 side = GetBattlerSide(battler);
-    // Neutralizing Gas announces itself before hazards
-    if (gBattleMons[battler].ability == ABILITY_NEUTRALIZING_GAS && gSpecialStatuses[battler].announceNeutralizingGas == 0)
-    {
-        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_NEUTRALIZING_GAS;
-        gSpecialStatuses[battler].announceNeutralizingGas = TRUE;
-        gDisableStructs[battler].neutralizingGas = TRUE;
-        gBattlerAbility = battler;
-        BattleScriptCall(BattleScript_SwitchInAbilityMsgRet);
-    }
-    // Healing Wish activates before hazards.
-    // Starting from Gen8 - it heals only pokemon which can be healed. In gens 5,6,7 the effect activates anyways.
-    else if ((gBattleStruct->battlerState[battler].storedHealingWish || gBattleStruct->battlerState[battler].storedLunarDance)
-        && (gBattleMons[battler].hp != gBattleMons[battler].maxHP || gBattleMons[battler].status1 != 0 || B_HEALING_WISH_SWITCH < GEN_8))
-    {
-        gBattlerAttacker = battler;
-        if (gBattleStruct->battlerState[battler].storedHealingWish)
-        {
-            BattleScriptCall(BattleScript_HealingWishActivates);
-            gBattleStruct->battlerState[battler].storedHealingWish = FALSE;
-        }
-        else // Lunar Dance
-        {
-            BattleScriptCall(BattleScript_LunarDanceActivates);
-            gBattleStruct->battlerState[battler].storedLunarDance = FALSE;
-        }
-    }
-    else if (!gDisableStructs[battler].hazardsDone)
-    {
-        TryHazardsOnSwitchIn(battler, side, gBattleStruct->hazardsQueue[side][gBattleStruct->hazardsCounter]);
-        gBattleStruct->hazardsCounter++;
-        // Done once we reach the first element without any hazard type or the array is full
-        if (gBattleStruct->hazardsQueue[side][gBattleStruct->hazardsCounter] == HAZARDS_NONE
-         || gBattleStruct->hazardsCounter == HAZARDS_MAX_COUNT)
-        {
-            gDisableStructs[battler].hazardsDone = TRUE;
-            gBattleStruct->hazardsCounter = 0;
-        }
-    }
-    else if (gBattleMons[battler].hp != gBattleMons[battler].maxHP && gBattleStruct->zmove.healReplacement)
-    {
-        gBattleStruct->zmove.healReplacement = FALSE;
-        gBattleStruct->moveDamage[battler] = -1 * (gBattleMons[battler].maxHP);
-        gBattleScripting.battler = battler;
-        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_Z_HP_TRAP;
-        BattleScriptCall(BattleScript_HealReplacementZMove);
-        return TRUE;
-    }
-    else
-    {
-        u32 battlerAbility = GetBattlerAbility(battler);
-        // There is a hack here to ensure the truant counter will be 0 when the battler's next turn starts.
-        // The truant counter is not updated in the case where a mon switches in after a lost judgment in the battle arena.
-        if (battlerAbility == ABILITY_TRUANT
-            && gCurrentActionFuncId != B_ACTION_USE_MOVE
-            && !gDisableStructs[battler].truantSwitchInHack)
-            gDisableStructs[battler].truantCounter = 1;
-
-        gDisableStructs[battler].truantSwitchInHack = 0;
-
-        if (DoSwitchInAbilities(battler) || ItemBattleEffects(ITEMEFFECT_ON_SWITCH_IN, battler))
-            return TRUE;
-        else if (AbilityBattleEffects(ABILITYEFFECT_OPPORTUNIST, battler, 0, 0, 0))
-            return TRUE;
-
-        for (i = 0; i < gBattlersCount; i++)
-        {
-            if (i == battler)
-                continue;
-
-            switch (GetBattlerAbility(i))
-            {
-            case ABILITY_TRACE:
-            case ABILITY_COMMANDER:
-                if (AbilityBattleEffects(ABILITYEFFECT_ON_SWITCHIN, i, 0, 0, 0))
-                    return TRUE;
-                break;
-            case ABILITY_FORECAST:
-            case ABILITY_FLOWER_GIFT:
-            case ABILITY_PROTOSYNTHESIS:
-                if (AbilityBattleEffects(ABILITYEFFECT_ON_WEATHER, i, 0, 0, 0))
-                    return TRUE;
-                break;
-            }
-            if (TryClearIllusion(i, ABILITYEFFECT_ON_SWITCHIN))
-                return TRUE;
-        }
-
-        for (i = 0; i < gBattlersCount; i++)
-        {
-            if (gBattlerByTurnOrder[i] == battler)
-                gActionsByTurnOrder[i] = B_ACTION_CANCEL_PARTNER;
-
-            gBattleStruct->hpOnSwitchout[GetBattlerSide(i)] = gBattleMons[i].hp;
-        }
-
-        gDisableStructs[battler].hazardsDone = FALSE;
-        gBattleStruct->battlerState[battler].forcedSwitch = FALSE;
-        return FALSE;
-    }
-
-    return TRUE; // Effect's script plays.
-}
 
 static void Cmd_switchineffects(void)
 {
@@ -7920,7 +7814,7 @@ static void Cmd_switchineffects(void)
                 gBattlerFainted = gBattleStruct->multipleSwitchInSortedBattlers[gBattleStruct->multipleSwitchInCursor];
                 if (gBattleStruct->battlerState[gBattlerFainted].multipleSwitchInBattlers)
                 {
-                    if (DoSwitchInEffectsForBattler(gBattlerFainted))
+                    if (HandleUniversalSwitchInEvents(gBattlerFainted))
                         return;
                 }
             }
@@ -7936,7 +7830,7 @@ static void Cmd_switchineffects(void)
         break;
     default:
         UpdateSentMonFlags(battler);
-        if (!DoSwitchInEffectsForBattler(battler) && !TrySwitchInEjectPack(ITEMEFFECT_NONE))
+        if (!HandleUniversalSwitchInEvents(battler) && !TrySwitchInEjectPack(ITEMEFFECT_NONE))
             gBattlescriptCurrInstr = cmd->nextInstr;
         break;
     }

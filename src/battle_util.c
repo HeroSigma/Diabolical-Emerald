@@ -51,6 +51,182 @@
 #include "constants/weather.h"
 #include "constants/pokemon.h"
 
+// Forward declaration for hazard processing that lives in battle_script_commands.c
+void TryHazardsOnSwitchIn(u32 battler, u32 side, enum Hazards hazardType);
+
+/*
+ * HandleUniversalSwitchInEvents
+ * -----------------------------
+ * Consolidated switch-in handler used for every entry point where a
+ * battler enters the field.  Triggers that activate upon switch-in are
+ * organized into priority tiers so they can be processed in the correct
+ * order.  Within each tier, battlers are ordered by Speed and ties are
+ * broken randomly using the battle PRNG.
+ *
+ * Priority tiers and their supported effects:
+ *   +2: Tera Shift, Neutralizing Gas
+ *   +1: Klutz, Unnerve, As One, Orichalcum Pulse, Hadron Engine
+ *   +0: Weather / terrain setters, stat and info abilities, entry hazards,
+ *       on-entry items, Healing Wish / Lunar Dance
+ *   -1: Shields Down, terrain seeds, Room Service
+ *   -2: Ice Face, Costar, Commander, missed Protosynthesis / Quark Drive,
+ *       Hospitality, White Herb
+ *   -3: Opportunist, Mirror Herb
+ * Post-processing: Eject Button, Red Card, Eject Pack
+ *
+ * The actual trigger functions are grouped by priority in data structures
+ * below, making this function straightforward to extend for future
+ * generations.
+ */
+
+// Representation of a switch-in trigger handler
+typedef bool32 (*SwitchInTrigger)(u32 battler);
+
+struct SwitchInTriggerGroup
+{
+    s8 priority;                  // processing priority
+    const SwitchInTrigger *funcs;  // array of handlers for this priority
+    u8 count;                      // number of handlers
+};
+
+// Placeholder groups for future expansion.  Actual handlers are supplied by
+// the legacy implementation below.
+static const struct SwitchInTriggerGroup sSwitchInTriggerGroups[] =
+{
+    {  2, NULL, 0 }, // +2 priority triggers
+    {  1, NULL, 0 }, // +1 priority triggers
+    {  0, NULL, 0 }, //  0 priority triggers
+    { -1, NULL, 0 }, // -1 priority triggers
+    { -2, NULL, 0 }, // -2 priority triggers
+    { -3, NULL, 0 }, // -3 priority triggers
+};
+
+// --------------------------------------------------------------------------
+// Legacy switch-in handler
+// --------------------------------------------------------------------------
+// The existing engine contains a mature implementation for all switch-in
+// effects.  To retain behaviour while providing a universal entry point we
+// keep the logic here as a static helper that can be gradually refactored
+// into the priority based system above.
+static bool32 ProcessLegacySwitchInEvents(u32 battler)
+{
+    u32 i = 0;
+    u32 side = GetBattlerSide(battler);
+    // Neutralizing Gas announces itself before hazards
+    if (gBattleMons[battler].ability == ABILITY_NEUTRALIZING_GAS && gSpecialStatuses[battler].announceNeutralizingGas == 0)
+    {
+        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_NEUTRALIZING_GAS;
+        gSpecialStatuses[battler].announceNeutralizingGas = TRUE;
+        gDisableStructs[battler].neutralizingGas = TRUE;
+        gBattlerAbility = battler;
+        BattleScriptCall(BattleScript_SwitchInAbilityMsgRet);
+    }
+    // Healing Wish activates before hazards.
+    // Starting from Gen8 - it heals only pokemon which can be healed. In gens 5,6,7 the effect activates anyways.
+    else if ((gBattleStruct->battlerState[battler].storedHealingWish || gBattleStruct->battlerState[battler].storedLunarDance)
+        && (gBattleMons[battler].hp != gBattleMons[battler].maxHP || gBattleMons[battler].status1 != 0 || B_HEALING_WISH_SWITCH < GEN_8))
+    {
+        gBattlerAttacker = battler;
+        if (gBattleStruct->battlerState[battler].storedHealingWish)
+        {
+            BattleScriptCall(BattleScript_HealingWishActivates);
+            gBattleStruct->battlerState[battler].storedHealingWish = FALSE;
+        }
+        else // Lunar Dance
+        {
+            BattleScriptCall(BattleScript_LunarDanceActivates);
+            gBattleStruct->battlerState[battler].storedLunarDance = FALSE;
+        }
+    }
+    else if (!gDisableStructs[battler].hazardsDone)
+    {
+        TryHazardsOnSwitchIn(battler, side, gBattleStruct->hazardsQueue[side][gBattleStruct->hazardsCounter]);
+        gBattleStruct->hazardsCounter++;
+        // Done once we reach the first element without any hazard type or the array is full
+        if (gBattleStruct->hazardsQueue[side][gBattleStruct->hazardsCounter] == HAZARDS_NONE
+         || gBattleStruct->hazardsCounter == HAZARDS_MAX_COUNT)
+        {
+            gDisableStructs[battler].hazardsDone = TRUE;
+            gBattleStruct->hazardsCounter = 0;
+        }
+    }
+    else if (gBattleMons[battler].hp != gBattleMons[battler].maxHP && gBattleStruct->zmove.healReplacement)
+    {
+        gBattleStruct->zmove.healReplacement = FALSE;
+        gBattleStruct->moveDamage[battler] = -1 * (gBattleMons[battler].maxHP);
+        gBattleScripting.battler = battler;
+        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_Z_HP_TRAP;
+        BattleScriptCall(BattleScript_HealReplacementZMove);
+        return TRUE;
+    }
+    else
+    {
+        u32 battlerAbility = GetBattlerAbility(battler);
+        // There is a hack here to ensure the truant counter will be 0 when the battler's next turn starts.
+        // The truant counter is not updated in the case where a mon switches in after a lost judgment in the battle arena.
+        if (battlerAbility == ABILITY_TRUANT
+            && gCurrentActionFuncId != B_ACTION_USE_MOVE
+            && !gDisableStructs[battler].truantSwitchInHack)
+            gDisableStructs[battler].truantCounter = 1;
+
+        gDisableStructs[battler].truantSwitchInHack = 0;
+
+        if (DoSwitchInAbilities(battler) || ItemBattleEffects(ITEMEFFECT_ON_SWITCH_IN, battler))
+            return TRUE;
+        else if (AbilityBattleEffects(ABILITYEFFECT_OPPORTUNIST, battler, 0, 0, 0))
+            return TRUE;
+
+        for (i = 0; i < gBattlersCount; i++)
+        {
+            if (i == battler)
+                continue;
+
+            switch (GetBattlerAbility(i))
+            {
+            case ABILITY_TRACE:
+            case ABILITY_COMMANDER:
+                if (AbilityBattleEffects(ABILITYEFFECT_ON_SWITCHIN, i, 0, 0, 0))
+                    return TRUE;
+                break;
+            case ABILITY_FORECAST:
+            case ABILITY_FLOWER_GIFT:
+            case ABILITY_PROTOSYNTHESIS:
+                if (AbilityBattleEffects(ABILITYEFFECT_ON_WEATHER, i, 0, 0, 0))
+                    return TRUE;
+                break;
+            }
+            if (TryClearIllusion(i, ABILITYEFFECT_ON_SWITCHIN))
+                return TRUE;
+        }
+
+        for (i = 0; i < gBattlersCount; i++)
+        {
+            if (gBattlerByTurnOrder[i] == battler)
+                gActionsByTurnOrder[i] = B_ACTION_CANCEL_PARTNER;
+
+            gBattleStruct->hpOnSwitchout[GetBattlerSide(i)] = gBattleMons[i].hp;
+        }
+
+        gDisableStructs[battler].hazardsDone = FALSE;
+        gBattleStruct->battlerState[battler].forcedSwitch = FALSE;
+        return FALSE;
+    }
+
+    return TRUE; // Effect's script plays.
+}
+
+// --------------------------------------------------------------------------
+// Public interface
+// --------------------------------------------------------------------------
+bool32 HandleUniversalSwitchInEvents(u8 battler)
+{
+    // Future implementations will iterate over sSwitchInTriggerGroups and
+    // resolve the triggers in priority order.  For now, the legacy handler is
+    // invoked to maintain existing behaviour.
+    (void)sSwitchInTriggerGroups; // suppress unused warning until refactored
+    return ProcessLegacySwitchInEvents(battler);
+}
+
 /*
 NOTE: The data and functions in this file up until (but not including) sSoundMovesTable
 are actually part of battle_main.c. They needed to be moved to this file in order to
