@@ -3006,6 +3006,7 @@ static inline u8 GetBattlerSideFaintCounter(u32 battler)
 }
 
 // Supreme Overlord adds a x0.1 damage boost for each fainted ally.
+
 static inline uq4_12_t GetSupremeOverlordModifier(u32 battler)
 {
     return UQ_4_12(1.0) + (PercentToUQ4_12(gBattleStruct->supremeOverlordCounter[battler] * 10));
