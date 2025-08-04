@@ -397,6 +397,7 @@ u32 GetMonVolatile(u32 battler, enum Volatile _volatile);
 void SetMonVolatile(u32 battler, enum Volatile _volatile, u32 newValue);
 u32 TryBoosterEnergy(u32 battler, u32 ability, enum ItemCaseId caseID);
 bool32 ItemHealMonVolatile(u32 battler, u16 itemId);
+bool32 HandleUniversalSwitchInEvents(u8 battler);
 void PushHazardTypeToQueue(u32 side, enum Hazards hazardType);
 bool32 IsHazardOnSide(u32 side, enum Hazards hazardType);
 bool32 AreAnyHazardsOnSide(u32 side);
