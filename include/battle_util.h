@@ -326,6 +326,7 @@ bool32 IsPartnerMonFromSameTrainer(u32 battler);
 enum ItemEffect TryHandleSeed(u32 battler, u32 terrainFlag, u32 statId, u32 itemId, enum ItemCaseId caseID);
 bool32 IsBattlerAffectedByHazards(u32 battler, bool32 toxicSpikes);
 void SortBattlersBySpeed(u8 *battlers, bool32 slowToFast);
+void SortBattlersBySpeedRandomized(u8 *battlers, bool32 slowToFast);
 bool32 CompareStat(u32 battler, u8 statId, u8 cmpTo, u8 cmpKind);
 bool32 TryRoomService(u32 battler);
 void BufferStatChange(u32 battler, u8 statId, enum StringID stringId);

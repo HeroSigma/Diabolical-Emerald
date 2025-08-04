@@ -7804,7 +7804,7 @@ static void Cmd_switchineffects(void)
         case 0: // Sort battlers by speed
             for (i = 0; i < gBattlersCount; i++)
                 gBattleStruct->multipleSwitchInSortedBattlers[i] = i;
-            SortBattlersBySpeed(gBattleStruct->multipleSwitchInSortedBattlers, FALSE);
+            SortBattlersBySpeedRandomized(gBattleStruct->multipleSwitchInSortedBattlers, FALSE);
             gBattleStruct->multipleSwitchInState++;
             gBattleStruct->multipleSwitchInCursor = 0;
             // Loop through all available battlers

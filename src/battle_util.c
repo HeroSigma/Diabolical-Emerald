@@ -10833,6 +10833,38 @@ void SortBattlersBySpeed(u8 *battlers, bool32 slowToFast)
     }
 }
 
+// Sort battlers by Speed and randomize ties
+// Useful when multiple battlers act within the same priority tier
+void SortBattlersBySpeedRandomized(u8 *battlers, bool32 slowToFast)
+{
+    int i, j, start, end;
+
+    // First, obtain base ordering by Speed
+    SortBattlersBySpeed(battlers, slowToFast);
+
+    // Identify contiguous groups of identical Speed and shuffle each group
+    for (i = 0; i < gBattlersCount; i = end)
+    {
+        u16 speed = GetBattlerTotalSpeedStat(battlers[i]);
+
+        // Determine the range of battlers that share this Speed
+        for (end = i + 1; end < gBattlersCount; end++)
+        {
+            if (GetBattlerTotalSpeedStat(battlers[end]) != speed)
+                break;
+        }
+
+        // Fisher–Yates shuffle within [i, end)
+        for (j = end - 1; j > i; j--)
+        {
+            int r = i + RandomUniform(RNG_SPEED_TIE, 0, j - i);
+            u8 tmp = battlers[j];
+            battlers[j] = battlers[r];
+            battlers[r] = tmp;
+        }
+    }
+}
+
 void TryRestoreHeldItems(void)
 {
     u32 i;
@@ -11700,7 +11732,7 @@ bool32 TrySwitchInEjectPack(enum ItemCaseId caseID)
 
     u8 battlers[4] = {0, 1, 2, 3};
     if (numEjectPackBattlers > 1)
-        SortBattlersBySpeed(battlers, FALSE);
+        SortBattlersBySpeedRandomized(battlers, FALSE);
 
     for (u32 i = 0; i < gBattlersCount; i++)
         gProtectStructs[i].tryEjectPack = FALSE;
