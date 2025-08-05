@@ -660,6 +660,9 @@ struct ItemSlot
 {
     u16 itemId;
     u16 quantity;
+    u16 acquisitionIndex;
+    u8 favorite;
+    u8 _padding;
 };
 
 struct Pokeblock
