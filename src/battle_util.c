@@ -249,7 +249,6 @@ static bool32 ProcessLegacySwitchInEvents(u32 battler)
             PREPARE_STAT_BUFFER(gBattleTextBuff1, GetHighestStatId(battler));
             gSpecialStatuses[battler].switchInAbilityDone = TRUE;
             RecordAbilityBattle(battler, battlerAbility);
-            gBattleScripting.animArg1 = gLastUsedItem;
             BattleScriptCall(BattleScript_BoosterEnergyAbility);
             return TRUE;
         }
