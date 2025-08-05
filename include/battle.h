@@ -208,7 +208,11 @@ struct SpecialStatus
     // End of byte
     u8 dancerUsedMove:1;
     u8 dancerOriginalTarget:3;
-    u8 unused:4;
+    // TRUE if the battler has more entry item effects to process after the
+    // current battle script.  Ensures we only resolve one switch-in item
+    // effect per callback/frame.
+    u8 pendingSwitchInItemEffect:1;
+    u8 unused:3;
     // End of byte
 };
 
