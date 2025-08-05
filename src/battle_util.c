@@ -246,6 +246,7 @@ static bool32 ProcessLegacySwitchInEvents(u32 battler)
         {
             gBattlerAbility = gBattleScripting.battler = battler;
             gLastUsedAbility = battlerAbility;
+            gLastUsedItem = ITEM_BOOSTER_ENERGY; // ensure booster energy is referenced after Symbiosis chains
             PREPARE_STAT_BUFFER(gBattleTextBuff1, GetHighestStatId(battler));
             gSpecialStatuses[battler].switchInAbilityDone = TRUE;
             RecordAbilityBattle(battler, battlerAbility);
