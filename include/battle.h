@@ -212,7 +212,8 @@ struct SpecialStatus
     // current battle script.  Ensures we only resolve one switch-in item
     // effect per callback/frame.
     u8 pendingSwitchInItemEffect:1;
-    u8 unused:3;
+    u8 boosterEnergyConsumed:1;
+    u8 unused:2;
     // End of byte
 };
 

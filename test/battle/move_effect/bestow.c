@@ -131,3 +131,27 @@ SINGLE_BATTLE_TEST("Bestow fails if the user's held item changes its form")
     }
 }
 
+DOUBLE_BATTLE_TEST("Bestow replaces Booster Energy before Quark Drive")
+{
+    GIVEN {
+        ASSUME(gItemsInfo[ITEM_BOOSTER_ENERGY].holdEffect == HOLD_EFFECT_BOOSTER_ENERGY);
+        PLAYER(SPECIES_IRON_MOTH) { Ability(ABILITY_QUARK_DRIVE); Item(ITEM_BOOSTER_ENERGY); Speed(100); }
+        PLAYER(SPECIES_WOBBUFFET) { Item(ITEM_CHOICE_SCARF); Moves(MOVE_BESTOW); Speed(50); }
+        OPPONENT(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { MOVE(playerRight, MOVE_BESTOW, target: playerLeft); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_HELD_ITEM_EFFECT, playerLeft);
+        MESSAGE("Wobbuffet used Bestow!");
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_BESTOW, playerRight);
+        MESSAGE("Iron Moth received its Choice Scarf!");
+        ABILITY_POPUP(playerLeft, ABILITY_QUARK_DRIVE);
+        MESSAGE("Iron Moth used its Booster Energy to activate Quark Drive!");
+        MESSAGE("Iron Moth's Sp. Atk was heightened!");
+    } THEN {
+        EXPECT_EQ(playerLeft->item, ITEM_CHOICE_SCARF);
+        EXPECT_EQ(playerRight->item, ITEM_NONE);
+    }
+}
+
