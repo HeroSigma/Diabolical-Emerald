@@ -115,6 +115,8 @@ SINGLE_BATTLE_TEST("Booster Energy activates Quark Drive and increases highest s
         TURN { }
     } SCENE {
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_HELD_ITEM_EFFECT, player);
+        ABILITY_POPUP(player, ABILITY_QUARK_DRIVE);
+        MESSAGE("Iron Moth used its Booster Energy to activate Quark Drive!");
         if (attack == 110)
             MESSAGE("Iron Moth's Attack was heightened!");
         else if (defense == 110)
