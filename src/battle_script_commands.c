@@ -8473,6 +8473,7 @@ static void BestowItem(u32 battlerAtk, u32 battlerDef)
     BtlController_EmitSetMonData(battlerDef, B_COMM_TO_CONTROLLER, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[battlerDef].item), &gBattleMons[battlerDef].item);
     MarkBattlerForControllerExec(battlerDef);
     gDisableStructs[battlerDef].unburdenActive = FALSE;
+    gDisableStructs[battlerDef].boosterEnergyConsumed = FALSE;
     // The recipient now has a pending entry item to resolve.  Reset its
     // switch-in ability state so Quark Drive / Protosynthesis can check the
     // new held item after any chained activations like Symbiosis.

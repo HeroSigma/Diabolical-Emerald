@@ -240,7 +240,8 @@ static bool32 ProcessLegacySwitchInEvents(u32 battler)
         // Quark Drive and Protosynthesis triggered by Booster Energy.  This
         // ensures the ability evaluates the correct item and avoids showing
         // its message before chained effects like Symbiosis are resolved.
-        if (gDisableStructs[battler].boosterEnergyActivated
+        if (gDisableStructs[battler].boosterEnergyConsumed
+            && !gDisableStructs[battler].boosterEnergyActivated
             && !gSpecialStatuses[battler].switchInAbilityDone
             && (battlerAbility == ABILITY_QUARK_DRIVE || battlerAbility == ABILITY_PROTOSYNTHESIS))
         {
@@ -250,6 +251,8 @@ static bool32 ProcessLegacySwitchInEvents(u32 battler)
             PREPARE_STAT_BUFFER(gBattleTextBuff1, GetHighestStatId(battler));
             gSpecialStatuses[battler].switchInAbilityDone = TRUE;
             RecordAbilityBattle(battler, battlerAbility);
+            gDisableStructs[battler].boosterEnergyActivated = TRUE;
+            gDisableStructs[battler].boosterEnergyConsumed = FALSE;
             BattleScriptCall(BattleScript_BoosterEnergyAbility);
             return TRUE;
         }
@@ -6577,14 +6580,16 @@ static u32 TryConsumeMirrorHerb(u32 battler, enum ItemCaseId caseID)
 
 u32 TryBoosterEnergy(u32 battler, u32 ability, enum ItemCaseId caseID)
 {
-    if (gDisableStructs[battler].boosterEnergyActivated || gBattleMons[battler].volatiles.transformed)
+    if (gDisableStructs[battler].boosterEnergyConsumed
+     || gDisableStructs[battler].boosterEnergyActivated
+     || gBattleMons[battler].volatiles.transformed)
         return ITEM_NO_EFFECT;
 
     if (((ability == ABILITY_PROTOSYNTHESIS) && !((gBattleWeather & B_WEATHER_SUN) && HasWeatherEffect()))
      || ((ability == ABILITY_QUARK_DRIVE) && !(gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)))
     {
         gBattleScripting.battler = battler;
-        gDisableStructs[battler].boosterEnergyActivated = TRUE;
+        gDisableStructs[battler].boosterEnergyConsumed = TRUE;
         gLastUsedItem = ITEM_BOOSTER_ENERGY;
         if (caseID == ITEMEFFECT_ON_SWITCH_IN_FIRST_TURN || caseID == ITEMEFFECT_NORMAL)
             BattleScriptExecute(BattleScript_BoosterEnergyEnd2);
