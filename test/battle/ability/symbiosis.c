@@ -145,7 +145,9 @@ DOUBLE_BATTLE_TEST("Booster Energy + Symbiosis resolve sequentially before Quark
     } WHEN {
         TURN { }
     } SCENE {
-        // Booster Energy is consumed silently, then Symbiosis passes the Sitrus Berry
+        // Booster Energy is consumed silently with its animation
+        ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_HELD_ITEM_EFFECT, playerLeft);
+        // Then Symbiosis passes the Sitrus Berry
         ABILITY_POPUP(playerRight, ABILITY_SYMBIOSIS);
         MESSAGE("Oranguru passed its Sitrus Berry to Iron Moth through Symbiosis!");
         // The received Berry activates afterwards
@@ -153,7 +155,6 @@ DOUBLE_BATTLE_TEST("Booster Energy + Symbiosis resolve sequentially before Quark
         MESSAGE("Iron Moth restored its health using its Sitrus Berry!");
         // After all items, Quark Drive triggers
         ABILITY_POPUP(playerLeft, ABILITY_QUARK_DRIVE);
-        ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_HELD_ITEM_EFFECT, playerLeft);
         MESSAGE("Iron Moth used its Booster Energy to activate Quark Drive!");
         MESSAGE("Iron Moth's Sp. Atk was heightened!");
     } THEN {
@@ -180,9 +181,10 @@ DOUBLE_BATTLE_TEST("Symbiosis passes Booster Energy and triggers Quark Drive")
         // Symbiosis passes Booster Energy to Iron Moth
         ABILITY_POPUP(playerRight, ABILITY_SYMBIOSIS);
         MESSAGE("Oranguru passed its Booster Energy to Iron Moth through Symbiosis!");
-        // After item movement, Quark Drive triggers
-        ABILITY_POPUP(playerLeft, ABILITY_QUARK_DRIVE);
+        // Booster Energy is then consumed silently
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_HELD_ITEM_EFFECT, playerLeft);
+        // After item consumption, Quark Drive triggers
+        ABILITY_POPUP(playerLeft, ABILITY_QUARK_DRIVE);
         MESSAGE("Iron Moth used its Booster Energy to activate Quark Drive!");
         MESSAGE("Iron Moth's Sp. Atk was heightened!");
     } THEN {

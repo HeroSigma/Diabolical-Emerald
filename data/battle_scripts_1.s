@@ -9661,12 +9661,13 @@ BattleScript_BoosterEnergyEnd2::
         end2
 
 BattleScript_BoosterEnergyRet::
+        playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT
+        waitanimation
         removeitem BS_SCRIPTING
         return
 
 BattleScript_BoosterEnergyAbility::
         call BattleScript_AbilityPopUpScripting
-        playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, sB_ANIM_ARG1
         printstring STRINGID_BOOSTERENERGYACTIVATES
         waitmessage B_WAIT_TIME_MED
         printstring STRINGID_STATWASHEIGHTENED
