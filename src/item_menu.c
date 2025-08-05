@@ -700,6 +700,7 @@ static void CB2_Bag(void)
 static bool8 SetupBagMenu(void)
 {
     u8 taskId;
+	u8 i;
 
     switch (gMain.state)
     {
@@ -764,7 +765,8 @@ static bool8 SetupBagMenu(void)
     case 13:
         PrintPocketNames(gPocketNamesStringsTable[gBagPosition.pocket], 0);
         CopyPocketNameToWindow(0);
-        DrawPocketIndicatorSquare(gBagPosition.pocket, TRUE);
+        for (i = 0; i < POCKETS_COUNT; i++)
+            DrawPocketIndicatorSquare(i, i == gBagPosition.pocket);
         gMain.state++;
         break;
     case 14:
@@ -856,6 +858,11 @@ static bool8 LoadBagMenu_Graphics(void)
         break;
     case 4:
         LoadSpritePalette(&gBagPaletteTable);
+        gBagMenu->graphicsLoadState++;
+        break;
+    case 5:
+        LoadSpriteSheet(&gBagPocketIconSpriteSheet);
+        LoadSpritePalette(&gBagPocketIconSpritePalette);
         gBagMenu->graphicsLoadState++;
         break;
     default:
@@ -1180,7 +1187,7 @@ static void UpdatePocketItemLists(void)
 
 void UpdatePocketListPosition(u8 pocketId)
 {
-    SetCursorWithinListBounds(&gBagPosition.scrollPosition[pocketId], &gBagPosition.cursorPosition[pocketId], gBagMenu->numShownItems[pocketId], gBagMenu->numItemStacks[pocketId]);
+    SetCursorWithinListBounds(&gBagPosition.scrollPosition[pocketId], &gBagPosition.cursorPosition[pocketId], (u8)gBagMenu->numShownItems[pocketId], gBagMenu->numItemStacks[pocketId]);
 }
 
 static void InitPocketListPositions(void)
