@@ -70,7 +70,9 @@
 #include "constants/rgb.h"
 #include "constants/songs.h"
 #include "constants/species.h"
+#include "constants/trainers.h"
 #include "constants/weather.h"
+#include "constants/opponents.h"
 #include "siirtc.h"
 #include "rtc.h"
 #include "fake_rtc.h"
@@ -227,6 +229,8 @@ static EWRAM_DATA struct DebugMonData *sDebugMonData = NULL;
 static EWRAM_DATA struct DebugMenuListData *sDebugMenuListData = NULL;
 EWRAM_DATA bool8 gIsDebugBattle = FALSE;
 EWRAM_DATA u64 gDebugAIFlags = 0;
+static EWRAM_DATA struct Trainer sDebugMirrorTrainer = {0};
+static const struct Trainer *sDebugTrainerOverride = NULL;
 
 // *******************************
 // Define functions
@@ -277,6 +281,8 @@ static void DebugAction_Party_HealParty(u8 taskId);
 static void DebugAction_Party_ClearParty(u8 taskId);
 static void DebugAction_Party_SetParty(u8 taskId);
 static void DebugAction_Party_BattleSingle(u8 taskId);
+static void DebugAction_MirrorMatch_Single(u8 taskId);
+static void DebugAction_MirrorMatch_Double(u8 taskId);
 
 static void DebugAction_FlagsVars_Flags(u8 taskId);
 static void DebugAction_FlagsVars_FlagsSelect(u8 taskId);
@@ -568,6 +574,13 @@ static const struct DebugMenuOption sDebugMenu_Actions_PCBag[] =
     { NULL }
 };
 
+static const struct DebugMenuOption sDebugMenu_Actions_MirrorMatch[] =
+{
+    { COMPOUND_STRING("Single Battle"), DebugAction_MirrorMatch_Single },
+    { COMPOUND_STRING("Double Battle"), DebugAction_MirrorMatch_Double },
+    { NULL }
+};
+
 static const struct DebugMenuOption sDebugMenu_Actions_Party[] =
 {
     { COMPOUND_STRING("Move Reminder"),      DebugAction_ExecuteScript, FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon },
@@ -580,6 +593,7 @@ static const struct DebugMenuOption sDebugMenu_Actions_Party[] =
     { COMPOUND_STRING("Clear Party"),        DebugAction_Party_ClearParty },
     { COMPOUND_STRING("Set Party"),          DebugAction_Party_SetParty },
     { COMPOUND_STRING("Start Debug Battle"), DebugAction_Party_BattleSingle },
+    { COMPOUND_STRING("Mirror Match"),       DebugAction_OpenSubMenu, sDebugMenu_Actions_MirrorMatch },
     { NULL }
 };
 
@@ -4033,6 +4047,8 @@ const struct Trainer sDebugTrainers[DIFFICULTY_COUNT][DEBUG_TRAINERS_COUNT] =
 
 const struct Trainer* GetDebugAiTrainer(void)
 {
+    if (sDebugTrainerOverride != NULL)
+        return sDebugTrainerOverride;
     return &sDebugTrainers[DIFFICULTY_NORMAL][DEBUG_TRAINER_AI];
 }
 
@@ -4049,6 +4065,7 @@ static void DebugAction_Party_BattleSingle(u8 taskId)
     ZeroPlayerPartyMons();
     ZeroEnemyPartyMons();
     CreateNPCTrainerPartyFromTrainer(gPlayerParty, &sDebugTrainers[DIFFICULTY_NORMAL][DEBUG_TRAINER_PLAYER], TRUE, BATTLE_TYPE_TRAINER);
+    sDebugTrainerOverride = NULL;
     CreateNPCTrainerPartyFromTrainer(gEnemyParty, GetDebugAiTrainer(), FALSE, BATTLE_TYPE_TRAINER);
 
     gBattleTypeFlags = BATTLE_TYPE_TRAINER;
@@ -4058,6 +4075,52 @@ static void DebugAction_Party_BattleSingle(u8 taskId)
     CalculateEnemyPartyCount();
     BattleSetup_StartTrainerBattle_Debug();
     Debug_DestroyMenu_Full(taskId);
+}
+
+static void StartMirrorMatchBattle(u8 taskId, bool8 doubleBattle)
+{
+    ZeroEnemyPartyMons();
+    CopyPlayerPartyToEnemyParty();
+
+    memset(&sDebugMirrorTrainer, 0, sizeof(sDebugMirrorTrainer));
+    sDebugMirrorTrainer.trainerClass = TRAINER_CLASS_RS_PROTAG;
+    if (gSaveBlock2Ptr->playerGender == MALE)
+    {
+        sDebugMirrorTrainer.trainerPic = TRAINER_PIC_RS_BRENDAN;
+        sDebugMirrorTrainer.encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE;
+    }
+    else
+    {
+        sDebugMirrorTrainer.trainerPic = TRAINER_PIC_RS_MAY;
+        sDebugMirrorTrainer.encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_MALE;
+    }
+
+    StringCopy(sDebugMirrorTrainer.trainerName, gSaveBlock2Ptr->playerName);
+    sDebugMirrorTrainer.battleType = doubleBattle ? TRAINER_BATTLE_TYPE_DOUBLES : TRAINER_BATTLE_TYPE_SINGLES;
+    sDebugMirrorTrainer.partySize = CalculatePlayerPartyCount();
+
+    sDebugTrainerOverride = &sDebugMirrorTrainer;
+
+    gBattleTypeFlags = BATTLE_TYPE_TRAINER;
+    if (doubleBattle)
+        gBattleTypeFlags |= BATTLE_TYPE_DOUBLE;
+
+    gDebugAIFlags = 0;
+    gIsDebugBattle = TRUE;
+    gBattleEnvironment = BattleSetup_GetEnvironmentId();
+    CalculateEnemyPartyCount();
+    BattleSetup_StartTrainerBattle_Debug();
+    Debug_DestroyMenu_Full(taskId);
+}
+
+static void DebugAction_MirrorMatch_Single(u8 taskId)
+{
+    StartMirrorMatchBattle(taskId, FALSE);
+}
+
+static void DebugAction_MirrorMatch_Double(u8 taskId)
+{
+    StartMirrorMatchBattle(taskId, TRUE);
 }
 
 void CheckEWRAMCounters(struct ScriptContext *ctx)
