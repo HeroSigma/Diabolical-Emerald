@@ -21,12 +21,23 @@
 
 static void ApplyNewEncryptionKeyToAllEncryptedData(u32 encryptionKey);
 
+static void MigrateBag(void);
+
 #define SAVEBLOCK_MOVE_RANGE    128
 
 struct LoadedSaveData
 {
  /*0x0000*/ struct Bag bag;
  /*0x02E8*/ struct Mail mail[MAIL_COUNT];
+};
+
+struct BagOld
+{
+    struct ItemSlot items[BAG_ITEMS_COUNT];
+    struct ItemSlot keyItems[BAG_KEYITEMS_COUNT];
+    struct ItemSlot pokeBalls[BAG_POKEBALLS_COUNT];
+    struct ItemSlot TMsHMs[BAG_TMHM_COUNT];
+    struct ItemSlot berries[BAG_BERRIES_COUNT];
 };
 
 // EWRAM DATA
@@ -75,6 +86,75 @@ void ClearSav1(void)
     CpuFill16(0, &gSaveblock1, sizeof(struct SaveBlock1ASLR));
 }
 
+static bool32 NeedsBagMigration(void)
+{
+    struct BagOld *oldBag = (struct BagOld *)&gSaveBlock1Ptr->bag;
+    int i;
+
+    for (i = 0; i < BAG_KEYITEMS_COUNT; i++)
+    {
+        u16 itemId = oldBag->keyItems[i].itemId;
+        if (itemId != ITEM_NONE)
+            return GetItemPocket(itemId) == POCKET_KEY_ITEMS;
+    }
+
+    for (i = 0; i < BAG_TMHM_COUNT; i++)
+    {
+        u16 itemId = oldBag->TMsHMs[i].itemId;
+        if (itemId != ITEM_NONE)
+            return GetItemPocket(itemId) == POCKET_TM_HM;
+    }
+
+    for (i = 0; i < BAG_POKEBALLS_COUNT; i++)
+    {
+        u16 itemId = oldBag->pokeBalls[i].itemId;
+        if (itemId != ITEM_NONE)
+            return GetItemPocket(itemId) == POCKET_POKE_BALLS;
+    }
+
+    return FALSE;
+}
+
+static void MigrateOldBagPocket(struct ItemSlot *slots, u32 count, bool32 *success)
+{
+    u32 i;
+    for (i = 0; i < count; i++)
+    {
+        u16 itemId = slots[i].itemId;
+        u16 quantity = slots[i].quantity ^ gSaveBlock2Ptr->encryptionKey;
+        if (itemId != ITEM_NONE && quantity != 0)
+        {
+            if (!AddBagItem(itemId, quantity))
+            {
+                DebugPrintf("Bag migration overflow for item %d x%d", itemId, quantity);
+                *success = FALSE;
+            }
+        }
+    }
+}
+
+static void MigrateBag(void)
+{
+    struct BagOld oldBag;
+    bool32 success = TRUE;
+
+    if (!NeedsBagMigration())
+        return;
+
+    memcpy(&oldBag, &gSaveBlock1Ptr->bag, sizeof(oldBag));
+    memset(&gSaveBlock1Ptr->bag, 0, sizeof(struct Bag));
+    SetBagItemsPointers();
+
+    MigrateOldBagPocket(oldBag.items, BAG_ITEMS_COUNT, &success);
+    MigrateOldBagPocket(oldBag.keyItems, BAG_KEYITEMS_COUNT, &success);
+    MigrateOldBagPocket(oldBag.pokeBalls, BAG_POKEBALLS_COUNT, &success);
+    MigrateOldBagPocket(oldBag.TMsHMs, BAG_TMHM_COUNT, &success);
+    MigrateOldBagPocket(oldBag.berries, BAG_BERRIES_COUNT, &success);
+
+    if (!success)
+        DebugPrintf("Bag migration incomplete: some items were lost");
+}
+
 // Offset is the sum of the trainer id bytes
 void SetSaveBlocksPointers(u16 offset)
 {
@@ -87,6 +167,7 @@ void SetSaveBlocksPointers(u16 offset)
     gPokemonStoragePtr = (void *)(&gPokemonStorage) + offset;
 
     SetBagItemsPointers();
+	MigrateBag();
     SetDecorationInventoriesPointers();
 }
 
