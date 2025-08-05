@@ -256,43 +256,36 @@ static bool32 BagPocket_CheckHasItem(struct BagPocket *pocket, u16 itemId, u16 c
 
 bool32 CheckBagHasItem(u16 itemId, u16 count)
 {
-    if (GetItemPocket(itemId) >= POCKETS_COUNT)
+    enum Pocket pocketId = GetItemPocket(itemId);
+    if (pocketId >= POCKETS_COUNT)
         return FALSE;
     if (InBattlePyramid() || FlagGet(FLAG_STORING_ITEMS_IN_PYRAMID_BAG) == TRUE)
         return CheckPyramidBagHasItem(itemId, count);
 
-    return BagPocket_CheckHasItem(&gBagPockets[GetItemPocket(itemId)], itemId, count);
+    return BagPocket_CheckHasItem(&gBagPockets[pocketId], itemId, count);
 }
 
 bool32 HasAtLeastOneBerry(void)
 {
-    gSpecialVar_Result = FALSE;
-
-    for (u32 i = FIRST_BERRY_INDEX; i <= LAST_BERRY_INDEX && gSpecialVar_Result == FALSE; i++)
-        gSpecialVar_Result = CheckBagHasItem(i, 1);
-
+    gSpecialVar_Result = IsBagPocketNonEmpty(POCKET_BERRIES);
     return gSpecialVar_Result;
 }
 
 bool32 HasAtLeastOnePokeBall(void)
 {
-    for (u32 ballId = BALL_STRANGE; ballId < POKEBALL_COUNT; ballId++)
-    {
-        if (CheckBagHasItem(ballId, 1) == TRUE)
-            return TRUE;
-    }
-    return FALSE;
+    return IsBagPocketNonEmpty(POCKET_POKE_BALLS);
 }
 
 bool32 CheckBagHasSpace(u16 itemId, u16 count)
 {
-    if (GetItemPocket(itemId) >= POCKETS_COUNT)
+    enum Pocket pocketId = GetItemPocket(itemId);
+    if (pocketId >= POCKETS_COUNT)
         return FALSE;
 
     if (InBattlePyramid() || FlagGet(FLAG_STORING_ITEMS_IN_PYRAMID_BAG) == TRUE)
         return CheckPyramidBagHasSpace(itemId, count);
 
-    return GetFreeSpaceForItemInBag(itemId) >= count;
+    return BagPocket_GetFreeSpaceForItem(&gBagPockets[pocketId], itemId) >= count;
 }
 
 static u32 BagPocket_GetFreeSpaceForItem(struct BagPocket *pocket, u16 itemId)
@@ -313,10 +306,11 @@ static u32 BagPocket_GetFreeSpaceForItem(struct BagPocket *pocket, u16 itemId)
 
 u32 GetFreeSpaceForItemInBag(u16 itemId)
 {
-    if (GetItemPocket(itemId) >= POCKETS_COUNT)
+    enum Pocket pocketId = GetItemPocket(itemId);
+    if (pocketId >= POCKETS_COUNT)
         return 0;
 
-    return BagPocket_GetFreeSpaceForItem(&gBagPockets[GetItemPocket(itemId)], itemId);
+    return BagPocket_GetFreeSpaceForItem(&gBagPockets[pocketId], itemId);
 }
 
 static inline bool32 CheckSlotAndUpdateCount(struct BagPocket *pocket, u16 itemId, u32 pocketPos, u32 *nextPocketPos, u16 *count, u16 *tempPocketSlotQuantities)
@@ -387,14 +381,15 @@ static bool32 BagPocket_AddItem(struct BagPocket *pocket, u16 itemId, u16 count)
 
 bool32 AddBagItem(u16 itemId, u16 count)
 {
-    if (GetItemPocket(itemId) >= POCKETS_COUNT)
+    enum Pocket pocketId = GetItemPocket(itemId);
+    if (pocketId >= POCKETS_COUNT)
         return FALSE;
 
     // check Battle Pyramid Bag
     if (InBattlePyramid() || FlagGet(FLAG_STORING_ITEMS_IN_PYRAMID_BAG) == TRUE)
         return AddPyramidBagItem(itemId, count);
 
-    return BagPocket_AddItem(&gBagPockets[GetItemPocket(itemId)], itemId, count);
+    return BagPocket_AddItem(&gBagPockets[pocketId], itemId, count);
 }
 
 static bool32 BagPocket_RemoveItem(struct BagPocket *pocket, u16 itemId, u16 count)
@@ -443,14 +438,15 @@ static bool32 BagPocket_RemoveItem(struct BagPocket *pocket, u16 itemId, u16 cou
 
 bool32 RemoveBagItem(u16 itemId, u16 count)
 {
-    if (GetItemPocket(itemId) >= POCKETS_COUNT || itemId == ITEM_NONE)
+    enum Pocket pocketId = GetItemPocket(itemId);
+    if (pocketId >= POCKETS_COUNT || itemId == ITEM_NONE)
         return FALSE;
 
     // check Battle Pyramid Bag
     if (InBattlePyramid() || FlagGet(FLAG_STORING_ITEMS_IN_PYRAMID_BAG) == TRUE)
         return RemovePyramidBagItem(itemId, count);
 
-    return BagPocket_RemoveItem(&gBagPockets[GetItemPocket(itemId)], itemId, count);
+    return BagPocket_RemoveItem(&gBagPockets[pocketId], itemId, count);
 }
 
 static u8 BagPocket_CountUsedItemSlots(struct BagPocket *pocket)
@@ -651,7 +647,10 @@ static inline u16 BagPocket_CountTotalItemQuantity(struct BagPocket *pocket, u16
 
 u16 CountTotalItemQuantityInBag(u16 itemId)
 {
-    return BagPocket_CountTotalItemQuantity(&gBagPockets[GetItemPocket(itemId)], itemId);
+    enum Pocket pocketId = GetItemPocket(itemId);
+    if (pocketId >= POCKETS_COUNT)
+        return 0;
+    return BagPocket_CountTotalItemQuantity(&gBagPockets[pocketId], itemId);
 }
 
 static bool32 CheckPyramidBagHasItem(u16 itemId, u16 count)
@@ -922,7 +921,10 @@ u8 GetItemConsumability(u16 itemId)
 
 enum Pocket GetItemPocket(u16 itemId)
 {
-    return gItemsInfo[SanitizeItemId(itemId)].pocket;
+    u16 sanitized = SanitizeItemId(itemId);
+    if (sanitized == ITEM_NONE && itemId != ITEM_NONE)
+        return POCKETS_COUNT;
+    return gItemsInfo[sanitized].pocket;
 }
 
 u8 GetItemType(u16 itemId)
