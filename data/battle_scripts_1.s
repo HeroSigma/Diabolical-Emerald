@@ -9674,6 +9674,9 @@ BattleScript_BoosterEnergyAbility::
         waitmessage B_WAIT_TIME_MED
         return
 
+BattleScript_NoItemEffect::
+        return
+
 BattleScript_EffectSnow::
 	attackcanceler
 	attackstring

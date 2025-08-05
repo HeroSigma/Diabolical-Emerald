@@ -149,12 +149,27 @@ static bool32 HandleEntryItemEffects(u32 battler)
     gSpecialStatuses[battler].switchInItemDone = FALSE;
     gSpecialStatuses[battler].pendingSwitchInItemEffect = FALSE;
 
-    if (ItemBattleEffects(ITEMEFFECT_ON_SWITCH_IN, battler))
+    u32 effect = ItemBattleEffects(ITEMEFFECT_ON_SWITCH_IN, battler);
+    if (effect != ITEM_NO_EFFECT)
     {
         // BattleScript handles messaging, item removal and Symbiosis.
         // Mark that there may be another entry effect to resolve after the
         // player acknowledges the message.
         gSpecialStatuses[battler].pendingSwitchInItemEffect = TRUE;
+        return TRUE;
+    }
+
+    // Booster Energy is consumed silently when its ability can't activate.
+    // If it was immediately replaced by another item with no on-entry effect
+    // (e.g. via Bestow or Symbiosis), the ability message would otherwise run
+    // in the same frame.  Queue a placeholder script so the ability triggers
+    // next callback, preserving one effect/message per frame.
+    if (gSpecialStatuses[battler].boosterEnergyConsumed)
+    {
+        gSpecialStatuses[battler].boosterEnergyConsumed = FALSE;
+        gSpecialStatuses[battler].pendingSwitchInItemEffect = TRUE;
+        gBattleScripting.battler = battler;
+        BattleScriptCall(BattleScript_NoItemEffect);
         return TRUE;
     }
 
@@ -249,6 +264,7 @@ static bool32 ProcessLegacySwitchInEvents(u32 battler)
             gLastUsedItem = ITEM_BOOSTER_ENERGY; // ensure booster energy is referenced after Symbiosis chains
             PREPARE_STAT_BUFFER(gBattleTextBuff1, GetHighestStatId(battler));
             gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+            gSpecialStatuses[battler].boosterEnergyConsumed = FALSE;
             RecordAbilityBattle(battler, battlerAbility);
             BattleScriptCall(BattleScript_BoosterEnergyAbility);
             return TRUE;
@@ -6585,6 +6601,7 @@ u32 TryBoosterEnergy(u32 battler, u32 ability, enum ItemCaseId caseID)
     {
         gBattleScripting.battler = battler;
         gDisableStructs[battler].boosterEnergyActivated = TRUE;
+        gSpecialStatuses[battler].boosterEnergyConsumed = TRUE;
         gLastUsedItem = ITEM_BOOSTER_ENERGY;
         if (caseID == ITEMEFFECT_ON_SWITCH_IN_FIRST_TURN || caseID == ITEMEFFECT_NORMAL)
             BattleScriptExecute(BattleScript_BoosterEnergyEnd2);
