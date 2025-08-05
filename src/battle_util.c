@@ -255,8 +255,7 @@ static bool32 ProcessLegacySwitchInEvents(u32 battler)
         // Quark Drive and Protosynthesis triggered by Booster Energy.  This
         // ensures the ability evaluates the correct item and avoids showing
         // its message before chained effects like Symbiosis are resolved.
-        if (gDisableStructs[battler].boosterEnergyConsumed
-            && !gDisableStructs[battler].boosterEnergyActivated
+        if (gDisableStructs[battler].boosterEnergyActivated
             && !gSpecialStatuses[battler].switchInAbilityDone
             && (battlerAbility == ABILITY_QUARK_DRIVE || battlerAbility == ABILITY_PROTOSYNTHESIS))
         {
@@ -267,8 +266,6 @@ static bool32 ProcessLegacySwitchInEvents(u32 battler)
             gSpecialStatuses[battler].switchInAbilityDone = TRUE;
             gSpecialStatuses[battler].boosterEnergyConsumed = FALSE;
             RecordAbilityBattle(battler, battlerAbility);
-            gDisableStructs[battler].boosterEnergyActivated = TRUE;
-            gDisableStructs[battler].boosterEnergyConsumed = FALSE;
             BattleScriptCall(BattleScript_BoosterEnergyAbility);
             return TRUE;
         }

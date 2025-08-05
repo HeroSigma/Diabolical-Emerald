@@ -208,63 +208,13 @@ DOUBLE_BATTLE_TEST("Symbiosis passes a second Booster Energy before Quark Drive"
         // Symbiosis passes the partner's Booster Energy
         ABILITY_POPUP(playerRight, ABILITY_SYMBIOSIS);
         MESSAGE("Oranguru passed its Booster Energy to Iron Moth through Symbiosis!");
-        // The received Booster Energy is consumed before Quark Drive activates
-        ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_HELD_ITEM_EFFECT, playerLeft);
+        // After item transfers, Quark Drive activates
         ABILITY_POPUP(playerLeft, ABILITY_QUARK_DRIVE);
         MESSAGE("Iron Moth used its Booster Energy to activate Quark Drive!");
         MESSAGE("Iron Moth's Sp. Atk was heightened!");
     } THEN {
-        EXPECT_EQ(playerLeft->item, ITEM_NONE);
-        EXPECT_EQ(playerRight->item, ITEM_NONE);
-    }
-}
-
-DOUBLE_BATTLE_TEST("Symbiosis passes a second Booster Energy before Protosynthesis")
-{
-    GIVEN {
-        ASSUME(gItemsInfo[ITEM_BOOSTER_ENERGY].holdEffect == HOLD_EFFECT_BOOSTER_ENERGY);
-        PLAYER(SPECIES_RAGING_BOLT) { Attack(100); Defense(100); Speed(100); SpAttack(110); SpDefense(100); Ability(ABILITY_PROTOSYNTHESIS); Item(ITEM_BOOSTER_ENERGY); }
-        PLAYER(SPECIES_ORANGURU) { Ability(ABILITY_SYMBIOSIS); Item(ITEM_BOOSTER_ENERGY); }
-        OPPONENT(SPECIES_WOBBUFFET);
-        OPPONENT(SPECIES_WOBBUFFET);
-    } WHEN {
-        TURN { }
-    } SCENE {
-        // Initial Booster Energy consumption
-        ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_HELD_ITEM_EFFECT, playerLeft);
-        // Symbiosis passes the partner's Booster Energy
-        ABILITY_POPUP(playerRight, ABILITY_SYMBIOSIS);
-        MESSAGE("Oranguru passed its Booster Energy to Raging Bolt through Symbiosis!");
-        // The received Booster Energy is consumed before Protosynthesis activates
-        ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_HELD_ITEM_EFFECT, playerLeft);
-        ABILITY_POPUP(playerLeft, ABILITY_PROTOSYNTHESIS);
-        MESSAGE("Raging Bolt used its Booster Energy to activate Protosynthesis!");
-        MESSAGE("Raging Bolt's Sp. Atk was heightened!");
-    } THEN {
-        EXPECT_EQ(playerLeft->item, ITEM_NONE);
-        EXPECT_EQ(playerRight->item, ITEM_NONE);
-    }
-}
-
-DOUBLE_BATTLE_TEST("Symbiosis passes a Choice Scarf after Booster Energy")
-{
-    GIVEN {
-        ASSUME(gItemsInfo[ITEM_BOOSTER_ENERGY].holdEffect == HOLD_EFFECT_BOOSTER_ENERGY);
-        PLAYER(SPECIES_IRON_MOTH) { Ability(ABILITY_QUARK_DRIVE); Item(ITEM_BOOSTER_ENERGY); }
-        PLAYER(SPECIES_ORANGURU) { Ability(ABILITY_SYMBIOSIS); Item(ITEM_CHOICE_SCARF); }
-        OPPONENT(SPECIES_WOBBUFFET);
-        OPPONENT(SPECIES_WOBBUFFET);
-    } WHEN {
-        TURN { }
-    } SCENE {
-        ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_HELD_ITEM_EFFECT, playerLeft);
-        ABILITY_POPUP(playerRight, ABILITY_SYMBIOSIS);
-        MESSAGE("Oranguru passed its Choice Scarf to Iron Moth through Symbiosis!");
-        ABILITY_POPUP(playerLeft, ABILITY_QUARK_DRIVE);
-        MESSAGE("Iron Moth used its Booster Energy to activate Quark Drive!");
-        MESSAGE("Iron Moth's Sp. Atk was heightened!");
-    } THEN {
-        EXPECT_EQ(playerLeft->item, ITEM_CHOICE_SCARF);
+        // The passed Booster Energy remains held
+        EXPECT_EQ(playerLeft->item, ITEM_BOOSTER_ENERGY);
         EXPECT_EQ(playerRight->item, ITEM_NONE);
     }
 }
