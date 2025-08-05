@@ -135,17 +135,28 @@ static const struct SwitchInTriggerGroup sSwitchInTriggerGroups[] =
  * call the appropriate battle script is responsible for removing the item,
  * queuing the player-visible message and attempting Symbiosis on the ally.
  *
- * The switch-in handler invokes this helper repeatedly until it reports no
- * further effect, allowing chains of Symbiosis item transfers to resolve one
- * at a time in the correct order.
+ * Only one item effect is processed per call.  If the consumed item could
+ * cause further effects (such as through Symbiosis), a pending flag is set so
+ * the handler will be invoked again after the queued message has been shown.
+ * This mirrors Game Freak's sequential messaging to avoid text overwrites.
  */
 static bool32 HandleEntryItemEffects(u32 battler)
 {
-    // Reset the flag so ItemBattleEffects always evaluates the current item
+    if (!gSpecialStatuses[battler].pendingSwitchInItemEffect)
+        return FALSE;
+
+    // Evaluate the current held item exactly once this frame
     gSpecialStatuses[battler].switchInItemDone = FALSE;
+    gSpecialStatuses[battler].pendingSwitchInItemEffect = FALSE;
 
     if (ItemBattleEffects(ITEMEFFECT_ON_SWITCH_IN, battler))
-        return TRUE; // BattleScript handles messaging and Symbiosis
+    {
+        // BattleScript handles messaging, item removal and Symbiosis.
+        // Mark that there may be another entry effect to resolve after the
+        // player acknowledges the message.
+        gSpecialStatuses[battler].pendingSwitchInItemEffect = TRUE;
+        return TRUE;
+    }
 
     return FALSE;
 }
@@ -224,8 +235,27 @@ static bool32 ProcessLegacySwitchInEvents(u32 battler)
         if (HandleEntryItemEffects(battler))
             return TRUE;
 
-        // After all item movement, abilities depending on held items or field
-        // state can safely trigger, such as Quark Drive or Protosynthesis.
+        // After all item movement and consumption is complete, activate
+        // abilities that depend on the battler's final held item, such as
+        // Quark Drive and Protosynthesis triggered by Booster Energy.  This
+        // ensures the ability evaluates the correct item and avoids showing
+        // its message before chained effects like Symbiosis are resolved.
+        if (gDisableStructs[battler].boosterEnergyActivated
+            && !gSpecialStatuses[battler].switchInAbilityDone
+            && (battlerAbility == ABILITY_QUARK_DRIVE || battlerAbility == ABILITY_PROTOSYNTHESIS))
+        {
+            gBattlerAbility = gBattleScripting.battler = battler;
+            gLastUsedAbility = battlerAbility;
+            PREPARE_STAT_BUFFER(gBattleTextBuff1, GetHighestStatId(battler));
+            gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+            RecordAbilityBattle(battler, battlerAbility);
+            gBattleScripting.animArg1 = gLastUsedItem;
+            BattleScriptCall(BattleScript_BoosterEnergyAbility);
+            return TRUE;
+        }
+
+        // After item-triggered abilities have run, process any remaining
+        // switch-in abilities that depend on the field state.
         if (DoSwitchInAbilities(battler))
             return TRUE;
         else if (AbilityBattleEffects(ABILITYEFFECT_OPPORTUNIST, battler, 0, 0, 0))
@@ -6553,11 +6583,9 @@ u32 TryBoosterEnergy(u32 battler, u32 ability, enum ItemCaseId caseID)
     if (((ability == ABILITY_PROTOSYNTHESIS) && !((gBattleWeather & B_WEATHER_SUN) && HasWeatherEffect()))
      || ((ability == ABILITY_QUARK_DRIVE) && !(gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)))
     {
-        PREPARE_STAT_BUFFER(gBattleTextBuff1, GetHighestStatId(battler));
-        gBattlerAbility = gBattleScripting.battler = battler;
+        gBattleScripting.battler = battler;
         gDisableStructs[battler].boosterEnergyActivated = TRUE;
         gLastUsedItem = ITEM_BOOSTER_ENERGY;
-        RecordAbilityBattle(battler, ability);
         if (caseID == ITEMEFFECT_ON_SWITCH_IN_FIRST_TURN || caseID == ITEMEFFECT_NORMAL)
             BattleScriptExecute(BattleScript_BoosterEnergyEnd2);
         else
