@@ -74,6 +74,18 @@ void TryHazardsOnSwitchIn(u32 battler, u32 side, enum Hazards hazardType);
  *   -3: Opportunist, Mirror Herb
  * Post-processing: Eject Button, Red Card, Eject Pack
  *
+ * On-entry items are resolved in a strict sequence, with Symbiosis checks
+ * after every consumption and the corresponding message queued immediately:
+ *   1. Booster Energy
+ *   2. Terrain Seeds
+ *   3. White Herb
+ *   4. Room Service
+ *   5. Berries
+ *   6. Any other future consumable item
+ * This ensures abilities such as Quark Drive and Protosynthesis evaluate the
+ * battler's final held item and field state, preventing message reordering
+ * and making the system extensible for new mechanics.
+ *
  * Registering new triggers:
  *   - Implement a SwitchInTrigger for the ability, item or hazard and add
  *     it to the corresponding entry in sSwitchInTriggerGroups below.
@@ -111,6 +123,32 @@ static const struct SwitchInTriggerGroup sSwitchInTriggerGroups[] =
     { -2, NULL, 0 }, // -2 priority triggers
     { -3, NULL, 0 }, // -3 priority triggers
 };
+
+// --------------------------------------------------------------------------
+// Entry item processing helpers
+// --------------------------------------------------------------------------
+/*
+ * HandleEntryItemEffects
+ * ----------------------
+ * Processes a battler's on-entry held item, such as Booster Energy, Seeds,
+ * White Herb, Room Service, Berries and any future consumables.  After each
+ * call the appropriate battle script is responsible for removing the item,
+ * queuing the player-visible message and attempting Symbiosis on the ally.
+ *
+ * The switch-in handler invokes this helper repeatedly until it reports no
+ * further effect, allowing chains of Symbiosis item transfers to resolve one
+ * at a time in the correct order.
+ */
+static bool32 HandleEntryItemEffects(u32 battler)
+{
+    // Reset the flag so ItemBattleEffects always evaluates the current item
+    gSpecialStatuses[battler].switchInItemDone = FALSE;
+
+    if (ItemBattleEffects(ITEMEFFECT_ON_SWITCH_IN, battler))
+        return TRUE; // BattleScript handles messaging and Symbiosis
+
+    return FALSE;
+}
 
 // --------------------------------------------------------------------------
 // Legacy switch-in handler
@@ -182,7 +220,13 @@ static bool32 ProcessLegacySwitchInEvents(u32 battler)
 
         gDisableStructs[battler].truantSwitchInHack = 0;
 
-        if (DoSwitchInAbilities(battler) || ItemBattleEffects(ITEMEFFECT_ON_SWITCH_IN, battler))
+        // Resolve on-entry items (and any Symbiosis chains) before abilities
+        if (HandleEntryItemEffects(battler))
+            return TRUE;
+
+        // After all item movement, abilities depending on held items or field
+        // state can safely trigger, such as Quark Drive or Protosynthesis.
+        if (DoSwitchInAbilities(battler))
             return TRUE;
         else if (AbilityBattleEffects(ABILITYEFFECT_OPPORTUNIST, battler, 0, 0, 0))
             return TRUE;
