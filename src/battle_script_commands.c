@@ -432,7 +432,7 @@ static void Cmd_switchinanim(void);
 static void Cmd_jumpifcantswitch(void);
 static void Cmd_openpartyscreen(void);
 static void Cmd_switchhandleorder(void);
-static void Cmd_switchineffects(void);
+static void Cmd_nop(void);
 static void Cmd_trainerslidein(void);
 static void Cmd_playse(void);
 static void Cmd_fanfare(void);
@@ -691,7 +691,7 @@ void (*const gBattleScriptingCommandsTable[])(void) =
     Cmd_jumpifcantswitch,                        //0x4F
     Cmd_openpartyscreen,                         //0x50
     Cmd_switchhandleorder,                       //0x51
-    Cmd_switchineffects,                         //0x52
+    Cmd_nop,                                     //0x52 (unused)
     Cmd_trainerslidein,                          //0x53
     Cmd_playse,                                  //0x54
     Cmd_fanfare,                                 //0x55
@@ -5337,7 +5337,15 @@ static void Cmd_waitstate(void)
     CMD_ARGS();
 
     if (gBattleControllerExecFlags == 0)
+    {
+        if (gBattleStruct->switchInEffects && HandleUniversalSwitchInEvents(gBattleStruct->switchInEffectsBattler))
+            return;
+        if (gBattleStruct->switchInEffects && TrySwitchInEjectPack(ITEMEFFECT_NONE))
+            return;
+
+        gBattleStruct->switchInEffects = FALSE;
         gBattlescriptCurrInstr = cmd->nextInstr;
+    }
 }
 
 static void Cmd_absorb(void)
@@ -7187,6 +7195,10 @@ static void Cmd_switchinanim(void)
 
     battler = GetBattlerForBattleScript(cmd->battler);
 
+    UpdateSentMonFlags(battler);
+    gBattleStruct->switchInEffectsBattler = battler;
+    gBattleStruct->switchInEffects = TRUE;
+
     if (!IsOnPlayerSide(battler)
         && !(gBattleTypeFlags & (BATTLE_TYPE_LINK
                                  | BATTLE_TYPE_EREADER_TRAINER
@@ -7773,67 +7785,10 @@ void TryHazardsOnSwitchIn(u32 battler, u32 side, enum Hazards hazardType)
     }
 }
 
-
-static void Cmd_switchineffects(void)
+static void Cmd_nop(void)
 {
-    CMD_ARGS(u8 battler);
-    u32 i, battler = GetBattlerForBattleScript(cmd->battler);
-
-    switch (cmd->battler)
-    {
-    // Multiple mons fainted and are being switched-in. Their abilities/hazards will play according to speed ties.
-    case BS_FAINTED_MULTIPLE_1: // Saves the battlers.
-        gBattleStruct->battlerState[battler].multipleSwitchInBattlers = TRUE;
-        UpdateSentMonFlags(battler);
-
-        // Increment fainted battler.
-        do
-        {
-            gBattlerFainted++;
-            if (gBattlerFainted >= gBattlersCount)
-                break;
-            if (gHitMarker & HITMARKER_FAINTED(gBattlerFainted) && !(gAbsentBattlerFlags & (1u << gBattlerFainted)))
-                break;
-        } while (1);
-
-        gBattlescriptCurrInstr = cmd->nextInstr;
-        return;
-    case BS_FAINTED_MULTIPLE_2: // Plays hazards/abilities.
-        switch (gBattleStruct->multipleSwitchInState)
-        {
-        case 0: // Sort battlers by speed
-            for (i = 0; i < gBattlersCount; i++)
-                gBattleStruct->multipleSwitchInSortedBattlers[i] = i;
-            SortBattlersBySpeedRandomized(gBattleStruct->multipleSwitchInSortedBattlers, FALSE);
-            gBattleStruct->multipleSwitchInState++;
-            gBattleStruct->multipleSwitchInCursor = 0;
-            // Loop through all available battlers
-        case 1:
-            for (; gBattleStruct->multipleSwitchInCursor < gBattlersCount; gBattleStruct->multipleSwitchInCursor++)
-            {
-                gBattlerFainted = gBattleStruct->multipleSwitchInSortedBattlers[gBattleStruct->multipleSwitchInCursor];
-                if (gBattleStruct->battlerState[gBattlerFainted].multipleSwitchInBattlers)
-                {
-                    if (HandleUniversalSwitchInEvents(gBattlerFainted))
-                        return;
-                }
-            }
-            if (TrySwitchInEjectPack(ITEMEFFECT_NONE))
-                return;
-            // All battlers done, end
-            for (i = 0; i < gBattlersCount; i++)
-                gBattleStruct->battlerState[i].multipleSwitchInBattlers = FALSE;
-
-            gBattleStruct->multipleSwitchInState = 0;
-            gBattlescriptCurrInstr = cmd->nextInstr;
-        }
-        break;
-    default:
-        UpdateSentMonFlags(battler);
-        if (!HandleUniversalSwitchInEvents(battler) && !TrySwitchInEjectPack(ITEMEFFECT_NONE))
-            gBattlescriptCurrInstr = cmd->nextInstr;
-        break;
-    }
+    CMD_ARGS();
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void Cmd_trainerslidein(void)
