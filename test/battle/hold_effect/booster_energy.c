@@ -21,6 +21,7 @@ SINGLE_BATTLE_TEST("Booster Energy will activate Quark Drive after Electric Terr
         ABILITY_POPUP(opponent, ABILITY_ELECTRIC_SURGE);
         NONE_OF {
             ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_HELD_ITEM_EFFECT, player);
+            MESSAGE("Iron Moth's Booster Energy activated!");
             MESSAGE("Iron Moth used its Booster Energy to activate Quark Drive!");
             MESSAGE("Iron Moth's Sp. Atk was heightened!");
         }
@@ -29,6 +30,7 @@ SINGLE_BATTLE_TEST("Booster Energy will activate Quark Drive after Electric Terr
         MESSAGE("Iron Moth's Sp. Atk was heightened!");
         MESSAGE("The electricity disappeared from the battlefield.");
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_HELD_ITEM_EFFECT, player);
+        MESSAGE("Iron Moth's Booster Energy activated!");
         ABILITY_POPUP(player, ABILITY_QUARK_DRIVE);
         MESSAGE("Iron Moth used its Booster Energy to activate Quark Drive!");
         MESSAGE("Iron Moth's Sp. Atk was heightened!");
@@ -50,6 +52,7 @@ SINGLE_BATTLE_TEST("Booster Energy will activate Protosynthesis after harsh sunl
         ABILITY_POPUP(opponent, ABILITY_DROUGHT);
         NONE_OF {
             ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_HELD_ITEM_EFFECT, player);
+            MESSAGE("Raging Bolt's Booster Energy activated!");
             MESSAGE("Raging Bolt used its Booster Energy to activate Protosynthesis!");
             MESSAGE("Raging Bolt's Sp. Atk was heightened!");
         }
@@ -58,6 +61,7 @@ SINGLE_BATTLE_TEST("Booster Energy will activate Protosynthesis after harsh sunl
         MESSAGE("Raging Bolt's Sp. Atk was heightened!");
         MESSAGE("The sunlight faded.");
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_HELD_ITEM_EFFECT, player);
+        MESSAGE("Raging Bolt's Booster Energy activated!");
         ABILITY_POPUP(player, ABILITY_PROTOSYNTHESIS);
         MESSAGE("Raging Bolt used its Booster Energy to activate Protosynthesis!");
         MESSAGE("Raging Bolt's Sp. Atk was heightened!");
@@ -115,6 +119,9 @@ SINGLE_BATTLE_TEST("Booster Energy activates Quark Drive and increases highest s
         TURN { }
     } SCENE {
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_HELD_ITEM_EFFECT, player);
+        MESSAGE("Iron Moth's Booster Energy activated!");
+        ABILITY_POPUP(player, ABILITY_QUARK_DRIVE);
+        MESSAGE("Iron Moth used its Booster Energy to activate Quark Drive!");
         if (attack == 110)
             MESSAGE("Iron Moth's Attack was heightened!");
         else if (defense == 110)
