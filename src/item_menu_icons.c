@@ -96,13 +96,19 @@ static const union AnimCmd sSpriteAnim_Bag_Berries[] =
 
 static const union AnimCmd *const sBagSpriteAnimTable[] =
 {
-    [POCKET_ITEMS]      = sSpriteAnim_Bag_Items,
-    [POCKET_MEDICINE]   = sSpriteAnim_Bag_Items,
-    [POCKET_BATTLE_ITEMS] = sSpriteAnim_Bag_Items,
-    [POCKET_POKE_BALLS] = sSpriteAnim_Bag_Pokeballs,
-    [POCKET_TM_HM]      = sSpriteAnim_Bag_TMsHMs,
-    [POCKET_BERRIES]    = sSpriteAnim_Bag_Berries,
-    [POCKET_KEY_ITEMS]  = sSpriteAnim_Bag_KeyItems,
+    [POCKET_MEDICINE]    = sSpriteAnim_Bag_Items,
+    [POCKET_POKE_BALLS]  = sSpriteAnim_Bag_Pokeballs,
+    [POCKET_BATTLE_ITEMS]= sSpriteAnim_Bag_Items,
+    [POCKET_BERRIES]     = sSpriteAnim_Bag_Berries,
+    [POCKET_TM_HM]       = sSpriteAnim_Bag_TMsHMs,
+    [POCKET_KEY_ITEMS]   = sSpriteAnim_Bag_KeyItems,
+    [POCKET_Z_CRYSTALS]  = sSpriteAnim_Bag_Items,
+    [POCKET_MEGA_STONES] = sSpriteAnim_Bag_Items,
+    [POCKET_TREASURES]   = sSpriteAnim_Bag_Items,
+    [POCKET_EVOLUTION]   = sSpriteAnim_Bag_Items,
+    [POCKET_HELD_ITEMS]  = sSpriteAnim_Bag_Items,
+    [POCKET_INGREDIENTS] = sSpriteAnim_Bag_Items,
+    [POCKET_MISC]        = sSpriteAnim_Bag_Items,
     [POCKET_DUMMY]       = sSpriteAnim_Bag_Closed,
 };
 
