@@ -123,6 +123,7 @@ struct DisableStruct
     u8 usedProteanLibero:1;
     u8 flashFireBoosted:1;
     u8 boosterEnergyActivated:1;
+    u8 boosterEnergyConsumed:1;
     u16 overwrittenAbility;   // abilities overwritten during battle (keep separate from battle history in case of switching)
     u8 roostActive:1;
     u8 unburdenActive:1;
@@ -193,7 +194,7 @@ struct SpecialStatus
     u8 switchInItemDone:1;
     u8 instructedChosenTarget:3;
     u8 berryReduced:1;
-    u8 announceNeutralizingGas:1;   // See Cmd_switchineffects
+    u8 announceNeutralizingGas:1;
     u8 neutralizingGasRemoved:1;    // See VARIOUS_TRY_END_NEUTRALIZING_GAS
     // End of byte
     u8 gemParam;
@@ -208,7 +209,12 @@ struct SpecialStatus
     // End of byte
     u8 dancerUsedMove:1;
     u8 dancerOriginalTarget:3;
-    u8 unused:4;
+    // TRUE if the battler has more entry item effects to process after the
+    // current battle script.  Ensures we only resolve one switch-in item
+    // effect per callback/frame.
+    u8 pendingSwitchInItemEffect:1;
+    u8 boosterEnergyConsumed:1;
+    u8 unused:2;
     // End of byte
 };
 
@@ -672,6 +678,8 @@ struct BattleStruct
     u16 choicedMove[MAX_BATTLERS_COUNT];
     u16 changedItems[MAX_BATTLERS_COUNT];
     u8 switchInBattlerCounter;
+    u8 switchInEffectsBattler;
+    bool8 switchInEffects;
     u8 arenaTurnCounter;
     u8 turnSideTracker;
     u16 lastTakenMoveFrom[MAX_BATTLERS_COUNT][MAX_BATTLERS_COUNT]; // a 2-D array [target][attacker]

@@ -500,21 +500,18 @@
 	.4byte \failInstr
 	.endm
 
-	.macro switchhandleorder battler:req, state:req
-	.byte 0x51
-	.byte \battler
-	.byte \state
-	.endm
+        .macro switchhandleorder battler:req, state:req
+        .byte 0x51
+        .byte \battler
+        .byte \state
+        .endm
 
-	.macro switchineffects battler:req
-	.byte 0x52
-	.byte \battler
-	.endm
+        // 0x52 formerly switchineffects (unused)
 
-	.macro trainerslidein position:req
-	.byte 0x53
-	.byte \position
-	.endm
+        .macro trainerslidein position:req
+        .byte 0x53
+        .byte \position
+        .endm
 
 	.macro playse song:req
 	.byte 0x54

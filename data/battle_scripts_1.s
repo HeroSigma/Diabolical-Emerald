@@ -318,7 +318,6 @@ BattleScript_MoveSwitchOpenPartyScreen::
 	printstring STRINGID_SWITCHINMON
 	switchinanim BS_ATTACKER, FALSE, TRUE
 	waitstate
-	switchineffects BS_ATTACKER
 BattleScript_MoveSwitchEnd:
 	end
 
@@ -465,7 +464,6 @@ BattleScript_EffectRevivalBlessingSendOut:
 	hpthresholds BS_SCRIPTING
 	switchinanim BS_SCRIPTING, FALSE, FALSE
 	waitstate
-	switchineffects BS_SCRIPTING
 	goto BattleScript_MoveEnd
 
 BattleScript_StealthRockActivates::
@@ -2288,7 +2286,6 @@ BattleScript_EffectHealingWish::
 	printstring STRINGID_SWITCHINMON
 	switchinanim BS_ATTACKER, FALSE, TRUE
 	waitstate
-	switchineffects BS_ATTACKER
 .endif
 BattleScript_EffectHealingWishEnd:
 	moveendall
@@ -4096,7 +4093,6 @@ BattleScript_EffectBatonPass::
 	printstring STRINGID_SWITCHINMON
 	switchinanim BS_ATTACKER, FALSE, TRUE
 	waitstate
-	switchineffects BS_ATTACKER
 	goto BattleScript_MoveEnd
 
 BattleScript_EffectMorningSun::
@@ -5166,14 +5162,12 @@ BattleScript_FaintedMonSendOutNew:
 	trytrainerslidemsglaston BS_FAINTED
 	jumpifbytenotequal sSHIFT_SWITCHED, sZero, BattleScript_FaintedMonShiftSwitched
 BattleScript_FaintedMonSendOutNewEnd:
-	switchineffects BS_FAINTED
 	jumpifbattletype BATTLE_TYPE_DOUBLE, BattleScript_FaintedMonEnd
 	cancelallactions
 BattleScript_FaintedMonEnd::
 	end2
 BattleScript_FaintedMonShiftSwitched:
 	copybyte sSAVED_BATTLER, gBattlerTarget
-	switchineffects BS_ATTACKER
 	resetsentmonsvalue
 	copybyte gBattlerTarget, sSAVED_BATTLER
 	goto BattleScript_FaintedMonSendOutNewEnd
@@ -5196,10 +5190,8 @@ BattleScript_HandleFaintedMonLoop::
 	hidepartystatussummary BS_FAINTED
 	switchinanim BS_FAINTED, FALSE, FALSE
 	waitstate
-	switchineffects BS_FAINTED_MULTIPLE_1
 	jumpifbytenotequal gBattlerFainted, gBattlersCount, BattleScript_HandleFaintedMonLoop
 BattleScript_HandleFaintedMonMultipleEnd::
-	switchineffects BS_FAINTED_MULTIPLE_2
 	end2
 
 BattleScript_LocalTrainerBattleWon::
@@ -5412,7 +5404,6 @@ BattleScript_DoSwitchOut::
 	hidepartystatussummary BS_ATTACKER
 	switchinanim BS_ATTACKER, FALSE, FALSE
 	waitstate
-	switchineffects BS_ATTACKER
 	moveendcase MOVEEND_STATUS_IMMUNITY_ABILITIES
 	moveendcase MOVEEND_MIRROR_MOVE
 	end2
@@ -5676,7 +5667,6 @@ BattleScript_RoarSuccessSwitch::
 	switchinanim BS_TARGET, FALSE, FALSE
 	waitstate
 	printstring STRINGID_PKMNWASDRAGGEDOUT
-	switchineffects BS_TARGET
 	jumpifbyte CMP_EQUAL, sSWITCH_CASE, B_SWITCH_RED_CARD, BattleScript_RoarSuccessSwitch_Ret
 	setbyte sSWITCH_CASE, B_SWITCH_NORMAL
 	goto BattleScript_MoveEnd
@@ -7203,7 +7193,6 @@ BattleScript_EmergencyExit::
 	printstring STRINGID_SWITCHINMON
 	switchinanim BS_SCRIPTING, FALSE, TRUE
 	waitstate
-	switchineffects BS_SCRIPTING
 BattleScript_EmergencyExitRet:
 	return
 
@@ -7236,7 +7225,6 @@ BattleScript_EmergencyExitEnd2::
 	printstring STRINGID_SWITCHINMON
 	switchinanim BS_ATTACKER, FALSE, TRUE
 	waitstate
-	switchineffects BS_ATTACKER
 BattleScript_EmergencyExitRetEnd2:
 	end2
 
@@ -9139,7 +9127,6 @@ BattleScript_EjectButtonActivates::
 	printstring 0x3
 	switchinanim BS_SCRIPTING, FALSE, TRUE
 	waitstate
-	switchineffects BS_SCRIPTING
 BattleScript_EjectButtonEnd:
 	return
 
@@ -9670,18 +9657,25 @@ BattleScript_BerserkGeneRetEnd2::
 	end2
 
 BattleScript_BoosterEnergyEnd2::
-	call BattleScript_BoosterEnergyRet
-	end2
+        call BattleScript_BoosterEnergyRet
+        end2
 
 BattleScript_BoosterEnergyRet::
-	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, sB_ANIM_ARG1
-	call BattleScript_AbilityPopUpScripting
-	printstring STRINGID_BOOSTERENERGYACTIVATES
-	waitmessage B_WAIT_TIME_MED
-	printstring STRINGID_STATWASHEIGHTENED
-	waitmessage B_WAIT_TIME_MED
-	removeitem BS_SCRIPTING
-	return
+        playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT
+        waitanimation
+        removeitem BS_SCRIPTING
+        return
+
+BattleScript_BoosterEnergyAbility::
+        call BattleScript_AbilityPopUpScripting
+        printstring STRINGID_BOOSTERENERGYACTIVATES
+        waitmessage B_WAIT_TIME_MED
+        printstring STRINGID_STATWASHEIGHTENED
+        waitmessage B_WAIT_TIME_MED
+        return
+
+BattleScript_NoItemEffect::
+        return
 
 BattleScript_EffectSnow::
 	attackcanceler

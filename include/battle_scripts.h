@@ -516,6 +516,8 @@ extern const u8 BattleScript_LowerAtkSpAtk[];
 extern const u8 BattleScript_Terastallization[];
 extern const u8 BattleScript_BoosterEnergyEnd2[];
 extern const u8 BattleScript_BoosterEnergyRet[];
+extern const u8 BattleScript_BoosterEnergyAbility[];
+extern const u8 BattleScript_NoItemEffect[];
 extern const u8 BattleScript_TeraShellDistortingTypeMatchups[];
 extern const u8 BattleScript_TeraFormChange[];
 extern const u8 BattleScript_SleepClausePreventsEnd[];

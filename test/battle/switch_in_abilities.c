@@ -106,7 +106,7 @@ DOUBLE_BATTLE_TEST("Switch-in abilities trigger in Speed Order after post-KO swi
     } WHEN {
         TURN { MOVE(playerLeft, MOVE_EXPLOSION); SEND_OUT(playerLeft, 2); SEND_OUT(opponentLeft, 2); SEND_OUT(playerRight, 3); SEND_OUT(opponentRight, 3); }
         TURN { ; }
-    } SCENE {
+} SCENE {
         MESSAGE("Wobbuffet used Explosion!");
         if (spdPlayer1 == 5) {
             ABILITY_POPUP(playerLeft, ABILITY_SAND_STREAM);
@@ -124,5 +124,33 @@ DOUBLE_BATTLE_TEST("Switch-in abilities trigger in Speed Order after post-KO swi
             ABILITY_POPUP(playerRight, ABILITY_INTIMIDATE);
             ABILITY_POPUP(opponentRight, ABILITY_SNOW_WARNING);
         }
+    }
+}
+
+SINGLE_BATTLE_TEST("Switch-in ability order is randomized on Speed ties (Intimidate first)")
+{
+    PASSES_RANDOMLY(1, 2, RNG_SPEED_TIE);
+    GIVEN {
+        PLAYER(SPECIES_EKANS) { Speed(5); Ability(ABILITY_INTIMIDATE); }
+        OPPONENT(SPECIES_NINETALES) { Speed(5); Ability(ABILITY_DROUGHT); }
+    } WHEN {
+        TURN { ; }
+    } SCENE {
+        ABILITY_POPUP(player, ABILITY_INTIMIDATE);
+        ABILITY_POPUP(opponent, ABILITY_DROUGHT);
+    }
+}
+
+SINGLE_BATTLE_TEST("Switch-in ability order is randomized on Speed ties (Drought first)")
+{
+    PASSES_RANDOMLY(1, 2, RNG_SPEED_TIE);
+    GIVEN {
+        PLAYER(SPECIES_EKANS) { Speed(5); Ability(ABILITY_INTIMIDATE); }
+        OPPONENT(SPECIES_NINETALES) { Speed(5); Ability(ABILITY_DROUGHT); }
+    } WHEN {
+        TURN { ; }
+    } SCENE {
+        ABILITY_POPUP(opponent, ABILITY_DROUGHT);
+        ABILITY_POPUP(player, ABILITY_INTIMIDATE);
     }
 }

@@ -51,6 +51,286 @@
 #include "constants/weather.h"
 #include "constants/pokemon.h"
 
+// Forward declaration for hazard processing that lives in battle_script_commands.c
+void TryHazardsOnSwitchIn(u32 battler, u32 side, enum Hazards hazardType);
+
+/*
+ * HandleUniversalSwitchInEvents
+ * -----------------------------
+ * Consolidated switch-in handler used for every entry point where a
+ * battler enters the field.  Triggers that activate upon switch-in are
+ * organized into priority tiers so they can be processed in the correct
+ * order.  Within each tier, battlers are ordered by Speed and ties are
+ * broken randomly using the battle PRNG.
+ *
+ * Priority tiers and their supported effects:
+ *   +2: Tera Shift, Neutralizing Gas
+ *   +1: Klutz, Unnerve, As One, Orichalcum Pulse, Hadron Engine
+ *   +0: Weather / terrain setters, stat and info abilities, entry hazards,
+ *       on-entry items, Healing Wish / Lunar Dance
+ *   -1: Shields Down, terrain seeds, Room Service
+ *   -2: Ice Face, Costar, Commander, missed Protosynthesis / Quark Drive,
+ *       Hospitality, White Herb
+ *   -3: Opportunist, Mirror Herb
+ * Post-processing: Eject Button, Red Card, Eject Pack
+ *
+ * On-entry items are resolved in a strict sequence, with Symbiosis checks
+ * after every consumption and the corresponding message queued immediately:
+ *   1. Booster Energy
+ *   2. Terrain Seeds
+ *   3. White Herb
+ *   4. Room Service
+ *   5. Berries
+ *   6. Any other future consumable item
+ * This ensures abilities such as Quark Drive and Protosynthesis evaluate the
+ * battler's final held item and field state, preventing message reordering
+ * and making the system extensible for new mechanics.
+ *
+ * Registering new triggers:
+ *   - Implement a SwitchInTrigger for the ability, item or hazard and add
+ *     it to the corresponding entry in sSwitchInTriggerGroups below.
+ *     Hazard types are defined in enum Hazards (include/constants/battle.h)
+ *     and are queued in gBattleStruct->hazardsQueue.
+ *   - To introduce a new priority batch, append another
+ *     SwitchInTriggerGroup to sSwitchInTriggerGroups with the desired
+ *     priority value and handler array.
+ *   - When processing a batch, ensure battlers are Speed-sorted and ties
+ *     are resolved randomly.
+ *
+ * The actual trigger functions are grouped by priority in data structures
+ * below, making this function straightforward to extend for future
+ * generations.
+ */
+
+// Representation of a switch-in trigger handler
+typedef bool32 (*SwitchInTrigger)(u32 battler);
+
+struct SwitchInTriggerGroup
+{
+    s8 priority;                  // processing priority
+    const SwitchInTrigger *funcs;  // array of handlers for this priority
+    u8 count;                      // number of handlers
+};
+
+// Placeholder groups for future expansion.  Actual handlers are supplied by
+// the legacy implementation below.
+static const struct SwitchInTriggerGroup sSwitchInTriggerGroups[] =
+{
+    {  2, NULL, 0 }, // +2 priority triggers
+    {  1, NULL, 0 }, // +1 priority triggers
+    {  0, NULL, 0 }, //  0 priority triggers
+    { -1, NULL, 0 }, // -1 priority triggers
+    { -2, NULL, 0 }, // -2 priority triggers
+    { -3, NULL, 0 }, // -3 priority triggers
+};
+
+// --------------------------------------------------------------------------
+// Entry item processing helpers
+// --------------------------------------------------------------------------
+/*
+ * HandleEntryItemEffects
+ * ----------------------
+ * Processes a battler's on-entry held item, such as Booster Energy, Seeds,
+ * White Herb, Room Service, Berries and any future consumables.  After each
+ * call the appropriate battle script is responsible for removing the item,
+ * queuing the player-visible message and attempting Symbiosis on the ally.
+ *
+ * Only one item effect is processed per call.  If the consumed item could
+ * cause further effects (such as through Symbiosis), a pending flag is set so
+ * the handler will be invoked again after the queued message has been shown.
+ * This mirrors Game Freak's sequential messaging to avoid text overwrites.
+ */
+static bool32 HandleEntryItemEffects(u32 battler)
+{
+    if (!gSpecialStatuses[battler].pendingSwitchInItemEffect)
+        return FALSE;
+
+    // Evaluate the current held item exactly once this frame
+    gSpecialStatuses[battler].switchInItemDone = FALSE;
+    gSpecialStatuses[battler].pendingSwitchInItemEffect = FALSE;
+
+    u32 effect = ItemBattleEffects(ITEMEFFECT_ON_SWITCH_IN, battler);
+    if (effect != ITEM_NO_EFFECT)
+    {
+        // BattleScript handles messaging, item removal and Symbiosis.
+        // Mark that there may be another entry effect to resolve after the
+        // player acknowledges the message.
+        gSpecialStatuses[battler].pendingSwitchInItemEffect = TRUE;
+        return TRUE;
+    }
+
+    // Booster Energy is consumed silently when its ability can't activate.
+    // If it was immediately replaced by another item with no on-entry effect
+    // (e.g. via Bestow or Symbiosis), the ability message would otherwise run
+    // in the same frame.  Queue a placeholder script so the ability triggers
+    // next callback, preserving one effect/message per frame.
+    if (gSpecialStatuses[battler].boosterEnergyConsumed)
+    {
+        gSpecialStatuses[battler].boosterEnergyConsumed = FALSE;
+        gSpecialStatuses[battler].pendingSwitchInItemEffect = TRUE;
+        gBattleScripting.battler = battler;
+        BattleScriptExecute(BattleScript_NoItemEffect);
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+// --------------------------------------------------------------------------
+// Legacy switch-in handler
+// --------------------------------------------------------------------------
+// The existing engine contains a mature implementation for all switch-in
+// effects.  To retain behaviour while providing a universal entry point we
+// keep the logic here as a static helper that can be gradually refactored
+// into the priority based system above.
+static bool32 ProcessLegacySwitchInEvents(u32 battler)
+{
+    u32 i = 0;
+    u32 side = GetBattlerSide(battler);
+    // Neutralizing Gas announces itself before hazards
+    if (gBattleMons[battler].ability == ABILITY_NEUTRALIZING_GAS && gSpecialStatuses[battler].announceNeutralizingGas == 0)
+    {
+        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_NEUTRALIZING_GAS;
+        gSpecialStatuses[battler].announceNeutralizingGas = TRUE;
+        gDisableStructs[battler].neutralizingGas = TRUE;
+        gBattlerAbility = battler;
+        BattleScriptCall(BattleScript_SwitchInAbilityMsgRet);
+    }
+    // Healing Wish activates before hazards.
+    // Starting from Gen8 - it heals only pokemon which can be healed. In gens 5,6,7 the effect activates anyways.
+    else if ((gBattleStruct->battlerState[battler].storedHealingWish || gBattleStruct->battlerState[battler].storedLunarDance)
+        && (gBattleMons[battler].hp != gBattleMons[battler].maxHP || gBattleMons[battler].status1 != 0 || B_HEALING_WISH_SWITCH < GEN_8))
+    {
+        gBattlerAttacker = battler;
+        if (gBattleStruct->battlerState[battler].storedHealingWish)
+        {
+            BattleScriptCall(BattleScript_HealingWishActivates);
+            gBattleStruct->battlerState[battler].storedHealingWish = FALSE;
+        }
+        else // Lunar Dance
+        {
+            BattleScriptCall(BattleScript_LunarDanceActivates);
+            gBattleStruct->battlerState[battler].storedLunarDance = FALSE;
+        }
+    }
+    else if (!gDisableStructs[battler].hazardsDone)
+    {
+        TryHazardsOnSwitchIn(battler, side, gBattleStruct->hazardsQueue[side][gBattleStruct->hazardsCounter]);
+        gBattleStruct->hazardsCounter++;
+        // Done once we reach the first element without any hazard type or the array is full
+        if (gBattleStruct->hazardsQueue[side][gBattleStruct->hazardsCounter] == HAZARDS_NONE
+         || gBattleStruct->hazardsCounter == HAZARDS_MAX_COUNT)
+        {
+            gDisableStructs[battler].hazardsDone = TRUE;
+            gBattleStruct->hazardsCounter = 0;
+        }
+    }
+    else if (gBattleMons[battler].hp != gBattleMons[battler].maxHP && gBattleStruct->zmove.healReplacement)
+    {
+        gBattleStruct->zmove.healReplacement = FALSE;
+        gBattleStruct->moveDamage[battler] = -1 * (gBattleMons[battler].maxHP);
+        gBattleScripting.battler = battler;
+        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_Z_HP_TRAP;
+        BattleScriptCall(BattleScript_HealReplacementZMove);
+        return TRUE;
+    }
+    else
+    {
+        u32 battlerAbility = GetBattlerAbility(battler);
+        // There is a hack here to ensure the truant counter will be 0 when the battler's next turn starts.
+        // The truant counter is not updated in the case where a mon switches in after a lost judgment in the battle arena.
+        if (battlerAbility == ABILITY_TRUANT
+            && gCurrentActionFuncId != B_ACTION_USE_MOVE
+            && !gDisableStructs[battler].truantSwitchInHack)
+            gDisableStructs[battler].truantCounter = 1;
+
+        gDisableStructs[battler].truantSwitchInHack = 0;
+
+        // Resolve on-entry items (and any Symbiosis chains) before abilities
+        if (HandleEntryItemEffects(battler))
+            return TRUE;
+
+        // After all item movement and consumption is complete, activate
+        // abilities that depend on the battler's final held item, such as
+        // Quark Drive and Protosynthesis triggered by Booster Energy.  This
+        // ensures the ability evaluates the correct item and avoids showing
+        // its message before chained effects like Symbiosis are resolved.
+        if (gDisableStructs[battler].boosterEnergyConsumed
+            && !gDisableStructs[battler].boosterEnergyActivated
+            && !gSpecialStatuses[battler].switchInAbilityDone
+            && (battlerAbility == ABILITY_QUARK_DRIVE || battlerAbility == ABILITY_PROTOSYNTHESIS))
+        {
+            gBattlerAbility = gBattleScripting.battler = battler;
+            gLastUsedAbility = battlerAbility;
+            gLastUsedItem = ITEM_BOOSTER_ENERGY; // ensure booster energy is referenced after Symbiosis chains
+            PREPARE_STAT_BUFFER(gBattleTextBuff1, GetHighestStatId(battler));
+            gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+            gSpecialStatuses[battler].boosterEnergyConsumed = FALSE;
+            RecordAbilityBattle(battler, battlerAbility);
+            gDisableStructs[battler].boosterEnergyActivated = TRUE;
+            gDisableStructs[battler].boosterEnergyConsumed = FALSE;
+            BattleScriptCall(BattleScript_BoosterEnergyAbility);
+            return TRUE;
+        }
+
+        // After item-triggered abilities have run, process any remaining
+        // switch-in abilities that depend on the field state.
+        if (DoSwitchInAbilities(battler))
+            return TRUE;
+        else if (AbilityBattleEffects(ABILITYEFFECT_OPPORTUNIST, battler, 0, 0, 0))
+            return TRUE;
+
+        for (i = 0; i < gBattlersCount; i++)
+        {
+            if (i == battler)
+                continue;
+
+            switch (GetBattlerAbility(i))
+            {
+            case ABILITY_TRACE:
+            case ABILITY_COMMANDER:
+                if (AbilityBattleEffects(ABILITYEFFECT_ON_SWITCHIN, i, 0, 0, 0))
+                    return TRUE;
+                break;
+            case ABILITY_FORECAST:
+            case ABILITY_FLOWER_GIFT:
+            case ABILITY_PROTOSYNTHESIS:
+                if (AbilityBattleEffects(ABILITYEFFECT_ON_WEATHER, i, 0, 0, 0))
+                    return TRUE;
+                break;
+            }
+            if (TryClearIllusion(i, ABILITYEFFECT_ON_SWITCHIN))
+                return TRUE;
+        }
+
+        for (i = 0; i < gBattlersCount; i++)
+        {
+            if (gBattlerByTurnOrder[i] == battler)
+                gActionsByTurnOrder[i] = B_ACTION_CANCEL_PARTNER;
+
+            gBattleStruct->hpOnSwitchout[GetBattlerSide(i)] = gBattleMons[i].hp;
+        }
+
+        gDisableStructs[battler].hazardsDone = FALSE;
+        gBattleStruct->battlerState[battler].forcedSwitch = FALSE;
+        return FALSE;
+    }
+
+    return TRUE; // Effect's script plays.
+}
+
+// --------------------------------------------------------------------------
+// Public interface
+// --------------------------------------------------------------------------
+bool32 HandleUniversalSwitchInEvents(u8 battler)
+{
+    // Future implementations will iterate over sSwitchInTriggerGroups and
+    // resolve the triggers in priority order.  For now, the legacy handler is
+    // invoked to maintain existing behaviour.
+    (void)sSwitchInTriggerGroups; // suppress unused warning until refactored
+    return ProcessLegacySwitchInEvents(battler);
+}
+
 /*
 NOTE: The data and functions in this file up until (but not including) sSoundMovesTable
 are actually part of battle_main.c. They needed to be moved to this file in order to
@@ -6316,17 +6596,18 @@ static u32 TryConsumeMirrorHerb(u32 battler, enum ItemCaseId caseID)
 
 u32 TryBoosterEnergy(u32 battler, u32 ability, enum ItemCaseId caseID)
 {
-    if (gDisableStructs[battler].boosterEnergyActivated || gBattleMons[battler].volatiles.transformed)
+    if (gDisableStructs[battler].boosterEnergyConsumed
+     || gDisableStructs[battler].boosterEnergyActivated
+     || gBattleMons[battler].volatiles.transformed)
         return ITEM_NO_EFFECT;
 
     if (((ability == ABILITY_PROTOSYNTHESIS) && !((gBattleWeather & B_WEATHER_SUN) && HasWeatherEffect()))
      || ((ability == ABILITY_QUARK_DRIVE) && !(gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)))
     {
-        PREPARE_STAT_BUFFER(gBattleTextBuff1, GetHighestStatId(battler));
-        gBattlerAbility = gBattleScripting.battler = battler;
+        gBattleScripting.battler = battler;
         gDisableStructs[battler].boosterEnergyActivated = TRUE;
+        gSpecialStatuses[battler].boosterEnergyConsumed = TRUE;
         gLastUsedItem = ITEM_BOOSTER_ENERGY;
-        RecordAbilityBattle(battler, ability);
         if (caseID == ITEMEFFECT_ON_SWITCH_IN_FIRST_TURN || caseID == ITEMEFFECT_NORMAL)
             BattleScriptExecute(BattleScript_BoosterEnergyEnd2);
         else
@@ -10657,6 +10938,38 @@ void SortBattlersBySpeed(u8 *battlers, bool32 slowToFast)
     }
 }
 
+// Sort battlers by Speed and randomize ties
+// Useful when multiple battlers act within the same priority tier
+void SortBattlersBySpeedRandomized(u8 *battlers, bool32 slowToFast)
+{
+    int i, j, end;
+
+    // First, obtain base ordering by Speed
+    SortBattlersBySpeed(battlers, slowToFast);
+
+    // Identify contiguous groups of identical Speed and shuffle each group
+    for (i = 0; i < gBattlersCount; i = end)
+    {
+        u16 speed = GetBattlerTotalSpeedStat(battlers[i]);
+
+        // Determine the range of battlers that share this Speed
+        for (end = i + 1; end < gBattlersCount; end++)
+        {
+            if (GetBattlerTotalSpeedStat(battlers[end]) != speed)
+                break;
+        }
+
+        // Fisher–Yates shuffle within [i, end)
+        for (j = end - 1; j > i; j--)
+        {
+            int r = i + RandomUniform(RNG_SPEED_TIE, 0, j - i);
+            u8 tmp = battlers[j];
+            battlers[j] = battlers[r];
+            battlers[r] = tmp;
+        }
+    }
+}
+
 void TryRestoreHeldItems(void)
 {
     u32 i;
@@ -11524,7 +11837,7 @@ bool32 TrySwitchInEjectPack(enum ItemCaseId caseID)
 
     u8 battlers[4] = {0, 1, 2, 3};
     if (numEjectPackBattlers > 1)
-        SortBattlersBySpeed(battlers, FALSE);
+        SortBattlersBySpeedRandomized(battlers, FALSE);
 
     for (u32 i = 0; i < gBattlersCount; i++)
         gProtectStructs[i].tryEjectPack = FALSE;

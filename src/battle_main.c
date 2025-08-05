@@ -3266,8 +3266,12 @@ void SwitchInClearSetData(u32 battler, struct Volatiles *volatilesCopy)
     gCurrentMove = MOVE_NONE;
     gBattleStruct->arenaTurnCounter = 0xFF;
 
-    // Restore struct member so replacement does not miss timing
+    // Restore struct members so replacement does not miss timing
     gSpecialStatuses[battler].switchInAbilityDone = FALSE;
+    gSpecialStatuses[battler].switchInItemDone = FALSE;
+    // New battlers always start with entry item effects pending so that
+    // Booster Energy, Seeds, and similar items resolve sequentially.
+    gSpecialStatuses[battler].pendingSwitchInItemEffect = TRUE;
 
     // Reset damage to prevent things like red card activating if the switched-in mon is holding it
     gSpecialStatuses[battler].physicalDmg = 0;

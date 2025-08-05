@@ -349,6 +349,7 @@ static void AccuracyCheck(bool32 recalcDragonDarts, const u8 *nextInstr, const u
 static void ResetValuesForCalledMove(void);
 static void TryRestoreDamageAfterCheekPouch(u32 battler);
 static bool32 TrySymbiosis(u32 battler, u32 itemId, bool32 moveEnd);
+static void UpdateSentMonFlags(u32 battler);
 
 static void Cmd_attackcanceler(void);
 static void Cmd_accuracycheck(void);
@@ -432,7 +433,7 @@ static void Cmd_switchinanim(void);
 static void Cmd_jumpifcantswitch(void);
 static void Cmd_openpartyscreen(void);
 static void Cmd_switchhandleorder(void);
-static void Cmd_switchineffects(void);
+static void Cmd_nop(void);
 static void Cmd_trainerslidein(void);
 static void Cmd_playse(void);
 static void Cmd_fanfare(void);
@@ -691,7 +692,7 @@ void (*const gBattleScriptingCommandsTable[])(void) =
     Cmd_jumpifcantswitch,                        //0x4F
     Cmd_openpartyscreen,                         //0x50
     Cmd_switchhandleorder,                       //0x51
-    Cmd_switchineffects,                         //0x52
+    Cmd_nop,                                     //0x52 (unused)
     Cmd_trainerslidein,                          //0x53
     Cmd_playse,                                  //0x54
     Cmd_fanfare,                                 //0x55
@@ -5337,7 +5338,15 @@ static void Cmd_waitstate(void)
     CMD_ARGS();
 
     if (gBattleControllerExecFlags == 0)
+    {
+        if (gBattleStruct->switchInEffects && HandleUniversalSwitchInEvents(gBattleStruct->switchInEffectsBattler))
+            return;
+        if (gBattleStruct->switchInEffects && TrySwitchInEjectPack(ITEMEFFECT_NONE))
+            return;
+
+        gBattleStruct->switchInEffects = FALSE;
         gBattlescriptCurrInstr = cmd->nextInstr;
+    }
 }
 
 static void Cmd_absorb(void)
@@ -7187,6 +7196,10 @@ static void Cmd_switchinanim(void)
 
     battler = GetBattlerForBattleScript(cmd->battler);
 
+    UpdateSentMonFlags(battler);
+    gBattleStruct->switchInEffectsBattler = battler;
+    gBattleStruct->switchInEffects = TRUE;
+
     if (!IsOnPlayerSide(battler)
         && !(gBattleTypeFlags & (BATTLE_TYPE_LINK
                                  | BATTLE_TYPE_EREADER_TRAINER
@@ -7773,173 +7786,10 @@ void TryHazardsOnSwitchIn(u32 battler, u32 side, enum Hazards hazardType)
     }
 }
 
-static bool32 DoSwitchInEffectsForBattler(u32 battler)
+static void Cmd_nop(void)
 {
-    u32 i = 0;
-    u32 side = GetBattlerSide(battler);
-    // Neutralizing Gas announces itself before hazards
-    if (gBattleMons[battler].ability == ABILITY_NEUTRALIZING_GAS && gSpecialStatuses[battler].announceNeutralizingGas == 0)
-    {
-        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_NEUTRALIZING_GAS;
-        gSpecialStatuses[battler].announceNeutralizingGas = TRUE;
-        gDisableStructs[battler].neutralizingGas = TRUE;
-        gBattlerAbility = battler;
-        BattleScriptCall(BattleScript_SwitchInAbilityMsgRet);
-    }
-    // Healing Wish activates before hazards.
-    // Starting from Gen8 - it heals only pokemon which can be healed. In gens 5,6,7 the effect activates anyways.
-    else if ((gBattleStruct->battlerState[battler].storedHealingWish || gBattleStruct->battlerState[battler].storedLunarDance)
-        && (gBattleMons[battler].hp != gBattleMons[battler].maxHP || gBattleMons[battler].status1 != 0 || B_HEALING_WISH_SWITCH < GEN_8))
-    {
-        gBattlerAttacker = battler;
-        if (gBattleStruct->battlerState[battler].storedHealingWish)
-        {
-            BattleScriptCall(BattleScript_HealingWishActivates);
-            gBattleStruct->battlerState[battler].storedHealingWish = FALSE;
-        }
-        else // Lunar Dance
-        {
-            BattleScriptCall(BattleScript_LunarDanceActivates);
-            gBattleStruct->battlerState[battler].storedLunarDance = FALSE;
-        }
-    }
-    else if (!gDisableStructs[battler].hazardsDone)
-    {
-        TryHazardsOnSwitchIn(battler, side, gBattleStruct->hazardsQueue[side][gBattleStruct->hazardsCounter]);
-        gBattleStruct->hazardsCounter++;
-        // Done once we reach the first element without any hazard type or the array is full
-        if (gBattleStruct->hazardsQueue[side][gBattleStruct->hazardsCounter] == HAZARDS_NONE
-         || gBattleStruct->hazardsCounter == HAZARDS_MAX_COUNT)
-        {
-            gDisableStructs[battler].hazardsDone = TRUE;
-            gBattleStruct->hazardsCounter = 0;
-        }
-    }
-    else if (gBattleMons[battler].hp != gBattleMons[battler].maxHP && gBattleStruct->zmove.healReplacement)
-    {
-        gBattleStruct->zmove.healReplacement = FALSE;
-        gBattleStruct->moveDamage[battler] = -1 * (gBattleMons[battler].maxHP);
-        gBattleScripting.battler = battler;
-        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_Z_HP_TRAP;
-        BattleScriptCall(BattleScript_HealReplacementZMove);
-        return TRUE;
-    }
-    else
-    {
-        u32 battlerAbility = GetBattlerAbility(battler);
-        // There is a hack here to ensure the truant counter will be 0 when the battler's next turn starts.
-        // The truant counter is not updated in the case where a mon switches in after a lost judgment in the battle arena.
-        if (battlerAbility == ABILITY_TRUANT
-            && gCurrentActionFuncId != B_ACTION_USE_MOVE
-            && !gDisableStructs[battler].truantSwitchInHack)
-            gDisableStructs[battler].truantCounter = 1;
-
-        gDisableStructs[battler].truantSwitchInHack = 0;
-
-        if (DoSwitchInAbilities(battler) || ItemBattleEffects(ITEMEFFECT_ON_SWITCH_IN, battler))
-            return TRUE;
-        else if (AbilityBattleEffects(ABILITYEFFECT_OPPORTUNIST, battler, 0, 0, 0))
-            return TRUE;
-
-        for (i = 0; i < gBattlersCount; i++)
-        {
-            if (i == battler)
-                continue;
-
-            switch (GetBattlerAbility(i))
-            {
-            case ABILITY_TRACE:
-            case ABILITY_COMMANDER:
-                if (AbilityBattleEffects(ABILITYEFFECT_ON_SWITCHIN, i, 0, 0, 0))
-                    return TRUE;
-                break;
-            case ABILITY_FORECAST:
-            case ABILITY_FLOWER_GIFT:
-            case ABILITY_PROTOSYNTHESIS:
-                if (AbilityBattleEffects(ABILITYEFFECT_ON_WEATHER, i, 0, 0, 0))
-                    return TRUE;
-                break;
-            }
-            if (TryClearIllusion(i, ABILITYEFFECT_ON_SWITCHIN))
-                return TRUE;
-        }
-
-        for (i = 0; i < gBattlersCount; i++)
-        {
-            if (gBattlerByTurnOrder[i] == battler)
-                gActionsByTurnOrder[i] = B_ACTION_CANCEL_PARTNER;
-
-            gBattleStruct->hpOnSwitchout[GetBattlerSide(i)] = gBattleMons[i].hp;
-        }
-
-        gDisableStructs[battler].hazardsDone = FALSE;
-        gBattleStruct->battlerState[battler].forcedSwitch = FALSE;
-        return FALSE;
-    }
-
-    return TRUE; // Effect's script plays.
-}
-
-static void Cmd_switchineffects(void)
-{
-    CMD_ARGS(u8 battler);
-    u32 i, battler = GetBattlerForBattleScript(cmd->battler);
-
-    switch (cmd->battler)
-    {
-    // Multiple mons fainted and are being switched-in. Their abilities/hazards will play according to speed ties.
-    case BS_FAINTED_MULTIPLE_1: // Saves the battlers.
-        gBattleStruct->battlerState[battler].multipleSwitchInBattlers = TRUE;
-        UpdateSentMonFlags(battler);
-
-        // Increment fainted battler.
-        do
-        {
-            gBattlerFainted++;
-            if (gBattlerFainted >= gBattlersCount)
-                break;
-            if (gHitMarker & HITMARKER_FAINTED(gBattlerFainted) && !(gAbsentBattlerFlags & (1u << gBattlerFainted)))
-                break;
-        } while (1);
-
-        gBattlescriptCurrInstr = cmd->nextInstr;
-        return;
-    case BS_FAINTED_MULTIPLE_2: // Plays hazards/abilities.
-        switch (gBattleStruct->multipleSwitchInState)
-        {
-        case 0: // Sort battlers by speed
-            for (i = 0; i < gBattlersCount; i++)
-                gBattleStruct->multipleSwitchInSortedBattlers[i] = i;
-            SortBattlersBySpeed(gBattleStruct->multipleSwitchInSortedBattlers, FALSE);
-            gBattleStruct->multipleSwitchInState++;
-            gBattleStruct->multipleSwitchInCursor = 0;
-            // Loop through all available battlers
-        case 1:
-            for (; gBattleStruct->multipleSwitchInCursor < gBattlersCount; gBattleStruct->multipleSwitchInCursor++)
-            {
-                gBattlerFainted = gBattleStruct->multipleSwitchInSortedBattlers[gBattleStruct->multipleSwitchInCursor];
-                if (gBattleStruct->battlerState[gBattlerFainted].multipleSwitchInBattlers)
-                {
-                    if (DoSwitchInEffectsForBattler(gBattlerFainted))
-                        return;
-                }
-            }
-            if (TrySwitchInEjectPack(ITEMEFFECT_NONE))
-                return;
-            // All battlers done, end
-            for (i = 0; i < gBattlersCount; i++)
-                gBattleStruct->battlerState[i].multipleSwitchInBattlers = FALSE;
-
-            gBattleStruct->multipleSwitchInState = 0;
-            gBattlescriptCurrInstr = cmd->nextInstr;
-        }
-        break;
-    default:
-        UpdateSentMonFlags(battler);
-        if (!DoSwitchInEffectsForBattler(battler) && !TrySwitchInEjectPack(ITEMEFFECT_NONE))
-            gBattlescriptCurrInstr = cmd->nextInstr;
-        break;
-    }
+    CMD_ARGS();
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void Cmd_trainerslidein(void)
@@ -8623,6 +8473,12 @@ static void BestowItem(u32 battlerAtk, u32 battlerDef)
     BtlController_EmitSetMonData(battlerDef, B_COMM_TO_CONTROLLER, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[battlerDef].item), &gBattleMons[battlerDef].item);
     MarkBattlerForControllerExec(battlerDef);
     gDisableStructs[battlerDef].unburdenActive = FALSE;
+    gDisableStructs[battlerDef].boosterEnergyConsumed = FALSE;
+    // The recipient now has a pending entry item to resolve.  Reset its
+    // switch-in ability state so Quark Drive / Protosynthesis can check the
+    // new held item after any chained activations like Symbiosis.
+    gSpecialStatuses[battlerDef].pendingSwitchInItemEffect = TRUE;
+    gSpecialStatuses[battlerDef].switchInAbilityDone = FALSE;
 }
 
 // Called by Cmd_removeitem. itemId represents the item that was removed, not being given.
