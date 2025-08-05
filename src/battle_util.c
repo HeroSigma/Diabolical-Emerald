@@ -10848,7 +10848,7 @@ void SortBattlersBySpeed(u8 *battlers, bool32 slowToFast)
 // Useful when multiple battlers act within the same priority tier
 void SortBattlersBySpeedRandomized(u8 *battlers, bool32 slowToFast)
 {
-    int i, j, start, end;
+    int i, j, end;
 
     // First, obtain base ordering by Speed
     SortBattlersBySpeed(battlers, slowToFast);
