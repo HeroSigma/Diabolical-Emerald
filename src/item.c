@@ -36,6 +36,7 @@ static void BagPocket_GetSetSlotDataGeneric(struct BagPocket *pocket, u32 pocket
 static void BagPocket_GetSetSlotDataPC(struct BagPocket *pocket, u32 pocketPos, u16 *itemId, u16 *quantity, bool32 isSetting);
 
 EWRAM_DATA struct BagPocket gBagPockets[POCKETS_COUNT] = {0};
+EWRAM_DATA static u16 sNextBagAcquisitionIndex = 1;
 
 #include "data/pokemon/item_effects.h"
 #include "data/items.h"
@@ -86,6 +87,11 @@ static void BagPocket_GetSetSlotDataGeneric(struct BagPocket *pocket, u32 pocket
     {
         pocket->itemSlots[pocketPos].itemId = *quantity ? *itemId : ITEM_NONE; // Sets to zero if quantity is zero
         pocket->itemSlots[pocketPos].quantity = *quantity ^ gSaveBlock2Ptr->encryptionKey;
+        if (*quantity == 0)
+        {
+            pocket->itemSlots[pocketPos].acquisitionIndex = 0;
+            pocket->itemSlots[pocketPos].favorite = 0;
+        }
     }
     else
     {
@@ -100,6 +106,11 @@ static void BagPocket_GetSetSlotDataPC(struct BagPocket *pocket, u32 pocketPos, 
     {
         pocket->itemSlots[pocketPos].itemId = *quantity ? *itemId : ITEM_NONE; // Sets to zero if quantity is zero
         pocket->itemSlots[pocketPos].quantity = *quantity;
+        if (*quantity == 0)
+        {
+            pocket->itemSlots[pocketPos].acquisitionIndex = 0;
+            pocket->itemSlots[pocketPos].favorite = 0;
+        }
     }
     else
     {
@@ -371,7 +382,15 @@ static bool32 BagPocket_AddItem(struct BagPocket *pocket, u16 itemId, u16 count)
         for (--indexToAddItem; indexToAddItem < i; indexToAddItem++)
         {
             if (tempPocketSlotQuantities[indexToAddItem] > 0)
+            {
+                bool8 isNew = (pocket->itemSlots[indexToAddItem].itemId == ITEM_NONE);
                 BagPocket_SetSlotData(pocket, indexToAddItem, &itemId, &tempPocketSlotQuantities[indexToAddItem]);
+                if (isNew)
+                {
+                    pocket->itemSlots[indexToAddItem].acquisitionIndex = sNextBagAcquisitionIndex++;
+                    pocket->itemSlots[indexToAddItem].favorite = 0;
+                }
+            }
         }
     }
 
@@ -496,19 +515,19 @@ bool32 AddPCItem(u16 itemId, u16 count)
 
 static void BagPocket_CompactItems(struct BagPocket *pocket)
 {
-    u16 itemId, quantity, zero = 0, slotCursor = 0;
+    struct ItemSlot empty = {0};
+    u16 slotCursor = 0;
     for (u32 i = 0; i < pocket->capacity; i++)
     {
-        BagPocket_GetSlotData(pocket, i, &itemId, &quantity);
-        if (itemId == ITEM_NONE)
+        if (pocket->itemSlots[i].itemId == ITEM_NONE)
         {
             if (!slotCursor)
                 slotCursor = i + 1;
         }
-        else if (slotCursor > 0)
+        else if (slotCursor)
         {
-            BagPocket_SetSlotData(pocket, slotCursor - 1, &itemId, &quantity);
-            BagPocket_SetSlotData(pocket, i, &zero, &zero);
+            pocket->itemSlots[slotCursor - 1] = pocket->itemSlots[i];
+            pocket->itemSlots[i] = empty;
             slotCursor++;
         }
     }
@@ -555,15 +574,36 @@ void CompactItemsInBagPocket(enum Pocket pocketId)
     BagPocket_CompactItems(&gBagPockets[pocketId]);
 }
 
-// Opens the possibility of sorting by other means e.g. ghoulslash's advanced sorting
-static inline bool32 ItemIndexCompare(u16 itemA, u16 itemB, enum SortPocket sortPocket)
+static inline bool32 ShouldSwap(struct BagPocket *pocket, u32 a, u32 b, enum SortPocket sortPocket)
 {
+    u16 itemA = pocket->itemSlots[a].itemId;
+    u16 itemB = pocket->itemSlots[b].itemId;
+
+    if (itemB == ITEM_NONE)
+        return FALSE;
+    if (itemA == ITEM_NONE)
+        return TRUE;
+
     switch (sortPocket)
     {
         case SORT_POCKET_BY_ITEM_ID:
             return itemA > itemB;
         case SORT_POCKET_TM_HM:
             return GetItemTMHMIndex(itemA) > GetItemTMHMIndex(itemB);
+        case SORT_POCKET_ALPHABETICAL:
+            return StringCompare(gItemsInfo[itemA].name, gItemsInfo[itemB].name) > 0;
+        case SORT_POCKET_BY_CATEGORY:
+            return gItemsInfo[itemA].type > gItemsInfo[itemB].type;
+        case SORT_POCKET_BY_RECENT:
+            return pocket->itemSlots[a].acquisitionIndex < pocket->itemSlots[b].acquisitionIndex;
+        case SORT_POCKET_BY_FAVORITE_QUANTITY:
+        {
+            u16 qtyA = pocket->itemSlots[a].quantity ^ gSaveBlock2Ptr->encryptionKey;
+            u16 qtyB = pocket->itemSlots[b].quantity ^ gSaveBlock2Ptr->encryptionKey;
+            if (pocket->itemSlots[a].favorite != pocket->itemSlots[b].favorite)
+                return pocket->itemSlots[a].favorite < pocket->itemSlots[b].favorite;
+            return qtyA < qtyB;
+        }
         default:
             return FALSE;
     }
@@ -571,21 +611,17 @@ static inline bool32 ItemIndexCompare(u16 itemA, u16 itemB, enum SortPocket sort
 
 void SortPocket(enum Pocket pocketId, enum SortPocket sortPocket)
 {
-    u16 itemId_i, quantity_i, itemId_j, quantity_j;
     struct BagPocket *pocket = &gBagPockets[pocketId];
 
     for (u32 i = 0; i < pocket->capacity - 1; i++)
     {
-        BagPocket_GetSlotData(pocket, i, &itemId_i, &quantity_i);
         for (u32 j = i + 1; j < pocket->capacity; j++)
         {
-            BagPocket_GetSlotData(pocket, j, &itemId_j, &quantity_j);
-            if (itemId_j && (!itemId_i || ItemIndexCompare(itemId_i, itemId_j, sortPocket)))
+            if (ShouldSwap(pocket, i, j, sortPocket))
             {
-                BagPocket_SetSlotData(pocket, i, &itemId_j, &quantity_j);
-                BagPocket_SetSlotData(pocket, j, &itemId_i, &quantity_i);
-                itemId_i = itemId_j;
-                quantity_i = quantity_j;
+                struct ItemSlot tmp = pocket->itemSlots[i];
+                pocket->itemSlots[i] = pocket->itemSlots[j];
+                pocket->itemSlots[j] = tmp;
             }
         }
     }
@@ -600,18 +636,14 @@ static inline void BagPocket_MoveItemSlot(struct BagPocket *pocket, u32 from, u3
             to--;
 
         // Record the values at "from"
-        u16 fromItemId, fromQuantity, tempItemId, tempQuantity;
-        BagPocket_GetSlotData(pocket, from, &fromItemId, &fromQuantity);
+        struct ItemSlot fromItem = pocket->itemSlots[from];
 
         // Shuffle items between "to" and "from"
         for (u32 i = from; i == to - shift; i += shift)
-        {
-            BagPocket_GetSlotData(pocket, i + shift, &tempItemId, &tempQuantity);
-            BagPocket_SetSlotData(pocket, i, &tempItemId, &tempQuantity);
-        }
+            pocket->itemSlots[i] = pocket->itemSlots[i + shift];
 
         // Move the saved "from" to "to"
-        BagPocket_SetSlotData(pocket, to, &fromItemId, &fromQuantity);
+        pocket->itemSlots[to] = fromItem;
     }
 }
 
@@ -629,6 +661,7 @@ void MoveItemSlotInPC(struct ItemSlot *itemSlots, u32 from, u32 to)
 void ClearBag(void)
 {
     CpuFastFill(0, &gSaveBlock1Ptr->bag, sizeof(struct Bag));
+    sNextBagAcquisitionIndex = 1;
 }
 
 static inline u16 BagPocket_CountTotalItemQuantity(struct BagPocket *pocket, u16 itemId)

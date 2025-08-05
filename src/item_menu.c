@@ -562,6 +562,7 @@ static const struct WindowTemplate sContextMenuWindowTemplates[] =
 
 EWRAM_DATA struct BagMenu *gBagMenu = 0;
 EWRAM_DATA struct BagPosition gBagPosition = {0};
+static EWRAM_DATA u8 sPocketSortMode[POCKETS_COUNT] = {0};
 static EWRAM_DATA struct ListBuffer1 *sListBuffer1 = 0;
 static EWRAM_DATA struct ListBuffer2 *sListBuffer2 = 0;
 EWRAM_DATA u16 gSpecialVar_ItemId = 0;
@@ -1136,17 +1137,24 @@ static void Task_CloseBagMenu(u8 taskId)
 void UpdatePocketItemList(u8 pocketId)
 {
     u16 i;
-    switch (pocketId)
+    if (sPocketSortMode[pocketId] != SORT_NONE)
     {
-    case POCKET_TM_HM:
-        SortPocket(pocketId, SORT_POCKET_TM_HM);
-        break;
-    case POCKET_BERRIES:
-        SortPocket(pocketId, SORT_POCKET_BY_ITEM_ID);
-        break;
-    default:
-        CompactItemsInBagPocket(pocketId);
-        break;
+        SortPocket(pocketId, sPocketSortMode[pocketId]);
+    }
+    else
+    {
+        switch (pocketId)
+        {
+        case POCKET_TM_HM:
+            SortPocket(pocketId, SORT_POCKET_TM_HM);
+            break;
+        case POCKET_BERRIES:
+            SortPocket(pocketId, SORT_POCKET_BY_ITEM_ID);
+            break;
+        default:
+            CompactItemsInBagPocket(pocketId);
+            break;
+        }
     }
 
     gBagMenu->numItemStacks[pocketId] = 0;
@@ -1258,6 +1266,17 @@ static void Task_BagMenu_HandleInput(u8 taskId)
             SwitchBagPocket(taskId, MENU_CURSOR_DELTA_RIGHT, FALSE);
             return;
         default:
+            if (JOY_NEW(START_BUTTON))
+            {
+                sPocketSortMode[gBagPosition.pocket]++;
+                if (sPocketSortMode[gBagPosition.pocket] > SORT_POCKET_BY_FAVORITE_QUANTITY)
+                    sPocketSortMode[gBagPosition.pocket] = SORT_NONE;
+                UpdatePocketItemList(gBagPosition.pocket);
+                UpdatePocketListPosition(gBagPosition.pocket);
+                LoadBagItemListBuffers(gBagPosition.pocket);
+                PlaySE(SE_SELECT);
+                return;
+            }
             if (JOY_NEW(SELECT_BUTTON))
             {
                 if (CanSwapItems() == TRUE)
