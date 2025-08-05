@@ -241,3 +241,56 @@ DOUBLE_BATTLE_TEST("Symbiosis passes a Choice Scarf after Booster Energy")
         EXPECT_EQ(playerRight->item, ITEM_NONE);
     }
 }
+
+DOUBLE_BATTLE_TEST("Symbiosis passes a King's Rock after Booster Energy and triggers Quark Drive")
+{
+    GIVEN {
+        ASSUME(gItemsInfo[ITEM_BOOSTER_ENERGY].holdEffect == HOLD_EFFECT_BOOSTER_ENERGY);
+        PLAYER(SPECIES_IRON_VALIANT) { Ability(ABILITY_QUARK_DRIVE); Item(ITEM_BOOSTER_ENERGY); };
+        PLAYER(SPECIES_ORANGURU) { Ability(ABILITY_SYMBIOSIS); Item(ITEM_KINGS_ROCK); };
+        OPPONENT(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { }
+    } SCENE {
+        // Booster Energy is consumed silently
+        ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_HELD_ITEM_EFFECT, playerLeft);
+        // Symbiosis passes the King's Rock
+        ABILITY_POPUP(playerRight, ABILITY_SYMBIOSIS);
+        MESSAGE("Oranguru passed its King's Rock to Iron Valiant through Symbiosis!");
+        // After items resolve, Quark Drive activates
+        ABILITY_POPUP(playerLeft, ABILITY_QUARK_DRIVE);
+        MESSAGE("Iron Valiant used its Booster Energy to activate Quark Drive!");
+        MESSAGE("Iron Valiant's Attack was heightened!");
+    } THEN {
+        EXPECT_EQ(playerLeft->item, ITEM_KINGS_ROCK);
+        EXPECT_EQ(playerRight->item, ITEM_NONE);
+    }
+}
+
+DOUBLE_BATTLE_TEST("Symbiosis passes a King's Rock after Booster Energy and triggers Protosynthesis")
+{
+    GIVEN {
+        ASSUME(gItemsInfo[ITEM_BOOSTER_ENERGY].holdEffect == HOLD_EFFECT_BOOSTER_ENERGY);
+        PLAYER(SPECIES_ROARING_MOON) { Ability(ABILITY_PROTOSYNTHESIS); Item(ITEM_BOOSTER_ENERGY); };
+        PLAYER(SPECIES_ORANGURU) { Ability(ABILITY_SYMBIOSIS); Item(ITEM_KINGS_ROCK); };
+        OPPONENT(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { }
+    } SCENE {
+        // Booster Energy is consumed silently
+        ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_HELD_ITEM_EFFECT, playerLeft);
+        // Symbiosis passes the King's Rock
+        ABILITY_POPUP(playerRight, ABILITY_SYMBIOSIS);
+        MESSAGE("Oranguru passed its King's Rock to Roaring Moon through Symbiosis!");
+        // After items resolve, Protosynthesis activates
+        ABILITY_POPUP(playerLeft, ABILITY_PROTOSYNTHESIS);
+        MESSAGE("Roaring Moon used its Booster Energy to activate Protosynthesis!");
+        MESSAGE("Roaring Moon's Attack was heightened!");
+    } THEN {
+        EXPECT_EQ(playerLeft->item, ITEM_KINGS_ROCK);
+        EXPECT_EQ(playerRight->item, ITEM_NONE);
+    }
+}
+
