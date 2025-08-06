@@ -1867,8 +1867,8 @@ const u16 gItemIconPalette_SootSack[] = INCBIN_U16("graphics/items/icon_palettes
 const u32 gItemIcon_PokeFlute[] = INCBIN_U32("graphics/items/icons/poke_flute.4bpp.smol");
 const u16 gItemIconPalette_PokeFlute[] = INCBIN_U16("graphics/items/icon_palettes/poke_flute.gbapal");
 
-const u32 gItemIcon_FameChecker[] = INCBIN_U32("graphics/items/icons/fame_checker.4bpp.smol");
-const u16 gItemIconPalette_FameChecker[] = INCBIN_U16("graphics/items/icon_palettes/fame_checker.gbapal");
+// const u32 gItemIcon_FameChecker[] = INCBIN_U32("graphics/items/icons/fame_checker.4bpp.smol");
+// const u16 gItemIconPalette_FameChecker[] = INCBIN_U16("graphics/items/icon_palettes/fame_checker.gbapal");
 
 const u32 gItemIcon_TeachyTV[] = INCBIN_U32("graphics/items/icons/teachy_tv.4bpp.smol");
 const u16 gItemIconPalette_TeachyTV[] = INCBIN_U16("graphics/items/icon_palettes/teachy_tv.gbapal");

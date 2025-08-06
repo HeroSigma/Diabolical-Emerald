@@ -12402,21 +12402,21 @@ const struct Item gItemsInfo[] =
         .iconPalette = gItemIconPalette_PokeFlute,
     },
 
-    [ITEM_FAME_CHECKER] =
-    {
-        .name = _("Fame Checker"),
-        .price = 0,
-        .description = COMPOUND_STRING(
-            "Stores information\n"
-            "on famous people\n"
-            "for instant recall."),
-        .importance = 1,
-        .pocket = POCKET_KEY_ITEMS,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
-        .iconPic = gItemIcon_FameChecker,
-        .iconPalette = gItemIconPalette_FameChecker,
-    },
+    // [ITEM_FAME_CHECKER] =
+    // {
+        // .name = _("Fame Checker"),
+        // .price = 0,
+        // .description = COMPOUND_STRING(
+            // "Stores information\n"
+            // "on famous people\n"
+            // "for instant recall."),
+        // .importance = 1,
+        // .pocket = POCKET_KEY_ITEMS,
+        // .type = ITEM_USE_BAG_MENU,
+        // .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        // .iconPic = gItemIcon_FameChecker,
+        // .iconPalette = gItemIconPalette_FameChecker,
+    // },
 
     [ITEM_TEACHY_TV] =
     {

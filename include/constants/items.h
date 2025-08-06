@@ -873,7 +873,7 @@
 #define ITEM_POKEBLOCK_CASE 722
 #define ITEM_SOOT_SACK 723
 #define ITEM_POKE_FLUTE 724
-#define ITEM_FAME_CHECKER 725
+// #define ITEM_FAME_CHECKER 725
 #define ITEM_TEACHY_TV 726
 
 // Story Key Items
@@ -1067,12 +1067,12 @@
 #define EXP_30000 5
 
 // Item type IDs (used to determine the exit callback)
-#define ITEM_USE_MAIL             0
-#define ITEM_USE_PARTY_MENU       1
-#define ITEM_USE_FIELD            2
-#define ITEM_USE_PBLOCK_CASE      3
-#define ITEM_USE_BAG_MENU         4 // No exit callback, stays in bag menu
-#define ITEM_USE_PARTY_MENU_MOVES 5
+#define ITEM_USE_MAIL             -1
+#define ITEM_USE_PARTY_MENU       0
+#define ITEM_USE_FIELD            1
+#define ITEM_USE_PBLOCK_CASE      2
+#define ITEM_USE_BAG_MENU         3 // No exit callback, stays in bag menu
+#define ITEM_USE_PARTY_MENU_MOVES 4
 
 // Item battle script IDs (need to be non-zero)
 #define EFFECT_ITEM_RESTORE_HP              1
