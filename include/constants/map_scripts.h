@@ -25,7 +25,7 @@
                                Note that ON_TRANSITION may also handle object visibility, but would do so by modifying a flag or var
 
     4. ON_RESUME: Run at the end of map load, and again any time upon returning to field (e.g. exiting the Bag menu, or finishing a battle)
-                  Used to hide defeated static pokemon, or maintain some map state (e.g. the Trainer Hill timer, or the cycling road challenge)
+                  Used to hide defeated static pokemon, or maintain some map state (e.g. the cycling road challenge)
                   In some maps this takes the metatile setting job of ON_LOAD
 
     1. ON_DIVE_WARP: Run after the player chooses to dive/emerge.

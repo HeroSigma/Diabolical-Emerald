@@ -372,8 +372,6 @@ static void Task_LinkupExchangeDataWithLeader(u8 taskId)
         SaveLinkPlayers(gFieldLinkPlayerCount);
         card = (struct TrainerCard *)gBlockSendBuffer;
         TrainerCard_GenerateCardForLinkPlayer(card);
-        card->monSpecies[0] = GetMonData(&gPlayerParty[gSelectedOrderFromParty[0] - 1], MON_DATA_SPECIES, NULL);
-        card->monSpecies[1] = GetMonData(&gPlayerParty[gSelectedOrderFromParty[1] - 1], MON_DATA_SPECIES, NULL);
         gTasks[taskId].func = Task_LinkupAwaitTrainerCardData;
     }
 }
@@ -420,74 +418,22 @@ static void Task_LinkupCheckStatusAfterConfirm(u8 taskId)
         SaveLinkPlayers(gFieldLinkPlayerCount);
         card = (struct TrainerCard *)gBlockSendBuffer;
         TrainerCard_GenerateCardForLinkPlayer(card);
-        card->monSpecies[0] = GetMonData(&gPlayerParty[gSelectedOrderFromParty[0] - 1], MON_DATA_SPECIES, NULL);
-        card->monSpecies[1] = GetMonData(&gPlayerParty[gSelectedOrderFromParty[1] - 1], MON_DATA_SPECIES, NULL);
         gTasks[taskId].func = Task_LinkupAwaitTrainerCardData;
         SendBlockRequest(BLOCK_REQ_SIZE_100);
     }
 }
 
-bool32 AreBattleTowerLinkSpeciesSame(u16 *speciesList1, u16 *speciesList2)
-{
-    int i;
-    int j;
-    bool32 haveSameSpecies = FALSE;
-    int numSameSpecies = 0;
-
-    gStringVar1[0] = EOS;
-    gStringVar2[0] = EOS;
-
-    for (i = 0; i < FRONTIER_MULTI_PARTY_SIZE; i++)
-    {
-        for (j = 0; j < FRONTIER_MULTI_PARTY_SIZE; j++)
-        {
-            if (speciesList1[i] == speciesList2[j])
-            {
-                if (numSameSpecies == 0)
-                {
-                    StringCopy(gStringVar1, GetSpeciesName(speciesList1[i]));
-                    haveSameSpecies = TRUE;
-                }
-
-                if (numSameSpecies == 1)
-                {
-                    StringCopy(gStringVar2, GetSpeciesName(speciesList1[i]));
-                    haveSameSpecies = TRUE;
-                }
-
-                numSameSpecies++;
-            }
-        }
-    }
-
-    // var below is read by BattleFrontier_BattleTowerLobby_EventScript_AbortLink
-    gSpecialVar_0x8005 = numSameSpecies;
-
-    return haveSameSpecies;
-}
 
 static void FinishLinkup(u16 *linkupStatus, u32 taskId)
 {
-    struct TrainerCard *trainerCards = gTrainerCards;
-
     if (*linkupStatus == LINKUP_SUCCESS)
     {
         if (gLinkType == LINKTYPE_BATTLE_TOWER_50 || gLinkType == LINKTYPE_BATTLE_TOWER_OPEN)
         {
-            if (AreBattleTowerLinkSpeciesSame(trainerCards[0].monSpecies, trainerCards[1].monSpecies))
-            {
-                // Unsuccessful battle tower linkup
-                *linkupStatus = LINKUP_FAILED_BATTLE_TOWER;
-                SetCloseLinkCallback();
-                gTasks[taskId].func = Task_StopLinkup;
-            }
-            else
-            {
-                // Successful battle tower linkup
-                ClearLinkPlayerCountWindow(gTasks[taskId].tWindowId);
-                ScriptContext_Enable();
-                DestroyTask(taskId);
-            }
+            // Successful battle tower linkup (species check removed)
+            ClearLinkPlayerCountWindow(gTasks[taskId].tWindowId);
+            ScriptContext_Enable();
+            DestroyTask(taskId);
         }
         else
         {

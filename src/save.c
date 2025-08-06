@@ -31,7 +31,7 @@ static void CopyFromSaveBlock3(u32, struct SaveSector *);
  * Sectors 0 - 13:      Save Slot 1
  * Sectors 14 - 27:     Save Slot 2
  * Sectors 28 - 29:     Hall of Fame
- * Sector 30:           Trainer Hill
+ * Sector 30:           (unused)
  * Sector 31:           Recorded Battle
  *
  * There are two save slots for saving the player's game data. We alternate between
@@ -720,7 +720,7 @@ u8 HandleSavingData(u8 saveType)
     switch (saveType)
     {
     case SAVE_HALL_OF_FAME_ERASE_BEFORE:
-        // Unused. Erases the special save sectors (HOF, Trainer Hill, Recorded Battle)
+        // Unused. Erases the special save sectors (HOF and Recorded Battle)
         // before overwriting HOF.
         for (i = SECTOR_ID_HOF_1; i < SECTORS_COUNT; i++)
             EraseFlashSector(i);

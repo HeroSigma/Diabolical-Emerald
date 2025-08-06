@@ -3,8 +3,7 @@
 
 #define DUMMY_HILL_MON { .nickname = __("$$$$$$$$$$$") }
 
-// Trainer Hill has been removed. Provide stub values so code referencing
-// these macros can still compile without the original constants.
+// Placeholder values to allow compilation without the original feature.
 #ifndef HILL_FLOOR_WIDTH
 #define HILL_FLOOR_WIDTH 1
 #endif
@@ -39,6 +38,14 @@
 
 #ifndef TRAINER_HILL_OTID
 #define TRAINER_HILL_OTID 0
+#endif
+
+#define TRAINER_HILL_TEXT_INTRO       0
+#define TRAINER_HILL_TEXT_PLAYER_WON  1
+#define TRAINER_HILL_TEXT_PLAYER_LOST 2
+
+#ifndef TRAINER_HILL_ROOF
+#define TRAINER_HILL_ROOF 0
 #endif
 
 struct TrainerHillTrainer

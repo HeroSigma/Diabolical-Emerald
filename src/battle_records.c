@@ -274,7 +274,3 @@ void RemoveRecordsWindow(void)
     RemoveWindow(gRecordsWindowId);
 }
 
-void ShowTrainerHillRecords(void)
-{
-    // Trainer Hill has been removed.
-}
