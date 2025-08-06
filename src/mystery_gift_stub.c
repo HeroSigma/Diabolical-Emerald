@@ -1,21 +1,22 @@
 #include "global.h"
 #include "mystery_gift.h"
 
-void MysteryGift_TryIncrementStat(u16 statId, u32 trainerId)
+void MysteryGift_TryIncrementStat(u32 stat, u32 trainerId)
 {
-    (void)statId;
+    (void)stat;
     (void)trainerId;
 }
 
-u16 MysteryGift_GetCardStat(u16 statId)
+u16 MysteryGift_GetCardStat(u32 stat)
 {
-    (void)statId;
+    (void)stat;
     return 0;
 }
 
-void MysteryGift_TryEnableStatsByFlagId(u16 flagId)
+bool32 MysteryGift_TryEnableStatsByFlagId(u16 flagId)
 {
     (void)flagId;
+    return FALSE;
 }
 
 void MysteryGift_DisableStats(void)

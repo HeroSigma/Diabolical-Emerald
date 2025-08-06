@@ -7150,35 +7150,21 @@ static bool8 GetBattleEntryEligibility(struct Pokemon *mon)
     u32 species;
 
     if (GetMonData(mon, MON_DATA_IS_EGG)
-        || GetMonData(mon, MON_DATA_LEVEL) > GetBattleEntryLevelCap()
-        || (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_BATTLE_FRONTIER_BATTLE_PYRAMID_LOBBY)
-            && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_BATTLE_FRONTIER_BATTLE_PYRAMID_LOBBY)
-            && GetMonData(mon, MON_DATA_HELD_ITEM) != ITEM_NONE))
+        || GetMonData(mon, MON_DATA_LEVEL) > GetBattleEntryLevelCap())
     {
         return FALSE;
     }
 
-    switch (VarGet(VAR_FRONTIER_FACILITY))
-    {
-    case FACILITY_MULTI_OR_EREADER:
-        if (GetMonData(mon, MON_DATA_HP) != 0)
-            return TRUE;
+    species = GetMonData(mon, MON_DATA_SPECIES);
+    if (gSpeciesInfo[species].isFrontierBanned)
         return FALSE;
-    case FACILITY_UNION_ROOM:
-        return TRUE;
-    default: // Battle Frontier
-        species = GetMonData(mon, MON_DATA_SPECIES);
-        if (gSpeciesInfo[species].isFrontierBanned)
-            return FALSE;
-        return TRUE;
-    }
+    return TRUE;
 }
 
 static u8 CheckBattleEntriesAndGetMessage(void)
 {
     u8 maxBattlers;
     u8 i, j;
-    u8 facility;
     struct Pokemon *party = gPlayerParty;
     u8 minBattlers = GetMinBattleEntries();
     u8 *order = gSelectedOrderFromParty;
@@ -7190,10 +7176,6 @@ static u8 CheckBattleEntriesAndGetMessage(void)
         ConvertIntToDecimalStringN(gStringVar1, minBattlers, STR_CONV_MODE_LEFT_ALIGN, 1);
         return PARTY_MSG_X_MONS_ARE_NEEDED;
     }
-
-    facility = VarGet(VAR_FRONTIER_FACILITY);
-    if (facility == FACILITY_UNION_ROOM || facility == FACILITY_MULTI_OR_EREADER)
-        return 0xFF;
 
     maxBattlers = GetMaxBattleEntries();
     for (i = 0; i < maxBattlers - 1; i++)
@@ -7253,55 +7235,24 @@ static void Task_ContinueChoosingHalfParty(u8 taskId)
 
 static u8 GetMaxBattleEntries(void)
 {
-    switch (VarGet(VAR_FRONTIER_FACILITY))
-    {
-    case FACILITY_MULTI_OR_EREADER:
-        return MULTI_PARTY_SIZE;
-    case FACILITY_UNION_ROOM:
-        return UNION_ROOM_PARTY_SIZE;
-    default: // Battle Frontier
-        return gSpecialVar_0x8005;
-    }
+    return gSpecialVar_0x8005;
 }
 
 static u8 GetMinBattleEntries(void)
 {
-    switch (VarGet(VAR_FRONTIER_FACILITY))
-    {
-    case FACILITY_MULTI_OR_EREADER:
-        return 1;
-    case FACILITY_UNION_ROOM:
-        return UNION_ROOM_PARTY_SIZE;
-    default: // Battle Frontier
-        return gSpecialVar_0x8005;
-    }
+    return gSpecialVar_0x8005;
 }
 
 static u8 GetBattleEntryLevelCap(void)
 {
-    switch (VarGet(VAR_FRONTIER_FACILITY))
-    {
-    case FACILITY_MULTI_OR_EREADER:
-        return MAX_LEVEL;
-    case FACILITY_UNION_ROOM:
-        return UNION_ROOM_MAX_LEVEL;
-    default: // Battle Frontier
-        if (gSpecialVar_0x8004 == FRONTIER_LVL_50)
-            return FRONTIER_MAX_LEVEL_50;
-        return FRONTIER_MAX_LEVEL_OPEN;
-    }
+    if (gSpecialVar_0x8004 == FRONTIER_LVL_50)
+        return FRONTIER_MAX_LEVEL_50;
+    return FRONTIER_MAX_LEVEL_OPEN;
 }
 
 static const u8 *GetFacilityCancelString(void)
 {
-    u8 facilityNum = VarGet(VAR_FRONTIER_FACILITY);
-
-    if (!(facilityNum != FACILITY_UNION_ROOM && facilityNum != FACILITY_MULTI_OR_EREADER))
-        return gText_CancelBattle;
-    else if (facilityNum == FRONTIER_FACILITY_DOME && gSpecialVar_0x8005 == 2)
-        return gText_ReturnToWaitingRoom;
-    else
-        return gText_CancelChallenge;
+    return gText_CancelChallenge;
 }
 
 void ChooseMonForTradingBoard(u8 menuType, MainCallback callback)

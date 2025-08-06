@@ -37,7 +37,7 @@ static void BagPocket_GetSetSlotDataPC(struct BagPocket *pocket, u32 pocketPos, 
 static u32 BagPocket_GetFreeSpaceForItem(struct BagPocket *pocket, u16 itemId);
 
 EWRAM_DATA struct BagPocket gBagPockets[POCKETS_COUNT] = {0};
-EWRAM_DATA static u16 sNextBagAcquisitionIndex = 1;
+EWRAM_DATA static u16 sNextBagAcquisitionIndex;
 
 #include "data/pokemon/item_effects.h"
 #include "data/items.h"
@@ -388,7 +388,7 @@ static bool32 BagPocket_AddItem(struct BagPocket *pocket, u16 itemId, u16 count)
                 BagPocket_SetSlotData(pocket, indexToAddItem, &itemId, &tempPocketSlotQuantities[indexToAddItem]);
                 if (isNew)
                 {
-                    pocket->itemSlots[indexToAddItem].acquisitionIndex = sNextBagAcquisitionIndex++;
+                    pocket->itemSlots[indexToAddItem].acquisitionIndex = ++sNextBagAcquisitionIndex;
                     pocket->itemSlots[indexToAddItem].favorite = 0;
                 }
             }
@@ -662,7 +662,7 @@ void MoveItemSlotInPC(struct ItemSlot *itemSlots, u32 from, u32 to)
 void ClearBag(void)
 {
     CpuFastFill(0, &gSaveBlock1Ptr->bag, sizeof(struct Bag));
-    sNextBagAcquisitionIndex = 1;
+    sNextBagAcquisitionIndex = 0;
 }
 
 static inline u16 BagPocket_CountTotalItemQuantity(struct BagPocket *pocket, u16 itemId)
