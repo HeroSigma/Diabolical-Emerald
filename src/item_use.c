@@ -100,14 +100,15 @@ EWRAM_DATA static void(*sItemUseOnFieldCB)(u8 taskId) = NULL;
 // Below is set TRUE by UseRegisteredKeyItemOnField
 #define tUsingRegisteredKeyItem  data[3]
 
-// UB here if an item with type ITEM_USE_MAIL or ITEM_USE_BAG_MENU uses SetUpItemUseCallback
-// Never occurs in vanilla, but can occur with improperly created items
-static const MainCallback sItemUseCallbacks[] =
+// UB here if an item with type ITEM_USE_MAIL uses SetUpItemUseCallback.
+// ITEM_USE_BAG_MENU stays in the bag and does not have a callback.
+static const MainCallback sItemUseCallbacks[ITEM_USE_PARTY_MENU_MOVES + 1] =
 {
-    [ITEM_USE_PARTY_MENU - 1]       = CB2_ShowPartyMenuForItemUse,
-    [ITEM_USE_FIELD - 1]            = CB2_ReturnToField,
-    [ITEM_USE_PBLOCK_CASE - 1]      = NULL,
-    [ITEM_USE_PARTY_MENU_MOVES - 1] = CB2_ShowPartyMenuForItemUse,
+    [ITEM_USE_PARTY_MENU]       = CB2_ShowPartyMenuForItemUse,
+    [ITEM_USE_FIELD]            = CB2_ReturnToField,
+    [ITEM_USE_PBLOCK_CASE]      = NULL,
+    [ITEM_USE_BAG_MENU]         = NULL,
+    [ITEM_USE_PARTY_MENU_MOVES] = CB2_ShowPartyMenuForItemUse,
 };
 
 static const u8 sClockwiseDirections[] = {DIR_NORTH, DIR_EAST, DIR_SOUTH, DIR_WEST};
@@ -123,9 +124,9 @@ static void SetUpItemUseCallback(u8 taskId)
 {
     u8 type;
     if (gSpecialVar_ItemId == ITEM_ENIGMA_BERRY_E_READER)
-        type = gTasks[taskId].tEnigmaBerryType - 1;
+        type = gTasks[taskId].tEnigmaBerryType;
     else
-        type = GetItemType(gSpecialVar_ItemId) - 1;
+        type = GetItemType(gSpecialVar_ItemId);
     if (!InBattlePyramid())
     {
         gBagMenu->newScreenCallback = sItemUseCallbacks[type];

@@ -34,6 +34,7 @@ static const u8 *GetItemPluralName(u16);
 static bool32 DoesItemHavePluralName(u16);
 static void BagPocket_GetSetSlotDataGeneric(struct BagPocket *pocket, u32 pocketPos, u16 *itemId, u16 *quantity, bool32 isSetting);
 static void BagPocket_GetSetSlotDataPC(struct BagPocket *pocket, u32 pocketPos, u16 *itemId, u16 *quantity, bool32 isSetting);
+static u32 BagPocket_GetFreeSpaceForItem(struct BagPocket *pocket, u16 itemId);
 
 EWRAM_DATA struct BagPocket gBagPockets[POCKETS_COUNT] = {0};
 EWRAM_DATA static u16 sNextBagAcquisitionIndex = 1;

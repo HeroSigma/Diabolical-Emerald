@@ -861,8 +861,7 @@ static bool8 LoadBagMenu_Graphics(void)
         gBagMenu->graphicsLoadState++;
         break;
     case 5:
-        LoadSpriteSheet(&gBagPocketIconSpriteSheet);
-        LoadSpritePalette(&gBagPocketIconSpritePalette);
+        // Pocket icon sprites are not implemented in this project.
         gBagMenu->graphicsLoadState++;
         break;
     default:
