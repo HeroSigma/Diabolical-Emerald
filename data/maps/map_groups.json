@@ -193,18 +193,12 @@
   ],
   "gMapGroup_IndoorFallarbor": [
     "FallarborTown_Mart",
-    "FallarborTown_BattleTentLobby",
-    "FallarborTown_BattleTentCorridor",
-    "FallarborTown_BattleTentBattleRoom",
     "FallarborTown_PokemonCenter_1F",
     "FallarborTown_PokemonCenter_2F",
     "FallarborTown_CozmosHouse",
     "FallarborTown_MoveRelearnersHouse"
   ],
   "gMapGroup_IndoorVerdanturf": [
-    "VerdanturfTown_BattleTentLobby",
-    "VerdanturfTown_BattleTentCorridor",
-    "VerdanturfTown_BattleTentBattleRoom",
     "VerdanturfTown_Mart",
     "VerdanturfTown_PokemonCenter_1F",
     "VerdanturfTown_PokemonCenter_2F",
@@ -234,9 +228,6 @@
   "gMapGroup_IndoorSlateport": [
     "SlateportCity_SternsShipyard_1F",
     "SlateportCity_SternsShipyard_2F",
-    "SlateportCity_BattleTentLobby",
-    "SlateportCity_BattleTentCorridor",
-    "SlateportCity_BattleTentBattleRoom",
     "SlateportCity_NameRatersHouse",
     "SlateportCity_PokemonFanClub",
     "SlateportCity_OceanicMuseum_1F",

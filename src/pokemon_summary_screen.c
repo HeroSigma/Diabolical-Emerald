@@ -4,7 +4,6 @@
 #include "battle_anim.h"
 #include "frontier_util.h"
 #include "battle_message.h"
-#include "battle_tent.h"
 #include "battle_factory.h"
 #include "bg.h"
 #include "contest.h"

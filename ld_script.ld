@@ -83,7 +83,6 @@ SECTIONS {
         src/union_room_chat.o(.text);
         src/berry_crush.o(.text);
         src/berry_powder.o(.text);
-        src/dodrio_berry_picking.o(.text);
         src/pokemon_jump.o(.text);
         src/minigame_countdown.o(.text);
         src/rtc.o(.text);
@@ -305,7 +304,6 @@ SECTIONS {
         src/save_location.o(.text);
         src/item_icon.o(.text);
         src/party_menu.o(.text);
-        src/battle_tent.o(.text);
         src/braille.o(.text);
         src/multiboot.o(.text);
         src/berry_fix_graphics.o(.text);
@@ -472,7 +470,6 @@ SECTIONS {
         src/union_room_chat.o(.rodata);
         src/berry_crush.o(.rodata);
         src/berry_powder.o(.rodata);
-        src/dodrio_berry_picking.o(.rodata);
         src/pokemon_jump.o(.rodata);
         src/minigame_countdown.o(.rodata);
         src/rtc.o(.rodata);
@@ -664,7 +661,6 @@ SECTIONS {
         src/save_location.o(.rodata);
         src/item_icon.o(.rodata);
         src/party_menu.o(.rodata);
-        src/battle_tent.o(.rodata);
         src/braille.o(.rodata);
         src/multiboot.o(.rodata);
         src/berry_fix_graphics.o(.rodata);

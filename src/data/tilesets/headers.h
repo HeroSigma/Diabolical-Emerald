@@ -798,17 +798,6 @@ const struct Tileset gTileset_BattleFrontierRankingHall =
     .callback = NULL,
 };
 
-const struct Tileset gTileset_BattleTent =
-{
-    .isCompressed = TRUE,
-    .isSecondary = TRUE,
-    .tiles = gTilesetTiles_BattleTent,
-    .palettes = gTilesetPalettes_BattleTent,
-    .metatiles = gMetatiles_BattleTent,
-    .metatileAttributes = gMetatileAttributes_BattleTent,
-    .callback = NULL,
-};
-
 const struct Tileset gTileset_MysteryEventsHouse =
 {
     .isCompressed = TRUE,

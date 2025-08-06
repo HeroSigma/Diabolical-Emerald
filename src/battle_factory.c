@@ -12,7 +12,6 @@
 #include "constants/battle_factory.h"
 #include "constants/battle_frontier.h"
 #include "constants/battle_frontier_mons.h"
-#include "constants/battle_tent.h"
 #include "constants/frontier_util.h"
 #include "constants/layouts.h"
 #include "constants/trainers.h"
@@ -386,10 +385,7 @@ static void SetRentalsToOpponentParty(void)
 {
     u8 i;
 
-    if (gSaveBlock2Ptr->frontier.lvlMode != FRONTIER_LVL_TENT)
-        gFacilityTrainerMons = gBattleFrontierMons;
-    else
-        gFacilityTrainerMons = gSlateportBattleTentMons;
+    gFacilityTrainerMons = gBattleFrontierMons;
 
     for (i = 0; i < FRONTIER_PARTY_SIZE; i++)
     {
@@ -408,19 +404,11 @@ static void SetPlayerAndOpponentParties(void)
     u16 monId;
     u8 ivs;
 
-    if (gSaveBlock2Ptr->frontier.lvlMode == FRONTIER_LVL_TENT)
-    {
-        gFacilityTrainerMons = gSlateportBattleTentMons;
-        monLevel = TENT_MIN_LEVEL;
-    }
+    gFacilityTrainerMons = gBattleFrontierMons;
+    if (gSaveBlock2Ptr->frontier.lvlMode != FRONTIER_LVL_50)
+        monLevel = FRONTIER_MAX_LEVEL_OPEN;
     else
-    {
-        gFacilityTrainerMons = gBattleFrontierMons;
-        if (gSaveBlock2Ptr->frontier.lvlMode != FRONTIER_LVL_50)
-            monLevel = FRONTIER_MAX_LEVEL_OPEN;
-        else
-            monLevel = FRONTIER_MAX_LEVEL_50;
-    }
+        monLevel = FRONTIER_MAX_LEVEL_50;
 
     if (gSpecialVar_0x8005 < 2)
     {
@@ -657,10 +645,7 @@ static void RestorePlayerPartyHeldItems(void)
 {
     u8 i;
 
-    if (gSaveBlock2Ptr->frontier.lvlMode != FRONTIER_LVL_TENT)
-        gFacilityTrainerMons = gBattleFrontierMons;
-    else
-        gFacilityTrainerMons = gSlateportBattleTentMons;
+    gFacilityTrainerMons = gBattleFrontierMons;
 
     for (i = 0; i < FRONTIER_PARTY_SIZE; i++)
     {
@@ -820,25 +805,17 @@ u8 GetNumPastRentalsRank(u8 battleMode, u8 lvlMode)
 u64 GetAiScriptsInBattleFactory(void)
 {
     int lvlMode = gSaveBlock2Ptr->frontier.lvlMode;
+    int battleMode = VarGet(VAR_FRONTIER_BATTLE_MODE);
+    int challengeNum = gSaveBlock2Ptr->frontier.factoryWinStreaks[battleMode][lvlMode] / FRONTIER_STAGES_PER_CHALLENGE;
 
-    if (lvlMode == FRONTIER_LVL_TENT)
-    {
+    if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_FRONTIER_BRAIN)
+        return AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY;
+    else if (challengeNum < 2)
         return 0;
-    }
+    else if (challengeNum < 4)
+        return AI_FLAG_CHECK_BAD_MOVE;
     else
-    {
-        int battleMode = VarGet(VAR_FRONTIER_BATTLE_MODE);
-        int challengeNum = gSaveBlock2Ptr->frontier.factoryWinStreaks[battleMode][lvlMode] / FRONTIER_STAGES_PER_CHALLENGE;
-
-        if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_FRONTIER_BRAIN)
-            return AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY;
-        else if (challengeNum < 2)
-            return 0;
-        else if (challengeNum < 4)
-            return AI_FLAG_CHECK_BAD_MOVE;
-        else
-            return AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY;
-    }
+        return AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY;
 }
 
 void SetMonMoveAvoidReturn(struct Pokemon *mon, u16 moveArg, u8 moveSlot)

@@ -32,8 +32,6 @@ extern const u8 gTowerFemaleFacilityClasses[20];
 extern const u16 gTowerFemaleTrainerGfxIds[20];
 extern const struct TrainerMon gBattleFrontierMons[];
 extern const struct BattleFrontierTrainer gBattleFrontierTrainers[];
-extern const struct TrainerMon gSlateportBattleTentMons[];
-extern const struct BattleFrontierTrainer gSlateportBattleTentTrainers[];
 
 // Temporary storage for monIds of the opponent team
 // during team generation in battle factory and similar facilities.

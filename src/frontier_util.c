@@ -1791,7 +1791,7 @@ void ResetWinStreaks(void)
     gSaveBlock2Ptr->frontier.winStreakActiveFlags = 0;
     for (battleMode = 0; battleMode < FRONTIER_MODE_COUNT; battleMode++)
     {
-        for (lvlMode = 0; lvlMode < FRONTIER_LVL_TENT; lvlMode++)
+        for (lvlMode = 0; lvlMode < FRONTIER_LVL_MODE_COUNT; lvlMode++)
         {
             gSaveBlock2Ptr->frontier.towerWinStreaks[battleMode][lvlMode] = 0;
             if (battleMode < FRONTIER_MODE_MULTIS)

@@ -1269,21 +1269,15 @@ MossdeepCity_GameCorner_1F_EventScript_InfoMan2::
 	faceplayer
 	message MossdeepCity_GameCorner_1F_Text_DescribeWhichGame
 	waitmessage
-	multichoice 0, 0, MULTI_WIRELESS_MINIGAME, FALSE
-	switch VAR_RESULT
-	case 0, MossdeepCity_GameCorner_1F_EventScript_PokemonJumpInfo
-	case 1, MossdeepCity_GameCorner_1F_EventScript_DodrioBerryPickingInfo
-	case 2, MossdeepCity_GameCorner_1F_EventScript_MinigameInfoExit
-	case MULTI_B_PRESSED, MossdeepCity_GameCorner_1F_EventScript_MinigameInfoExit
-	end
+        multichoice 0, 0, MULTI_WIRELESS_MINIGAME, FALSE
+        switch VAR_RESULT
+        case 0, MossdeepCity_GameCorner_1F_EventScript_PokemonJumpInfo
+        case 1, MossdeepCity_GameCorner_1F_EventScript_MinigameInfoExit
+        case MULTI_B_PRESSED, MossdeepCity_GameCorner_1F_EventScript_MinigameInfoExit
+        end
 
 MossdeepCity_GameCorner_1F_EventScript_PokemonJumpInfo::
 	msgbox MossdeepCity_GameCorner_1F_Text_PokemonJumpInfo, MSGBOX_DEFAULT
-	release
-	end
-
-MossdeepCity_GameCorner_1F_EventScript_DodrioBerryPickingInfo::
-	msgbox MossdeepCity_GameCorner_1F_Text_DodrioBerryPickingInfo, MSGBOX_DEFAULT
 	release
 	end
 
@@ -1302,13 +1296,12 @@ MossdeepCity_GameCorner_1F_EventScript_OldMan2::
 	delay 60
 	message MossdeepCity_GameCorner_1F_Text_PlayWhichGame
 	waitmessage
-	multichoice 0, 0, MULTI_WIRELESS_MINIGAME, FALSE
-	switch VAR_RESULT
-	case 0, MossdeepCity_GameCorner_1F_EventScript_PlayPokemonJump
-	case 1, MossdeepCity_GameCorner_1F_EventScript_PlayDodrioBerryPicking
-	case 2, MossdeepCity_GameCorner_1F_EventScript_AbortMinigame
-	case MULTI_B_PRESSED, MossdeepCity_GameCorner_1F_EventScript_AbortMinigame
-	end
+        multichoice 0, 0, MULTI_WIRELESS_MINIGAME, FALSE
+        switch VAR_RESULT
+        case 0, MossdeepCity_GameCorner_1F_EventScript_PlayPokemonJump
+        case 1, MossdeepCity_GameCorner_1F_EventScript_AbortMinigame
+        case MULTI_B_PRESSED, MossdeepCity_GameCorner_1F_EventScript_AbortMinigame
+        end
 
 MossdeepCity_GameCorner_1F_EventScript_PlayPokemonJump::
 	setvar VAR_0x8005, 0
@@ -1323,22 +1316,6 @@ MossdeepCity_GameCorner_1F_EventScript_PlayPokemonJump::
 	call Common_EventScript_SaveGame
 	goto_if_eq VAR_RESULT, 0, MossdeepCity_GameCorner_1F_EventScript_AbortMinigame
 	setvar VAR_0x8004, LINK_GROUP_POKEMON_JUMP
-	goto MossdeepCity_GameCorner_1F_EventScript_ChooseLinkLeader
-	end
-
-MossdeepCity_GameCorner_1F_EventScript_PlayDodrioBerryPicking::
-	setvar VAR_0x8005, 1
-	special IsDodrioInParty
-	goto_if_eq VAR_RESULT, FALSE, MossdeepCity_GameCorner_1F_EventScript_DontHaveRequiredMon
-	msgbox MossdeepCity_GameCorner_1F_Text_EnterWhichPokemon, MSGBOX_DEFAULT
-	fadescreen FADE_TO_BLACK
-	setvar VAR_0x8005, 1
-	special ChooseMonForWirelessMinigame
-	waitstate
-	goto_if_ge VAR_0x8004, PARTY_SIZE, MossdeepCity_GameCorner_1F_EventScript_AbortMinigame
-	call Common_EventScript_SaveGame
-	goto_if_eq VAR_RESULT, 0, MossdeepCity_GameCorner_1F_EventScript_AbortMinigame
-	setvar VAR_0x8004, LINK_GROUP_BERRY_PICKING
 	goto MossdeepCity_GameCorner_1F_EventScript_ChooseLinkLeader
 	end
 
@@ -1396,19 +1373,14 @@ MossdeepCity_GameCorner_1F_EventScript_AdapterNotConnected::
 	end
 
 MossdeepCity_GameCorner_1F_EventScript_DontHaveRequiredMon::
-	msgbox MossdeepCity_GameCorner_1F_Text_ExplainRequiredMon, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, MossdeepCity_GameCorner_1F_EventScript_AbortMinigame
-	call_if_eq VAR_0x8005, 0, MossdeepCity_GameCorner_1F_EventScript_ExplainPokemonJumpRequirements
-	call_if_eq VAR_0x8005, 1, MossdeepCity_GameCorner_1F_EventScript_ExplainDodrioBerryPickingRequirements
-	goto MossdeepCity_GameCorner_1F_EventScript_AbortMinigame
-	end
+        msgbox MossdeepCity_GameCorner_1F_Text_ExplainRequiredMon, MSGBOX_YESNO
+        goto_if_eq VAR_RESULT, NO, MossdeepCity_GameCorner_1F_EventScript_AbortMinigame
+        call_if_eq VAR_0x8005, 0, MossdeepCity_GameCorner_1F_EventScript_ExplainPokemonJumpRequirements
+        goto MossdeepCity_GameCorner_1F_EventScript_AbortMinigame
+        end
 
 MossdeepCity_GameCorner_1F_EventScript_ExplainPokemonJumpRequirements::
 	msgbox MossdeepCity_GameCorner_1F_Text_ShortJumpingPokemonAllowed, MSGBOX_DEFAULT
-	return
-
-MossdeepCity_GameCorner_1F_EventScript_ExplainDodrioBerryPickingRequirements::
-	msgbox MossdeepCity_GameCorner_1F_Text_OnlyDodrioAllowed, MSGBOX_DEFAULT
 	return
 
 MossdeepCity_GameCorner_1F_EventScript_PokemonJumpRecords::
@@ -1418,9 +1390,3 @@ MossdeepCity_GameCorner_1F_EventScript_PokemonJumpRecords::
 	releaseall
 	end
 
-MossdeepCity_GameCorner_1F_EventScript_DodrioBerryPickingRecords::
-	lockall
-	special ShowDodrioBerryPickingRecords
-	waitstate
-	releaseall
-	end

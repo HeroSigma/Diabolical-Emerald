@@ -28,7 +28,6 @@
 #include "strings.h"
 #include "graphics.h"
 #include "constants/battle_frontier.h"
-#include "constants/battle_tent.h"
 #include "constants/songs.h"
 #include "constants/rgb.h"
 
@@ -188,7 +187,6 @@ static void Select_Task_OpenChosenMonPics(u8);
 static void Select_Task_HandleChooseMons(u8);
 static void Select_Task_HandleMenu(u8);
 static void CreateFrontierFactorySelectableMons(u8);
-static void CreateSlateportTentSelectableMons(u8);
 static void Select_SetBallSpritePaletteNum(u8);
 static void Select_ErasePopupMenu(u8);
 static u8 Select_RunMenuOptionFunc(void);
@@ -1300,10 +1298,7 @@ static void Select_InitMonsData(void)
     for (i = 0; i < SELECTABLE_MONS_COUNT; i++)
         sFactorySelectScreen->mons[i].selectedId = 0;
 
-    if (gSaveBlock2Ptr->frontier.lvlMode != FRONTIER_LVL_TENT)
-        CreateFrontierFactorySelectableMons(0);
-    else
-        CreateSlateportTentSelectableMons(0);
+    CreateFrontierFactorySelectableMons(0);
 }
 
 static void Select_InitAllSprites(void)
@@ -1765,24 +1760,6 @@ static void CreateFrontierFactorySelectableMons(u8 firstMonId)
         CreateFacilityMon(&gFacilityTrainerMons[monId],
                 level, ivs, otId, FLAG_FRONTIER_MON_FACTORY,
                 &sFactorySelectScreen->mons[i + firstMonId].monData);
-    }
-}
-
-static void CreateSlateportTentSelectableMons(u8 firstMonId)
-{
-    u8 i;
-    u8 ivs = 0;
-    u8 level = TENT_MIN_LEVEL;
-    u32 otId = 0;
-
-    gFacilityTrainerMons = gSlateportBattleTentMons;
-    otId = T1_READ_32(gSaveBlock2Ptr->playerTrainerId);
-
-    for (i = 0; i < SELECTABLE_MONS_COUNT; i++)
-    {
-        u16 monId = gSaveBlock2Ptr->frontier.rentalMons[i].monId;
-        sFactorySelectScreen->mons[i + firstMonId].monId = monId;
-        CreateFacilityMon(&gFacilityTrainerMons[monId], level, ivs, otId, 0, &sFactorySelectScreen->mons[i + firstMonId].monData);
     }
 }
 
