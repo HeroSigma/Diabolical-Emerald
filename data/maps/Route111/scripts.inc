@@ -561,9 +561,6 @@ Route111_EventScript_Branden::
 	msgbox Route111_Text_BrandenPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-Route111_EventScript_TrainerHillSign::
-	msgbox Route111_Text_TrainerHillSign, MSGBOX_SIGN
-	end
 
 Route111_Text_BattleOurFamily:
 	.string "Hello! I take it you're a traveler.\p"
@@ -713,9 +710,4 @@ Route111_Text_MauvilleUncleToldMeToTakeRockSmash:
 	.string "ROUTE 111!\p"
 	.string "My uncle? He lives across from\n"
 	.string "the bike shop in MAUVILLE.$"
-
-Route111_Text_TrainerHillSign:
-	.string "{RIGHT_ARROW} TRAINER HILL ENTRANCE\p"
-	.string "“Scale the heights, you hot-blooded\n"
-	.string "TRAINERS!”$"
 

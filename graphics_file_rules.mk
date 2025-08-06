@@ -208,7 +208,6 @@ $(TILESETGFXDIR)/secondary/mossdeep_game_corner/tiles.4bpp: %.4bpp: %.png
 $(TILESETGFXDIR)/secondary/island_harbor/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 503 -Wnum_tiles
 
-$(TILESETGFXDIR)/secondary/trainer_hill/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 374 -Wnum_tiles
 
 $(TILESETGFXDIR)/secondary/navel_rock/tiles.4bpp: %.4bpp: %.png

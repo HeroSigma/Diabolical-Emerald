@@ -21,7 +21,7 @@ EventScript_PkmnCenterNurse_HealPkmn::
 	waitmessage
 	call EventScript_PkmnCenterNurse_TakeAndHealPkmn
 	goto_if_unset FLAG_POKERUS_EXPLAINED, EventScript_PkmnCenterNurse_CheckPokerus
-	goto EventScript_PkmnCenterNurse_CheckTrainerHillAndUnionRoom
+        goto EventScript_PkmnCenterNurse_CheckUnionRoom
 	end
 
 EventScript_PkmnCenterNurse_IllTakeYourPkmn::
@@ -49,14 +49,12 @@ EventScript_PkmnCenterNurse_TakeAndHealPkmn::
 	callnative UpdateFollowingPokemon
 	return
 
-EventScript_PkmnCenterNurse_CheckTrainerHillAndUnionRoom::
-	specialvar VAR_RESULT, PlayerNotAtTrainerHillEntrance
-	goto_if_eq VAR_RESULT, 0, EventScript_PkmnCenterNurse_ReturnPkmn
-	specialvar VAR_RESULT, BufferUnionRoomPlayerName
-	copyvar VAR_0x8008, VAR_RESULT
-	goto_if_eq VAR_0x8008, 0, EventScript_PkmnCenterNurse_ReturnPkmn
-	goto_if_eq VAR_0x8008, 1, EventScript_PkmnCenterNurse_PlayerWaitingInUnionRoom
-	end
+EventScript_PkmnCenterNurse_CheckUnionRoom::
+        specialvar VAR_RESULT, BufferUnionRoomPlayerName
+        copyvar VAR_0x8008, VAR_RESULT
+        goto_if_eq VAR_0x8008, 0, EventScript_PkmnCenterNurse_ReturnPkmn
+        goto_if_eq VAR_0x8008, 1, EventScript_PkmnCenterNurse_PlayerWaitingInUnionRoom
+        end
 
 @ VAR_0x8004 is 1 when player has Gold Card
 EventScript_PkmnCenterNurse_ReturnPkmn::
@@ -90,7 +88,7 @@ EventScript_PkmnCenterNurse_PlayerWaitingInUnionRoom::
 EventScript_PkmnCenterNurse_CheckPokerus::
 	specialvar VAR_RESULT, IsPokerusInParty
 	goto_if_eq VAR_RESULT, TRUE, EventScript_PkmnCenterNurse_ExplainPokerus
-	goto_if_eq VAR_RESULT, FALSE, EventScript_PkmnCenterNurse_CheckTrainerHillAndUnionRoom
+        goto_if_eq VAR_RESULT, FALSE, EventScript_PkmnCenterNurse_CheckUnionRoom
 	end
 
 EventScript_PkmnCenterNurse_ExplainPokerus::

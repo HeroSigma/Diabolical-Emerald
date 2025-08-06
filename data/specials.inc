@@ -551,7 +551,6 @@ gSpecials::
 	def_special ShouldDistributeEonTicket
 	def_special LinkRetireStatusWithBattleTowerPartner
 	def_special BattleTowerReconnectLink
-	def_special CallTrainerHillFunction
 	def_special Script_DoRayquazaScene @ Listed twice
 	def_special LoopWingFlapSE
 	def_special DestroyMewEmergingGrassSprite
@@ -559,10 +558,8 @@ gSpecials::
 	def_special TryBufferWaldaPhrase
 	def_special DoWaldaNamingScreen
 	def_special TryGetWallpaperWithWaldaPhrase
-	def_special PlayerNotAtTrainerHillEntrance
 	def_special GetBattlePyramidHint
 	def_special LoadLinkContestPlayerPalettes
-	def_special ShowTrainerHillRecords
 	def_special PlayerFaceTrainerAfterBattle
 	def_special ResetHealLocationFromDewford
 	def_special IsLastMonThatKnowsSurf
