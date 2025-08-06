@@ -1527,19 +1527,7 @@ static void Task_ExchangeCards(u8 taskId)
                 CopyTrainerCardData(&gTrainerCards[i], (struct TrainerCard *)recvBuff, gLinkPlayers[i].version);
             }
 
-            if (GetLinkPlayerCount() == 2)
-            {
-                // Note: hasAllFrontierSymbols is a re-used field.
-                // Here it is set by CreateTrainerCardInBuffer.
-                // If the player has a saved Wonder Card and it is the same Wonder Card
-                // as their partner then mystery gift stats are enabled.
-                recvBuff = gBlockRecvBuffer[GetMultiplayerId() ^ 1];
-                MysteryGift_TryEnableStatsByFlagId(((struct TrainerCard *)recvBuff)->hasAllFrontierSymbols);
-            }
-            else
-            {
-                MysteryGift_DisableStats();
-            }
+            MysteryGift_DisableStats();
 
             ResetBlockReceivedFlags();
             DestroyTask(taskId);
@@ -1624,12 +1612,6 @@ static void CreateTrainerCardInBuffer(void *dest, bool32 setWonderCard)
 {
     struct TrainerCard *card = (struct TrainerCard *)dest;
     TrainerCard_GenerateCardForLinkPlayer(card);
-
-    // Below field is re-used, to be read by Task_ExchangeCards
-    if (setWonderCard)
-        card->hasAllFrontierSymbols = GetWonderCardFlagID();
-    else
-        card->hasAllFrontierSymbols = 0;
 }
 
 static void Task_StartActivity(u8 taskId)
@@ -4434,8 +4416,6 @@ static u8 GetActivePartnersInfo(struct WirelessLink_URoom *data)
 static void ViewURoomPartnerTrainerCard(u8 *unused, struct WirelessLink_URoom *data, bool8 isParent)
 {
     struct TrainerCard *trainerCard = &gTrainerCards[GetMultiplayerId() ^ 1];
-    s32 i;
-    s32 n;
 
     DynamicPlaceholderTextUtil_Reset();
 
@@ -4444,10 +4424,10 @@ static void ViewURoomPartnerTrainerCard(u8 *unused, struct WirelessLink_URoom *d
 
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(1, trainerCard->playerName);
 
-    StringCopy(data->trainerCardColorStrBuffer, sCardColorTexts[trainerCard->stars]);
+    StringCopy(data->trainerCardColorStrBuffer, sCardColorTexts[0]);
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(2, data->trainerCardColorStrBuffer);
 
-    ConvertIntToDecimalStringN(data->trainerCardStrBuffer[2], trainerCard->caughtMonsCount, STR_CONV_MODE_LEFT_ALIGN, 3);
+    ConvertIntToDecimalStringN(data->trainerCardStrBuffer[2], 0, STR_CONV_MODE_LEFT_ALIGN, 3);
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(3, data->trainerCardStrBuffer[2]);
 
     ConvertIntToDecimalStringN(data->trainerCardStrBuffer[3], trainerCard->playTimeHours, STR_CONV_MODE_LEFT_ALIGN, 3);
@@ -4458,26 +4438,14 @@ static void ViewURoomPartnerTrainerCard(u8 *unused, struct WirelessLink_URoom *d
     DynamicPlaceholderTextUtil_ExpandPlaceholders(data->trainerCardMsgStrBuffer, sText_TrainerCardInfoPage1);
     StringCopy(gStringVar4, data->trainerCardMsgStrBuffer);
 
-    n = trainerCard->linkBattleWins;
-    if (n > 9999)
-        n = 9999;
-    ConvertIntToDecimalStringN(data->trainerCardStrBuffer[0], n, STR_CONV_MODE_LEFT_ALIGN, 4);
+    ConvertIntToDecimalStringN(data->trainerCardStrBuffer[0], 0, STR_CONV_MODE_LEFT_ALIGN, 4);
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(0, data->trainerCardStrBuffer[0]);
 
-    n = trainerCard->linkBattleLosses;
-    if (n > 9999)
-        n = 9999;
-    ConvertIntToDecimalStringN(data->trainerCardStrBuffer[1], n, STR_CONV_MODE_LEFT_ALIGN, 4);
+    ConvertIntToDecimalStringN(data->trainerCardStrBuffer[1], 0, STR_CONV_MODE_LEFT_ALIGN, 4);
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(2, data->trainerCardStrBuffer[1]);
 
-    ConvertIntToDecimalStringN(data->trainerCardStrBuffer[2], trainerCard->pokemonTrades, STR_CONV_MODE_LEFT_ALIGN, 5);
+    ConvertIntToDecimalStringN(data->trainerCardStrBuffer[2], 0, STR_CONV_MODE_LEFT_ALIGN, 5);
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(3, data->trainerCardStrBuffer[2]);
-
-    for (i = 0; i < TRAINER_CARD_PROFILE_LENGTH; i++)
-    {
-        CopyEasyChatWord(data->trainerCardStrBuffer[i + 3], trainerCard->easyChatProfile[i]);
-        DynamicPlaceholderTextUtil_SetPlaceholderPtr(i + 4, data->trainerCardStrBuffer[i + 3]);
-    }
 
     DynamicPlaceholderTextUtil_ExpandPlaceholders(data->trainerCardMsgStrBuffer, sText_TrainerCardInfoPage2);
     StringAppend(gStringVar4, data->trainerCardMsgStrBuffer);

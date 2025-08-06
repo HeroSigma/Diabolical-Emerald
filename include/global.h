@@ -503,17 +503,16 @@ struct BattleFrontier
     /*0xE6E*/ u16 slateportTentPrize;
     /*0xE70*/ struct RentalMon rentalMons[FRONTIER_PARTY_SIZE * 2];
     /*0xEB8*/ u16 battlePoints;
-    /*0xEBA*/ u16 cardBattlePoints;
-    /*0xEBC*/ u32 battlesCount;
-    /*0xEC0*/ u16 domeWinningMoves[DOME_TOURNAMENT_TRAINERS_COUNT];
-    /*0xEE0*/ u8 trainerFlags;
-    /*0xEE1*/ u8 opponentNames[FRONTIER_LVL_MODE_COUNT][PLAYER_NAME_LENGTH + 1];
-    /*0xEF1*/ u8 opponentTrainerIds[FRONTIER_LVL_MODE_COUNT][TRAINER_ID_LENGTH];
-    /*0xEF9*/ u8 unk_EF9:7; // Never read
-    /*0xEF9*/ u8 savedGame:1;
-    /*0xEFA*/ u8 unused_EFA;
-    /*0xEFB*/ u8 unused_EFB;
-    /*0xEFC*/ struct DomeMonData domePlayerPartyData[FRONTIER_PARTY_SIZE];
+    /*0xEBA*/ u32 battlesCount;
+    /*0xEBE*/ u16 domeWinningMoves[DOME_TOURNAMENT_TRAINERS_COUNT];
+    /*0xEDE*/ u8 trainerFlags;
+    /*0xEDF*/ u8 opponentNames[FRONTIER_LVL_MODE_COUNT][PLAYER_NAME_LENGTH + 1];
+    /*0xEEF*/ u8 opponentTrainerIds[FRONTIER_LVL_MODE_COUNT][TRAINER_ID_LENGTH];
+    /*0xEF7*/ u8 unk_EF9:7; // Never read
+    /*0xEF7*/ u8 savedGame:1;
+    /*0xEF8*/ u8 unused_EFA;
+    /*0xEF9*/ u8 unused_EFB;
+    /*0xEFA*/ struct DomeMonData domePlayerPartyData[FRONTIER_PARTY_SIZE];
 };
 
 struct ApprenticeQuestion
