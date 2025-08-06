@@ -1579,14 +1579,6 @@ extern const u16 gItemIconPalette_TeachyTV[];
 // Story Key Items
 extern const u32 gItemIcon_SSTicket[];
 extern const u16 gItemIconPalette_SSTicket[];
-extern const u32 gItemIcon_EonTicket[];
-extern const u16 gItemIconPalette_EonTicket[];
-extern const u32 gItemIcon_MysticTicket[];
-extern const u16 gItemIconPalette_MysticTicket[];
-extern const u32 gItemIcon_AuroraTicket[];
-extern const u16 gItemIconPalette_AuroraTicket[];
-extern const u32 gItemIcon_OldSeaMap[];
-extern const u16 gItemIconPalette_OldSeaMap[];
 extern const u32 gItemIcon_Letter[];
 extern const u32 gItemIcon_DevonParts[];
 extern const u16 gItemIconPalette_DevonParts[];

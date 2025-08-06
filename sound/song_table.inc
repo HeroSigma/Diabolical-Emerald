@@ -542,7 +542,6 @@ gSongTable::
 	song mus_rg_poke_jump, 0, 0
 	song mus_rg_union_room, 0, 0
 	song mus_rg_net_center, 0, 0
-	song mus_rg_mystery_gift, 0, 0
 	song mus_rg_berry_pick, 0, 0
 	song mus_rg_sevii_cave, 0, 0
 	song mus_rg_teachy_tv_show, 0, 0

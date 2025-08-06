@@ -70,15 +70,9 @@ SECTIONS {
         src/link_rfu_3.o(.text);
         src/link_rfu_2.o(.text);
         src/union_room.o(.text);
-        src/mystery_gift_menu.o(.text);
         src/union_room_player_avatar.o(.text);
         src/wireless_communication_status_screen.o(.text);
         src/union_room_battle.o(.text);
-        src/mystery_gift.o(.text);
-        src/mystery_gift_view.o(.text);
-        src/mystery_gift_server.o(.text);
-        src/mystery_gift_client.o(.text);
-        src/mystery_gift_link.o(.text);
         src/wonder_news.o(.text);
         src/union_room_chat.o(.text);
         src/berry_crush.o(.text);
@@ -459,15 +453,9 @@ SECTIONS {
         src/link_rfu_2.o(.rodata);
         src/link_rfu_2.o(.rodata.str1.4);
         src/union_room.o(.rodata);
-        src/mystery_gift_menu.o(.rodata);
         src/union_room_player_avatar.o(.rodata);
         src/wireless_communication_status_screen.o(.rodata);
         src/union_room_battle.o(.rodata);
-        src/mystery_gift.o(.rodata);
-        src/mystery_gift_view.o(.rodata);
-        src/mystery_gift_server.o(.rodata);
-        src/mystery_gift_client.o(.rodata);
-        src/mystery_gift_scripts.o(.rodata);
         src/wonder_news.o(.rodata);
         src/union_room_chat.o(.rodata);
         src/berry_crush.o(.rodata);
@@ -700,7 +688,6 @@ SECTIONS {
         src/fonts.o(.rodata);
         src/international_string_util.o(.rodata);
         src/mystery_event_msg.o(.rodata);
-        data/mystery_gift.o(.rodata);
         src/m4a_tables.o(.rodata);
         data/sound_data.o(.rodata);
         src/quests.o(.rodata);
@@ -1170,7 +1157,6 @@ SECTIONS {
         sound/songs/midi/mus_rg_poke_jump.o(.rodata);
         sound/songs/midi/mus_rg_union_room.o(.rodata);
         sound/songs/midi/mus_rg_net_center.o(.rodata);
-        sound/songs/midi/mus_rg_mystery_gift.o(.rodata);
         sound/songs/midi/mus_rg_berry_pick.o(.rodata);
         sound/songs/midi/mus_rg_sevii_cave.o(.rodata);
         sound/songs/midi/mus_rg_teachy_tv_show.o(.rodata);
