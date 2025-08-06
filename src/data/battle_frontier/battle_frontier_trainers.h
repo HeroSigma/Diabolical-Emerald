@@ -1,3 +1,4 @@
+#if FRONTIER_TRAINERS_COUNT > 0
 const struct BattleFrontierTrainer gBattleFrontierTrainers[FRONTIER_TRAINERS_COUNT] =
 {
     [FRONTIER_TRAINER_BRADY] = {
@@ -2404,3 +2405,4 @@ const struct BattleFrontierTrainer gBattleFrontierTrainers[FRONTIER_TRAINERS_COU
         .monSet = (const u16[]){FRONTIER_MONS_AROMA_LADY_3}
     }
 };
+#endif // FRONTIER_TRAINERS_COUNT > 0

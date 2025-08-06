@@ -1,5 +1,6 @@
 // NOTE: Each of these macros turn data into one byte. Therefore ranges for all arguments is 0-15
 // See struct TrainerHillFloorMap for more info about each
+#if NUM_TRAINER_HILL_FLOORS > 0
 #define COORDS_XY(x,y)      ((y<<4)|(x))
 #define TRAINER_DIRS(a, b)  (((a-1)<<4)|(b-1))
 #define TRAINER_RANGE(a, b) ((a<<4)|(b))
@@ -4819,3 +4820,4 @@ static const struct TrainerHillFloor sFloors_Expert[] = {
 #undef COORDS_XY
 #undef TRAINER_DIRS
 #undef TRAINER_RANGE
+#endif // NUM_TRAINER_HILL_FLOORS > 0

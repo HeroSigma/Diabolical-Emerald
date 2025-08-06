@@ -17,7 +17,6 @@
 #include "constants/maps.h"
 #include "constants/pokemon.h"
 #include "constants/easy_chat.h"
-#include "constants/trainer_hill.h"
 #include "constants/items.h"
 #include "constants/quests.h"
 #include "config/save.h"

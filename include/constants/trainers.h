@@ -2,7 +2,8 @@
 #define GUARD_TRAINERS_H
 
 #include "constants/opponents.h"
-#include "constants/battle_frontier_trainers.h"
+// Battle Frontier trainers were removed; provide a stub count
+#define FRONTIER_TRAINERS_COUNT 0
 
 // Special Trainer Ids.
 //      0-299 are frontier trainers

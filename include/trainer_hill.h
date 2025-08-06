@@ -3,6 +3,44 @@
 
 #define DUMMY_HILL_MON { .nickname = __("$$$$$$$$$$$") }
 
+// Trainer Hill has been removed. Provide stub values so code referencing
+// these macros can still compile without the original constants.
+#ifndef HILL_FLOOR_WIDTH
+#define HILL_FLOOR_WIDTH 1
+#endif
+
+#ifndef HILL_FLOOR_HEIGHT_MAIN
+#define HILL_FLOOR_HEIGHT_MAIN 1
+#endif
+
+#ifndef HILL_TRAINERS_PER_FLOOR
+#define HILL_TRAINERS_PER_FLOOR 1
+#endif
+
+#ifndef NUM_TRAINER_HILL_TRAINERS
+#define NUM_TRAINER_HILL_TRAINERS 0
+#endif
+
+#ifndef NUM_TRAINER_HILL_FLOORS
+#define NUM_TRAINER_HILL_FLOORS 0
+#endif
+
+#ifndef NUM_TRAINER_HILL_MODES
+#define NUM_TRAINER_HILL_MODES 1
+#endif
+
+#ifndef NUM_TRAINER_HILL_TRAINERS_JP
+#define NUM_TRAINER_HILL_TRAINERS_JP 0
+#endif
+
+#ifndef NUM_TRAINER_HILL_FLOORS_JP
+#define NUM_TRAINER_HILL_FLOORS_JP 0
+#endif
+
+#ifndef TRAINER_HILL_OTID
+#define TRAINER_HILL_OTID 0
+#endif
+
 struct TrainerHillTrainer
 {
     u8 name[TRAINER_NAME_LENGTH + 1];

@@ -49,7 +49,6 @@
 #include "constants/items.h"
 #include "constants/songs.h"
 #include "constants/trainers.h"
-#include "constants/trainer_hill.h"
 #include "constants/weather.h"
 #include "wild_encounter.h"
 
