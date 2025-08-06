@@ -24,7 +24,6 @@
 #include "constants/rgb.h"
 
 EWRAM_DATA u8 gRecordsWindowId = 0;
-EWRAM_DATA static u8 *sTilemapBuffer = NULL;
 
 static const struct WindowTemplate sLinkBattleRecordsWindow =
 {
