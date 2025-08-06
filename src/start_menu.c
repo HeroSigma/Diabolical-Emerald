@@ -14,7 +14,6 @@
 #include "field_specials.h"
 #include "field_weather.h"
 #include "field_screen_effect.h"
-#include "frontier_pass.h"
 #include "frontier_util.h"
 #include "gpu_regs.h"
 #include "international_string_util.h"
@@ -755,12 +754,7 @@ static bool8 StartMenuPlayerNameCallback(void)
         RemoveExtraStartMenuWindows();
         CleanupOverworldWindowsAndTilemaps();
 
-        if (IsOverworldLinkActive() || InUnionRoom())
-            ShowPlayerTrainerCard(CB2_ReturnToFieldWithOpenMenu); // Display trainer card
-        else if (FlagGet(FLAG_SYS_FRONTIER_PASS))
-            ShowFrontierPass(CB2_ReturnToFieldWithOpenMenu); // Display frontier pass
-        else
-            ShowPlayerTrainerCard(CB2_ReturnToFieldWithOpenMenu); // Display trainer card
+        ShowPlayerTrainerCard(CB2_ReturnToFieldWithOpenMenu); // Display trainer card
 
         return TRUE;
     }

@@ -1202,17 +1202,9 @@ void Script_ShowLinkTrainerCard(void)
 // color into gStringVar2.
 bool32 GetLinkTrainerCardColor(u8 linkPlayerIndex)
 {
-    u32 numStars;
-
     gSpecialVar_0x8006 = linkPlayerIndex;
     StringCopy(gStringVar1, gLinkPlayers[linkPlayerIndex].name);
-
-    numStars = GetTrainerCardStars(linkPlayerIndex);
-    if (numStars == 0)
-        return FALSE;
-
-    StringCopy(gStringVar2, sTrainerCardColorNames[numStars - 1]);
-    return TRUE;
+    return FALSE;
 }
 
 #define tTimer data[0]
