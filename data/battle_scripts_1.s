@@ -3,7 +3,6 @@
 #include "constants/global.h"
 #include "constants/battle.h"
 #include "constants/pokemon.h"
-#include "constants/battle_arena.h"
 #include "constants/battle_script_commands.h"
 #include "constants/battle_anim.h"
 #include "constants/battle_string_ids.h"

@@ -53,7 +53,6 @@
 #include "window.h"
 #include "constants/battle_frontier.h"
 #include "constants/battle_pyramid.h"
-#include "constants/battle_tower.h"
 #include "constants/decorations.h"
 #include "constants/event_objects.h"
 #include "constants/event_object_movement.h"
