@@ -1814,8 +1814,8 @@ void BoxMonToMon(const struct BoxPokemon *src, struct Pokemon *dest)
 {
     u32 value = 0;
     dest->box = *src;
-    GetBoxMonData(src, MON_DATA_NICKNAME, dest->nickname);
-    GetBoxMonData(src, MON_DATA_OT_NAME, dest->otName);
+    GetBoxMonData((struct BoxPokemon *)src, MON_DATA_NICKNAME, dest->nickname);
+    GetBoxMonData((struct BoxPokemon *)src, MON_DATA_OT_NAME, dest->otName);
     dest->status = GetBoxMonData(&dest->box, MON_DATA_STATUS, NULL);
     dest->hp = 0;
     dest->maxHP = 0;
