@@ -24,7 +24,6 @@ struct MysteryGiftLinkGameData
     u8 romHeaderSoftwareVersion;
 };
 
-void ClearMysteryGift(void);
 struct WonderNews *GetSavedWonderNews(void);
 struct WonderCard *GetSavedWonderCard(void);
 struct WonderCardMetadata *GetSavedWonderCardMetadata(void);

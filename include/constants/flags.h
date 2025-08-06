@@ -336,27 +336,6 @@
 #define FLAG_WALLACE_GOES_TO_SKY_PILLAR      0x137 // Set after speaking to Wallace within the Cave of Origin.
 #define FLAG_RECEIVED_HM_WATERFALL           0x138
 #define FLAG_BEAT_MAGMA_GRUNT_JAGGED_PASS    0x139
-#define FLAG_RECEIVED_AURORA_TICKET          0x13A
-#define FLAG_RECEIVED_MYSTIC_TICKET          0x13B
-#define FLAG_RECEIVED_OLD_SEA_MAP            0x13C
-#define FLAG_WONDER_CARD_UNUSED_1            0x13D // These Wonder Card flags are referenced but never set
-#define FLAG_WONDER_CARD_UNUSED_2            0x13E
-#define FLAG_WONDER_CARD_UNUSED_3            0x13F
-#define FLAG_WONDER_CARD_UNUSED_4            0x140
-#define FLAG_WONDER_CARD_UNUSED_5            0x141
-#define FLAG_WONDER_CARD_UNUSED_6            0x142
-#define FLAG_WONDER_CARD_UNUSED_7            0x143
-#define FLAG_WONDER_CARD_UNUSED_8            0x144
-#define FLAG_WONDER_CARD_UNUSED_9            0x145
-#define FLAG_WONDER_CARD_UNUSED_10           0x146
-#define FLAG_WONDER_CARD_UNUSED_11           0x147
-#define FLAG_WONDER_CARD_UNUSED_12           0x148
-#define FLAG_WONDER_CARD_UNUSED_13           0x149
-#define FLAG_WONDER_CARD_UNUSED_14           0x14A
-#define FLAG_WONDER_CARD_UNUSED_15           0x14B
-#define FLAG_WONDER_CARD_UNUSED_16           0x14C
-#define FLAG_WONDER_CARD_UNUSED_17           0x14D
-#define NUM_WONDER_CARD_FLAGS                (1 + FLAG_WONDER_CARD_UNUSED_17 - FLAG_RECEIVED_AURORA_TICKET)
 
 #define FLAG_MIRAGE_TOWER_VISIBLE            0x14E
 #define FLAG_CHOSE_ROOT_FOSSIL               0x14F
@@ -464,9 +443,6 @@
 
 #define FLAG_DEFEATED_DEOXYS                 0x1AC
 #define FLAG_BATTLED_DEOXYS                  0x1AD
-#define FLAG_SHOWN_EON_TICKET                0x1AE
-#define FLAG_SHOWN_AURORA_TICKET             0x1AF
-#define FLAG_SHOWN_OLD_SEA_MAP               0x1B0
 #define FLAG_MOVE_TUTOR_TAUGHT_SWAGGER       0x1B1
 #define FLAG_MOVE_TUTOR_TAUGHT_ROLLOUT       0x1B2
 #define FLAG_MOVE_TUTOR_TAUGHT_FURY_CUTTER   0x1B3
@@ -511,7 +487,6 @@
 
 #define FLAG_UNUSED_0x1DA                    0x1DA // Unused Flag
 
-#define FLAG_SHOWN_MYSTIC_TICKET             0x1DB
 #define FLAG_DEFEATED_HO_OH                  0x1DC
 #define FLAG_DEFEATED_LUGIA                  0x1DD
 

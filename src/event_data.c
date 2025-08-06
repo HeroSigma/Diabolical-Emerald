@@ -128,25 +128,6 @@ bool32 IsMysteryGiftEnabled(void)
     return FALSE; // Mystery Gift is disabled to free space
 }
 
-void ClearMysteryGiftFlags(void)
-{
-    // Mystery Gift was removed to make room for additional
-    // legendary encounter logic. Keep this function so calls
-    // remain valid, but it no longer manipulates any flags.
-}
-
-void ClearMysteryGiftVars(void)
-{
-    VarSet(VAR_GIFT_PICHU_SLOT, 0);
-    VarSet(VAR_GIFT_UNUSED_1, 0);
-    VarSet(VAR_GIFT_UNUSED_2, 0);
-    VarSet(VAR_GIFT_UNUSED_3, 0);
-    VarSet(VAR_GIFT_UNUSED_4, 0);
-    VarSet(VAR_GIFT_UNUSED_5, 0);
-    VarSet(VAR_GIFT_UNUSED_6, 0);
-    VarSet(VAR_GIFT_UNUSED_7, 0);
-}
-
 void DisableResetRTC(void)
 {
     VarSet(VAR_RESET_RTC_ENABLE, 0);

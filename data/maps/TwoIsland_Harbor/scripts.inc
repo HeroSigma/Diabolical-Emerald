@@ -227,7 +227,6 @@ TwoIsland_Harbor_EventScript_GetEonTicketState::
 	checkitem ITEM_EON_TICKET
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_NopReturn
 	setvar VAR_TEMP_E, 1
-	goto_if_set FLAG_SHOWN_EON_TICKET, Common_EventScript_NopReturn
 	setvar VAR_TEMP_E, 2
 	return
 
@@ -237,7 +236,6 @@ TwoIsland_Harbor_EventScript_GetAuroraTicketState::
 	checkitem ITEM_AURORA_TICKET
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_NopReturn
 	setvar VAR_TEMP_D, 1
-	goto_if_set FLAG_SHOWN_AURORA_TICKET, Common_EventScript_NopReturn
 	setvar VAR_TEMP_D, 2
 	return
 
@@ -247,7 +245,6 @@ TwoIsland_Harbor_EventScript_GetOldSeaMapState::
 	checkitem ITEM_OLD_SEA_MAP
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_NopReturn
 	setvar VAR_TEMP_C, 1
-	goto_if_set FLAG_SHOWN_OLD_SEA_MAP, Common_EventScript_NopReturn
 	setvar VAR_TEMP_C, 2
 	return
 
@@ -257,7 +254,6 @@ TwoIsland_Harbor_EventScript_GetMysticTicketState::
 	checkitem ITEM_MYSTIC_TICKET
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_NopReturn
 	setvar VAR_TEMP_9, 1
-	goto_if_set FLAG_SHOWN_MYSTIC_TICKET, Common_EventScript_NopReturn
 	setvar VAR_TEMP_9, 2
 	return
 
@@ -310,7 +306,6 @@ TwoIsland_Harbor_EventScript_SetHasMysticTicket::
 	return
 
 TwoIsland_Harbor_EventScript_EonTicketFirstTime::
-	setflag FLAG_SHOWN_EON_TICKET
 	msgbox EventTicket_Text_ThatPass, MSGBOX_DEFAULT
 	closemessage
 	call TwoIsland_Harbor_EventScript_GetEventTicketSailor
@@ -327,7 +322,6 @@ TwoIsland_Harbor_EventScript_GoToSouthernIslandFirstTime::
 	end
 
 TwoIsland_Harbor_EventScript_AuroraTicketFirstTime::
-	setflag FLAG_SHOWN_AURORA_TICKET
 	msgbox EventTicket_Text_ThatPass, MSGBOX_DEFAULT
 	closemessage
 	call TwoIsland_Harbor_EventScript_GetEventTicketSailor
@@ -344,7 +338,6 @@ TwoIsland_Harbor_EventScript_GoToBirthIslandFirstTime::
 	end
 
 TwoIsland_Harbor_EventScript_OldSeaMapFirstTime::
-	setflag FLAG_SHOWN_OLD_SEA_MAP
 	msgbox EventTicket_Text_ShowOldSeaMap, MSGBOX_DEFAULT
 	closemessage
 	call TwoIsland_Harbor_EventScript_GetEventTicketSailor
@@ -385,7 +378,6 @@ TwoIsland_Harbor_EventScript_GoToFarawayIslandFirstTime::
 	end
 
 TwoIsland_Harbor_EventScript_MysticTicketFirstTime::
-	setflag FLAG_SHOWN_MYSTIC_TICKET
 	msgbox EventTicket_Text_ThatPass, MSGBOX_DEFAULT
 	closemessage
 	call TwoIsland_Harbor_EventScript_GetEventTicketSailor

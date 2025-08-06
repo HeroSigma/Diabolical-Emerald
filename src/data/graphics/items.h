@@ -1878,18 +1878,6 @@ const u16 gItemIconPalette_TeachyTV[] = INCBIN_U16("graphics/items/icon_palettes
 const u32 gItemIcon_SSTicket[] = INCBIN_U32("graphics/items/icons/ss_ticket.4bpp.smol");
 const u16 gItemIconPalette_SSTicket[] = INCBIN_U16("graphics/items/icon_palettes/ss_ticket.gbapal");
 
-const u32 gItemIcon_EonTicket[] = INCBIN_U32("graphics/items/icons/eon_ticket.4bpp.smol");
-const u16 gItemIconPalette_EonTicket[] = INCBIN_U16("graphics/items/icon_palettes/eon_ticket.gbapal");
-
-const u32 gItemIcon_MysticTicket[] = INCBIN_U32("graphics/items/icons/mystic_ticket.4bpp.smol");
-const u16 gItemIconPalette_MysticTicket[] = INCBIN_U16("graphics/items/icon_palettes/mystic_ticket.gbapal");
-
-const u32 gItemIcon_AuroraTicket[] = INCBIN_U32("graphics/items/icons/aurora_ticket.4bpp.smol");
-const u16 gItemIconPalette_AuroraTicket[] = INCBIN_U16("graphics/items/icon_palettes/aurora_ticket.gbapal");
-
-const u32 gItemIcon_OldSeaMap[] = INCBIN_U32("graphics/items/icons/old_sea_map.4bpp.smol");
-const u16 gItemIconPalette_OldSeaMap[] = INCBIN_U16("graphics/items/icon_palettes/old_sea_map.gbapal");
-
 const u32 gItemIcon_Letter[] = INCBIN_U32("graphics/items/icons/letter.4bpp.smol");
 
 const u32 gItemIcon_DevonParts[] = INCBIN_U32("graphics/items/icons/devon_parts.4bpp.smol");
