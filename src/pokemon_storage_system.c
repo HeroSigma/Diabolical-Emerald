@@ -9551,13 +9551,21 @@ u32 GetAndCopyBoxMonDataAt(u8 boxId, u8 boxPosition, s32 request, void *dst)
 void SetBoxMonAt(u8 boxId, u8 boxPosition, struct BoxPokemon *src)
 {
     if (boxId < TOTAL_BOXES_COUNT && boxPosition < IN_BOX_COUNT)
+    {
         gPokemonStoragePtr->boxes[boxId][boxPosition] = *src;
+        GetBoxMonData(src, MON_DATA_NICKNAME, gPokemonStoragePtr->boxMonNicknames[boxId][boxPosition]);
+        GetBoxMonData(src, MON_DATA_OT_NAME, gPokemonStoragePtr->boxMonOTNames[boxId][boxPosition]);
+    }
 }
 
 void CopyBoxMonAt(u8 boxId, u8 boxPosition, struct BoxPokemon *dst)
 {
     if (boxId < TOTAL_BOXES_COUNT && boxPosition < IN_BOX_COUNT)
+    {
         *dst = gPokemonStoragePtr->boxes[boxId][boxPosition];
+        SetBoxMonData(dst, MON_DATA_NICKNAME, gPokemonStoragePtr->boxMonNicknames[boxId][boxPosition]);
+        SetBoxMonData(dst, MON_DATA_OT_NAME, gPokemonStoragePtr->boxMonOTNames[boxId][boxPosition]);
+    }
 }
 
 void CreateBoxMonAt(u8 boxId, u8 boxPosition, u16 species, u8 level, u8 fixedIV, u8 hasFixedPersonality, u32 personality, u8 otIDType, u32 otID)

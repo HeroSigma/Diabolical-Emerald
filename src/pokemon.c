@@ -1,4 +1,5 @@
 #include "global.h"
+#include <stddef.h>
 #include "malloc.h"
 #include "apprentice.h"
 #include "battle.h"
@@ -79,6 +80,9 @@ static u16 CalculateBoxMonChecksum(struct BoxPokemon *boxMon);
 static union PokemonSubstruct *GetSubstruct(struct BoxPokemon *boxMon, u32 personality, u8 substructType);
 static void EncryptBoxMon(struct BoxPokemon *boxMon);
 static void DecryptBoxMon(struct BoxPokemon *boxMon);
+static bool32 GetBoxedMonPosition(const struct BoxPokemon *boxMon, u8 *boxId, u8 *boxPos);
+static u8 *GetBoxMonNicknamePtr(struct BoxPokemon *boxMon);
+static u8 *GetBoxMonOtNamePtr(struct BoxPokemon *boxMon);
 static void Task_PlayMapChosenOrBattleBGM(u8 taskId);
 static bool8 ShouldSkipFriendshipChange(void);
 void TrySpecialOverworldEvo();
@@ -983,18 +987,72 @@ static u32 UncompressStatus(u32 compressedStatus)
         return STATUS1_NONE;
 }
 
+static bool32 GetBoxedMonPosition(const struct BoxPokemon *boxMon, u8 *boxId, u8 *boxPos)
+{
+    if (gPokemonStoragePtr == NULL)
+        return FALSE;
+
+    const struct BoxPokemon *start = &gPokemonStoragePtr->boxes[0][0];
+    const struct BoxPokemon *end = &gPokemonStoragePtr->boxes[TOTAL_BOXES_COUNT - 1][IN_BOX_COUNT - 1] + 1;
+    if (boxMon >= start && boxMon < end)
+    {
+        u32 index = boxMon - start;
+        if (boxId)
+            *boxId = index / IN_BOX_COUNT;
+        if (boxPos)
+            *boxPos = index % IN_BOX_COUNT;
+        return TRUE;
+    }
+    return FALSE;
+}
+
+static u8 *GetBoxMonNicknamePtr(struct BoxPokemon *boxMon)
+{
+    u8 boxId, boxPos;
+    if (GetBoxedMonPosition(boxMon, &boxId, &boxPos))
+        return gPokemonStoragePtr->boxMonNicknames[boxId][boxPos];
+    else
+    {
+        struct Pokemon *mon = (struct Pokemon *)((u8 *)boxMon - offsetof(struct Pokemon, box));
+        return mon->nickname;
+    }
+}
+
+static u8 *GetBoxMonOtNamePtr(struct BoxPokemon *boxMon)
+{
+    u8 boxId, boxPos;
+    if (GetBoxedMonPosition(boxMon, &boxId, &boxPos))
+        return gPokemonStoragePtr->boxMonOTNames[boxId][boxPos];
+    else
+    {
+        struct Pokemon *mon = (struct Pokemon *)((u8 *)boxMon - offsetof(struct Pokemon, box));
+        return mon->otName;
+    }
+}
+
 void ZeroBoxMonData(struct BoxPokemon *boxMon)
 {
     u8 *raw = (u8 *)boxMon;
     u32 i;
     for (i = 0; i < sizeof(struct BoxPokemon); i++)
         raw[i] = 0;
+
+    {
+        u8 boxId, boxPos;
+        if (GetBoxedMonPosition(boxMon, &boxId, &boxPos))
+        {
+            memset(gPokemonStoragePtr->boxMonNicknames[boxId][boxPos], 0, POKEMON_NAME_LENGTH);
+            memset(gPokemonStoragePtr->boxMonOTNames[boxId][boxPos], 0, PLAYER_NAME_LENGTH);
+        }
+    }
 }
 
 void ZeroMonData(struct Pokemon *mon)
 {
     u32 arg;
     ZeroBoxMonData(&mon->box);
+    memset(mon->nickname, 0, POKEMON_NAME_LENGTH);
+    memset(mon->otName, 0, PLAYER_NAME_LENGTH);
     arg = 0;
     SetMonData(mon, MON_DATA_STATUS, &arg);
     SetMonData(mon, MON_DATA_LEVEL, &arg);
@@ -1756,6 +1814,8 @@ void BoxMonToMon(const struct BoxPokemon *src, struct Pokemon *dest)
 {
     u32 value = 0;
     dest->box = *src;
+    GetBoxMonData(src, MON_DATA_NICKNAME, dest->nickname);
+    GetBoxMonData(src, MON_DATA_OT_NAME, dest->otName);
     dest->status = GetBoxMonData(&dest->box, MON_DATA_STATUS, NULL);
     dest->hp = 0;
     dest->maxHP = 0;
@@ -2386,12 +2446,13 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
         case MON_DATA_NICKNAME:
         case MON_DATA_NICKNAME10:
         {
+            const u8 *nickname = GetBoxMonNicknamePtr(boxMon);
+            s32 maxChars = (field == MON_DATA_NICKNAME10) ? VANILLA_POKEMON_NAME_LENGTH : POKEMON_NAME_LENGTH;
+
             if (boxMon->isBadEgg)
             {
-                for (retVal = 0;
-                    retVal < POKEMON_NAME_LENGTH && gText_BadEgg[retVal] != EOS;
-                    data[retVal] = gText_BadEgg[retVal], retVal++) {}
-
+                for (retVal = 0; retVal < maxChars && gText_BadEgg[retVal] != EOS; retVal++)
+                    data[retVal] = gText_BadEgg[retVal];
                 data[retVal] = EOS;
             }
             else if (boxMon->isEgg)
@@ -2404,9 +2465,8 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
                 data[0] = EXT_CTRL_CODE_BEGIN;
                 data[1] = EXT_CTRL_CODE_JPN;
 
-                for (retVal = 2, i = 0;
-                    i < 5 && boxMon->nickname[i] != EOS;
-                    data[retVal] = boxMon->nickname[i], retVal++, i++) {}
+                for (retVal = 2, i = 0; i < 5 && nickname[i] != EOS; i++, retVal++)
+                    data[retVal] = nickname[i];
 
                 data[retVal++] = EXT_CTRL_CODE_BEGIN;
                 data[retVal++] = EXT_CTRL_CODE_ENG;
@@ -2415,41 +2475,11 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
             else
             {
                 retVal = 0;
-                while (retVal < min(sizeof(boxMon->nickname), POKEMON_NAME_LENGTH))
+                while (retVal < maxChars && nickname[retVal] != EOS)
                 {
-                    data[retVal] = boxMon->nickname[retVal];
+                    data[retVal] = nickname[retVal];
                     retVal++;
                 }
-
-                // Vanilla Pokémon have 0s in nickname11 and nickname12
-                // so if both are 0 we assume that this is a vanilla
-                // Pokémon and replace them with EOS. This means that
-                // two CHAR_SPACE at the end of a nickname are trimmed.
-                if (field != MON_DATA_NICKNAME10 && POKEMON_NAME_LENGTH >= 12)
-                {
-                    if (substruct0->nickname11 == 0 && substruct0->nickname12 == 0)
-                    {
-                        data[retVal++] = EOS;
-                        data[retVal++] = EOS;
-                    }
-                    else
-                    {
-                        data[retVal++] = substruct0->nickname11;
-                        data[retVal++] = substruct0->nickname12;
-                    }
-                }
-                else if (POKEMON_NAME_LENGTH >= 11)
-                {
-                    if (substruct0->nickname11 == 0)
-                    {
-                        data[retVal++] = EOS;
-                    }
-                    else
-                    {
-                        data[retVal++] = substruct0->nickname11;
-                    }
-                }
-
                 data[retVal] = EOS;
             }
             break;
@@ -2784,14 +2814,13 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
             break;
         case MON_DATA_OT_NAME:
         {
+            const u8 *ot = GetBoxMonOtNamePtr(boxMon);
             retVal = 0;
-
             while (retVal < PLAYER_NAME_LENGTH)
             {
-                data[retVal] = boxMon->otName[retVal];
+                data[retVal] = ot[retVal];
                 retVal++;
             }
-
             data[retVal] = EOS;
             break;
         }
@@ -2926,21 +2955,13 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
         case MON_DATA_NICKNAME:
         case MON_DATA_NICKNAME10:
         {
+            u8 *nickname = GetBoxMonNicknamePtr(boxMon);
             s32 i;
-            for (i = 0; i < min(sizeof(boxMon->nickname), POKEMON_NAME_LENGTH); i++)
-                boxMon->nickname[i] = data[i];
-            if (field != MON_DATA_NICKNAME10)
-            {
-                if (POKEMON_NAME_LENGTH >= 11)
-                    substruct0->nickname11 = data[10];
-                if (POKEMON_NAME_LENGTH >= 12)
-                    substruct0->nickname12 = data[11];
-            }
-            else
-            {
-                substruct0->nickname11 = EOS;
-                substruct0->nickname12 = EOS;
-            }
+            s32 maxChars = (field == MON_DATA_NICKNAME10) ? VANILLA_POKEMON_NAME_LENGTH : POKEMON_NAME_LENGTH;
+            for (i = 0; i < maxChars && data[i] != EOS; i++)
+                nickname[i] = data[i];
+            for (; i < POKEMON_NAME_LENGTH; i++)
+                nickname[i] = EOS;
             break;
         }
         case MON_DATA_SPECIES:
@@ -3214,9 +3235,10 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
             break;
         case MON_DATA_OT_NAME:
         {
+            u8 *ot = GetBoxMonOtNamePtr(boxMon);
             s32 i;
             for (i = 0; i < PLAYER_NAME_LENGTH; i++)
-                boxMon->otName[i] = data[i];
+                ot[i] = data[i];
             break;
         }
         case MON_DATA_MARKINGS:
@@ -3257,6 +3279,17 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
 void CopyMon(void *dest, void *src, size_t size)
 {
     memcpy(dest, src, size);
+    if (size == sizeof(struct BoxPokemon))
+    {
+        struct BoxPokemon *dstBox = dest;
+        struct BoxPokemon *srcBox = src;
+        u8 nickname[POKEMON_NAME_LENGTH];
+        u8 otName[PLAYER_NAME_LENGTH];
+        GetBoxMonData(srcBox, MON_DATA_NICKNAME, nickname);
+        SetBoxMonData(dstBox, MON_DATA_NICKNAME, nickname);
+        GetBoxMonData(srcBox, MON_DATA_OT_NAME, otName);
+        SetBoxMonData(dstBox, MON_DATA_OT_NAME, otName);
+    }
 }
 
 u8 GiveMonToPlayer(struct Pokemon *mon)

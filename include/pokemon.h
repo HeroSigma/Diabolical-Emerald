@@ -130,13 +130,11 @@ struct PokemonSubstruct0
     u16 heldItem:10; // 1023 items.
     u16 unused_02:6;
     u32 experience:21;
-    u32 nickname11:8; // 11th character of nickname.
-    u32 unused_04:3;
+    u32 unused_04:11;
     u8 ppBonuses;
     u8 friendship;
     u16 pokeball:6; // 63 balls.
-    u16 nickname12:8; // 12th character of nickname.
-    u16 unused_0A:2;
+    u16 unused_0A:10;
 };
 
 struct PokemonSubstruct1
@@ -245,7 +243,6 @@ struct BoxPokemon
 {
     u32 personality;
     u32 otId;
-    u8 nickname[min(10, POKEMON_NAME_LENGTH)];
     u8 language:3;
     u8 hiddenNatureModifier:5; // 31 natures.
     u8 isBadEgg:1;
@@ -254,7 +251,6 @@ struct BoxPokemon
     u8 blockBoxRS:1; // Unused, but Pokémon Box Ruby & Sapphire will refuse to deposit a Pokémon with this flag set.
     u8 daysSinceFormChange:3; // 7 days.
     u8 unused_13:1;
-    u8 otName[PLAYER_NAME_LENGTH];
     u8 markings:4;
     u8 compressedStatus:4;
     u16 checksum;
@@ -272,6 +268,8 @@ struct BoxPokemon
 struct Pokemon
 {
     struct BoxPokemon box;
+    u8 nickname[POKEMON_NAME_LENGTH];
+    u8 otName[PLAYER_NAME_LENGTH];
     u32 status;
     u8 level;
     u8 mail;
