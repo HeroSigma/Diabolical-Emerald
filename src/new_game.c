@@ -140,6 +140,7 @@ static void WarpToTruck(void)
 void Sav2_ClearSetDefault(void)
 {
     ClearSav2();
+    gSaveBlock2Ptr->saveVersion = SAVE_FILE_VERSION;
     SetDefaultOptions();
 }
 
@@ -155,11 +156,12 @@ void ResetMenuAndMonGlobals(void)
 
 void NewGameInitData(void)
 {
-    if (gSaveFileStatus == SAVE_STATUS_EMPTY || gSaveFileStatus == SAVE_STATUS_CORRUPT)
+    if (gSaveFileStatus == SAVE_STATUS_EMPTY || gSaveFileStatus == SAVE_STATUS_CORRUPT || gSaveFileStatus == SAVE_STATUS_INCOMPATIBLE)
         RtcReset();
 
     gDifferentSaveFile = TRUE;
     gSaveBlock2Ptr->encryptionKey = 0;
+    gSaveBlock2Ptr->saveVersion = SAVE_FILE_VERSION;
     ZeroPlayerPartyMons();
     ZeroEnemyPartyMons();
     ResetPokedex();
