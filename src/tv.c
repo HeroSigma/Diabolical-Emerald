@@ -34,7 +34,6 @@
 #include "tv.h"
 #include "pokeball.h"
 #include "data.h"
-#include "constants/battle_frontier.h"
 #include "constants/contest.h"
 #include "constants/decorations.h"
 #include "constants/event_objects.h"
@@ -226,25 +225,6 @@ static const struct {
     }
 };
 
-static const u16 sGoldSymbolFlags[NUM_FRONTIER_FACILITIES] = {
-    [FRONTIER_FACILITY_TOWER]   = FLAG_SYS_TOWER_GOLD,
-    [FRONTIER_FACILITY_DOME]    = FLAG_SYS_DOME_GOLD,
-    [FRONTIER_FACILITY_PALACE]  = FLAG_SYS_PALACE_GOLD,
-    [FRONTIER_FACILITY_ARENA]   = FLAG_SYS_ARENA_GOLD,
-    [FRONTIER_FACILITY_FACTORY] = FLAG_SYS_FACTORY_GOLD,
-    [FRONTIER_FACILITY_PIKE]    = FLAG_SYS_PIKE_GOLD,
-    [FRONTIER_FACILITY_PYRAMID] = FLAG_SYS_PYRAMID_GOLD
-};
-
-static const u16 sSilverSymbolFlags[NUM_FRONTIER_FACILITIES] = {
-    [FRONTIER_FACILITY_TOWER]   = FLAG_SYS_TOWER_SILVER,
-    [FRONTIER_FACILITY_DOME]    = FLAG_SYS_DOME_SILVER,
-    [FRONTIER_FACILITY_PALACE]  = FLAG_SYS_PALACE_SILVER,
-    [FRONTIER_FACILITY_ARENA]   = FLAG_SYS_ARENA_SILVER,
-    [FRONTIER_FACILITY_FACTORY] = FLAG_SYS_FACTORY_SILVER,
-    [FRONTIER_FACILITY_PIKE]    = FLAG_SYS_PIKE_SILVER,
-    [FRONTIER_FACILITY_PYRAMID] = FLAG_SYS_PYRAMID_SILVER
-};
 
 static const u16 sNumberOneVarsAndThresholds[][2] = {
     {VAR_DAILY_SLOTS, 100},
@@ -1842,14 +1822,6 @@ void TryPutTodaysRivalTrainerOnAir(void)
         show->rivalTrainer.mapLayoutId = gMapHeader.mapLayoutId;
         show->rivalTrainer.nSilverSymbols = 0;
         show->rivalTrainer.nGoldSymbols = 0;
-        for (i = 0; i < NUM_FRONTIER_FACILITIES; i++)
-        {
-            if (FlagGet(sSilverSymbolFlags[i]) == TRUE)
-                show->rivalTrainer.nSilverSymbols++;
-
-            if (FlagGet(sGoldSymbolFlags[i]) == TRUE)
-                show->rivalTrainer.nGoldSymbols++;
-        }
         show->rivalTrainer.battlePoints = gSaveBlock2Ptr->frontier.battlePoints;
         StringCopy(show->rivalTrainer.playerName, gSaveBlock2Ptr->playerName);
         StorePlayerIdInRecordMixShow(show);
