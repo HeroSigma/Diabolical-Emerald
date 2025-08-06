@@ -258,6 +258,7 @@ static const u16 sBirchSpeechBgGradientPal[] = INCBIN_U16("graphics/birch_speech
 
 static const u8 gText_SaveFileCorrupted[] = _("The save file is corrupted. The\nprevious save file will be loaded.");
 static const u8 gText_SaveFileErased[] = _("The save file has been erased\ndue to corruption or damage.");
+static const u8 gText_SaveFileIncompatible[] = _("The save file is from an\nincompatible version.");
 static const u8 gJPText_No1MSubCircuit[] = _("1Mサブきばんが ささっていません！");
 static const u8 gText_BatteryRunDry[] = _("The internal battery has run dry.\nThe game can be played.\pHowever, clock-based events will\nno longer occur.");
 
@@ -668,6 +669,11 @@ static void Task_MainMenuCheckSaveFile(u8 taskId)
                 break;
             case SAVE_STATUS_CORRUPT:
                 CreateMainMenuErrorWindow(gText_SaveFileErased);
+                tMenuType = HAS_NO_SAVED_GAME;
+                gTasks[taskId].func = Task_WaitForSaveFileErrorWindow;
+                break;
+            case SAVE_STATUS_INCOMPATIBLE:
+                CreateMainMenuErrorWindow(gText_SaveFileIncompatible);
                 tMenuType = HAS_NO_SAVED_GAME;
                 gTasks[taskId].func = Task_WaitForSaveFileErrorWindow;
                 break;

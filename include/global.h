@@ -606,7 +606,8 @@ struct SaveBlock2
     // so that the larger arrays do not bloat SaveBlock1.
     u8 questData[(QUEST_COUNT * 5 + 7) / 8];
     u8 subQuests[(SUB_QUEST_COUNT + 7) / 8];
-}; // sizeof=0xF2C
+    u16 saveVersion;
+}; // sizeof=0xF30
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;
 

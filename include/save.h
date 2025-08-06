@@ -32,8 +32,11 @@
 #define SAVE_STATUS_EMPTY    0
 #define SAVE_STATUS_OK       1
 #define SAVE_STATUS_CORRUPT  2
+#define SAVE_STATUS_INCOMPATIBLE 3
 #define SAVE_STATUS_NO_FLASH 4
 #define SAVE_STATUS_ERROR    0xFF
+
+#define SAVE_FILE_VERSION 1
 
 // Special sector id value for certain save functions to
 // indicate that no specific sector should be used.

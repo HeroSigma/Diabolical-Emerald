@@ -50,7 +50,7 @@ static void CopyFromSaveBlock3(u32, struct SaveSector *);
 
 struct
 {
-    u16 offset;
+    u32 offset;
     u16 size;
 } static const sSaveSlotLayout[NUM_SECTORS_PER_SLOT] =
 {
@@ -619,18 +619,18 @@ static u16 CalculateChecksum(void *data, u16 size)
 static void UpdateSaveAddresses(void)
 {
     int i = SECTOR_ID_SAVEBLOCK2;
-    gRamSaveSectorLocations[i].data = (void *)(gSaveBlock2Ptr) + sSaveSlotLayout[i].offset;
+    gRamSaveSectorLocations[i].data = (void *)((u8 *)gSaveBlock2Ptr + sSaveSlotLayout[i].offset);
     gRamSaveSectorLocations[i].size = sSaveSlotLayout[i].size;
 
     for (i = SECTOR_ID_SAVEBLOCK1_START; i <= SECTOR_ID_SAVEBLOCK1_END; i++)
     {
-        gRamSaveSectorLocations[i].data = (void *)(gSaveBlock1Ptr) + sSaveSlotLayout[i].offset;
+        gRamSaveSectorLocations[i].data = (void *)((u8 *)gSaveBlock1Ptr + sSaveSlotLayout[i].offset);
         gRamSaveSectorLocations[i].size = sSaveSlotLayout[i].size;
     }
 
     for (; i <= SECTOR_ID_PKMN_STORAGE_END; i++) //setting i to SECTOR_ID_PKMN_STORAGE_START does not match
     {
-        gRamSaveSectorLocations[i].data = (void *)(gPokemonStoragePtr) + sSaveSlotLayout[i].offset;
+        gRamSaveSectorLocations[i].data = (void *)((u8 *)gPokemonStoragePtr + sSaveSlotLayout[i].offset);
         gRamSaveSectorLocations[i].size = sSaveSlotLayout[i].size;
     }
 }
@@ -765,6 +765,7 @@ bool8 WriteSaveBlock2(void)
 
     UpdateSaveAddresses();
     CopyPartyAndObjectsToSave();
+    gSaveBlock2Ptr->saveVersion = SAVE_FILE_VERSION;
     RestoreSaveBackupVars(gRamSaveSectorLocations);
 
     // Because RestoreSaveBackupVars is called immediately prior, gIncrementalSectorId will always be 0 below,
@@ -817,6 +818,8 @@ u8 LoadGameSave(u8 saveType)
     case SAVE_NORMAL:
     default:
         status = TryLoadSaveSlot(FULL_SAVE_SLOT, gRamSaveSectorLocations);
+        if (status == SAVE_STATUS_OK && gSaveBlock2Ptr->saveVersion != SAVE_FILE_VERSION)
+            status = SAVE_STATUS_INCOMPATIBLE;
         CopyPartyAndObjectsFromSave();
         gSaveFileStatus = status;
         gGameContinueCallback = 0;
