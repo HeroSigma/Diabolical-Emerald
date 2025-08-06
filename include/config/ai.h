@@ -80,7 +80,7 @@
 #define PP_STALL_SCORE_REDUCTION                                20 // Score reduction if any roll for PP stall detection passes
 
 // AI_FLAG_ASSUME_STAB settings
-#define ASSUME_STAB_SEES_ABILITY                                FALSE // Flag also gives omniscience for player's ability. Can use AI_FLAG_WEIGH_ABILITY_PREDICTION instead for smarter prediction without omniscience.
+#define ASSUME_STAB_SEES_ABILITY                                TRUE // Flag also gives omniscience for player's ability. Can use AI_FLAG_WEIGH_ABILITY_PREDICTION instead for smarter prediction without omniscience.
 
 // AI_FLAG_ASSUME_STATUS_MOVES settings
 #define ASSUME_STATUS_MOVES_HAS_TUNING                  TRUE // Flag has varying rates for different kinds of status move.
@@ -91,7 +91,7 @@
 #define ASSUME_ALL_STATUS_ODDS                          25 // Chance for the AI to see any kind of status move.
 
 // AI_FLAG_SMART_SWITCHING settings
-#define SMART_SWITCHING_OMNISCIENT                              FALSE // AI will use omniscience for switching calcs, regardless of omniscience setting otherwise
+#define SMART_SWITCHING_OMNISCIENT                              TRUE // AI will use omniscience for switching calcs, regardless of omniscience setting otherwise
 
 // Configurations specifically for AI_FLAG_DOUBLE_BATTLE.
 #define FRIENDLY_FIRE_RISKY_THRESHOLD             2 // AI_FLAG_RISKY acceptable number of hits to KO the partner via friendly fire
