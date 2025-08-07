@@ -277,6 +277,9 @@ static const u8 gText_ContinueMenuTime[] = _("TIME");
 static const u8 gText_ContinueMenuPokedex[] = _("POKéDEX");
 static const u8 gText_ContinueMenuBadges[] = _("BADGES");
 
+static const u8 sText_Boy[] = _("boy");
+static const u8 sText_Girl[] = _("girl");
+
 #define MENU_LEFT 2
 #define MENU_TOP_WIN0 1
 #define MENU_TOP_WIN1 5
@@ -1600,6 +1603,10 @@ static void Task_NewGameBirchSpeech_SlideInNewGenderSprite(u8 taskId)
 static void Task_NewGameBirchSpeech_WhatsYourName(u8 taskId)
 {
     NewGameBirchSpeech_ClearWindow(0);
+    if (gSaveBlock2Ptr->playerGender == MALE)
+        StringCopy(gStringVar1, sText_Boy);
+    else
+        StringCopy(gStringVar1, sText_Girl);
     StringExpandPlaceholders(gStringVar4, gText_Birch_WhatsYourName);
     AddTextPrinterForMessage(TRUE);
     gTasks[taskId].func = Task_NewGameBirchSpeech_WaitForWhatsYourNameToPrint;
