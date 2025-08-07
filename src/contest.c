@@ -43,6 +43,11 @@
 #include "constants/rgb.h"
 #include "constants/songs.h"
 
+EWRAM_DATA u8 eUnzippedContestAudience_Gfx[0x2000] = {0};
+EWRAM_DATA u8 eContestAudienceFrame2_Gfx[0x1000] = {0};
+EWRAM_DATA u8 eContestDebugMode = 0;
+EWRAM_DATA struct ContestTempSave eContestTempSave = {0};
+
 // This file's functions.
 static void LoadContestPalettes(void);
 static void Task_StartContestWaitFade(u8 taskId);
