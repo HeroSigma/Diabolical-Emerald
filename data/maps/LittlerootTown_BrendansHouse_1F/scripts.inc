@@ -307,24 +307,25 @@ PlayersHouse_1F_Text_GoSetTheClock:
 	.string "Go set the clock in your room, honey.$"
 
 PlayersHouse_1F_Text_OhComeQuickly:
-	.string "MOM: Oh! {PLAYER}, {PLAYER}!\n"
-	.string "Quick! Come quickly!$"
-
-PlayersHouse_1F_Text_MaybeDadWillBeOn:
-	.string "MOM: Look! It's PETALBURG GYM!\n"
-	.string "Maybe DAD will be on!$"
+        .string "MOM: {PLAYER}! Hurry, come watch—there's\n"
+        .string "something strange on the news!$"
 
 PlayersHouse_1F_Text_ItsOverWeMissedHim:
-	.string "MOM: Oh… It's over.\p"
-	.string "I think DAD was on, but we missed him.\n"
-	.string "Too bad.$"
+        .string "…The Battle Frontier… gone?$"
+
+PlayersHouse_1F_Text_PortalToJohtoKanto:
+        .string "MOM: A portal to JOHTO and KANTO?\n"
+        .string "That's incredible… and terrifying.$"
+
+PlayersHouse_1F_Text_GladYoureBack:
+        .string "MOM: …Still, I'm glad you're back.\n"
+        .string "BRENDAN and MAY will be elated when\l"
+        .string "they see you again!$"
 
 PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor:
-	.string "Oh, yes.\n"
-	.string "One of DAD's friends lives in town.\p"
-	.string "PROF. BIRCH is his name.\p"
-	.string "He lives right next door, so you should\n"
-	.string "go over and introduce yourself.$"
+        .string "MOM: Why don't you go say hello?\n"
+        .string "I think MAY's next door—or maybe\l"
+        .string "BRENDAN's out on ROUTE 103.$"
 
 PlayersHouse_1F_Text_SeeYouHoney:
 	.string "MOM: See you, honey!$"
@@ -365,11 +366,46 @@ PlayersHouse_1F_Text_Vigoroth1:
 	.string "Fugiiiiih!$"
 
 PlayersHouse_1F_Text_Vigoroth2:
-	.string "Huggoh, uggo uggo…$"
+        .string "Huggoh, uggo uggo…$"
 
-PlayersHouse_1F_Text_ReportFromPetalburgGym:
-	.string "INTERVIEWER: …We brought you this\n"
-	.string "report from in front of PETALBURG GYM.$"
+PlayersHouse_1F_Text_BattleFrontierNews1:
+        .string "REPORTER: We interrupt this program\n"
+        .string "to bring you breaking news from the\l"
+        .string "BATTLE FRONTIER…$"
+
+PlayersHouse_1F_Text_BattleFrontierNews2:
+        .string "REPORTER: Early this morning, a massive\n"
+        .string "space-time distortion engulfed the\l"
+        .string "BATTLE FRONTIER complex.$"
+
+PlayersHouse_1F_Text_BattleFrontierNews3:
+        .string "REPORTER: All seven Battle Facilities\n"
+        .string "have vanished without a trace…$"
+
+PlayersHouse_1F_Text_BattleFrontierNews4:
+        .string "REPORTER: …but what's more shocking is\n"
+        .string "what was discovered in its place.$"
+
+PlayersHouse_1F_Text_BattleFrontierNews5:
+        .string "REPORTER: An interregional gate has\n"
+        .string "appeared where the entrance once stood—\l"
+        .string "and it leads to both JOHTO and KANTO.$"
+
+PlayersHouse_1F_Text_BattleFrontierNews6:
+        .string "REPORTER: DEVON CORP. and SILPH CO. have\n"
+        .string "issued a joint statement confirming\l"
+        .string "their efforts to stabilize the anomaly.$"
+
+PlayersHouse_1F_Text_BattleFrontierNews7:
+        .string "REPORTER: Assisting them is COLRESS—\n"
+        .string "the brilliant scientist formerly\l"
+        .string "associated with UNOVA's PLASMA\l"
+        .string "FOUNDATION.$"
+
+PlayersHouse_1F_Text_BattleFrontierNews8:
+        .string "REPORTER: Authorities urge trainers to\n"
+        .string "remain cautious. Access to the gate is\l"
+        .string "currently restricted…$"
 
 PlayersHouse_1F_Text_TheresAMovieOnTV:
 	.string "There is a movie on TV.\p"
