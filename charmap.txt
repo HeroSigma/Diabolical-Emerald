@@ -83,6 +83,7 @@ SUPER_RE    = A0
 '.'         = AD
 '-'         = AE
 '_'         = AE @ For autogenerating strings based on label names. Not using {UNDERSCORE} on purpose due to how bad it looks.
+'—'         = AE @ Alias for hyphen to allow use of em dash characters in scripts.
 '·'         = AF
 '…'         = B0
 '“'         = B1
