@@ -251,10 +251,82 @@
 #define OBJ_EVENT_GFX_PROF_OAK                   244
 #define OBJ_EVENT_GFX_PROF_ELM                   245
 
+// Platinum
+#define OBJ_EVENT_GFX_DP_CYNTHIA                 246
+#define OBJ_EVENT_GFX_DP_AARON                   247
+#define OBJ_EVENT_GFX_DP_ACE_TRAINERF            248
+#define OBJ_EVENT_GFX_DP_ACE_TRAINERM            249
+#define OBJ_EVENT_GFX_DP_ACE_TRAINER_SNOWM       250
+#define OBJ_EVENT_GFX_DP_BARRY                   251
+#define OBJ_EVENT_GFX_DP_BATTLE_GIRL             252
+#define OBJ_EVENT_GFX_DP_BEAUTY                  253
+#define OBJ_EVENT_GFX_DP_BERTHA                  254
+#define OBJ_EVENT_GFX_DP_BLACK_BELT              255
+#define OBJ_EVENT_GFX_DP_BREEDERF                256
+#define OBJ_EVENT_GFX_DP_BUG_CATCHER             257
+#define OBJ_EVENT_GFX_DP_BYRON                   258
+#define OBJ_EVENT_GFX_DP_CAMPER                  259
+#define OBJ_EVENT_GFX_DP_CHARON                  260
+#define OBJ_EVENT_GFX_DP_CHERYL                  261
+#define OBJ_EVENT_GFX_DP_COWGIRL                 262
+#define OBJ_EVENT_GFX_DP_CRASHER_WAKE            263
+#define OBJ_EVENT_GFX_DP_CYRUS                   264
+#define OBJ_EVENT_GFX_DP_DRAGON_TAMER            265
+#define OBJ_EVENT_GFX_DP_FANTINA                 266
+#define OBJ_EVENT_GFX_DP_FISHERMAN               267
+#define OBJ_EVENT_GFX_DP_GALACTIC_GRUNTF         268
+#define OBJ_EVENT_GFX_DP_GALACTIC_GRUNTM         269
+#define OBJ_EVENT_GFX_DP_GENTLEMAN               270
+#define OBJ_EVENT_GFX_DP_HIKER                   271
+#define OBJ_EVENT_GFX_DP_JUPITER                 272
+#define OBJ_EVENT_GFX_DP_LADY                    273
+#define OBJ_EVENT_GFX_DP_LOOKER                  274
+#define OBJ_EVENT_GFX_DP_LUCIAN                  275
+#define OBJ_EVENT_GFX_DP_MARLEY                  276
+#define OBJ_EVENT_GFX_DP_MARS                    277
+#define OBJ_EVENT_GFX_DP_MAYLENE                 278
+#define OBJ_EVENT_GFX_DP_MIRA                    279
+#define OBJ_EVENT_GFX_DP_OFFICER                 280
+#define OBJ_EVENT_GFX_DP_PAINTER                 281
+#define OBJ_EVENT_GFX_DP_PALMER                  282
+#define OBJ_EVENT_GFX_DP_PARASOL_LADY            283
+#define OBJ_EVENT_GFX_DP_PICNICKER               284
+#define OBJ_EVENT_GFX_DP_POKE_KID                285
+#define OBJ_EVENT_GFX_DP_POKE_RANGERF            286
+#define OBJ_EVENT_GFX_DP_POKE_RANGERM            287
+#define OBJ_EVENT_GFX_DP_POKEFAN_F               288
+#define OBJ_EVENT_GFX_DP_POKEFAN_M               289
+#define OBJ_EVENT_GFX_DP_ROWAN                   290
+#define OBJ_EVENT_GFX_DP_PSYCHIC                 291
+#define OBJ_EVENT_GFX_DP_RANCHER                 292
+#define OBJ_EVENT_GFX_DP_RICH_BOY                293
+#define OBJ_EVENT_GFX_DP_RICH_LADY               294
+#define OBJ_EVENT_GFX_DP_ROCKER                  295
+#define OBJ_EVENT_GFX_DP_ROUGHNECK               296
+#define OBJ_EVENT_GFX_DP_RUIN_MANIAC             297
+#define OBJ_EVENT_GFX_DP_SAILOR                  298
+#define OBJ_EVENT_GFX_DP_SATURN                  299
+#define OBJ_EVENT_GFX_DP_SCIENTIST               300
+#define OBJ_EVENT_GFX_DP_SKIERF                  301
+#define OBJ_EVENT_GFX_DP_SKIERM                  302
+#define OBJ_EVENT_GFX_DP_SOCIALITE               303
+#define OBJ_EVENT_GFX_DP_SUPERNERD               304
+#define OBJ_EVENT_GFX_DP_SWIMMERF                305
+#define OBJ_EVENT_GFX_DP_SWIMMERF2               306
+#define OBJ_EVENT_GFX_DP_SWIMMERM                307
+#define OBJ_EVENT_GFX_DP_SWIMMERM2               308
+#define OBJ_EVENT_GFX_DP_VOLKNER                 309
+#define OBJ_EVENT_GFX_DP_WAITER                  310
+#define OBJ_EVENT_GFX_DP_WAITRESS                311
+#define OBJ_EVENT_GFX_DP_WORKER                  312
+#define OBJ_EVENT_GFX_DP_YOUNG_COUPLEF           313
+#define OBJ_EVENT_GFX_DP_YOUNG_COUPLEM           314
+#define OBJ_EVENT_GFX_DP_YOUNGSTER               315
+
 // NOTE: The maximum amount of object events has been expanded from 255 to 65535.
 // Since dynamic graphics ids still require at least 16 free values, the actual limit
 // is 65519, but even considering follower Pokémon, this should be more than enough :)
-#define NUM_OBJ_EVENT_GFX                        246
+#define NUM_OBJ_EVENT_GFX                        316
 
 
 // These are dynamic object gfx ids.
