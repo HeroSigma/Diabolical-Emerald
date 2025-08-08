@@ -1,5 +1,4 @@
 #include "global.h"
-#include "malloc.h"
 #include "battle_anim.h"
 #include "battle_interface.h"
 #include "decompress.h"
@@ -6752,6 +6751,8 @@ void AnimTask_DoubleTeam(u8 taskId)
     PrepareDoubleTeamAnim(taskId, ANIM_ATTACKER, FALSE);
 }
 
+static u32 sAllySwitchSwapBuffer[0x200 / sizeof(u32)];
+
 static inline void SwapStructData(void *s1, void *s2, void *data, u32 size)
 {
     memcpy(data, s1, size);
@@ -6890,18 +6891,12 @@ static void AnimTask_AllySwitchDataSwap(u8 taskId)
     u32 battlerAtk = gBattlerAttacker;
     u32 battlerPartner = BATTLE_PARTNER(battlerAtk);
 
-    void *data = Alloc(0x200);
-    if (data == NULL)
-    {
-        SoftReset(1);
-    }
-
-    SwapStructData(&gBattleMons[battlerAtk], &gBattleMons[battlerPartner], data, sizeof(struct BattlePokemon));
-    SwapStructData(&gDisableStructs[battlerAtk], &gDisableStructs[battlerPartner], data, sizeof(struct DisableStruct));
-    SwapStructData(&gSpecialStatuses[battlerAtk], &gSpecialStatuses[battlerPartner], data, sizeof(struct SpecialStatus));
-    SwapStructData(&gProtectStructs[battlerAtk], &gProtectStructs[battlerPartner], data, sizeof(struct ProtectStruct));
-    SwapStructData(&gBattleSpritesDataPtr->battlerData[battlerAtk], &gBattleSpritesDataPtr->battlerData[battlerPartner], data, sizeof(struct BattleSpriteInfo));
-    SwapStructData(&gBattleStruct->illusion[battlerAtk], &gBattleStruct->illusion[battlerPartner], data, sizeof(struct Illusion));
+    SwapStructData(&gBattleMons[battlerAtk], &gBattleMons[battlerPartner], sAllySwitchSwapBuffer, sizeof(struct BattlePokemon));
+    SwapStructData(&gDisableStructs[battlerAtk], &gDisableStructs[battlerPartner], sAllySwitchSwapBuffer, sizeof(struct DisableStruct));
+    SwapStructData(&gSpecialStatuses[battlerAtk], &gSpecialStatuses[battlerPartner], sAllySwitchSwapBuffer, sizeof(struct SpecialStatus));
+    SwapStructData(&gProtectStructs[battlerAtk], &gProtectStructs[battlerPartner], sAllySwitchSwapBuffer, sizeof(struct ProtectStruct));
+    SwapStructData(&gBattleSpritesDataPtr->battlerData[battlerAtk], &gBattleSpritesDataPtr->battlerData[battlerPartner], sAllySwitchSwapBuffer, sizeof(struct BattleSpriteInfo));
+    SwapStructData(&gBattleStruct->illusion[battlerAtk], &gBattleStruct->illusion[battlerPartner], sAllySwitchSwapBuffer, sizeof(struct Illusion));
 
     SWAP(gBattleSpritesDataPtr->battlerData[battlerAtk].invisible, gBattleSpritesDataPtr->battlerData[battlerPartner].invisible, temp);
     SWAP(gTransformedPersonalities[battlerAtk], gTransformedPersonalities[battlerPartner], temp);
@@ -6959,8 +6954,6 @@ static void AnimTask_AllySwitchDataSwap(u8 taskId)
         ReloadBattlerSprites(battlerPartner, party);
         ReloadBattlerSprites(battlerAtk, party);
     }
-
-    Free(data);
 
     gBattleScripting.battler = battlerPartner;
     DestroyAnimVisualTask(taskId);
