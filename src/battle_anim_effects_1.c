@@ -6890,11 +6890,7 @@ static void AnimTask_AllySwitchDataSwap(u8 taskId)
     u32 battlerAtk = gBattlerAttacker;
     u32 battlerPartner = BATTLE_PARTNER(battlerAtk);
 
-    void *data = Alloc(0x200);
-    if (data == NULL)
-    {
-        SoftReset(1);
-    }
+    u8 data[0x200];
 
     SwapStructData(&gBattleMons[battlerAtk], &gBattleMons[battlerPartner], data, sizeof(struct BattlePokemon));
     SwapStructData(&gDisableStructs[battlerAtk], &gDisableStructs[battlerPartner], data, sizeof(struct DisableStruct));
@@ -6959,8 +6955,6 @@ static void AnimTask_AllySwitchDataSwap(u8 taskId)
         ReloadBattlerSprites(battlerPartner, party);
         ReloadBattlerSprites(battlerAtk, party);
     }
-
-    Free(data);
 
     gBattleScripting.battler = battlerPartner;
     DestroyAnimVisualTask(taskId);
