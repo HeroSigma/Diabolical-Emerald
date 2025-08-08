@@ -208,7 +208,7 @@
       "y": 99,
       "respawn_map": "MAP_ROUTE32_POKEMON_CENTER_1F"
     },
-	{
+    {
       "id": "HEAL_LOCATION_PALLET_TOWN",
       "map": "MAP_PALLET_TOWN",
       "x": 10,
@@ -279,7 +279,6 @@
       "y": 14,
       "respawn_map": "MAP_CINNABAR_ISLAND_POKEMON_CENTER_1F"
     },
-
     {
       "id": "HEAL_LOCATION_NEW_BARK_TOWN",
       "map": "MAP_NEW_BARK_TOWN",
@@ -343,7 +342,7 @@
       "y": 6,
       "respawn_map": "MAP_BLACKTHORN_CITY_POKEMON_CENTER_1F"
     },
-	    {
+    {
       "id": "HEAL_LOCATION_ONE_ISLAND",
       "map": "MAP_ONE_ISLAND",
       "x": 12,
