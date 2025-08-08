@@ -98,6 +98,48 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "OldaleTown_EventScript_TeraChanger",
       "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_OLDALE_WORMHOLE",
+      "graphics_id": "OBJ_EVENT_GFX_WORMHOLE",
+      "x": 12,
+      "y": 11,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_STAY",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "OldaleTown_EventScript_Wormhole",
+      "flag": "FLAG_HIDE_OLDALE_WORMHOLE"
+    },
+    {
+      "local_id": "LOCALID_OLDALE_ROCKET",
+      "graphics_id": "OBJ_EVENT_GFX_ROCKET_GRUNT_M",
+      "x": 12,
+      "y": 11,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "OldaleTown_EventScript_RocketGrunt",
+      "flag": "FLAG_HIDE_OLDALE_ROCKET_GRUNT"
+    },
+    {
+      "local_id": "LOCALID_OLDALE_TWIN",
+      "graphics_id": "OBJ_EVENT_GFX_VAR_1",
+      "x": 21,
+      "y": 11,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "OldaleTown_EventScript_TwinRival",
+      "flag": "FLAG_HIDE_OLDALE_TWIN_RIVAL"
     }
   ],
   "warp_events": [

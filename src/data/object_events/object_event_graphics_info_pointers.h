@@ -646,6 +646,8 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_DP_YOUNGSTER] =               &gObjectEventGraphicsInfo_DP_Youngster,
     [OBJ_EVENT_GFX_WORMHOLE] =                     &gObjectEventGraphicsInfo_Wormhole,
     [OBJ_EVENT_GFX_HOOPARING] =                    &gObjectEventGraphicsInfo_Hooparing,
+    [OBJ_EVENT_GFX_ROCKET_GRUNT_M] =               &gObjectEventGraphicsInfo_RocketGruntM,
+    [OBJ_EVENT_GFX_ROCKET_GRUNT_F] =               &gObjectEventGraphicsInfo_RocketGruntF,
 };
 
 const struct ObjectEventGraphicsInfo *const gMauvilleOldManGraphicsInfoPointers[] = {

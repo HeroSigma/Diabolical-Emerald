@@ -38,5 +38,19 @@ EventScript_SetupRivalGfxIdMale2::
 	return
 
 EventScript_SetupRivalGfxIdFemale2::
-	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_RIVAL_MAY_NORMAL
-	return
+        setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_RIVAL_MAY_NORMAL
+        return
+
+Common_EventScript_SetupTwinRivalGfxId::
+        checkplayergender
+        goto_if_eq VAR_RESULT, MALE, EventScript_SetupTwinBrendan
+        goto_if_eq VAR_RESULT, FEMALE, EventScript_SetupTwinMay
+        end
+
+EventScript_SetupTwinBrendan::
+        setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_LINK_RS_BRENDAN
+        return
+
+EventScript_SetupTwinMay::
+        setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_LINK_RS_MAY
+        return
