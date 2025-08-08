@@ -49992,3 +49992,75 @@ Double Battle: No
 Kyogre
 Level: 5
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+=== TRAINER_TWIN_BRENDAN_TREECKO ===
+Name: BRENDAN
+Class: RS Protag
+Pic: RS Brendan
+Gender: Male
+Music: Male
+Double Battle: No
+
+Treecko
+Level: 5
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+=== TRAINER_TWIN_BRENDAN_TORCHIC ===
+Name: BRENDAN
+Class: RS Protag
+Pic: RS Brendan
+Gender: Male
+Music: Male
+Double Battle: No
+
+Torchic
+Level: 5
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+=== TRAINER_TWIN_BRENDAN_MUDKIP ===
+Name: BRENDAN
+Class: RS Protag
+Pic: RS Brendan
+Gender: Male
+Music: Male
+Double Battle: No
+
+Mudkip
+Level: 5
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+=== TRAINER_TWIN_MAY_TREECKO ===
+Name: MAY
+Class: RS Protag
+Pic: RS May
+Gender: Female
+Music: Female
+Double Battle: No
+
+Treecko
+Level: 5
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+=== TRAINER_TWIN_MAY_TORCHIC ===
+Name: MAY
+Class: RS Protag
+Pic: RS May
+Gender: Female
+Music: Female
+Double Battle: No
+
+Torchic
+Level: 5
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+=== TRAINER_TWIN_MAY_MUDKIP ===
+Name: MAY
+Class: RS Protag
+Pic: RS May
+Gender: Female
+Music: Female
+Double Battle: No
+
+Mudkip
+Level: 5
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
