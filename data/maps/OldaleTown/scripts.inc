@@ -620,27 +620,27 @@ OldaleTown_EventScript_WormholeEncounter::
         clearflag FLAG_HIDE_OLDALE_WORMHOLE
         clearflag FLAG_HIDE_OLDALE_ROCKET_GRUNT
         addobject LOCALID_OLDALE_WORMHOLE
-        addobject LOCALID_OLDALE_ROCKET_GRUNT
+        addobject LOCALID_OLDALE_ROCKET
         delay 32
         msgbox OldaleTown_Text_RocketMutter, MSGBOX_NPC
-        applymovement LOCALID_OLDALE_ROCKET_GRUNT, OldaleTown_Movement_RocketExit
+        applymovement LOCALID_OLDALE_ROCKET, OldaleTown_Movement_RocketExit
         waitmovement 0
-        removeobject LOCALID_OLDALE_ROCKET_GRUNT
+        removeobject LOCALID_OLDALE_ROCKET
         setflag FLAG_HIDE_OLDALE_ROCKET_GRUNT
         removeobject LOCALID_OLDALE_WORMHOLE
         setflag FLAG_HIDE_OLDALE_WORMHOLE
         msgbox OldaleTown_Text_PlayerThought, MSGBOX_DEFAULT
         clearflag FLAG_HIDE_OLDALE_TWIN_RIVAL
-        addobject LOCALID_OLDALE_TWIN_RIVAL
-        applymovement LOCALID_OLDALE_TWIN_RIVAL, OldaleTown_Movement_TwinEnter
+        addobject LOCALID_OLDALE_TWIN
+        applymovement LOCALID_OLDALE_TWIN, OldaleTown_Movement_TwinEnter
         waitmovement 0
         msgbox OldaleTown_Text_TwinChallenge, MSGBOX_NPC
         call OldaleTown_EventScript_TwinBattle
         msgbox OldaleTown_Text_PlayerSawRocket, MSGBOX_DEFAULT
         msgbox OldaleTown_Text_TwinNeedCheck, MSGBOX_NPC
-        applymovement LOCALID_OLDALE_TWIN_RIVAL, OldaleTown_Movement_TwinExit
+        applymovement LOCALID_OLDALE_TWIN, OldaleTown_Movement_TwinExit
         waitmovement 0
-        removeobject LOCALID_OLDALE_TWIN_RIVAL
+        removeobject LOCALID_OLDALE_TWIN
         setflag FLAG_HIDE_OLDALE_TWIN_RIVAL
         setflag FLAG_OLDDALE_WORMHOLE_SCENE_DONE
         releaseall
