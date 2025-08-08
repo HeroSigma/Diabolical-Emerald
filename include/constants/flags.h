@@ -703,7 +703,7 @@
 #define FLAG_CAUGHT_JIRACHI                                   0x291
 #define FLAG_DEFEATED_DEOXYS_RS                               0x292
 #define FLAG_CAUGHT_DEOXYS_RS                                 0x293
-#define FLAG_UNUSED_0x294  0x294 // Unused Flag
+#define OW_FLAG_SUPPRESS_SPEAKER_NAME_0x294  				  0x294 
 #define FLAG_UNUSED_0x295  0x295 // Unused Flag
 #define FLAG_UNUSED_0x296  0x296 // Unused Flag
 #define FLAG_UNUSED_0x297  0x297 // Unused Flag
