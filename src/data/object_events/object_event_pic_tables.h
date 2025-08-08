@@ -1092,6 +1092,22 @@ static const struct SpriteFrameImage sPicTable_RayquazaCutscene[] = {
     overworld_frame(gObjectEventPic_RayquazaCutscene, 8, 8, 4),
 };
 
+static const struct SpriteFrameImage sPicTable_Wormhole[] = {
+    overworld_frame(gObjectEventPic_Wormhole, 8, 8, 0),
+    overworld_frame(gObjectEventPic_Wormhole, 8, 8, 1),
+    overworld_frame(gObjectEventPic_Wormhole, 8, 8, 2),
+    overworld_frame(gObjectEventPic_Wormhole, 8, 8, 3),
+    overworld_frame(gObjectEventPic_Wormhole, 8, 8, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_Hooparing[] = {
+    overworld_frame(gObjectEventPic_Hooparing, 8, 8, 0),
+    overworld_frame(gObjectEventPic_Hooparing, 8, 8, 1),
+    overworld_frame(gObjectEventPic_Hooparing, 8, 8, 2),
+    overworld_frame(gObjectEventPic_Hooparing, 8, 8, 3),
+    overworld_frame(gObjectEventPic_Hooparing, 8, 8, 4),
+};
+
 static const struct SpriteFrameImage sPicTable_BirthIslandStone[] = {
     obj_frame_tiles(gObjectEventPic_BirthIslandStone),
 };
