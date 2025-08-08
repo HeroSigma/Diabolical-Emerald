@@ -704,14 +704,16 @@ OldaleTown_Movement_RocketExit:
         step_end
 
 OldaleTown_Movement_TwinEnter:
-        walk_left
-        walk_left
-        walk_left
-        walk_left
-        walk_left
-        walk_left
-        walk_left
-        walk_left
+        walk_right
+        walk_right
+        walk_right
+        walk_right
+        walk_right
+        walk_right
+        walk_right
+        walk_right
+		walk_right
+		walk_right
         step_end
 
 OldaleTown_Movement_TwinExit:
