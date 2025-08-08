@@ -397,8 +397,8 @@ const u16 gObjectEventPal_Substitute[] = INCBIN_U16("graphics/object_events/pics
 const u16 gObjectEventPaletteEmotes[] = INCBIN_U16("graphics/misc/emotes.gbapal");
 const u16 gObjectEventPaletteNeonLight[] = INCBIN_U16("graphics/object_events/palettes/neon_light.gbapal");
 
-const u16 gObjectEventPal_RocketGruntM[] = INCBIN_U16("graphics/object_events/palettes/rocketgruntm.pal");
-const u16 gObjectEventPal_RocketGruntF[] = INCBIN_U16("graphics/object_events/palettes/rocketgruntf.pal");
+const u16 gObjectEventPal_RocketGruntM[] = INCBIN_U16("graphics/object_events/palettes/rocketgruntm.gbapal");
+const u16 gObjectEventPal_RocketGruntF[] = INCBIN_U16("graphics/object_events/palettes/rocketgruntf.gbapal");
 
 //Platinum
 
