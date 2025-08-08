@@ -621,7 +621,7 @@ OldaleTown_EventScript_WormholeEncounter::
         clearflag FLAG_HIDE_OLDALE_ROCKET_GRUNT
         addobject LOCALID_OLDALE_WORMHOLE
         addobject LOCALID_OLDALE_ROCKET_GRUNT
-        wait 32
+        delay 32
         msgbox OldaleTown_Text_RocketMutter, MSGBOX_NPC
         applymovement LOCALID_OLDALE_ROCKET_GRUNT, OldaleTown_Movement_RocketExit
         waitmovement 0
