@@ -47,6 +47,7 @@
 #include "constants/event_objects.h"
 #include "constants/game_stat.h"
 #include "constants/items.h"
+#include "constants/species.h"
 #include "constants/songs.h"
 #include "constants/trainers.h"
 #include "constants/trainer_hill.h"
@@ -882,6 +883,7 @@ static void CB2_GiveStarter(void)
     *GetVarPointer(VAR_STARTER_MON) = gSpecialVar_Result;
     starterMon = GetStarterPokemon(gSpecialVar_Result);
     ScriptGiveMon(starterMon, 5, ITEM_NONE);
+    CreateScriptedWildMon(SPECIES_ZIGZAGOON, 2, ITEM_NONE);
     ResetTasks();
     PlayBattleBGM();
     SetMainCallback2(CB2_StartFirstBattle);
