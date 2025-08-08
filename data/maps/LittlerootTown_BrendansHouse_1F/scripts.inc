@@ -311,7 +311,7 @@ PlayersHouse_1F_Text_OhComeQuickly:
         .string "something strange on the news!$"
 
 PlayersHouse_1F_Text_ItsOverWeMissedHim:
-        .string "…The Battle Frontier… gone?$"
+        .string "{PLAYER}: …The Battle Frontier… gone?$"
 
 PlayersHouse_1F_Text_PortalToJohtoKanto:
         .string "MOM: A portal to JOHTO and KANTO?\n"
