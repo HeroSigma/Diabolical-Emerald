@@ -326,11 +326,54 @@
 #define OBJ_EVENT_GFX_HOOPARING                  317
 #define OBJ_EVENT_GFX_ROCKET_GRUNT_M             318
 #define OBJ_EVENT_GFX_ROCKET_GRUNT_F             319
+#define OBJ_EVENT_GFX_ACEROLA                    320
+#define OBJ_EVENT_GFX_ARCHER                     321
+#define OBJ_EVENT_GFX_ARIANA                     322
+#define OBJ_EVENT_GFX_BLAINE                     323
+#define OBJ_EVENT_GFX_BLUE                       324
+#define OBJ_EVENT_GFX_BROCK                      325
+#define OBJ_EVENT_GFX_BUGSY                      326
+#define OBJ_EVENT_GFX_CHUCK                      327
+#define OBJ_EVENT_GFX_CLAIR                      328
+#define OBJ_EVENT_GFX_CLAY                       329
+#define OBJ_EVENT_GFX_COLRESS                    330
+#define OBJ_EVENT_GFX_DRAYDEN                    331
+#define OBJ_EVENT_GFX_ELIO                       332
+#define OBJ_EVENT_GFX_ERIKA                      333
+#define OBJ_EVENT_GFX_FALKNER                    334
+#define OBJ_EVENT_GFX_GHETSIS                    335
+#define OBJ_EVENT_GFX_GIOVANNI                   336
+#define OBJ_EVENT_GFX_IRIS_BW2                   337
+#define OBJ_EVENT_GFX_JANINE                     338
+#define OBJ_EVENT_GFX_JASMINE                    339
+#define OBJ_EVENT_GFX_JASMINE_OW                 340
+#define OBJ_EVENT_GFX_KAREN                      341
+#define OBJ_EVENT_GFX_KOGA                       342
+#define OBJ_EVENT_GFX_KORRINA                    343
+#define OBJ_EVENT_GFX_MINA                       344
+#define OBJ_EVENT_GFX_MISTY                      345
+#define OBJ_EVENT_GFX_MORTY                      346
+#define OBJ_EVENT_GFX_N                          347
+#define OBJ_EVENT_GFX_NESSA                      348
+#define OBJ_EVENT_GFX_PETREL                     349
+#define OBJ_EVENT_GFX_PLASMA_GRUNT_F             350
+#define OBJ_EVENT_GFX_PLASMA_GRUNT_M             351
+#define OBJ_EVENT_GFX_PROTON                     352
+#define OBJ_EVENT_GFX_PRYCE                      353
+#define OBJ_EVENT_GFX_ROXIE                      354
+#define OBJ_EVENT_GFX_SABRINA                    355
+#define OBJ_EVENT_GFX_SILVER                     356
+#define OBJ_EVENT_GFX_SKYLA_OW                   357
+#define OBJ_EVENT_GFX_SURGE                      358
+#define OBJ_EVENT_GFX_VOLKNER_OW                 359
+#define OBJ_EVENT_GFX_WHITNEY                    360
+#define OBJ_EVENT_GFX_WILL                       361
+#define OBJ_EVENT_GFX_ZINZOLIN                   362
 
 // NOTE: The maximum amount of object events has been expanded from 255 to 65535.
 // Since dynamic graphics ids still require at least 16 free values, the actual limit
 // is 65519, but even considering follower Pokémon, this should be more than enough :)
-#define NUM_OBJ_EVENT_GFX                        320
+#define NUM_OBJ_EVENT_GFX                        363
 
 
 // These are dynamic object gfx ids.
