@@ -40,6 +40,8 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_SchoolKidM;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Maniac;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HexManiac;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RayquazaStill;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Wormhole;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Hooparing;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_SwimmerM;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_SwimmerF;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_BlackBelt;
@@ -642,6 +644,8 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_DP_YOUNG_COUPLEF] =               &gObjectEventGraphicsInfo_DP_YoungCoupleF,
     [OBJ_EVENT_GFX_DP_YOUNG_COUPLEM] =               &gObjectEventGraphicsInfo_DP_YoungCoupleM,
     [OBJ_EVENT_GFX_DP_YOUNGSTER] =               &gObjectEventGraphicsInfo_DP_Youngster,
+    [OBJ_EVENT_GFX_WORMHOLE] =                     &gObjectEventGraphicsInfo_Wormhole,
+    [OBJ_EVENT_GFX_HOOPARING] =                    &gObjectEventGraphicsInfo_Hooparing,
 };
 
 const struct ObjectEventGraphicsInfo *const gMauvilleOldManGraphicsInfoPointers[] = {

@@ -322,11 +322,13 @@
 #define OBJ_EVENT_GFX_DP_YOUNG_COUPLEF           313
 #define OBJ_EVENT_GFX_DP_YOUNG_COUPLEM           314
 #define OBJ_EVENT_GFX_DP_YOUNGSTER               315
+#define OBJ_EVENT_GFX_WORMHOLE                   316
+#define OBJ_EVENT_GFX_HOOPARING                  317
 
 // NOTE: The maximum amount of object events has been expanded from 255 to 65535.
 // Since dynamic graphics ids still require at least 16 free values, the actual limit
 // is 65519, but even considering follower Pokémon, this should be more than enough :)
-#define NUM_OBJ_EVENT_GFX                        316
+#define NUM_OBJ_EVENT_GFX                        318
 
 
 // These are dynamic object gfx ids.

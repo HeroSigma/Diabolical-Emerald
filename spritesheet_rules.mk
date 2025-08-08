@@ -482,6 +482,12 @@ $(OBJEVENTGFXDIR)/pokemon_old/wingull.4bpp: %.4bpp: %.png
 $(OBJEVENTGFXDIR)/pokemon_old/zigzagoon.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 2
 
+$(OBJEVENTGFXDIR)/pokemon/wormhole.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 8 -mheight 8
+
+$(OBJEVENTGFXDIR)/pokemon/hooparing.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 8 -mheight 8
+
 $(OBJEVENTGFXDIR)/misc/ball_poke.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
