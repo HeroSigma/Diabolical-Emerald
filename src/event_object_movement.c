@@ -259,8 +259,6 @@ static void (*const sCameraObjectFuncs[])(struct Sprite *) = {
     [CAMERA_STATE_FROZEN] = CameraObject_UpdateFrozen,
 };
 
-#include "data/object_events/object_event_graphics.h"
-
 // movement type callbacks
 static void (*const sMovementTypeCallbacks[])(struct Sprite *) =
 {
@@ -478,6 +476,7 @@ const u8 gInitialMovementTypeFacingDirections[NUM_MOVEMENT_TYPES] = {
 };
 
 #include "data/field_effects/field_effect_object_template_pointers.h"
+#include "data/object_events/object_event_graphics.h"
 #include "data/object_events/object_event_pic_tables.h"
 #include "data/object_events/object_event_anims.h"
 #include "data/object_events/base_oam.h"
