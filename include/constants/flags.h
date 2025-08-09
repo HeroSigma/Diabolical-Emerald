@@ -703,7 +703,7 @@
 #define FLAG_CAUGHT_JIRACHI                                   0x291
 #define FLAG_DEFEATED_DEOXYS_RS                               0x292
 #define FLAG_CAUGHT_DEOXYS_RS                                 0x293
-#define FLAG_UNUSED_0x294  0x294 // Unused Flag
+#define OW_FLAG_SUPPRESS_SPEAKER_NAME_0x294  				  0x294 
 #define FLAG_UNUSED_0x295  0x295 // Unused Flag
 #define FLAG_UNUSED_0x296  0x296 // Unused Flag
 #define FLAG_UNUSED_0x297  0x297 // Unused Flag
@@ -1735,6 +1735,10 @@
 #define FLAG_HIDE_SEAFOAM_B3F_BOULDER_6       0x604C
 #define FLAG_HIDE_SEAFOAM_B4F_BOULDER_1       0x604D
 #define FLAG_HIDE_SEAFOAM_B4F_BOULDER_2       0x604E
+#define FLAG_OLDDALE_WORMHOLE_SCENE_DONE      0x604F
+#define FLAG_HIDE_OLDALE_WORMHOLE             0x6050
+#define FLAG_HIDE_OLDALE_ROCKET_GRUNT         0x6051
+#define FLAG_HIDE_OLDALE_TWIN_RIVAL           0x6052
 
 // Temp flag aliases
 #define FLAG_TEMP_SKIP_GABBY_INTERVIEW          FLAG_TEMP_1

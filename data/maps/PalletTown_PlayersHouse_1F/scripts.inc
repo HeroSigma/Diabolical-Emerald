@@ -87,22 +87,23 @@ PalletTown_PlayersHouse_1F_EventScript_PetalburgGymReport::
 	applymovement OBJ_EVENT_ID_PLAYER, PalletTown_PlayersHouse_1F_Movement_PlayerApproachTVForGym
 	waitmovement 0
 	playbgm MUS_ENCOUNTER_INTERVIEWER, FALSE
-	msgbox PlayersHouse_1F_Text_MaybeDadWillBeOn, MSGBOX_DEFAULT
-	closemessage
-	applymovement VAR_0x8005, PlayersHouse_1F_Movement_MomMakeRoomToSeeTV
-	waitmovement 0
-	applymovement OBJ_EVENT_ID_PLAYER, PlayersHouse_1F_Movement_PlayerMoveToTV
-	waitmovement 0
-	call PlayersHouse_1F_EventScript_WatchGymBroadcast
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
-	waitmovement 0
-	msgbox PlayersHouse_1F_Text_ItsOverWeMissedHim, MSGBOX_DEFAULT
+        applymovement VAR_0x8005, PlayersHouse_1F_Movement_MomMakeRoomToSeeTV
+        waitmovement 0
+        applymovement OBJ_EVENT_ID_PLAYER, PlayersHouse_1F_Movement_PlayerMoveToTV
+        waitmovement 0
+        call PlayersHouse_1F_EventScript_WatchGymBroadcast
+        applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
+        waitmovement 0
+        msgbox PlayersHouse_1F_Text_ItsOverWeMissedHim, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_PortalToJohtoKanto, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_GladYoureBack, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor, MSGBOX_DEFAULT
         msgbox PalletTown_PlayersHouse_1F_Text_ThingsMovedOut, MSGBOX_DEFAULT
         msgbox PalletTown_PlayersHouse_1F_Text_StartYourAdventure, MSGBOX_DEFAULT
-	givemon SPECIES_PICHU, 3
-	setflag FLAG_SYS_POKEMON_GET
-	bufferleadmonspeciesname STR_VAR_1
-	playfanfare MUS_OBTAIN_ITEM
+        givemon SPECIES_PICHU, 3
+        setflag FLAG_SYS_POKEMON_GET
+        bufferleadmonspeciesname STR_VAR_1
+        playfanfare MUS_OBTAIN_ITEM
         message PalletTown_PlayersHouse_1F_Text_PlayerReceivedPichu
 	waitmessage
 	waitfanfare

@@ -861,11 +861,18 @@
 #define TRAINER_LYRA_ROUTE_29               855
 #define TRAINER_GOLD_ROUTE_29               856
 
+#define TRAINER_TWIN_BRENDAN_TREECKO        857
+#define TRAINER_TWIN_BRENDAN_TORCHIC        858
+#define TRAINER_TWIN_BRENDAN_MUDKIP         859
+#define TRAINER_TWIN_MAY_TREECKO            860
+#define TRAINER_TWIN_MAY_TORCHIC            861
+#define TRAINER_TWIN_MAY_MUDKIP             862
+
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, there is only space for 9 additional trainers before trainer flag space overflows
 //       More space can be made by shifting flags around in constants/flags.h or changing how trainer flags are handled
 //       MAX_TRAINERS_COUNT can be increased but will take up additional saveblock space
 
-#define TRAINERS_COUNT                      857
+#define TRAINERS_COUNT                      863
 #define MAX_TRAINERS_COUNT                  864
 #define TRAINER_PARTNER(partner)           (MAX_TRAINERS_COUNT + partner)
 

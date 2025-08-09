@@ -82,26 +82,27 @@ NewBarkTown_PlayersHouse_1F_EventScript_VioletGymReport::
 	setvar VAR_INTRO_STATE, 7
 	applymovement VAR_0x8005, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
-	call PlayersHouse_1F_EventScript_MomNoticeGymBroadcast
-	applymovement OBJ_EVENT_ID_PLAYER, NewBarkTown_PlayersHouse_1F_Movement_PlayerApproachTVForGym
-	waitmovement 0
-	playbgm MUS_ENCOUNTER_INTERVIEWER, FALSE
-	msgbox NewBarkTown_PlayersHouse_1F_Text_MaybeDadWillBeOn, MSGBOX_DEFAULT
-	closemessage
-	applymovement VAR_0x8005, PlayersHouse_1F_Movement_MomMakeRoomToSeeTV
-	waitmovement 0
-	applymovement OBJ_EVENT_ID_PLAYER, PlayersHouse_1F_Movement_PlayerMoveToTV
-	waitmovement 0
-	call NewBarkTown_PlayersHouse_1F_EventScript_WatchGymBroadcast
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
-	waitmovement 0
-	msgbox PlayersHouse_1F_Text_ItsOverWeMissedHim, MSGBOX_DEFAULT
-	msgbox NewBarkTown_PlayersHouse_1F_Text_ThingsMovedOut, MSGBOX_DEFAULT
+        call PlayersHouse_1F_EventScript_MomNoticeGymBroadcast
+        applymovement OBJ_EVENT_ID_PLAYER, NewBarkTown_PlayersHouse_1F_Movement_PlayerApproachTVForGym
+        waitmovement 0
+        playbgm MUS_ENCOUNTER_INTERVIEWER, FALSE
+        applymovement VAR_0x8005, PlayersHouse_1F_Movement_MomMakeRoomToSeeTV
+        waitmovement 0
+        applymovement OBJ_EVENT_ID_PLAYER, PlayersHouse_1F_Movement_PlayerMoveToTV
+        waitmovement 0
+        call NewBarkTown_PlayersHouse_1F_EventScript_WatchGymBroadcast
+        applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
+        waitmovement 0
+        msgbox PlayersHouse_1F_Text_ItsOverWeMissedHim, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_PortalToJohtoKanto, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_GladYoureBack, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor, MSGBOX_DEFAULT
+        msgbox NewBarkTown_PlayersHouse_1F_Text_ThingsMovedOut, MSGBOX_DEFAULT
         msgbox NewBarkTown_PlayersHouse_1F_Text_StartYourAdventure, MSGBOX_DEFAULT
-	givemon SPECIES_PICHU, 3
-	setflag FLAG_SYS_POKEMON_GET
-	bufferleadmonspeciesname STR_VAR_1
-	playfanfare MUS_OBTAIN_ITEM
+        givemon SPECIES_PICHU, 3
+        setflag FLAG_SYS_POKEMON_GET
+        bufferleadmonspeciesname STR_VAR_1
+        playfanfare MUS_OBTAIN_ITEM
         message NewBarkTown_PlayersHouse_1F_Text_PlayerReceivedPichu
 	waitmessage
 	waitfanfare
@@ -110,14 +111,21 @@ NewBarkTown_PlayersHouse_1F_EventScript_VioletGymReport::
 	call NewBarkTown_PlayersHouse_1F_EventScript_MomLeaving
 
 NewBarkTown_PlayersHouse_1F_EventScript_WatchGymBroadcast::
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
-	waitmovement 0
-	msgbox NewBarkTown_PlayersHouse_1F_Text_ReportFromPetalburgGym, MSGBOX_DEFAULT
-	fadedefaultbgm
-	special TurnOffTVScreen
-	setflag FLAG_SYS_TV_HOME
-	delay 35
-	return
+        applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+        waitmovement 0
+        msgbox PlayersHouse_1F_Text_BattleFrontierNews1, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_BattleFrontierNews2, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_BattleFrontierNews3, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_BattleFrontierNews4, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_BattleFrontierNews5, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_BattleFrontierNews6, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_BattleFrontierNews7, MSGBOX_DEFAULT
+        msgbox PlayersHouse_1F_Text_BattleFrontierNews8, MSGBOX_DEFAULT
+        fadedefaultbgm
+        special TurnOffTVScreen
+        setflag FLAG_SYS_TV_HOME
+        delay 35
+        return
 
 NewBarkTown_PlayersHouse_1F_EventScript_NicknameMon::
 	setvar VAR_0x8004, 0
@@ -228,17 +236,9 @@ NewBarkTown_PlayersHouse_1F_Text_TakeCareOfHouse_Away:
         .string "I'm away, okay?\p"
         .string "I'll be thinking of you!$"
 
-NewBarkTown_PlayersHouse_1F_Text_MaybeDadWillBeOn:
-	.string "MOM: Look! It's Violet City Gym!\n"
-	.string "Maybe Dad will be on!$"
-
-NewBarkTown_PlayersHouse_1F_Text_ReportFromPetalburgGym:
-	.string "INTERVIEWER: …We brought you this\n"
-	.string "report from in front of Violet City Gym.$"
-
 NewBarkTown_PlayersHouse_1F_Text_ThingsMovedOut:
-	.string "Well honey, all of your things have been\n"
-	.string "moved in.\p"
+        .string "Well honey, all of your things have been\n"
+        .string "moved in.\p"
 	.string "Are you sure that you're going to be ok\n"
 	.string "living here alone?\p"
 	.string "You're still welcome to continue living\n"

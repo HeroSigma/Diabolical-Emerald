@@ -3,12 +3,18 @@ OldaleTown_MapScripts::
 	.byte 0
 
 OldaleTown_OnTransition:
-	call Common_EventScript_SetupRivalGfxId
-	setflag FLAG_VISITED_OLDALE_TOWN
-	call_if_unset FLAG_ADVENTURE_STARTED, OldaleTown_EventScript_BlockWestEntrance
-	call_if_unset FLAG_RECEIVED_POTION_OLDALE, OldaleTown_EventScript_MoveMartEmployee
-	call_if_set FLAG_ADVENTURE_STARTED, OldaleTown_EventScript_SetOldaleState
-	end
+        call Common_EventScript_SetupRivalGfxId
+        call Common_EventScript_SetupTwinRivalGfxId
+        setflag FLAG_VISITED_OLDALE_TOWN
+        call_if_unset FLAG_ADVENTURE_STARTED, OldaleTown_EventScript_BlockWestEntrance
+        call_if_unset FLAG_RECEIVED_POTION_OLDALE, OldaleTown_EventScript_MoveMartEmployee
+        call_if_set FLAG_ADVENTURE_STARTED, OldaleTown_EventScript_SetOldaleState
+        call_if_set FLAG_ADVENTURE_STARTED, OldaleTown_EventScript_CheckWormholeScene
+        end
+
+OldaleTown_EventScript_CheckWormholeScene::
+        call_if_unset FLAG_OLDDALE_WORMHOLE_SCENE_DONE, OldaleTown_EventScript_WormholeEncounter
+        return
 
 @ This script seems pointless because nothing uses VAR_OLDALE_TOWN_STATE
 OldaleTown_EventScript_SetOldaleState::
@@ -581,4 +587,144 @@ OldaleTown_Text_TeraNoMoney:
 
 OldaleTown_Text_TeraComeAgain:
         .string "Come again if you change your mind.$"
+
+OldaleTown_Text_RocketMutter:
+        .string "...Where the hell am I? This isn't Goldenrod... tch.$"
+
+OldaleTown_Text_PlayerThought:
+        .string "That 'R'... it looks oddly familiar... Where have I—$"
+
+OldaleTown_Text_TwinChallenge:
+        .string "Wait—{PLAYER}?! No way! It's been forever! You're here? You have to battle me right now!$"
+
+OldaleTown_Text_TwinAfterBattle:
+        .string "Hah! That was great... but... did you see something just now?$"
+
+OldaleTown_Text_PlayerSawRocket:
+        .string "Yeah... someone came out of a portal. They had a big red 'R' on their clothes.$"
+
+OldaleTown_Text_TwinNeedCheck:
+        .string "With an 'R'...? That sounds... familiar somehow. I need to check something.$"
+
+OldaleTown_EventScript_Wormhole::
+        end
+
+OldaleTown_EventScript_RocketGrunt::
+        end
+
+OldaleTown_EventScript_TwinRival::
+        end
+
+OldaleTown_EventScript_WormholeEncounter::
+        lockall
+        clearflag FLAG_HIDE_OLDALE_WORMHOLE
+        clearflag FLAG_HIDE_OLDALE_ROCKET_GRUNT
+        addobject LOCALID_OLDALE_WORMHOLE
+        addobject LOCALID_OLDALE_ROCKET
+        delay 32
+        msgbox OldaleTown_Text_RocketMutter, MSGBOX_NPC
+        applymovement LOCALID_OLDALE_ROCKET, OldaleTown_Movement_RocketExit
+        waitmovement 0
+        removeobject LOCALID_OLDALE_ROCKET
+        setflag FLAG_HIDE_OLDALE_ROCKET_GRUNT
+        removeobject LOCALID_OLDALE_WORMHOLE
+        setflag FLAG_HIDE_OLDALE_WORMHOLE
+        msgbox OldaleTown_Text_PlayerThought, MSGBOX_DEFAULT
+        clearflag FLAG_HIDE_OLDALE_TWIN_RIVAL
+        addobject LOCALID_OLDALE_TWIN
+        applymovement LOCALID_OLDALE_TWIN, OldaleTown_Movement_TwinEnter
+        waitmovement 0
+        msgbox OldaleTown_Text_TwinChallenge, MSGBOX_NPC
+        call OldaleTown_EventScript_TwinBattle
+        msgbox OldaleTown_Text_PlayerSawRocket, MSGBOX_DEFAULT
+        msgbox OldaleTown_Text_TwinNeedCheck, MSGBOX_NPC
+        applymovement LOCALID_OLDALE_TWIN, OldaleTown_Movement_TwinExit
+        waitmovement 0
+        removeobject LOCALID_OLDALE_TWIN
+        setflag FLAG_HIDE_OLDALE_TWIN_RIVAL
+        setflag FLAG_OLDDALE_WORMHOLE_SCENE_DONE
+        releaseall
+        end
+
+OldaleTown_EventScript_TwinBattle::
+        checkplayergender
+        goto_if_eq VAR_RESULT, MALE, OldaleTown_EventScript_TwinBattleBrendan
+        goto_if_eq VAR_RESULT, FEMALE, OldaleTown_EventScript_TwinBattleMay
+        return
+
+OldaleTown_EventScript_TwinBattleBrendan::
+        compare VAR_STARTER_MON, 0
+        goto_if_eq VAR_RESULT, OldaleTown_EventScript_BattleBrendanMudkip
+        compare VAR_STARTER_MON, 1
+        goto_if_eq VAR_RESULT, OldaleTown_EventScript_BattleBrendanTreecko
+        goto OldaleTown_EventScript_BattleBrendanTorchic
+
+OldaleTown_EventScript_BattleBrendanMudkip::
+        trainerbattle_no_intro TRAINER_TWIN_BRENDAN_MUDKIP, OldaleTown_Text_TwinAfterBattle
+        return
+
+OldaleTown_EventScript_BattleBrendanTreecko::
+        trainerbattle_no_intro TRAINER_TWIN_BRENDAN_TREECKO, OldaleTown_Text_TwinAfterBattle
+        return
+
+OldaleTown_EventScript_BattleBrendanTorchic::
+        trainerbattle_no_intro TRAINER_TWIN_BRENDAN_TORCHIC, OldaleTown_Text_TwinAfterBattle
+        return
+
+OldaleTown_EventScript_TwinBattleMay::
+        compare VAR_STARTER_MON, 0
+        goto_if_eq VAR_RESULT, OldaleTown_EventScript_BattleMayMudkip
+        compare VAR_STARTER_MON, 1
+        goto_if_eq VAR_RESULT, OldaleTown_EventScript_BattleMayTreecko
+        goto OldaleTown_EventScript_BattleMayTorchic
+
+OldaleTown_EventScript_BattleMayMudkip::
+        trainerbattle_no_intro TRAINER_TWIN_MAY_MUDKIP, OldaleTown_Text_TwinAfterBattle
+        return
+
+OldaleTown_EventScript_BattleMayTreecko::
+        trainerbattle_no_intro TRAINER_TWIN_MAY_TREECKO, OldaleTown_Text_TwinAfterBattle
+        return
+
+OldaleTown_EventScript_BattleMayTorchic::
+        trainerbattle_no_intro TRAINER_TWIN_MAY_TORCHIC, OldaleTown_Text_TwinAfterBattle
+        return
+
+OldaleTown_Movement_RocketExit:
+        walk_left
+        walk_left
+        walk_left
+        walk_left
+        walk_left
+        walk_left
+        walk_left
+        walk_left
+        walk_left
+        walk_left
+        step_end
+
+OldaleTown_Movement_TwinEnter:
+        walk_right
+        walk_right
+        walk_right
+        walk_right
+        walk_right
+        walk_right
+        walk_right
+        walk_right
+		walk_right
+		walk_right
+        step_end
+
+OldaleTown_Movement_TwinExit:
+        walk_down
+        walk_down
+        walk_down
+        walk_down
+        walk_down
+        walk_down
+        walk_down
+        walk_down
+        walk_down
+        step_end
 
