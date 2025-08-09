@@ -1308,6 +1308,7 @@ static void Task_NewGameBirchSpeech_Init(u8 taskId)
     gTasks[taskId].tBG1HOFS = 0;
     gTasks[taskId].func = Task_NewGameBirchSpeech_WaitToShowBirch;
     gTasks[taskId].tPlayerSpriteId = SPRITE_NONE;
+    gTasks[taskId].tPlayerGender = MALE;
     gTasks[taskId].data[3] = 0xFF;
     gTasks[taskId].tTimer = 0xD8;
     PlayBGM(MUS_ROUTE122);
@@ -1521,25 +1522,27 @@ static void Task_NewGameBirchSpeech_WaitToShowGenderMenu(u8 taskId)
 static void Task_NewGameBirchSpeech_ChooseGender(u8 taskId)
 {
     int gender = NewGameBirchSpeech_ProcessGenderMenuInput();
-    int gender2;
+    int gender2 = Menu_GetCursorPos();
 
     switch (gender)
     {
         case MALE:
             PlaySE(SE_SELECT);
             gSaveBlock2Ptr->playerGender = gender;
+            gTasks[taskId].tPlayerGender = gender;
             NewGameBirchSpeech_ClearGenderWindow(1, 1);
             gTasks[taskId].func = Task_NewGameBirchSpeech_WhatsYourName;
-            break;
+            return;
         case FEMALE:
             PlaySE(SE_SELECT);
             gSaveBlock2Ptr->playerGender = gender;
+            gTasks[taskId].tPlayerGender = gender;
             NewGameBirchSpeech_ClearGenderWindow(1, 1);
             gTasks[taskId].func = Task_NewGameBirchSpeech_WhatsYourName;
-            break;
+            return;
     }
-    gender2 = Menu_GetCursorPos();
-    if (gender2 != gTasks[taskId].tPlayerGender)
+
+    if (gTasks[taskId].tPlayerSpriteId != SPRITE_NONE && gender2 != gTasks[taskId].tPlayerGender)
     {
         gTasks[taskId].tPlayerGender = gender2;
         gSprites[gTasks[taskId].tPlayerSpriteId].oam.objMode = ST_OAM_OBJ_BLEND;
