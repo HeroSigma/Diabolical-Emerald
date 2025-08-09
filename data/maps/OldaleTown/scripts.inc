@@ -592,10 +592,10 @@ OldaleTown_Text_RocketMutter:
         .string "...Where the hell am I? This isn't Goldenrod... tch.$"
 
 OldaleTown_Text_PlayerThought:
-        .string "That 'R'... it looks oddly familiar... Where have I—$"
+        .string "That 'R'... it looks oddly familiar... Where have I--$"
 
 OldaleTown_Text_TwinChallenge:
-        .string "Wait—{PLAYER}?! No way! It's been forever! You're here? You have to battle me right now!$"
+        .string "Wait--{PLAYER}?! No way! It's been forever! You're here? You have to battle me right now!$"
 
 OldaleTown_Text_TwinAfterBattle:
         .string "Hah! That was great... but... did you see something just now?$"

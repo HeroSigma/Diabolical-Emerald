@@ -700,22 +700,22 @@ LittlerootTown_ProfessorBirchsLab_Text_BirchEnjoysRivalsHelpToo:
 	.string "There's a lot of love there.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_BirchRecognizesPlayer:
-	.string "PROF. BIRCH: Ah—there you are. About\n"
+        .string "PROF. BIRCH: Ah--there you are. About\n"
 	.string "that field incident… Wait, is that\l"
-	.string "you, {PLAYER}? I'll be—look at you!\p"
+        .string "you, {PLAYER}? I'll be--look at you!\p"
 	.string "It's been years. No wonder you handled\n"
 	.string "that so calmly.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_PlayerMentionsDistortions:
 	.string "{PLAYER}: It's good to see you too,\n"
 	.string "PROFESSOR. I heard about the\l"
-	.string "distortions—the Gate at the BATTLE\n"
+        .string "distortions--the Gate at the BATTLE\n"
 	.string "FRONTIER. Is HOENN really linked to\l"
 	.string "JOHTO and KANTO?$"
 
 LittlerootTown_ProfessorBirchsLab_Text_BirchExplainsTear:
 	.string "PROF. BIRCH: The readings confirm a\n"
-	.string "tear—stable, but volatile. DEVON and\l"
+        .string "tear--stable, but volatile. DEVON and\l"
 	.string "SILPH are monitoring it with a visiting\n"
 	.string "scientist named COLRESS. Habitats are\l"
 	.string "shifting; some TRAINERS are reporting\n"
@@ -727,7 +727,7 @@ LittlerootTown_ProfessorBirchsLab_Text_PlayerOffersHelp:
 	.string "you whatever data you need.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_BirchGivesPokemon:
-	.string "PROF. BIRCH: Keep it—consider that\n"
+        .string "PROF. BIRCH: Keep it--consider that\n"
 	.string "POKéMON your partner.\p"
 	.string "{PLAYER} received the {STR_VAR_1}!$"
 
@@ -740,7 +740,7 @@ LittlerootTown_ProfessorBirchsLab_Text_MightBeGoodIdeaToGoSeeRival:
         .string "{RIVAL}. I asked them to run a quick\l"
         .string "field assessment. Show me you can\n"
         .string "coordinate with your partner in a real\l"
-        .string "battle—no shortcuts, no gimmicks.\p"
+        .string "battle--no shortcuts, no gimmicks.\p"
         .string "Defeat {RIVAL} and then report back\n"
         .string "here. Once I know you're ready, I'll\l"
         .string "equip you properly and brief you on the\n"
@@ -752,7 +752,7 @@ LittlerootTown_ProfessorBirchsLab_Text_PlayerUnderstands:
 	.string "we're ready.$"
 LittlerootTown_ProfessorBirchsLab_Text_GetRivalToTeachYou:
         .string "PROF. BIRCH: Good. Keep your eyes open\n"
-        .string "for unusual readings on the way—odd\l"
+        .string "for unusual readings on the way--odd\l"
         .string "cries, time-of-day shifts, anything.\p"
         .string "I'll finalize your gear once you're\n"
         .string "back.$"

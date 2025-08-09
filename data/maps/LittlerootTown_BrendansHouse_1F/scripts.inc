@@ -307,7 +307,7 @@ PlayersHouse_1F_Text_GoSetTheClock:
 	.string "Go set the clock in your room, honey.$"
 
 PlayersHouse_1F_Text_OhComeQuickly:
-        .string "MOM: {PLAYER}! Hurry, come watch—there's\n"
+        .string "MOM: {PLAYER}! Hurry, come watch--there's\n"
         .string "something strange on the news!$"
 
 PlayersHouse_1F_Text_ItsOverWeMissedHim:
@@ -324,7 +324,7 @@ PlayersHouse_1F_Text_GladYoureBack:
 
 PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor:
         .string "MOM: Why don't you go say hello?\n"
-        .string "I think MAY's next door—or maybe\l"
+        .string "I think MAY's next door--or maybe\l"
         .string "BRENDAN's out on ROUTE 103.$"
 
 PlayersHouse_1F_Text_SeeYouHoney:
@@ -388,7 +388,7 @@ PlayersHouse_1F_Text_BattleFrontierNews4:
 
 PlayersHouse_1F_Text_BattleFrontierNews5:
         .string "REPORTER: An interregional gate has\n"
-        .string "appeared where the entrance once stood—\l"
+        .string "appeared where the entrance once stood--\l"
         .string "and it leads to both JOHTO and KANTO.$"
 
 PlayersHouse_1F_Text_BattleFrontierNews6:
@@ -397,7 +397,7 @@ PlayersHouse_1F_Text_BattleFrontierNews6:
         .string "their efforts to stabilize the anomaly.$"
 
 PlayersHouse_1F_Text_BattleFrontierNews7:
-        .string "REPORTER: Assisting them is COLRESS—\n"
+        .string "REPORTER: Assisting them is COLRESS--\n"
         .string "the brilliant scientist formerly\l"
         .string "associated with UNOVA's PLASMA\l"
         .string "FOUNDATION.$"

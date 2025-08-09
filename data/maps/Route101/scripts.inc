@@ -264,7 +264,7 @@ Route101_Text_PleaseHelp:
         .string "You there! I came to follow a strange\n"
         .string "reading near the BATTLE FRONTIER GATE\p"
         .string "and… This wild POKéMON won't let me move!\n"
-        .string "Quick—use one of those POKé BALLS!$"
+        .string "Quick--use one of those POKé BALLS!$"
 
 Route101_Text_DontLeaveMe:
 	.string "Wh-Where are you going?!\n"
@@ -274,7 +274,7 @@ Route101_Text_YouSavedMe:
         .string "PROF. BIRCH: Whew… That was too close.\p"
         .string "Those energy spikes have the local\n"
         .string "wilds on edge. I shouldn't have come\p"
-        .string "alone. Thank you—really.\p"
+        .string "alone. Thank you--really.\p"
         .string "Let's get back to the LAB where it's\n"
         .string "safer. I need to check this data.\p"
         .string "Come with me.$"
